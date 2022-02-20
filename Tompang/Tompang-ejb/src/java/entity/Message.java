@@ -6,6 +6,8 @@
 package entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,10 +40,11 @@ public class Message implements Serializable {
     private Boolean fromBuyer;
 
     public Message() {
+        this.createdOn = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    public Message(Date createdOn, String body, Boolean fromBuyer) {
-        this.createdOn = createdOn;
+    public Message(String body, Boolean fromBuyer) {
+        this();
         this.body = body;
         this.fromBuyer = fromBuyer;
     }

@@ -6,6 +6,8 @@
 package entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -75,21 +77,21 @@ public class Listing implements Serializable {
     private List<Photo> photos;
 
     public Listing() {
+        this.createdOn = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         this.conversations = new ArrayList<>();
         this.photos = new ArrayList<>();
+        this.numOfLikes = 0;
+        this.isOpen = true;
     }
 
-    public Listing(String country, String city, String title, String description, Double price, Date createdOn, Date expectedArrivalDate, Integer numOfLikes, Boolean isOpen, User createdBy) {
+    public Listing(String country, String city, String title, String description, Double price, Date expectedArrivalDate, User createdBy) {
         this();
         this.country = country;
         this.city = city;
         this.title = title;
         this.description = description;
         this.price = price;
-        this.createdOn = createdOn;
         this.expectedArrivalDate = expectedArrivalDate;
-        this.numOfLikes = numOfLikes;
-        this.isOpen = isOpen;
         this.createdBy = createdBy;
     }
 

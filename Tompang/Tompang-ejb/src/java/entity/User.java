@@ -6,6 +6,8 @@
 package entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -83,10 +85,11 @@ public class User implements Serializable {
         this.listings = new ArrayList<>();
         this.buyerTransactions = new ArrayList<>();
         this.sellerTransactions = new ArrayList<>();
+        this.joinedOn = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         
     }
 
-    public User(String firstName, String lastName, String email, String username, String password, Date dateOfBirth, Long contactNumber, Date joinedOn, Boolean isAdmin) {
+    public User(String firstName, String lastName, String email, String username, String password, Date dateOfBirth, Long contactNumber, Boolean isAdmin) {
         this();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -95,7 +98,6 @@ public class User implements Serializable {
         this.password = password;
         this.dateOfBirth = dateOfBirth;
         this.contactNumber = contactNumber;
-        this.joinedOn = joinedOn;
         this.isAdmin = isAdmin;
     }
 

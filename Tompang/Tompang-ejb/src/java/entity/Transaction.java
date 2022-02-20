@@ -57,14 +57,14 @@ public class Transaction implements Serializable {
     private CreditCard sellerCard;
 
     public Transaction() {
+        this.isCompleted = false;
+        this.hasDispute = true;
     }
 
-    public Transaction(Double amount, Date createdOn, Boolean isCompleted, Boolean hasDispute, User buyer, User seller, Listing listing, CreditCard buyerCard, CreditCard sellerCard) {
+    public Transaction(Double amount, Date createdOn, User buyer, User seller, Listing listing, CreditCard buyerCard, CreditCard sellerCard) {
         this();
         this.amount = amount;
         this.createdOn = createdOn;
-        this.isCompleted = isCompleted;
-        this.hasDispute = hasDispute;
         this.buyer = buyer;
         this.seller = seller;
         this.listing = listing;
