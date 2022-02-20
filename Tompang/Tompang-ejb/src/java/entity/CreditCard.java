@@ -6,10 +6,17 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 /**
  *
@@ -22,15 +29,29 @@ public class CreditCard implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ccId;
+    @Column(nullable = false, length = 100)
+    @NotNull
     private String ccName;
+    @Column(nullable = false, length = 16)
+    @NotNull
+    @Digits(integer=16, fraction=0)
+    @Positive
     private Long ccNumber;
+    @Column(nullable = false, length = 3)
+    @NotNull
+    @Digits(integer=3, fraction=0)
+    @Positive
     private Integer ccCIV;
-    private String expiryDate;
+    @Column(nullable = false)
+    @NotNull
+    @Future
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date expiryDate;
 
     public CreditCard() {
     }
 
-    public CreditCard(String ccName, Long ccNumber, Integer ccCIV, String expiryDate) {
+    public CreditCard(String ccName, Long ccNumber, Integer ccCIV, Date expiryDate) {
         this();
         this.ccName = ccName;
         this.ccNumber = ccNumber;
@@ -54,7 +75,7 @@ public class CreditCard implements Serializable {
         return ccCIV;
     }
 
-    public String getExpiryDate() {
+    public Date getExpiryDate() {
         return expiryDate;
     }
 
@@ -74,7 +95,7 @@ public class CreditCard implements Serializable {
         this.ccCIV = ccCIV;
     }
 
-    public void setExpiryDate(String expiryDate) {
+    public void setExpiryDate(Date expiryDate) {
         this.expiryDate = expiryDate;
     }
     

@@ -52,7 +52,8 @@ public class DataInitSessionBean implements DataInitSessionBeanLocal {
         }
 
         if (em.find(CreditCard.class, 1L) == null) {
-            CreditCard cc = new CreditCard("BRENDAN CHIA", 4605123456781010L, 123, "05/25");
+            Date expiryDate = Date.from(LocalDate.of(2025, 05, 01).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+            CreditCard cc = new CreditCard("BRENDAN CHIA", 4605123456781010L, 123, expiryDate);
             em.persist(cc);
             em.flush();
 

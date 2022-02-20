@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 /**
  *
@@ -28,16 +33,38 @@ public class Listing implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long listingId;
+    @Column(nullable = false, length = 50)
+    @NotNull
     private String country;
+    @Column(nullable = false, length = 50)
+    @NotNull
     private String city;
+    @Column(nullable = false, length = 50)
+    @NotNull
     private String title;
+    @Column(nullable = false, length = 255)
+    @NotNull
     private String description;
+    @Column(nullable = false)
+    @NotNull
+    @Digits(integer=6, fraction=2)
+    @PositiveOrZero
     private Double price;
+    @Column(nullable = false)
+    @NotNull
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date createdOn;
+    @Column(nullable = false)
+    @NotNull
     @Temporal(javax.persistence.TemporalType.DATE)
+    @Future
     private Date expectedArrivalDate;
+    @Column(nullable = false)
+    @NotNull
+    @PositiveOrZero
     private Integer numOfLikes;
+    @Column(nullable = false)
+    @NotNull
     private Boolean isOpen;
     
     @ManyToOne
