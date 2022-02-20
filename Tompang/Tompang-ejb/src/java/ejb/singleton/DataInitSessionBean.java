@@ -5,13 +5,18 @@
  */
 package ejb.singleton;
 
+import ejb.stateless.PhotoSessionBeanLocal;
 import entity.CreditCard;
 import entity.Listing;
 import entity.User;
+import exception.EmptyListException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -26,6 +31,9 @@ import javax.persistence.PersistenceContext;
 @LocalBean
 @Startup
 public class DataInitSessionBean {
+
+    @EJB
+    private PhotoSessionBeanLocal photoSessionBean;
 
     @PersistenceContext(unitName = "Tompang-ejbPU")
     private EntityManager em;
@@ -95,6 +103,12 @@ public class DataInitSessionBean {
             Listing listing = new Listing("Japan", "Osaka", "Japan Biscuit", "Lovely japanese biscuits!", 35.00, expectedArrivalDate, dummyUser1);
             em.persist(listing); 
             em.flush();
+        }
+        
+        try {
+            System.out.println(photoSessionBean.retrieveAllPhotos());
+        } catch (EmptyListException ex) {
+            System.out.println(ex.getMessage()); 
         }
     }
 }
