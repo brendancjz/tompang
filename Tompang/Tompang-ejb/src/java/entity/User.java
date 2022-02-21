@@ -68,6 +68,9 @@ public class User implements Serializable {
     @Column(nullable = false)
     @NotNull
     private Boolean isAdmin;
+    @Column(nullable = false)
+    @NotNull
+    private Boolean isDisabled;
     @OneToMany
     private List<CreditCard> creditCards;
     @OneToMany(mappedBy = "createdBy")
@@ -89,7 +92,7 @@ public class User implements Serializable {
         this.sellerTransactions = new ArrayList<>();
         this.following = new ArrayList<>();
         this.joinedOn = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-        
+        this.isDisabled = false;
     }
 
     public User(String firstName, String lastName, String email, String username, String password, Date dateOfBirth, Long contactNumber, Boolean isAdmin) {
@@ -142,6 +145,10 @@ public class User implements Serializable {
 
     public Boolean getIsAdmin() {
         return isAdmin;
+    }
+    
+    public Boolean getIsDisabled() {
+        return isDisabled;
     }
 
     public List<CreditCard> getCreditCards() {
@@ -200,12 +207,16 @@ public class User implements Serializable {
         this.contactNumber = contactNumber;
     }
 
-    public void setJoinedOn(Date joinedOn) {
+    public void setJoinedOn(Date joinedOn) { 
         this.joinedOn = joinedOn;
     }
 
     public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
+    }
+    
+    public void setIsDisabled(Boolean isDisabled) {
+        this.isDisabled = isDisabled;
     }
 
     public void setCreditCards(List<CreditCard> creditCards) {
