@@ -5,7 +5,10 @@
  */
 package ejb.stateless;
 
+import entity.Conversation;
+import entity.CreditCard;
 import entity.Listing;
+import entity.Transaction;
 import entity.User;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
@@ -86,11 +89,56 @@ public class UserSessionBean implements UserSessionBeanLocal {
     }
     
     @Override
-    public void associateListingToUser(Listing listing, Long userId) throws EntityNotFoundException {
+    public void associateListingWithUser(Listing listing, Long userId) throws EntityNotFoundException {
         User user = this.getUserByUserId(userId);
         
         if (!user.getListings().contains(listing)) {
             user.getListings().add(listing);
+        }
+    }
+    
+    @Override
+    public void associateFollowingUserWithUser(User userToFollow, Long userId) throws EntityNotFoundException {
+        User user = this.getUserByUserId(userId);
+        
+        if (!user.getFollowing().contains(userToFollow)) {
+            user.getFollowing().add(userToFollow);
+        }
+    }
+    
+    @Override
+    public void associateCrediCardWithUser(CreditCard cc, Long userId) throws EntityNotFoundException {
+        User user = this.getUserByUserId(userId);
+        
+        if (!user.getCreditCards().contains(cc)) {
+            user.getCreditCards().add(cc);
+        }
+    }
+    
+    @Override
+    public void associateConversationWithUser(Conversation convo, Long userId) throws EntityNotFoundException {
+        User user = this.getUserByUserId(userId);
+        
+        if (!user.getConversations().contains(convo)) {
+            user.getConversations().add(convo);
+        }
+    }
+    
+    @Override
+    public void associateBuyerTransactionWithUser(Transaction transaction, Long userId) throws EntityNotFoundException {
+        User user = this.getUserByUserId(userId);
+        
+        if (!user.getBuyerTransactions().contains(transaction)) {
+            user.getBuyerTransactions().add(transaction);
+        }
+    }
+    
+    @Override
+    public void associateSellerTransactionWithUser(Transaction transaction, Long userId) throws EntityNotFoundException {
+        User user = this.getUserByUserId(userId);
+        
+        if (!user.getSellerTransactions().contains(transaction)) {
+            user.getSellerTransactions().add(transaction);
         }
     }
     
