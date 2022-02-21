@@ -6,6 +6,9 @@
 package entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,12 +49,12 @@ public class Conversation implements Serializable {
 
     public Conversation() {
         this.messages = new ArrayList<>();
+        this.createdOn = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
+        this.isOpen = true;
     }
 
-    public Conversation(Date createdOn, Boolean isOpen, User createdBy, Listing listing) {
+    public Conversation(User createdBy, Listing listing) {
         this();
-        this.createdOn = createdOn;
-        this.isOpen = isOpen;
         this.createdBy = createdBy;
         this.listing = listing;
     }
