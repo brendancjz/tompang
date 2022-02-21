@@ -35,10 +35,6 @@ public class Conversation implements Serializable {
     private Long convoId;
     @Column(nullable = false)
     @NotNull
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date createdOn;
-    @Column(nullable = false)
-    @NotNull
     private Boolean isOpen;
     @ManyToOne
     private User createdBy;
@@ -49,7 +45,6 @@ public class Conversation implements Serializable {
 
     public Conversation() {
         this.messages = new ArrayList<>();
-        this.createdOn = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
         this.isOpen = true;
     }
 
@@ -61,10 +56,6 @@ public class Conversation implements Serializable {
 
     public Long getConvoId() {
         return convoId;
-    }
-
-    public Date getCreatedOn() {
-        return createdOn;
     }
 
     public Boolean getIsOpen() {
@@ -85,10 +76,6 @@ public class Conversation implements Serializable {
 
     public void setConvoId(Long convoId) {
         this.convoId = convoId;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
     }
 
     public void setIsOpen(Boolean isOpen) {

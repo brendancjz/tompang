@@ -79,7 +79,7 @@ public class DataInitSessionBean {
             expiryDate = Date.from(LocalDate.of(2025, 05, 02).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
             cc = new CreditCard("DUMMY USER ONE", 4605123456781020L, 123, expiryDate);
             em.persist(cc);
-            em.flush();
+            em.flush(); 
 
             //Associate CreditCard to User1
             User dummyUser1 = (User) em.find(User.class, 2L);
@@ -98,7 +98,7 @@ public class DataInitSessionBean {
         if (em.find(Listing.class, 1L) == null) {
             Date expectedArrivalDate = Date.from(LocalDate.now().atStartOfDay().plusDays(7).atZone(ZoneId.systemDefault()).toInstant());
             User dummyUser1 = (User) em.find(User.class, 2L);
-            Listing listing = new Listing("Japan", "Osaka", "Japan Biscuit", "Lovely japanese biscuits!", 35.00, expectedArrivalDate, dummyUser1);
+            Listing listing = new Listing("Japan", "Osaka", "Japan Biscuit", "Lovely japanese biscuits!", 35.00, expectedArrivalDate, dummyUser1, 5);
             em.persist(listing); 
             em.flush();
         }

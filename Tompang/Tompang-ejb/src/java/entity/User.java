@@ -78,6 +78,8 @@ public class User implements Serializable {
     private List<Transaction> buyerTransactions;
     @OneToMany(mappedBy = "seller")
     private List<Transaction> sellerTransactions;
+    @OneToMany
+    private List<User> following;
 
     public User() {
         this.creditCards = new ArrayList<>();
@@ -85,6 +87,7 @@ public class User implements Serializable {
         this.listings = new ArrayList<>();
         this.buyerTransactions = new ArrayList<>();
         this.sellerTransactions = new ArrayList<>();
+        this.following = new ArrayList<>();
         this.joinedOn = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         
     }
@@ -160,6 +163,10 @@ public class User implements Serializable {
     public List<Transaction> getSellerTransactions() {
         return sellerTransactions;
     }
+    
+    public List<User> getFollowing() {
+        return following;
+    }
 
     public void setUserId(Long userId) {
         this.userId = userId;
@@ -221,9 +228,7 @@ public class User implements Serializable {
         this.sellerTransactions = sellerTransactions;
     }
     
-    
-    
-    
-    
-    
+    public void setFollowing(List<User> following) {
+        this.following = following;
+    }
 }

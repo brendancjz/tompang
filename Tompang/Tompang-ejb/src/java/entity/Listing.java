@@ -22,6 +22,7 @@ import javax.persistence.Temporal;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
 /**
@@ -67,7 +68,12 @@ public class Listing implements Serializable {
     private Integer numOfLikes;
     @Column(nullable = false)
     @NotNull
+    @Positive
+    private Integer quantity;
+    @Column(nullable = false)
+    @NotNull
     private Boolean isOpen;
+    
     
     @ManyToOne
     private User createdBy;
@@ -84,7 +90,7 @@ public class Listing implements Serializable {
         this.isOpen = true;
     }
 
-    public Listing(String country, String city, String title, String description, Double price, Date expectedArrivalDate, User createdBy) {
+    public Listing(String country, String city, String title, String description, Double price, Date expectedArrivalDate, User createdBy, Integer quantity) {
         this();
         this.country = country;
         this.city = city;
@@ -93,6 +99,7 @@ public class Listing implements Serializable {
         this.price = price;
         this.expectedArrivalDate = expectedArrivalDate;
         this.createdBy = createdBy;
+        this.quantity = quantity;
     }
 
     public Long getListingId() {
