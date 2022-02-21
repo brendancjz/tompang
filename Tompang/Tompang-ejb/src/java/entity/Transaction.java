@@ -49,13 +49,13 @@ public class Transaction implements Serializable {
     private User buyer;
     @ManyToOne
     private User seller;
-    @OneToOne
+    @ManyToOne
     private Listing listing;
     @OneToOne
     private CreditCard buyerCard;
     @OneToOne
     private CreditCard sellerCard;
-
+    
     public Transaction() {
         this.isCompleted = false;
         this.hasDispute = true;
