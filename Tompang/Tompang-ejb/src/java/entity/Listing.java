@@ -73,7 +73,9 @@ public class Listing implements Serializable {
     @Column(nullable = false)
     @NotNull
     private Boolean isOpen;
-    
+    @Column(nullable = false)
+    @NotNull
+    private Boolean isDisabled;
     
     @ManyToOne
     private User createdBy;
@@ -81,6 +83,8 @@ public class Listing implements Serializable {
     private List<Conversation> conversations;
     @OneToMany
     private List<Photo> photos;
+    @OneToMany(mappedBy = "listing")
+    private List<Transaction> transactions;
 
     public Listing() {
         this.createdOn = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
@@ -138,8 +142,16 @@ public class Listing implements Serializable {
         return numOfLikes;
     }
 
+    public Integer getQuantity() {
+        return quantity;
+    }
+    
     public Boolean getIsOpen() {
         return isOpen;
+    }
+
+    public Boolean getIsDisabled() {
+        return isDisabled;
     }
 
     public User getCreatedBy() {
@@ -152,6 +164,10 @@ public class Listing implements Serializable {
 
     public List<Photo> getPhotos() {
         return photos;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
     public void setListingId(Long listingId) {
@@ -190,8 +206,16 @@ public class Listing implements Serializable {
         this.numOfLikes = numOfLikes;
     }
 
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+    
     public void setIsOpen(Boolean isOpen) {
         this.isOpen = isOpen;
+    }
+    
+    public void setIsDisabled(Boolean isDisabled) {
+        this.isDisabled = isDisabled;
     }
 
     public void setCreatedBy(User createdBy) {
@@ -205,7 +229,10 @@ public class Listing implements Serializable {
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
     }
-    
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
     
     
 }
