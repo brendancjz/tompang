@@ -44,5 +44,7 @@ public interface UserSessionBeanLocal {
     public void associateBuyerTransactionWithUser(Transaction transaction, Long userId) throws EntityNotFoundException;
 
     public void associateSellerTransactionWithUser(Transaction transaction, Long userId) throws EntityNotFoundException;
+
+    public void deletUser(Long userId) throws EntityNotFoundException;
     
 }
