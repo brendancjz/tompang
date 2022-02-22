@@ -168,9 +168,10 @@ public class UserSessionBean implements UserSessionBeanLocal {
                 || !user.getConversations().isEmpty()
                 || !user.getCreatedListings().isEmpty()
                 || !user.getCreditCards().isEmpty()
-                || !user.getFollowing().isEmpty()) {
+                || !user.getFollowing().isEmpty()
+                || !user.getLikedListings().isEmpty()) {
             user.setIsDisabled(true);
-        } else {
+        } else { 
             em.remove(user);
         }
 
