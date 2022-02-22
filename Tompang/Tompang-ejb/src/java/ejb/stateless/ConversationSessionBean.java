@@ -44,6 +44,7 @@ public class ConversationSessionBean implements ConversationSessionBeanLocal {
 
         for (Conversation convo : convos) {
             convo.getMessages().size();
+            
         }
 
         return convos; 
