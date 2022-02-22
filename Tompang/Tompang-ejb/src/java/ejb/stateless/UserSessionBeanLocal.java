@@ -33,7 +33,7 @@ public interface UserSessionBeanLocal {
 
     public void updateUserPassword(Long userId, String password) throws EntityNotFoundException;
 
-    public void associateListingWithUser(Listing listing, Long userId) throws EntityNotFoundException;
+    public void associateCreatedListingWithUser(Listing listing, Long userId) throws EntityNotFoundException;
 
     public void associateFollowingUserWithUser(User userToFollow, Long userId) throws EntityNotFoundException;
 
@@ -46,5 +46,7 @@ public interface UserSessionBeanLocal {
     public void associateSellerTransactionWithUser(Transaction transaction, Long userId) throws EntityNotFoundException;
 
     public void deletUser(Long userId) throws EntityNotFoundException;
+
+    public void associateLikedListingWithUser(Listing listing, Long userId) throws EntityNotFoundException;
     
 }

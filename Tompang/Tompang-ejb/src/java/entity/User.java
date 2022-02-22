@@ -76,21 +76,24 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "createdBy")
     private List<Conversation> conversations;
     @OneToMany(mappedBy = "createdBy")
-    private List<Listing> listings;
+    private List<Listing> createdListings;
     @OneToMany(mappedBy = "buyer")
     private List<Transaction> buyerTransactions;
     @OneToMany(mappedBy = "seller")
     private List<Transaction> sellerTransactions;
     @OneToMany
     private List<User> following;
+    @OneToMany
+    private List<Listing> likedListings;
 
     public User() {
         this.creditCards = new ArrayList<>();
         this.conversations = new ArrayList<>();
-        this.listings = new ArrayList<>();
+        this.createdListings = new ArrayList<>();
         this.buyerTransactions = new ArrayList<>();
         this.sellerTransactions = new ArrayList<>();
         this.following = new ArrayList<>();
+        this.likedListings = new ArrayList<>();
         this.joinedOn = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         this.isDisabled = false;
     }
@@ -159,8 +162,8 @@ public class User implements Serializable {
         return conversations;
     }
 
-    public List<Listing> getListings() {
-        return listings;
+    public List<Listing> getCreatedListings() {
+        return createdListings;
     }
 
     public List<Transaction> getBuyerTransactions() {
@@ -173,6 +176,10 @@ public class User implements Serializable {
     
     public List<User> getFollowing() {
         return following;
+    }
+    
+    public List<Listing> getLikedListings() {
+        return likedListings;
     }
 
     public void setUserId(Long userId) {
@@ -227,8 +234,8 @@ public class User implements Serializable {
         this.conversations = conversations;
     }
 
-    public void setListings(List<Listing> listings) {
-        this.listings = listings;
+    public void setCreatedListings(List<Listing> createdListings) {
+        this.createdListings = createdListings;
     }
 
     public void setBuyerTransactions(List<Transaction> buyerTransactions) {
@@ -241,5 +248,9 @@ public class User implements Serializable {
     
     public void setFollowing(List<User> following) {
         this.following = following;
+    }
+    
+    public void setLikedListings(List<Listing> likedListings) {
+        this.likedListings = likedListings;
     }
 }

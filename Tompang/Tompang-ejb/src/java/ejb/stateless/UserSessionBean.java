@@ -51,7 +51,7 @@ public class UserSessionBean implements UserSessionBeanLocal {
             user.getBuyerTransactions().size();
             user.getSellerTransactions().size();
             user.getConversations().size();
-            user.getListings().size();
+            user.getCreatedListings().size();
             user.getCreditCards().size();
             user.getFollowing().size();
         }
@@ -70,7 +70,7 @@ public class UserSessionBean implements UserSessionBeanLocal {
         user.getBuyerTransactions().size();
         user.getSellerTransactions().size();
         user.getConversations().size();
-        user.getListings().size();
+        user.getCreatedListings().size();
         user.getCreditCards().size();
         user.getFollowing().size();
 
@@ -97,11 +97,20 @@ public class UserSessionBean implements UserSessionBeanLocal {
     }
 
     @Override
-    public void associateListingWithUser(Listing listing, Long userId) throws EntityNotFoundException {
+    public void associateCreatedListingWithUser(Listing listing, Long userId) throws EntityNotFoundException {
         User user = this.getUserByUserId(userId);
 
-        if (!user.getListings().contains(listing)) {
-            user.getListings().add(listing);
+        if (!user.getCreatedListings().contains(listing)) {
+            user.getCreatedListings().add(listing);
+        }
+    }
+    
+    @Override
+    public void associateLikedListingWithUser(Listing listing, Long userId) throws EntityNotFoundException {
+        User user = this.getUserByUserId(userId);
+
+        if (!user.getLikedListings().contains(listing)) {
+            user.getLikedListings().add(listing);
         }
     }
 
@@ -157,7 +166,7 @@ public class UserSessionBean implements UserSessionBeanLocal {
         if (!user.getBuyerTransactions().isEmpty()
                 || !user.getSellerTransactions().isEmpty()
                 || !user.getConversations().isEmpty()
-                || !user.getListings().isEmpty()
+                || !user.getCreatedListings().isEmpty()
                 || !user.getCreditCards().isEmpty()
                 || !user.getFollowing().isEmpty()) {
             user.setIsDisabled(true);
