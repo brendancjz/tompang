@@ -92,6 +92,7 @@ public class Listing implements Serializable {
         this.photos = new ArrayList<>();
         this.numOfLikes = 0;
         this.isOpen = true;
+        this.isDisabled = false;
     }
 
     public Listing(String country, String city, String title, String description, Double price, Date expectedArrivalDate, User createdBy, Integer quantity) {
