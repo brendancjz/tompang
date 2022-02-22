@@ -49,12 +49,14 @@ public class UserSessionBean implements UserSessionBeanLocal {
 
         for (User user : users) {
             user.getBuyerTransactions().size();
+            user.getSellerTransactions().size();
             user.getConversations().size();
+            user.getListings().size();
             user.getCreditCards().size();
             user.getFollowing().size();
         }
 
-        return users;
+        return users; 
     }
 
     @Override
