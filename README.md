@@ -1,4 +1,4 @@
-# Tompang IS3106 Project
+# Tompang
 
 ## Getting Started Running Locally
 
