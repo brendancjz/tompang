@@ -4,7 +4,7 @@
 
 ### Clone this repository
 
-Use `git clone https://github.com/brendancjz/tompang.git` to get the files within this repository onto your local machine
+Use `gh repo clone brendancjz/tompang` to get the files within this repository onto your local machine
 
 ### Environment Setup
 
