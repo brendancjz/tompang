@@ -31,6 +31,8 @@ dist/
 # EJB Folder
 /Tompang/Tompang-war/nbproject/private/
 /Tompang/Tompang-ejb/nbproject/private/
+/Tompang/Tompang-ejb/nbproject/project.properties
+/Tompang/nbproject/project.properties
 /Tompang/Tompang-ejb/build/
 /Tompang/Tompang-ejb/dist/
 
