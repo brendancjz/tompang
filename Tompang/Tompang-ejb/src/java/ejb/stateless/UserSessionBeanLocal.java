@@ -33,19 +33,19 @@ public interface UserSessionBeanLocal {
 
     public void updateUserPassword(Long userId, String password) throws EntityNotFoundException;
 
-    public void associateCreatedListingWithUser(Listing listing, Long userId) throws EntityNotFoundException;
+//    public void associateCreatedListingWithUser(Listing listing, Long userId) throws EntityNotFoundException;
 
     public void associateFollowingUserWithUser(User userToFollow, Long userId) throws EntityNotFoundException;
 
-    public void associateCrediCardWithUser(CreditCard cc, Long userId) throws EntityNotFoundException;
+//    public void associateCrediCardWithUser(CreditCard cc, Long userId) throws EntityNotFoundException;
 
-    public void associateConversationWithUser(Conversation convo, Long userId) throws EntityNotFoundException;
+//    public void associateConversationWithUser(Conversation convo, Long userId) throws EntityNotFoundException;
 
-    public void associateBuyerTransactionWithUser(Transaction transaction, Long userId) throws EntityNotFoundException;
+//    public void associateBuyerTransactionWithUser(Transaction transaction, Long userId) throws EntityNotFoundException;
+//
+//    public void associateSellerTransactionWithUser(Transaction transaction, Long userId) throws EntityNotFoundException;
 
-    public void associateSellerTransactionWithUser(Transaction transaction, Long userId) throws EntityNotFoundException;
-
-    public void deletUser(Long userId) throws EntityNotFoundException;
+    public void deleteUser(Long userId) throws EntityNotFoundException;
 
     public void associateLikedListingWithUser(Listing listing, Long userId) throws EntityNotFoundException;
     
