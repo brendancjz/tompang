@@ -7,7 +7,6 @@ package ejb.stateless;
 
 import entity.Conversation;
 import entity.Listing;
-import entity.Photo;
 import entity.Transaction;
 import entity.User;
 import exception.CreateNewListingException;
@@ -83,7 +82,7 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
     }
 
     @Override
-    public void updateListingDetails(Long listingId, String country, String city, String title, String description, double price, Date expectedArrivalDate, int quantity, boolean isOpen) throws EntityNotFoundException {
+    public void updateListingDetails(Long listingId, String country, String city, String title, String description, double price, Date expectedArrivalDate, int quantity, boolean isOpen, List<String> photos) throws EntityNotFoundException {
         Listing listing = this.getListingByListingId(listingId);
 
         listing.setCountry(country);
@@ -94,6 +93,7 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
         listing.setExpectedArrivalDate(expectedArrivalDate);
         listing.setQuantity(quantity);
         listing.setIsOpen(isOpen);
+        listing.setPhotos(photos);
     }
 
     @Override
@@ -123,16 +123,6 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
 //            listing.getConversations().add(conversation);
 //        }
 //    }
-
-    @Override
-    public void associatePhotosWithListing(Photo photo, long listingId) throws EntityNotFoundException {
-        Listing listing = this.getListingByListingId(listingId);
-
-        if (!listing.getPhotos().contains(photo)) {
-            listing.getPhotos().add(photo);
-        }
-    }
-
     @Override
     public void associateTransactionWithListing(Transaction transaction, long listingId) throws EntityNotFoundException {
         Listing listing = this.getListingByListingId(listingId);

@@ -5,7 +5,6 @@
  */
 package ejb.singleton;
 
-import ejb.stateless.PhotoSessionBeanLocal;
 import ejb.stateless.UserSessionBeanLocal;
 import entity.CreditCard;
 import entity.Listing;
@@ -37,8 +36,6 @@ public class DataInitSessionBean {
     @EJB
     private UserSessionBeanLocal userSessionBean;
 
-    @EJB
-    private PhotoSessionBeanLocal photoSessionBean;
 
     
     

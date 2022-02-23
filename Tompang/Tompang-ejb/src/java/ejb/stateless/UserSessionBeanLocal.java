@@ -5,13 +5,11 @@
  */
 package ejb.stateless;
 
-import entity.Conversation;
-import entity.CreditCard;
 import entity.Listing;
-import entity.Transaction;
 import entity.User;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
+import exception.InvalidLoginCredentialsException;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
@@ -33,20 +31,14 @@ public interface UserSessionBeanLocal {
 
     public void updateUserPassword(Long userId, String password) throws EntityNotFoundException;
 
-//    public void associateCreatedListingWithUser(Listing listing, Long userId) throws EntityNotFoundException;
-
     public void associateFollowingUserWithUser(User userToFollow, Long userId) throws EntityNotFoundException;
-
-//    public void associateCrediCardWithUser(CreditCard cc, Long userId) throws EntityNotFoundException;
-
-//    public void associateConversationWithUser(Conversation convo, Long userId) throws EntityNotFoundException;
-
-//    public void associateBuyerTransactionWithUser(Transaction transaction, Long userId) throws EntityNotFoundException;
-//
-//    public void associateSellerTransactionWithUser(Transaction transaction, Long userId) throws EntityNotFoundException;
 
     public void deleteUser(Long userId) throws EntityNotFoundException;
 
     public void associateLikedListingWithUser(Listing listing, Long userId) throws EntityNotFoundException;
+    
+    public User retrieveUserByUsername(String username) throws EntityNotFoundException;
+    
+    public User userLogin(String username, String password) throws InvalidLoginCredentialsException;
     
 }

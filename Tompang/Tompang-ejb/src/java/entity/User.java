@@ -85,6 +85,8 @@ public class User implements Serializable {
     private List<User> following;
     @OneToMany
     private List<Listing> likedListings;
+    @Column(columnDefinition = "CHAR(32) NOT NULL")
+    private String salt;
 
     public User() {
         this.creditCards = new ArrayList<>();
@@ -252,5 +254,19 @@ public class User implements Serializable {
     
     public void setLikedListings(List<Listing> likedListings) {
         this.likedListings = likedListings;
+    }
+
+    /**
+     * @return the salt
+     */
+    public String getSalt() {
+        return salt;
+    }
+
+    /**
+     * @param salt the salt to set
+     */
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }

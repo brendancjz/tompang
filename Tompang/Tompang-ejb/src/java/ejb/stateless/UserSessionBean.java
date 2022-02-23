@@ -5,19 +5,20 @@
  */
 package ejb.stateless;
 
-import entity.Conversation;
-import entity.CreditCard;
 import entity.Listing;
-import entity.Transaction;
 import entity.User;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
+import exception.InvalidLoginCredentialsException;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import security.CryptographicHelper;
 
 /**
  *
@@ -123,42 +124,6 @@ public class UserSessionBean implements UserSessionBeanLocal {
         }
     }
 
-//    @Override
-//    public void associateCrediCardWithUser(CreditCard cc, Long userId) throws EntityNotFoundException {
-//        User user = this.getUserByUserId(userId);
-//
-//        if (!user.getCreditCards().contains(cc)) {
-//            user.getCreditCards().add(cc);
-//        }
-//    }
-
-//    @Override
-//    public void associateConversationWithUser(Conversation convo, Long userId) throws EntityNotFoundException {
-//        User user = this.getUserByUserId(userId);
-//
-//        if (!user.getConversations().contains(convo)) {
-//            user.getConversations().add(convo);
-//        }
-//    }
-
-//    @Override
-//    public void associateBuyerTransactionWithUser(Transaction transaction, Long userId) throws EntityNotFoundException {
-//        User user = this.getUserByUserId(userId);
-//
-//        if (!user.getBuyerTransactions().contains(transaction)) {
-//            user.getBuyerTransactions().add(transaction);
-//        }
-//    }
-//
-//    @Override
-//    public void associateSellerTransactionWithUser(Transaction transaction, Long userId) throws EntityNotFoundException {
-//        User user = this.getUserByUserId(userId);
-//
-//        if (!user.getSellerTransactions().contains(transaction)) {
-//            user.getSellerTransactions().add(transaction);
-//        }
-//    }
-
     @Override
     public void deleteUser(Long userId) throws EntityNotFoundException {
         User user = this.getUserByUserId(userId);
@@ -175,6 +140,51 @@ public class UserSessionBean implements UserSessionBeanLocal {
             em.remove(user);
         }
 
+    }
+    
+    @Override
+    public User retrieveUserByUsername(String username) throws EntityNotFoundException
+    {
+        Query query = em.createQuery("SELECT u FROM User u WHERE u.username = :inUsername");
+        query.setParameter("inUsername", username);
+        
+        try
+        {
+            return (User)query.getSingleResult();
+        }
+        catch(NoResultException | NonUniqueResultException ex)
+        {
+            throw new EntityNotFoundException("Staff Username " + username + " does not exist!");
+        }
+    }
+
+    
+     @Override
+    public User userLogin(String username, String password) throws InvalidLoginCredentialsException
+    {
+        try
+        {
+            User user = retrieveUserByUsername(username);
+            String passwordHash = CryptographicHelper.getInstance().byteArrayToHexString(CryptographicHelper.getInstance().doMD5Hashing(password + user.getSalt()));
+            
+            if(user.getPassword().equals(passwordHash))
+            {
+                user.getBuyerTransactions().size();
+                user.getConversations().size();
+                user.getCreatedListings().size();
+                user.getCreditCards().size();
+                user.getSellerTransactions().size();
+                return user;
+            }
+            else
+            {
+                throw new InvalidLoginCredentialsException("Username does not exist or invalid password!");
+            }
+        }
+        catch(EntityNotFoundException ex)
+        {
+            throw new InvalidLoginCredentialsException("Username does not exist or invalid password!");
+        }
     }
 
 }

@@ -76,20 +76,21 @@ public class Listing implements Serializable {
     @Column(nullable = false)
     @NotNull
     private Boolean isDisabled;
+    @Column(nullable = false)
+    @NotNull
+    private List<String> photos;
     
     @ManyToOne
     private User createdBy;
     @OneToMany(mappedBy = "listing")
     private List<Conversation> conversations;
-    @OneToMany
-    private List<Photo> photos;
     @OneToMany(mappedBy = "listing")
     private List<Transaction> transactions;
 
     public Listing() {
         this.createdOn = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         this.conversations = new ArrayList<>();
-        this.photos = new ArrayList<>();
+        this.photos = new ArrayList<String>();
         this.numOfLikes = 0;
         this.isOpen = true;
         this.isDisabled = false;
@@ -163,7 +164,7 @@ public class Listing implements Serializable {
         return conversations;
     }
 
-    public List<Photo> getPhotos() {
+    public List<String> getPhotos() {
         return photos;
     }
 
@@ -227,7 +228,7 @@ public class Listing implements Serializable {
         this.conversations = conversations;
     }
 
-    public void setPhotos(List<Photo> photos) {
+    public void setPhotos(List<String> photos) {
         this.photos = photos;
     }
 
