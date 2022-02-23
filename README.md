@@ -2,6 +2,8 @@
 
 <img src="https://github.com/brendancjz/tompang/blob/main/Tompang/Tompang-war/web/resources/images/tompang_icon_logo_white.png" width="100">
 
+<img src="https://github.com/brendancjz/tompang/blob/main/Tompang/Tompang-war/web/resources/images/tompang_logo_white.png" width="100">
+
 ## Getting Started Running Locally
 
 ### Clone this repository
