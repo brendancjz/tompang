@@ -6,6 +6,7 @@
 package ejb.stateless;
 
 import entity.Conversation;
+import exception.CreateNewConversationException;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import java.util.List;
@@ -18,7 +19,7 @@ import javax.ejb.Local;
 @Local
 public interface ConversationSessionBeanLocal {
 
-    public Long createNewConversation(Conversation convo);
+    public Long createNewConversation(Conversation convo, Long listingId, Long userId) throws CreateNewConversationException;
 
     public List<Conversation> retrieveAllConversations() throws EmptyListException;
 

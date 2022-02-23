@@ -10,6 +10,7 @@ import entity.Listing;
 import entity.Photo;
 import entity.Transaction;
 import entity.User;
+import exception.CreateNewListingException;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import java.util.Date;
@@ -23,7 +24,7 @@ import javax.ejb.Local;
 @Local
 public interface ListingSessionBeanLocal {
 
-    Long createNewListing(Listing listing);
+    Long createNewListing(Listing listing, Long userId) throws CreateNewListingException;
 
     List<Listing> retrieveAllListings() throws EmptyListException;
 
@@ -33,9 +34,9 @@ public interface ListingSessionBeanLocal {
 
     void deleteListing(long listingId) throws EntityNotFoundException;
 
-    void associateUserWithListing(User user, long listingId) throws EntityNotFoundException;
+//    void associateUserWithListing(User user, long listingId) throws EntityNotFoundException;
 
-    void associateConversationWithListing(Conversation conversation, long listingId) throws EntityNotFoundException;
+//    void associateConversationWithListing(Conversation conversation, long listingId) throws EntityNotFoundException;
             
     void associatePhotosWithListing(Photo photo, long listingId) throws EntityNotFoundException;
     

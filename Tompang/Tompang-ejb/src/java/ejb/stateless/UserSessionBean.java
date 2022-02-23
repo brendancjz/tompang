@@ -96,14 +96,14 @@ public class UserSessionBean implements UserSessionBeanLocal {
         user.setPassword(password);
     }
 
-    @Override
-    public void associateCreatedListingWithUser(Listing listing, Long userId) throws EntityNotFoundException {
-        User user = this.getUserByUserId(userId);
-
-        if (!user.getCreatedListings().contains(listing)) {
-            user.getCreatedListings().add(listing);
-        }
-    }
+//    @Override
+//    public void associateCreatedListingWithUser(Listing listing, Long userId) throws EntityNotFoundException {
+//        User user = this.getUserByUserId(userId);
+//
+//        if (!user.getCreatedListings().contains(listing)) {
+//            user.getCreatedListings().add(listing);
+//        }
+//    }
     
     @Override
     public void associateLikedListingWithUser(Listing listing, Long userId) throws EntityNotFoundException {
@@ -123,44 +123,44 @@ public class UserSessionBean implements UserSessionBeanLocal {
         }
     }
 
+//    @Override
+//    public void associateCrediCardWithUser(CreditCard cc, Long userId) throws EntityNotFoundException {
+//        User user = this.getUserByUserId(userId);
+//
+//        if (!user.getCreditCards().contains(cc)) {
+//            user.getCreditCards().add(cc);
+//        }
+//    }
+
+//    @Override
+//    public void associateConversationWithUser(Conversation convo, Long userId) throws EntityNotFoundException {
+//        User user = this.getUserByUserId(userId);
+//
+//        if (!user.getConversations().contains(convo)) {
+//            user.getConversations().add(convo);
+//        }
+//    }
+
+//    @Override
+//    public void associateBuyerTransactionWithUser(Transaction transaction, Long userId) throws EntityNotFoundException {
+//        User user = this.getUserByUserId(userId);
+//
+//        if (!user.getBuyerTransactions().contains(transaction)) {
+//            user.getBuyerTransactions().add(transaction);
+//        }
+//    }
+//
+//    @Override
+//    public void associateSellerTransactionWithUser(Transaction transaction, Long userId) throws EntityNotFoundException {
+//        User user = this.getUserByUserId(userId);
+//
+//        if (!user.getSellerTransactions().contains(transaction)) {
+//            user.getSellerTransactions().add(transaction);
+//        }
+//    }
+
     @Override
-    public void associateCrediCardWithUser(CreditCard cc, Long userId) throws EntityNotFoundException {
-        User user = this.getUserByUserId(userId);
-
-        if (!user.getCreditCards().contains(cc)) {
-            user.getCreditCards().add(cc);
-        }
-    }
-
-    @Override
-    public void associateConversationWithUser(Conversation convo, Long userId) throws EntityNotFoundException {
-        User user = this.getUserByUserId(userId);
-
-        if (!user.getConversations().contains(convo)) {
-            user.getConversations().add(convo);
-        }
-    }
-
-    @Override
-    public void associateBuyerTransactionWithUser(Transaction transaction, Long userId) throws EntityNotFoundException {
-        User user = this.getUserByUserId(userId);
-
-        if (!user.getBuyerTransactions().contains(transaction)) {
-            user.getBuyerTransactions().add(transaction);
-        }
-    }
-
-    @Override
-    public void associateSellerTransactionWithUser(Transaction transaction, Long userId) throws EntityNotFoundException {
-        User user = this.getUserByUserId(userId);
-
-        if (!user.getSellerTransactions().contains(transaction)) {
-            user.getSellerTransactions().add(transaction);
-        }
-    }
-
-    @Override
-    public void deletUser(Long userId) throws EntityNotFoundException {
+    public void deleteUser(Long userId) throws EntityNotFoundException {
         User user = this.getUserByUserId(userId);
 
         if (!user.getBuyerTransactions().isEmpty()
