@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -45,16 +46,17 @@ public class Transaction implements Serializable {
     @Column(nullable = false)
     @NotNull
     private Boolean hasDispute;
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
     private User buyer;
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
     private User seller;
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
     private Listing listing;
     @OneToOne
-    private CreditCard buyerCard;
-    @OneToOne
-    private CreditCard sellerCard;
+    private Dispute dispute;
     
     public Transaction() {
         this.isCompleted = false;
@@ -68,8 +70,6 @@ public class Transaction implements Serializable {
         this.buyer = buyer;
         this.seller = seller;
         this.listing = listing;
-        this.buyerCard = buyerCard;
-        this.sellerCard = sellerCard;
     }
 
     public Long getTransactionId() {
@@ -103,15 +103,7 @@ public class Transaction implements Serializable {
     public Listing getListing() {
         return listing;
     }
-
-    public CreditCard getBuyerCard() {
-        return buyerCard;
-    }
-
-    public CreditCard getSellerCard() {
-        return sellerCard;
-    }
-
+    
     public void setTransactionId(Long transactionId) {
         this.transactionId = transactionId;
     }
@@ -144,15 +136,19 @@ public class Transaction implements Serializable {
         this.listing = listing;
     }
 
-    public void setBuyerCard(CreditCard buyerCard) {
-        this.buyerCard = buyerCard;
+    /**
+     * @return the dispute
+     */
+    public Dispute getDispute() {
+        return dispute;
     }
 
-    public void setSellerCard(CreditCard sellerCard) {
-        this.sellerCard = sellerCard;
+    /**
+     * @param dispute the dispute to set
+     */
+    public void setDispute(Dispute dispute) {
+        this.dispute = dispute;
     }
-    
-    
-    
+ 
     
 }

@@ -6,6 +6,7 @@
 package ejb.stateless;
 
 import entity.Transaction;
+import exception.CreateNewTransactionException;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import java.util.List;
@@ -18,7 +19,7 @@ import javax.ejb.Local;
 @Local
 public interface TransactionSessionBeanLocal {
 
-    public Long createNewTransaction(Transaction transaction);
+    public Long createNewTransaction(Long buyerId,Long listingId, Transaction transaction) throws CreateNewTransactionException;
 
     public List<Transaction> retrieveAllTransactions() throws EmptyListException;
 

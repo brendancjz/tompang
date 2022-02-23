@@ -5,10 +5,14 @@
  */
 package ejb.stateless;
 
+import entity.Listing;
 import entity.Transaction;
+import entity.User;
+import exception.CreateNewTransactionException;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,11 +25,36 @@ import javax.persistence.Query;
 @Stateless
 public class TransactionSessionBean implements TransactionSessionBeanLocal {
 
+    @EJB
+    private ListingSessionBeanLocal listingSessionBean;
+
+    @EJB
+    private UserSessionBeanLocal userSessionBean;
+    
+    
+
     @PersistenceContext(unitName = "Tompang-ejbPU")
     private EntityManager em;
     
+    
+    
     @Override
-    public Long createNewTransaction(Transaction transaction) {
+    public Long createNewTransaction(Long buyerId, Long listingId, Transaction transaction) throws CreateNewTransactionException {
+        if (buyerId == null || listingId == null){
+            throw new CreateNewTransactionException();
+        }
+        try {
+            User buyer = userSessionBean.getUserByUserId(buyerId);
+            Listing listing = listingSessionBean.getListingByListingId(listingId);
+            buyer.getBuyerTransactions().add(transaction);
+            listing.getTransactions().add(transaction);
+            
+            transaction.setBuyer(buyer);
+            transaction.setListing(listing);
+            
+        } catch(EntityNotFoundException ex){
+            throw new CreateNewTransactionException();
+        }
         em.persist(transaction);
         em.flush();
 
@@ -68,6 +97,14 @@ public class TransactionSessionBean implements TransactionSessionBeanLocal {
         Transaction transaction = this.getTransactionByTransactionId(transactionId);
         
         transaction.setHasDispute(hasDispute);
+    }
+    
+    public void deleteTransaction(Long transactionId) throws EntityNotFoundException{
+        
+       
+       Transaction transactionToRemove = getTransactionByTransactionId(transactionId);
+       
+       
     }
     
 }
