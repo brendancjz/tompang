@@ -25,14 +25,14 @@ public class Dispute implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long disputeId;
-    @OneToOne(mappedBy = "transaction")
-    private Transaction transaction;
     @Column(nullable = false, length = 100)
     @NotNull
     private String description;
     @Column(nullable = false)
     @NotNull
     private boolean isResolved;
+    @OneToOne(mappedBy = "dispute")
+    private Transaction transaction;
 
     public Dispute() {
     }
