@@ -21,7 +21,7 @@
                 <h:commandLink class="header-button" value="Logout" actionListener="#{loginManagedBean.logout}" />
             </h:form>
             <h:form rendered="#{sessionScope.isLogin == true}">
-                <h:commandLink class="header-button" value="Profile" actionListener="#{loginManagedBean.redirectToLoginPage}" />
+                <h:commandLink class="header-button" value="Profile" actionListener="#{loginManagedBean.redirectToProfilePage}" />
             </h:form>
         </h:panelGroup>
 

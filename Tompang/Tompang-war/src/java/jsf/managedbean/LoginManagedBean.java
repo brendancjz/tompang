@@ -37,8 +37,11 @@ public class LoginManagedBean {
     }
 
     public void redirectToIndexPage(ActionEvent event) throws IOException {
-        System.out.println("Code comes here.");
         FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml");
+    }
+    
+    public void redirectToProfilePage(ActionEvent event) throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/profile.xhtml");
     }
     
     public void login(ActionEvent event) throws IOException {

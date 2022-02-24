@@ -32,9 +32,25 @@ and open the template in the editor.
     text-align: center;
 }
 
+.github-link {
+    color: black;
+}
+
 #content {
     width: 100vw;
     height: 87vh;
+}
+
+.contentTitle {
+    margin-bottom: 30px;
+    text-decoration: underline;
+}
+
+.sidebar {
+    width: 20%;
+    height: 100%;
+    padding: 20px;
+    background-color: #F1F2F2;
 }
 
 #copyright {
@@ -114,4 +130,19 @@ and open the template in the editor.
     left: 142px;
     font-size: 14px;
     width: 475px;
+}
+
+.profileField {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.profileTitle {
+    font-size: 20px;
+    font-weight: 600;
+}
+.profileText {
+    font-size: 18px;
+    margin-left: 20px;
 }
