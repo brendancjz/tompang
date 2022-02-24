@@ -78,6 +78,7 @@ and open the template in the editor.
 .loginField {
     font-size: 20px;
     width: 75%;
+    min-width: 300px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
@@ -85,7 +86,6 @@ and open the template in the editor.
 }
 
 .inputField {
-    
     border-radius: 5px;
     height: 25px;
     width: 150px;
@@ -113,4 +113,5 @@ and open the template in the editor.
     top: 35px;
     left: 142px;
     font-size: 14px;
+    width: 475px;
 }
