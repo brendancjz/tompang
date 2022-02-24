@@ -19,6 +19,7 @@ and open the template in the editor.
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 8vh;
 }
 
 #footer {
@@ -26,9 +27,14 @@ and open the template in the editor.
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 50px;
+    height: 5vh;
     background-color: white;
     text-align: center;
+}
+
+#content {
+    width: 100vw;
+    height: 87vh;
 }
 
 #copyright {
@@ -44,7 +50,7 @@ and open the template in the editor.
     padding: 15px 30px 5px;
 }
 
-.login-button {
+.header-button {
     text-decoration: none;
     color: black;
     font-size: 18px;
@@ -52,6 +58,59 @@ and open the template in the editor.
     border: none;
     border-radius: 5px;
     padding: 5px 10px;
-    margin: 0 25px;
+    margin-right: 25px;
+}
+
+.header-buttons {
+    display: flex;
+}
+
+#loginForm {
+    margin: 10% auto 0;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+}
+
+.loginField {
+    font-size: 20px;
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.inputField {
     
+    border-radius: 5px;
+    height: 25px;
+    width: 150px;
+    font-size: 18px;
+}
+
+.blue-button {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    background-color: #0090E9;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+
+
+}
+
+.blue-button:hover {
+    cursor: pointer;
+}
+
+.errorText {
+    position: absolute;
+    top: 35px;
+    left: 142px;
+    font-size: 14px;
 }
