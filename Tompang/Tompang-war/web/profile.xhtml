@@ -3,45 +3,48 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                template="/template/defaultTemplate.xhtml">
+                template="/template/sidebarTemplate.xhtml">
+
+    <ui:define name="sidebar">
+        <h1 class="contentTitle">User Profile Page</h1>
+
+        <h:form>
+            <div class="profileField">
+                <h:outputLabel class="profileTitle" for="firstName" value="First Name" />
+                <h:outputText class="profileText" id="firstName" value="#{profileManagedBean.user.firstName}" />
+            </div>
+
+            <div class="profileField">
+                <h:outputLabel class="profileTitle" for="lastName" value="Last Name" />
+                <h:outputText class="profileText" id="lastName" value="#{profileManagedBean.user.lastName}" />
+            </div>
+
+            <div class="profileField">
+                <h:outputLabel class="profileTitle" for="email" value="Email" />
+                <h:outputText class="profileText" id="email" value="#{profileManagedBean.user.email}" />
+            </div>
+
+            <div class="profileField">
+                <h:outputLabel class="profileTitle" for="contactNum" value="Contact No." />
+                <h:outputText class="profileText" id="contactNum" value="#{profileManagedBean.user.contactNumber}" />
+            </div>
+
+            <div class="profileField">
+                <h:outputLabel class="profileTitle" for="dob" value="Date Of Birth" />
+                <h:outputText class="profileText" id="dob" value="#{profileManagedBean.user.dateOfBirth.date} / #{profileManagedBean.user.dateOfBirth.month} / #{profileManagedBean.user.dateOfBirth.year  % 100}" />
+            </div>
+
+            <div class="profileField">
+                <h:outputLabel class="profileTitle" for="joinedOn" value="Joined On" />
+                <h:outputText class="profileText" id="joinedOn" value="#{profileManagedBean.user.joinedOn.date} / #{profileManagedBean.user.joinedOn.month} / #{profileManagedBean.user.joinedOn.year % 100}" />
+            </div>
+
+        </h:form>
+    </ui:define>
+
 
     <ui:define name="content">
-        <div class="sidebar">
-            <h1 class="contentTitle">User Profile Page</h1>
-
-            <h:form>
-                <div class="profileField">
-                    <h:outputLabel class="profileTitle" for="firstName" value="First Name" />
-                    <h:outputText class="profileText" id="firstName" value="#{profileManagedBean.user.firstName}" />
-                </div>
-
-                <div class="profileField">
-                    <h:outputLabel class="profileTitle" for="lastName" value="Last Name" />
-                    <h:outputText class="profileText" id="lastName" value="#{profileManagedBean.user.lastName}" />
-                </div>
-                
-                <div class="profileField">
-                    <h:outputLabel class="profileTitle" for="email" value="Email" />
-                    <h:outputText class="profileText" id="email" value="#{profileManagedBean.user.email}" />
-                </div>
-                
-                <div class="profileField">
-                    <h:outputLabel class="profileTitle" for="contactNum" value="Contact No." />
-                    <h:outputText class="profileText" id="contactNum" value="#{profileManagedBean.user.contactNumber}" />
-                </div>
-                
-                <div class="profileField">
-                    <h:outputLabel class="profileTitle" for="dob" value="Date Of Birth" />
-                    <h:outputText class="profileText" id="dob" value="#{profileManagedBean.user.dateOfBirth.date} / #{profileManagedBean.user.dateOfBirth.month} / #{profileManagedBean.user.dateOfBirth.year  % 100}" />
-                </div>
-                
-                <div class="profileField">
-                    <h:outputLabel class="profileTitle" for="joinedOn" value="Joined On" />
-                    <h:outputText class="profileText" id="joinedOn" value="#{profileManagedBean.user.joinedOn.date} / #{profileManagedBean.user.joinedOn.month} / #{profileManagedBean.user.joinedOn.year % 100}" />
-                </div>
-
-            </h:form>
-        </div>
+        This is the profile page
     </ui:define>
 
 </ui:composition>
