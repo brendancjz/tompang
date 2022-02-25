@@ -7,11 +7,11 @@ and open the template in the editor.
     Created on : 22 Feb, 2022, 11:29:34 PM
     Author     : brend
 */
-@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
 
 * {
     margin: 0;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Merriweather', serif;
 }
 
 #header {
