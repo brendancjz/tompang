@@ -19,12 +19,6 @@
 *.tar.gz
 *.rar
 
-# User defined
-# Main Application Folder
-nbproject/private/
-build/
-dist/
-
 
 /Tompang/nbproject/private/
 

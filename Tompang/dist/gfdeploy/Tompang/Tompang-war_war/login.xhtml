@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template/defaultTemplate.xhtml">
+
+    <ui:define name="content">
+
+        <div class="login-div">
+            <h:form id="loginForm">
+
+                <div class="loginField">
+                    <h:outputLabel for="username" value="Username:" />
+                    <h:inputText id="username" class="inputField" value="#{loginManagedBean.username}" size="16" required="true" requiredMessage="Username is required" maxlength="32">
+                        <f:validateLength minimum="4" />
+                    </h:inputText>
+                    <h:message for="username" errorClass="errorText" fatalClass="errorText" />
+                </div>
+                <div class="loginField">
+                    <h:outputLabel for="password" value="Password:" />
+                    <h:inputSecret id="password" class="inputField" value="#{loginManagedBean.password}" size="16" required="true" requiredMessage="Password is required" maxlength="32">
+                        <f:validateLength minimum="4" />
+                    </h:inputSecret>
+                    <h:message for="password" errorClass="errorText" fatalClass="errorText" />
+                </div>
+                <div class="loginField">
+                    <h:commandButton type="reset" class="blue-button" value="Clear" />
+                    <h:commandButton type="submit" class="blue-button" value="Login" actionListener="#{loginManagedBean.login}" />
+
+                    <h:messages errorClass="errorTexts" fatalClass="errorTexts" infoClass="infoTexts" globalOnly="true" />
+                </div>
+
+            </h:form>
+        </div>
+
+    </ui:define>
+
+</ui:composition>
+
