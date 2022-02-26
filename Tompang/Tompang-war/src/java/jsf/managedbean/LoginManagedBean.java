@@ -36,8 +36,8 @@ public class LoginManagedBean {
         FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/login.xhtml");
     }
 
-    public void redirectToIndexPage(ActionEvent event) throws IOException {
-        FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml");
+    public void redirectToHomePage(ActionEvent event) throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/home.xhtml");
     }
     
     public void redirectToProfilePage(ActionEvent event) throws IOException {
@@ -51,7 +51,7 @@ public class LoginManagedBean {
             if (user.getPassword().equals(password)) {
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isLogin", true);
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", user);
-                FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/home.xhtml");
             }
 
         } catch (EntityNotFoundException ex) {
@@ -65,7 +65,7 @@ public class LoginManagedBean {
     }
 
     public void back(ActionEvent event) throws IOException {
-        FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/home.xhtml");
     }
 
     public String getUsername() {

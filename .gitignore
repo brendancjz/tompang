@@ -19,20 +19,17 @@
 *.tar.gz
 *.rar
 
-# User defined
-# Main Application Folder
-nbproject/private/
-build/
-dist/
-
 
 /Tompang/nbproject/private/
+/Tompang/nbproject/project.properties
 
 # EJB Folder
 /Tompang/Tompang-war/nbproject/private/
+/Tompang/Tompang-war/nbproject/project.properties
 /Tompang/Tompang-ejb/nbproject/private/
 /Tompang/Tompang-ejb/nbproject/project.properties
-/Tompang/nbproject/project.properties
 /Tompang/Tompang-ejb/build/
 /Tompang/Tompang-ejb/dist/
+/Tompang/Tompang-war/build/
+/Tompang/Tompang-war/dist/
 
