@@ -19,7 +19,8 @@
 *.tar.gz
 *.rar
 
-
+/Tompang/dist/
+/Tompang/build/
 /Tompang/nbproject/private/
 /Tompang/nbproject/project.properties
 
