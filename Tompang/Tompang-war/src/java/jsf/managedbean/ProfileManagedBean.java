@@ -10,12 +10,11 @@ import entity.User;
 import exception.EntityNotFoundException;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.validation.constraints.Past;
 
 /**
  *
@@ -34,6 +33,7 @@ public class ProfileManagedBean implements Serializable {
     private String firstName;
     private String lastName;
     private Long contactNum;
+    @Past
     private Date dob;
     private Date joinedOn;
     

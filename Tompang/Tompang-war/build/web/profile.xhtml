@@ -44,10 +44,10 @@
                     <p:inputText id="contactNum" value="#{profileManagedBean.contactNum}" required="true" requiredMessage="Contact Number is required" />
                     <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="contactNum" />
 
-                    <h:outputLabel for="dob" value="Date Of Birth" />
-                    <h:outputText id="dob" value="#{profileManagedBean.dob.date} / #{profileManagedBean.dob.month} / #{profileManagedBean.dob.year  % 100}" />
+                    <h:outputLabel for="dob" value="Date Of Birth"/>
+                    <p:datePicker id="dob" value="#{profileManagedBean.dob}" />
                     <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="dob" />
-
+                    
                     <h:outputLabel for="joinedOn" value="Joined On" />
                     <h:outputText id="joinedOn" value="#{profileManagedBean.joinedOn.date} / #{profileManagedBean.joinedOn.month} / #{profileManagedBean.joinedOn.year % 100}" />
                     <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="joinedOn" />
@@ -61,6 +61,7 @@
 
             </h:form>
         </div>
+
     </ui:define>
 
 </ui:composition>
