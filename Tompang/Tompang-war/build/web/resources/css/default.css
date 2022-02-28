@@ -52,7 +52,7 @@ and open the template in the editor.
 
 #content {
     width: 100%;
-    height: 84vh;
+    height: 87vh;
     padding: 20px;
     float: inherit;
 }
@@ -64,7 +64,7 @@ and open the template in the editor.
 
 #sidebar {
     min-width: 250px;
-    height: 84vh;
+    height: 87vh;
     padding: 20px;
     background-color: #F1F2F2;
 }
@@ -177,4 +177,9 @@ and open the template in the editor.
     margin-bottom: 5px;
     text-decoration: none;
     color: black;
+}
+
+#editProfileForm {
+    width: 30%;
+    margin: 0 auto;
 }

@@ -7,8 +7,11 @@ package jsf.managedbean;
 
 import ejb.stateless.UserSessionBeanLocal;
 import entity.User;
+import exception.EntityNotFoundException;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -36,6 +39,10 @@ public class ProfileManagedBean implements Serializable {
     
     
     public ProfileManagedBean() {
+        initialise();
+    }
+    
+    private void initialise() {
         user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
         username = user.getUsername();
         email = user.getEmail();
@@ -44,6 +51,19 @@ public class ProfileManagedBean implements Serializable {
         contactNum = user.getContactNumber();
         dob = user.getDateOfBirth();
         joinedOn = user.getJoinedOn();
+    }
+    
+    public void update() {
+        try {
+            userSessionBean.updateUserDetails(user.getUserId(), firstName, lastName, email, username, dob, contactNum);
+            User updatedUser = userSessionBean.getUserByUserId(user.getUserId());
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", updatedUser);
+            
+            initialise();
+            
+        } catch (EntityNotFoundException ex) {
+            System.out.println("Unable to update User Details");
+        }
     }
 
     public User getUser() {

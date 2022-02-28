@@ -3,39 +3,15 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
                 template="/template/sidebarTemplate.xhtml">
 
     <ui:define name="sidebar">
         <h1 class="sidebarTitle">User Profile Page</h1>
         <h:panelGroup rendered="#{sessionScope.isLogin == true}">
             <div class="sidebarSection">
-                <h:outputLabel class="sidebarSectionTitle" for="firstName" value="First Name" />
-                <h:outputText class="sidebarSectionText" id="firstName" value="#{profileManagedBean.firstName}" />
-            </div>
-
-            <div class="sidebarSection">
-                <h:outputLabel class="sidebarSectionTitle" for="lastName" value="Last Name" />
-                <h:outputText class="sidebarSectionText" id="lastName" value="#{profileManagedBean.lastName}" />
-            </div>
-
-            <div class="sidebarSection">
-                <h:outputLabel class="sidebarSectionTitle" for="email" value="Email" />
-                <h:outputText class="sidebarSectionText" id="email" value="#{profileManagedBean.email}" />
-            </div>
-
-            <div class="sidebarSection">
-                <h:outputLabel class="sidebarSectionTitle" for="contactNum" value="Contact No." />
-                <h:outputText class="sidebarSectionText" id="contactNum" value="#{profileManagedBean.contactNum}" />
-            </div>
-
-            <div class="sidebarSection">
-                <h:outputLabel class="sidebarSectionTitle" for="dob" value="Date Of Birth" />
-                <h:outputText class="sidebarSectionText" id="dob" value="#{profileManagedBean.dob.date} / #{profileManagedBean.dob.month} / #{profileManagedBean.dob.year  % 100}" />
-            </div>
-
-            <div class="sidebarSection">
-                <h:outputLabel class="sidebarSectionTitle" for="joinedOn" value="Joined On" />
-                <h:outputText class="sidebarSectionText" id="joinedOn" value="#{profileManagedBean.joinedOn.date} / #{profileManagedBean.joinedOn.month} / #{profileManagedBean.joinedOn.year % 100}" />
+                <h:link class="sidebarSectionTextLink" id="editProfile" outcome="/profile.xhtml">Edit Profile</h:link>
+                <h:link class="sidebarSectionTextLink" id="changePassword" outcome="/profile.xhtml">Change Password</h:link>
             </div>
         </h:panelGroup>
 
@@ -48,40 +24,41 @@
             <h2>Edit Profile</h2>
             <br/>
 
-            <h:form id="formMain">
+            <h:form id="editProfileForm">
                 <h:messages errorClass="errorTextsWithBullet" fatalClass="fatalTextsWithBullet" warnClass="warnTextsWithBullet" infoClass="infoTextsWithBullet" globalOnly="true" />
 
-                <h:panelGrid columnClasses="dataTable3Label,dataTable3Value,dataTable3Message" columns="3" rendered="#{profileManagedBean.user != null}">
-                    <h:outputLabel class="sidebarSectionTitle" for="firstName" value="First Name" />
-                    <h:inputText class="sidebarSectionText" id="firstName" value="#{profileManagedBean.firstName}" required="true" requiredMessage="First Name is required" />
+                <p:panelGrid styleClass="ui-noborder" columns="3" rendered="#{profileManagedBean.user != null}">
+                    <h:outputLabel for="firstName" value="First Name" />
+                    <p:inputText id="firstName" value="#{profileManagedBean.firstName}" required="true" requiredMessage="First Name is required" />
                     <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="firstName" />
 
-                    <h:outputLabel class="sidebarSectionTitle" for="lastName" value="Last Name" />
-                    <h:inputText class="sidebarSectionText" id="lastName" value="#{profileManagedBean.lastName}" required="true" requiredMessage="Last Name is required" />
+                    <h:outputLabel for="lastName" value="Last Name" />
+                    <p:inputText id="lastName" value="#{profileManagedBean.lastName}" required="true" requiredMessage="Last Name is required" />
                     <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="lastName" />
 
-                    <h:outputLabel class="sidebarSectionTitle" for="email" value="Email" />
-                    <h:inputText class="sidebarSectionText" id="email" value="#{profileManagedBean.email}" required="true" requiredMessage="Email is required" />
+                    <h:outputLabel for="email" value="Email" />
+                    <p:inputText id="email" value="#{profileManagedBean.email}" required="true" requiredMessage="Email is required" />
                     <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="email" />
 
-                    <h:outputLabel class="sidebarSectionTitle" for="contactNum" value="Contact No." />
-                    <h:inputText class="sidebarSectionText" id="contactNum" value="#{profileManagedBean.contactNum}" required="true" requiredMessage="Contact Number is required" />
+                    <h:outputLabel for="contactNum" value="Contact No." />
+                    <p:inputText id="contactNum" value="#{profileManagedBean.contactNum}" required="true" requiredMessage="Contact Number is required" />
                     <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="contactNum" />
 
-                </h:panelGrid>
+                    <h:outputLabel for="dob" value="Date Of Birth" />
+                    <h:outputText id="dob" value="#{profileManagedBean.dob.date} / #{profileManagedBean.dob.month} / #{profileManagedBean.dob.year  % 100}" />
+                    <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="dob" />
 
-                <h:outputLabel class="sidebarSectionTitle" for="dob" value="Date Of Birth" />
-                <h:outputText class="sidebarSectionText" id="dob" value="#{profileManagedBean.dob.date} / #{profileManagedBean.dob.month} / #{profileManagedBean.dob.year  % 100}" />
+                    <h:outputLabel for="joinedOn" value="Joined On" />
+                    <h:outputText id="joinedOn" value="#{profileManagedBean.joinedOn.date} / #{profileManagedBean.joinedOn.month} / #{profileManagedBean.joinedOn.year % 100}" />
+                    <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="joinedOn" />
 
-                <h:outputLabel class="sidebarSectionTitle" for="joinedOn" value="Joined On" />
-                <h:outputText class="sidebarSectionText" id="joinedOn" value="#{profileManagedBean.joinedOn.date} / #{profileManagedBean.joinedOn.month} / #{profileManagedBean.joinedOn.year % 100}" />
-
-                <br/>
-                <div style="text-align: center;">                       
-                    <h:commandButton value="Update" type="submit" rendered="#{profileManagedBean.user != null}">
+                    <br />
+                    <h:commandButton class="blue-button" value="Update" type="submit" rendered="#{profileManagedBean.user != null}">
                         <f:ajax event="click" execute="@form" render="@form" listener="#{profileManagedBean.update}" />
                     </h:commandButton>
-                </div>
+
+                </p:panelGrid>
+
             </h:form>
         </div>
     </ui:define>
