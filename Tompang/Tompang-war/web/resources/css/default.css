@@ -57,7 +57,7 @@ and open the template in the editor.
     float: inherit;
 }
 
-.contentTitle {
+.sidebarTitle {
     margin-bottom: 30px;
     text-decoration: underline;
 }
@@ -156,17 +156,25 @@ and open the template in the editor.
     width: 475px;
 }
 
-.profileField {
+.sidebarSection {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
 }
 
-.profileTitle {
+.sidebarSectionTitle {
     font-size: 20px;
     font-weight: 600;
 }
-.profileText {
+.sidebarSectionText {
     font-size: 18px;
     margin-left: 20px;
+}
+
+.sidebarSectionTextLink {
+    font-size: 18px;
+    margin-left: 20px;
+    margin-bottom: 5px;
+    text-decoration: none;
+    color: black;
 }

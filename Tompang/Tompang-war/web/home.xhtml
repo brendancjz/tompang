@@ -4,14 +4,27 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="/template/sidebarTemplate.xhtml">
-    
-    <ui:define name="sidebar" rendered="#{1 == 0}">
-        
+
+    <ui:define name="sidebar" >
+        <h1 class="sidebarTitle">Home Page</h1>
+        <nav>
+            
+            <h:panelGroup rendered="#{sessionScope.isLogin == true}">
+                <div class="sidebarSection">
+                    <h:outputText class="sidebarSectionTitle" value="Administrative Links" />
+                    <h:link class="sidebarSectionTextLink" id="viewAllUsers" outcome="/profile.xhtml">View All Users</h:link>
+                    <h:link class="sidebarSectionTextLink" id="viewAllListings" outcome="/profile.xhtml">View All Listings</h:link>
+                    <h:link class="sidebarSectionTextLink" id="viewAllTransactions" outcome="/profile.xhtml">View All Transactions</h:link>
+                    <h:link class="sidebarSectionTextLink" id="viewAllDisputes" outcome="/profile.xhtml">View All Disputes</h:link>
+                </div>
+                
+            </h:panelGroup>
+        </nav>
     </ui:define>
-    
-    
+
+
     <ui:define name="content">
         This is the Home Page.
     </ui:define>
-                    
+
 </ui:composition>
