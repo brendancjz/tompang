@@ -13,8 +13,65 @@
 
 
     <ui:define name="content">
-        This is the View All Users Page.
+        <div>
+            <h:form>
+                <h:dataTable value="#{viewAllUsersManagedBean.listOfUsers}" var="user" style="width: 100%;">
+
+                    <h:column>    				
+                        <f:facet name = "header">User ID</f:facet>
+                        <h:outputText value="#{user.userId}" />
+                    </h:column>
+
+                    <h:column>    				
+                        <f:facet name = "header">First Name</f:facet>
+                        <h:outputText value="#{user.firstName}" />
+                    </h:column>
+
+                    <h:column>    				
+                        <f:facet name = "header">Last Name</f:facet>
+                        <h:outputText value="#{user.lastName}" />
+                    </h:column>
+
+                    <h:column>    				
+                        <f:facet name = "header">Username</f:facet>
+                        <h:outputText value="#{user.username}" />
+                    </h:column>
+
+                    <h:column>    				
+                        <f:facet name = "header">Date of Birth</f:facet>
+                        <h:outputText value="#{user.dateOfBirth}" />
+                    </h:column>
+                    
+                    <h:column>    				
+                        <f:facet name = "header">Joined On</f:facet>
+                        <h:outputText value="#{user.joinedOn}" />
+                    </h:column>
+                    
+                    <h:column>    				
+                        <f:facet name = "header">Contact Number</f:facet>
+                        <h:outputText value="#{user.contactNumber}" />
+                    </h:column>
+                    
+                    <h:column>    				
+                        <f:facet name = "header">Email</f:facet>
+                        <h:outputText value="#{user.email}" />
+                    </h:column>
+
+                    <h:column>    				
+                        <f:facet name = "header">Category</f:facet>
+                        <h:outputText value="#{productEntity.categoryEntity.name}" />
+                    </h:column>
+
+                    <h:column>    				
+                        <f:facet name = "header">Action</f:facet>
+                        <h:commandLink value="View" actionListener="#{viewAllProductsManagedBean.viewProductDetails}">
+                            <f:attribute name="productId" value="#{productEntity.productId}" />
+                        </h:commandLink>
+                    </h:column>
+
+                </h:dataTable>
+            </h:form>
+        </div>
     </ui:define>
 
 </ui:composition>
-

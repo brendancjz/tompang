@@ -10,8 +10,6 @@ import entity.User;
 import exception.EntityNotFoundException;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
@@ -46,6 +44,7 @@ public class ProfileManagedBean implements Serializable {
     private String newPassword;
 
     public ProfileManagedBean() {
+        System.out.println("ProfileManagedBean");
         initialise();
     }
 
