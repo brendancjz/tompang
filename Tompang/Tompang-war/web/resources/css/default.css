@@ -179,7 +179,7 @@ and open the template in the editor.
     color: black;
 }
 
-#editProfileForm {
+.profileForm {
     width: 50%;
     margin: 0 auto;
 }

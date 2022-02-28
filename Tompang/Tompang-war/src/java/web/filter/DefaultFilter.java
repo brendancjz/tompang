@@ -49,11 +49,11 @@ public class DefaultFilter implements Filter
         Boolean isLogin = (Boolean)httpSession.getAttribute("isLogin");
         
         
-        
         if(!excludeLoginCheck(requestServletPath))
         {
             if(isLogin == true)
             {
+                
                 User user = (User) httpSession.getAttribute("currentUser");
                 
                 if(user.getIsAdmin())
