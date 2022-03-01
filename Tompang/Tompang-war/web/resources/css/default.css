@@ -55,6 +55,7 @@ and open the template in the editor.
     height: 87vh;
     padding: 20px;
     float: inherit;
+    overflow-x: overlay;
 }
 
 .sidebarTitle {

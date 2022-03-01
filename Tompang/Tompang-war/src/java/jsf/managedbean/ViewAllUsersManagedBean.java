@@ -8,8 +8,10 @@ package jsf.managedbean;
 import ejb.stateless.UserSessionBeanLocal;
 import entity.User;
 import exception.EmptyListException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -26,21 +28,35 @@ public class ViewAllUsersManagedBean {
     private UserSessionBeanLocal userSessionBean;
 
     private List<User> listOfUsers;
-    
-    
+    private List<User> filteredUsers;
+
     public ViewAllUsersManagedBean() {
-//        listOfUsers = new ArrayList<>();
-//        
-//        try {
-//            listOfUsers = userSessionBean.retrieveAllUsers();
-//
-//            System.out.println(listOfUsers.size());
-//            for (User user : listOfUsers) {
-//                System.out.println(user.getUserId());
-//            }
-//        } catch (EmptyListException ex) {
-//            System.out.println("Unable to retrieve list of users.");
-//        }
+        listOfUsers = new ArrayList<>();
+        filteredUsers = new ArrayList<>();
+    }
+
+    @PostConstruct
+    public void retrieveAllUsers() {
+        try {
+            listOfUsers = userSessionBean.retrieveAllUsers();
+            filteredUsers = userSessionBean.retrieveAllUsers();
+        } catch (EmptyListException ex) {
+            System.out.println("Unable to retrieve list of users.");
+        }
+    }
+
+    public String getUserDOB(User user) {
+        String pattern = "dd-MM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        return simpleDateFormat.format(user.getDateOfBirth());
+    }
+    
+    public String getUserJoinedOn(User user) {
+        String pattern = "dd-MM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        return simpleDateFormat.format(user.getJoinedOn());
     }
 
     public List<User> getListOfUsers() {
@@ -49,5 +65,13 @@ public class ViewAllUsersManagedBean {
 
     public void setListOfUsers(List<User> listOfUsers) {
         this.listOfUsers = listOfUsers;
+    }
+
+    public List<User> getFilteredUsers() {
+        return filteredUsers;
+    }
+
+    public void setFilteredUsers(List<User> filteredUsers) {
+        this.filteredUsers = filteredUsers;
     }
 }
