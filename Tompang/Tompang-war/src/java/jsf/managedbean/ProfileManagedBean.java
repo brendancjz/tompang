@@ -37,8 +37,7 @@ public class ProfileManagedBean implements Serializable {
     @Past
     private Date dob;
     private Date joinedOn;
-    private Boolean toggleEditProfile;
-    private Boolean toggleChangePassword;
+    private String profileContent;
 
     private String currPassword;
     private String newPassword;
@@ -57,8 +56,7 @@ public class ProfileManagedBean implements Serializable {
         contactNum = user.getContactNumber();
         dob = user.getDateOfBirth();
         joinedOn = user.getJoinedOn();
-        toggleEditProfile = true;
-        toggleChangePassword = false;
+        profileContent = "EDIT_PROFILE";
     }
 
     public void update() {
@@ -95,13 +93,11 @@ public class ProfileManagedBean implements Serializable {
     }
 
     public void toggleEditProfile() {
-        this.toggleEditProfile = true;
-        this.toggleChangePassword = false;
+        profileContent = "EDIT_PROFILE";
     }
 
     public void toggleChangePassword() {
-        this.toggleChangePassword = true;
-        this.toggleEditProfile = false;
+        profileContent = "CHANGE_PASSWORD";
     }
 
     public User getUser() {
@@ -164,24 +160,12 @@ public class ProfileManagedBean implements Serializable {
         return joinedOn;
     }
 
-    public void setJoinedOn(Date joinedOn) {
-        this.joinedOn = joinedOn;
+    public String getProfileContent() {
+        return profileContent;
     }
 
-    public Boolean getToggleEditProfile() {
-        return toggleEditProfile;
-    }
-
-    public void setToggleEditProfile(Boolean toggleEditProfile) {
-        this.toggleEditProfile = toggleEditProfile;
-    }
-
-    public Boolean getToggleChangePassword() {
-        return toggleChangePassword;
-    }
-
-    public void setToggleChangePassword(Boolean toggleChangePassword) {
-        this.toggleChangePassword = toggleChangePassword;
+    public void setProfileContent(String profileContent) {
+        this.profileContent = profileContent;
     }
 
     public String getCurrPassword() {

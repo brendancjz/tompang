@@ -26,7 +26,7 @@
 
     <ui:define name="content">
         <div>
-            <h:panelGroup rendered="#{profileManagedBean.toggleEditProfile == true}">
+            <h:panelGroup rendered="#{profileManagedBean.profileContent eq 'EDIT_PROFILE'}">
                 <h2>Edit Profile</h2>
                 <br/>
 
@@ -68,7 +68,7 @@
                 </h:form>
             </h:panelGroup>
 
-            <h:panelGroup rendered="#{profileManagedBean.toggleChangePassword == true}">
+            <h:panelGroup rendered="#{profileManagedBean.profileContent eq 'CHANGE_PASSWORD'}">
                 <h2>Change Password</h2>
                 <br/>
 
