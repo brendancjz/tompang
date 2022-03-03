@@ -16,21 +16,16 @@
     <ui:define name="content">
         <div >
             <h:form>
-                <p:dataTable var="user" value="#{viewAllUsersManagedBean.listOfUsers}" 
-                             widgetVar="usersTable" style="min-width: 1405px;"  
-                             emptyMessage="No users found with given criteria"
+                <p:messages id="messages" redisplay="false" closable="true" />
+                <p:dataTable id="usersTable" widgetVar="usersTable" value="#{viewAllUsersManagedBean.listOfUsers}" var="user" rowKey="#{user.userId}" rowIndexVar="row"
                              filteredValue="#{viewAllUsersManagedBean.filteredUsers}"
-                             >
+                             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
 
                     <f:facet name="header">
-                        <div style="display: flex;flex-direction: row;align-items: center;justify-content: space-between;">
-                            <span>List of Users</span>
-                            <div>
-                                
-                                <p:inputText id="globalFilter" onkeyup="PF('usersTable').filter()" style="width:10rem" placeholder="Enter keyword" />
-                            </div>
-                        </div>
-
+                        <p:outputPanel style="text-align: right;">
+                            <h:outputText value="Search all fields:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('usersTable').filter()" style="width:300px" placeholder="Enter keyword"/>
+                        </p:outputPanel>
                     </f:facet>
 
                     <p:column headerText="ID" width="4%" sortBy="#{user.userId}" >

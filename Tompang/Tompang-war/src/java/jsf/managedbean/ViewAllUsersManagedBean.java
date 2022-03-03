@@ -31,15 +31,12 @@ public class ViewAllUsersManagedBean {
     private List<User> filteredUsers;
 
     public ViewAllUsersManagedBean() {
-        listOfUsers = new ArrayList<>();
-        filteredUsers = new ArrayList<>();
     }
 
     @PostConstruct
     public void retrieveAllUsers() {
         try {
             listOfUsers = userSessionBean.retrieveAllUsers();
-            filteredUsers = userSessionBean.retrieveAllUsers();
         } catch (EmptyListException ex) {
             System.out.println("Unable to retrieve list of users.");
         }
