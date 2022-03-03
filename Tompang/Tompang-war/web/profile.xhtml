@@ -77,11 +77,11 @@
 
                     <p:panelGrid styleClass="ui-noborder" columns="3" rendered="#{profileManagedBean.user != null}">
                         <h:outputLabel for="currPassword" value="Current Password*" />
-                        <p:password  id="currPassword" value="#{profileManagedBean.currPassword}" required="true" requiredMessage="Password is required" toggleMask="true" redisplay="true" />
+                        <p:password  id="currPassword" value="#{profileManagedBean.currPassword}" required="true" requiredMessage="Password is required" redisplay="true" />
                         <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="currPassword" />
                         
                         <h:outputLabel for="newPassword" value="New Password*" />
-                        <p:password  id="newPassword" value="#{profileManagedBean.newPassword}" required="true" feedback="true" requiredMessage="Password is required" toggleMask="true" redisplay="true" />
+                        <p:password  id="newPassword" value="#{profileManagedBean.newPassword}" required="true" feedback="true" requiredMessage="Password is required" redisplay="true" />
                         <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="newPassword" />
 
                         <br />
