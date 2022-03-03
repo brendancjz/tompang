@@ -7,11 +7,11 @@ and open the template in the editor.
     Created on : 22 Feb, 2022, 11:29:34 PM
     Author     : brend
 */
-@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quattrocento+Sans&display=swap');
 
 * {
     margin: 0;
-    font-family: 'Merriweather', serif;
+    font-family: 'Quattrocento Sans', sans-serif;
 }
 
 #header {
