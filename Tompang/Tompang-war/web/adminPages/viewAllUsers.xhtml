@@ -8,15 +8,17 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="sidebar" >
-       
+
         <ezcomp:AdminLinks />
     </ui:define>
 
 
     <ui:define name="content">
-        <ezcomp:Breadcrumb pageName="ViewAllUsers"/>
+        <h3> View all Users </h3>
+        <br></br>
+        <!--<ezcomp:Breadcrumb pageName="ViewAllUsers"/>-->
         <div >
-            <h:form>
+            <h:form id="listOfUsers">
                 <p:messages id="messages" redisplay="false" closable="true" />
                 <p:dataTable id="usersTable" widgetVar="usersTable" value="#{viewAllUsersManagedBean.listOfUsers}" var="user" rowKey="#{user.userId}" rowIndexVar="row"
                              filteredValue="#{viewAllUsersManagedBean.filteredUsers}"
@@ -65,10 +67,20 @@
                         <p:commandButton update="ccViewUserDetails:formViewUserDetails" oncomplete="PF('dialogViewUserDetails').show()" icon="ui-icon-document" title="View">
                             <f:setPropertyActionListener value="#{user}" target="#{viewAllUsersManagedBean.viewUserDetailsManagedBean.userEntityToView}" />
                         </p:commandButton>
+                        <p:commandButton icon="ui-icon-trash" actionListener="#{viewAllUsersManagedBean.deleteUser}" update="listOfUsers:usersTable listOfUsers:messages">
+                            <f:attribute name="userEntityToDelete" value="#{user}" />
+                            <p:confirm header="Confirmation" message="Are you sure you want to delete #{user.firstName} + #{user.lastName}?" icon="ui-icon-alert" />
+                        </p:commandButton>
                     </p:column>
                 </p:dataTable>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+                
             </h:form>
-            
+
             <ezcomp:ViewUserDetails id="ccViewUserDetails" />
         </div>
     </ui:define>
