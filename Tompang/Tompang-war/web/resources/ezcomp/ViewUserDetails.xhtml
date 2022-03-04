@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <cc:interface>
+    </cc:interface>
+    
+    <cc:implementation>
+        
+        <h:form id="formViewUserDetails">
+            
+            <p:dialog id="dialogViewUserDetails" widgetVar="dialogViewUserDetails" header="View User Details" closable="true">
+
+                <p:panelGrid>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="User ID: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.userId}" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="First Name: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.firstName}" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Last Name: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.lastName}" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Email: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.email}" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Date of Birth: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.dateOfBirth}" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Contact Number: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.contactNumber}" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Joined on: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.joinedOn}"/>
+                        </p:column>
+                    </p:row>
+                             
+                </p:panelGrid>
+
+            </p:dialog>
+            
+        </h:form>
+        
+    </cc:implementation>
+</html>

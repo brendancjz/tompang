@@ -15,6 +15,7 @@
             <h:panelGroup rendered="#{sessionScope.isLogin == true}">
                 <div class="sidebarSection">
                     <h:outputText class="sidebarSectionTitle" value="Administrative Links" />
+                    <h:link class="sidebarSectionTextLink" id="backToHome" outcome="/home.xhtml">Home</h:link>
                     <h:link class="sidebarSectionTextLink" id="viewAllUsers" outcome="/adminPages/viewAllUsers.xhtml">View All Users</h:link>
                     <h:link class="sidebarSectionTextLink" id="viewAllListings" outcome="/adminPages/viewAllListings.xhtml">View All Listings</h:link>
                     <h:link class="sidebarSectionTextLink" id="viewAllTransactions" outcome="/adminPages/viewAllTransactions.xhtml">View All Transactions</h:link>

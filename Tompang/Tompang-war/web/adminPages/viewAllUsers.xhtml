@@ -61,12 +61,14 @@
                     </p:column>
 
                     <p:column headerText="Action">
-                        <h:commandButton class="blue-button" value="View" actionListener="#{viewAllUsersManagedBean.viewUserDetails}">
-                            <f:attribute name="userId" value="#{user.userId}" />
-                        </h:commandButton>
+                        <p:commandButton update="ccViewUserDetails:formViewUserDetails" oncomplete="PF('dialogViewUserDetails').show()" icon="ui-icon-document" title="View">
+                            <f:setPropertyActionListener value="#{user}" target="#{viewAllUsersManagedBean.viewUserDetailsManagedBean.userEntityToView}" />
+                        </p:commandButton>
                     </p:column>
                 </p:dataTable>
             </h:form>
+            
+            <ezcomp:ViewUserDetails id="ccViewUserDetails" />
         </div>
     </ui:define>
 
