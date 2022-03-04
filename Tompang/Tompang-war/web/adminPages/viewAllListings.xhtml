@@ -8,12 +8,13 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="sidebar" >
-        <h1 class="sidebarTitle">Listings Page</h1>
+       
         <ezcomp:AdminLinks />
     </ui:define>
 
 
     <ui:define name="content">
+         <ezcomp:Breadcrumb pageName="ViewAllListings"/>
         <h:form>
             <p:dataTable var="listing" value="#{viewAllListingsManagedBean.listings}">
                 <span>Listings</span>

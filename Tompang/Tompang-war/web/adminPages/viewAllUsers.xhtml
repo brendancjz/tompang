@@ -8,12 +8,13 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="sidebar" >
-        <h1 class="sidebarTitle">Users Page</h1>
+       
         <ezcomp:AdminLinks />
     </ui:define>
 
 
     <ui:define name="content">
+        <ezcomp:Breadcrumb pageName="ViewAllUsers"/>
         <div >
             <h:form>
                 <p:messages id="messages" redisplay="false" closable="true" />
