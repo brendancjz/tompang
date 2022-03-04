@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/sidebarTemplate.xhtml">
+
+    <ui:define name="sidebar">
+        <h1 class="sidebarTitle">User Profile Page</h1>
+        <h:panelGroup rendered="#{sessionScope.isLogin == true}">
+
+            <div class="sidebarSection">
+                <h:commandLink class="sidebarSectionTextLink" id="editProfile" value="Edit Profile">
+                    <f:ajax event="click" execute="@this" render="@all" listener="#{profileManagedBean.toggleEditProfile}" />
+                </h:commandLink>
+                <h:commandLink class="sidebarSectionTextLink" id="changePassword" value="Change Password">
+                    <f:ajax event="click" execute="@this" render="@all" listener="#{profileManagedBean.toggleChangePassword}" />
+                </h:commandLink>
+            </div>
+        </h:panelGroup>
+
+
+    </ui:define>
+
+
+    <ui:define name="content">
+        <div>
+            <h:panelGroup rendered="#{profileManagedBean.profileContent eq 'EDIT_PROFILE'}">
+                <h2>Edit Profile</h2>
+                <br/>
+
+                <h:form class="profileForm">
+                    <h:messages errorClass="errorTextsWithBullet" fatalClass="fatalTextsWithBullet" warnClass="warnTextsWithBullet" infoClass="infoTextsWithBullet" globalOnly="true" />
+
+                    <p:panelGrid styleClass="ui-noborder" columns="3" rendered="#{profileManagedBean.user != null}">
+                        <h:outputLabel for="firstName" value="First Name" />
+                        <p:inputText id="firstName" value="#{profileManagedBean.firstName}" required="true" requiredMessage="First Name is required" />
+                        <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="firstName" />
+
+                        <h:outputLabel for="lastName" value="Last Name" />
+                        <p:inputText id="lastName" value="#{profileManagedBean.lastName}" required="true" requiredMessage="Last Name is required" />
+                        <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="lastName" />
+
+                        <h:outputLabel for="email" value="Email" />
+                        <p:inputText id="email" value="#{profileManagedBean.email}" required="true" requiredMessage="Email is required" />
+                        <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="email" />
+
+                        <h:outputLabel for="contactNum" value="Contact No." />
+                        <p:inputText id="contactNum" value="#{profileManagedBean.contactNum}" required="true" requiredMessage="Contact Number is required" />
+                        <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="contactNum" />
+
+                        <h:outputLabel for="dob" value="Date Of Birth"/>
+                        <p:datePicker id="dob" value="#{profileManagedBean.dob}" />
+                        <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="dob" />
+
+                        <h:outputLabel for="joinedOn" value="Joined On" />
+                        <h:outputText id="joinedOn" value="#{profileManagedBean.joinedOn.date} / #{profileManagedBean.joinedOn.month} / #{profileManagedBean.joinedOn.year % 100}" />
+                        <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="joinedOn" />
+
+                        <br />
+                        <h:commandButton class="blue-button" value="Update" type="submit">
+                            <f:ajax event="click" execute="@form" render="@form" listener="#{profileManagedBean.update}" />
+                        </h:commandButton>
+
+                    </p:panelGrid>
+
+                </h:form>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{profileManagedBean.profileContent eq 'CHANGE_PASSWORD'}">
+                <h2>Change Password</h2>
+                <br/>
+
+                <h:form class="profileForm">
+                    <h:messages errorClass="errorTexts" fatalClass="fatalTexts" warnClass="warnTexts" infoClass="infoTexts" globalOnly="true" />
+
+                    <p:panelGrid styleClass="ui-noborder" columns="3" rendered="#{profileManagedBean.user != null}">
+                        <h:outputLabel for="currPassword" value="Current Password*" />
+                        <p:password  id="currPassword" value="#{profileManagedBean.currPassword}" required="true" requiredMessage="Password is required" redisplay="true" />
+                        <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="currPassword" />
+                        
+                        <h:outputLabel for="newPassword" value="New Password*" />
+                        <p:password  id="newPassword" value="#{profileManagedBean.newPassword}" required="true" feedback="true" requiredMessage="Password is required" redisplay="true" />
+                        <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="newPassword" />
+
+                        <br />
+                        <h:commandButton class="blue-button" value="Update" type="submit">
+                            <f:ajax event="click" execute="@form" render="@form" listener="#{profileManagedBean.changePassword}" />
+                        </h:commandButton>
+
+                    </p:panelGrid>
+
+                </h:form>
+            </h:panelGroup>
+
+
+        </div>
+
+    </ui:define>
+
+</ui:composition>
+

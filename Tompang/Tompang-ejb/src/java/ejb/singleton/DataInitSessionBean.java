@@ -103,8 +103,18 @@ public class DataInitSessionBean {
         
         if (em.find(Listing.class, 1L) == null) {
             Date expectedArrivalDate = Date.from(LocalDate.now().atStartOfDay().plusDays(7).atZone(ZoneId.systemDefault()).toInstant());
-            User dummyUser1 = (User) em.find(User.class, 2L);
+            User dummyUser1 = (User) em.find(User.class, 1L);
             Listing listing = new Listing("Japan", "Osaka", "Japan Biscuit", "Lovely japanese biscuits!", 35.00, expectedArrivalDate, dummyUser1, 5);
+            em.persist(listing); 
+            em.flush();
+            
+            User dummyUser2 = (User) em.find(User.class, 2L);
+            listing = new Listing("Korea", "Seoul", "Tteokbokki", "Authentic spicy rice cakes!", 15.00, expectedArrivalDate, dummyUser2, 5);
+            em.persist(listing); 
+            em.flush();
+            
+            User dummyUser3 = (User) em.find(User.class, 3L);
+            listing = new Listing("Germany", "Dresden", "Gummy Candy", "Gluten Tag!", 7.00, expectedArrivalDate, dummyUser3, 10);
             em.persist(listing); 
             em.flush();
         }

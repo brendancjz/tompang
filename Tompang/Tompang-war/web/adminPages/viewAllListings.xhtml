@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template/sidebarTemplate.xhtml"
+                xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="sidebar" >
+        <h1 class="sidebarTitle">Listings Page</h1>
+        <ezcomp:AdminLinks />
+    </ui:define>
+
+
+    <ui:define name="content">
+        <h:form>
+            <p:dataTable var="listing" value="#{viewAllListingsManagedBean.listings}">
+                <span>Listings</span>
+                
+                <p:column headerText="ID" width="4%" sortBy="#{listing.listingId}" >
+                    <h:outputText value="#{listing.listingId}" />
+                </p:column>
+                
+                <p:column headerText="country" width="4%" sortBy="#{listing.country}" >
+                    <h:outputText value="#{listing.country}" />
+                </p:column>
+                
+                <p:column headerText="city" width="4%" sortBy="#{listing.city}" >
+                    <h:outputText value="#{listing.city}" />
+                </p:column>
+                
+                <p:column headerText="title" width="4%" sortBy="#{listing.title}" >
+                    <h:outputText value="#{listing.title}" />
+                </p:column>
+                
+                <p:column headerText="description" width="4%" sortBy="#{listing.description}" >
+                    <h:outputText value="#{listing.description}" />
+                </p:column>
+                
+                <p:column headerText="price" width="4%" sortBy="#{listing.price}" >
+                    <h:outputText value="$#{listing.price}" />
+                </p:column>
+                
+                <p:column headerText="creationDate" width="4%" sortBy="#{listing.createdOn}" >
+                    <h:outputText value="#{listing.createdOn}" />
+                </p:column>
+                
+                <p:column headerText="expectedArrivalDate" width="4%" sortBy="#{listing.expectedArrivalDate}" >
+                    <h:outputText value="#{listing.expectedArrivalDate}" />
+                </p:column>
+                
+                <p:column headerText="numOfLikes" width="4%" sortBy="#{listing.numOfLikes}" >
+                    <h:outputText value="#{listing.numOfLikes}" />
+                </p:column>
+                
+                <p:column headerText="quantity" width="4%" sortBy="#{listing.quantity}" >
+                    <h:outputText value="#{listing.quantity}" />
+                </p:column>
+                
+                <p:column headerText="photos" width="4%" sortBy="#{listing.photos}" >
+                    <h:outputText value="#{listing.photos}" />
+                </p:column>
+                
+                <p:column headerText="Action" width="4%">
+                    <h:commandButton class="blue-button" value="View" actionListener="#{viewAllListingsManagedBean.viewListingDetails}">
+                        <f:attribute name="listingId" value="#{listing.listingId}" />
+                    </h:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+

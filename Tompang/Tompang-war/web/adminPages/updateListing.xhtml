@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="/template/defaultTemplate.xhtml"
+                xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp">
+
+    <ui:define name="content">
+        
+        <f:view beforePhase="#{updateListingManagedBean.phaseListener}" afterPhase="#{updateListingManagedBean.phaseListener}">
+        
+            <div>
+                <h3>Update Listing</h3>
+                <br/>
+
+                <h:form id="formMain">
+                    <h:messages errorClass="errorTextsWithBullet" fatalClass="errorTextsWithBullet" warnClass="warnTextsWithBullet" infoClass="infoTextsWithBullet" globalOnly="true" />
+                    <br/>
+                    <h:commandLink value="Back" actionListener="#{updateListingManagedBean.back}" />
+                    <br/><br/>
+
+                    <h:panelGrid columnClasses="dataTable3Label,dataTable3Value,dataTable3Message" columns="3" rendered="#{updateListingManagedBean.listingToUpdate != null}">
+
+                        <h:outputText style="font-weight: bold;" value="Listing ID"/>
+                        <h:outputText value="#{updateListingManagedBean.listingToUpdate.listingId}"/>
+                        <h:outputText value="" />
+
+                        <h:outputLabel style="font-weight: bold;" for="txtTitle" value="Title" />
+                        <h:inputText id="txtTitle" value="#{updateListingManagedBean.listingToUpdate.title}" required="true" requiredMessage="Name is required" />
+                        <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="txtName" />
+
+                        <h:outputLabel style="font-weight: bold;" for="txtCountry" value="Country" />
+                        <h:inputText id="txtCountry" value="#{updateListingManagedBean.listingToUpdate.country}" required="true" requiredMessage="Name is required" />
+                        <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="txtName" />
+                        
+                        <h:outputLabel style="font-weight: bold;" for="txtCity" value="City" />
+                        <h:inputText id="txtCity" value="#{updateListingManagedBean.listingToUpdate.city}" required="true" requiredMessage="Name is required" />
+                        <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="txtName" />
+                        
+                        <h:outputLabel style="font-weight: bold;" for="txtDescription" value="Description" />
+                        <h:inputText id="txtDescription" value="#{updateListingManagedBean.listingToUpdate.description}" required="true" requiredMessage="Description is required" />
+                        <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="txtDescription" />
+
+                        <h:outputLabel style="font-weight: bold;" for="txtQuantity" value="Quantity" />
+                        <h:inputText id="txtQuantity" value="#{updateListingManagedBean.listingToUpdate.quantity}" required="true" requiredMessage="Quantity On Hand is required" />
+                        <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="txtQuantityOnHand" />
+
+                        <h:outputLabel style="font-weight: bold;" for="txtPrice" value="Price ($)" />
+                        <h:inputText id="txtPrice" value="#{updateListingManagedBean.listingToUpdate.price}" required="true" requiredMessage="Unit Price is required" />
+                        <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="txtUnitPrice" />
+                        
+                         <h:outputLabel style="font-weight: bold;" for="textExpectedArrivalDate" value="Expected Arrival Date" />
+                        <h:inputText id="textExpectedArrivalDate" value="#{updateListingManagedBean.listingToUpdate.expectedArrivalDate}" required="true" requiredMessage="Unit Price is required" />
+                        <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="txtUnitPrice" />
+
+                    </h:panelGrid>
+                    <br/>
+                    <div style="text-align: center;">                       
+                        <h:commandButton value="Update" type="submit" rendered="#{updateListingManagedBean.listingToUpdate != null}">
+                            <f:ajax event="click" execute="@form" render="@form" listener="#{updateListingManagedBean.updateListing}" />
+                        </h:commandButton>
+                    </div>
+                </h:form>
+            </div>
+            
+        </f:view>
+        
+    </ui:define>
+
+</ui:composition>

@@ -7,6 +7,7 @@ package ejb.stateless;
 
 import entity.Conversation;
 import entity.Listing;
+import entity.Message;
 import entity.User;
 import exception.CreateNewConversationException;
 import exception.EmptyListException;
@@ -35,7 +36,7 @@ public class ConversationSessionBean implements ConversationSessionBeanLocal {
     private EntityManager em;
 
     @Override
-    public Long createNewConversation(Conversation convo, Long listingId, Long userId) throws CreateNewConversationException {
+    public Long createNewConversation(Conversation convo, Long listingId, Long userId, Message firstMessage) throws CreateNewConversationException {
         try {
             Listing listing = listingSessionBeanLocal.getListingByListingId(listingId);
             User user = userSessionBeanLocal.getUserByUserId(userId);
@@ -45,6 +46,7 @@ public class ConversationSessionBean implements ConversationSessionBeanLocal {
             if (!listing.getConversations().contains(convo)) {
                 listing.getConversations().add(convo);
             }
+            convo.getMessages().add(firstMessage);
         } catch (EntityNotFoundException ex) {
             throw new CreateNewConversationException();
         }
@@ -83,6 +85,12 @@ public class ConversationSessionBean implements ConversationSessionBeanLocal {
         convo.getMessages().size();
 
         return convo;
+    }
+
+    @Override
+    public void addMessage(Long convoId, Message message) throws EntityNotFoundException {
+        Conversation convo = this.getConversationByConvoId(convoId);
+        convo.getMessages().add(message);
     }
 
 }

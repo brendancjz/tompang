@@ -7,15 +7,19 @@ and open the template in the editor.
     Created on : 22 Feb, 2022, 11:29:34 PM
     Author     : brend
 */
-@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quattrocento+Sans&display=swap');
 
 * {
     margin: 0;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Quattrocento Sans', sans-serif;
 }
 
 #header {
     background-color: #0090E9; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 8vh;
 }
 
 #footer {
@@ -23,9 +27,47 @@ and open the template in the editor.
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 50px;
-    background-color: white;
+    height: 5vh;
+    background-color: #D1D3D4;
     text-align: center;
+}
+
+.github-link {
+    color: black;
+}
+
+#index-main {
+    background-color: #0090E9; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+#main {
+    display: flex;
+    flex-direction: row;
+}
+
+#content {
+    width: 100%;
+    height: 87vh;
+    padding: 20px;
+    float: inherit;
+    overflow-x: overlay;
+}
+
+.sidebarTitle {
+    margin-bottom: 30px;
+    text-decoration: underline;
+}
+
+#sidebar {
+    min-width: 275px;
+    height: 87vh;
+    padding: 20px;
+    background-color: #F1F2F2;
 }
 
 #copyright {
@@ -39,4 +81,106 @@ and open the template in the editor.
 #tompang-logo {
     width: 170px;
     padding: 15px 30px 5px;
+}
+#tompang-big-logo {
+    width: 400px;
+    padding: 15px 30px 5px;
+}
+
+.header-button {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-right: 25px;
+}
+
+.header-buttons {
+    display: flex;
+}
+
+.login-div {
+    width: 25%;
+    margin: 0 auto;
+    padding-top: 10%;
+}
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+}
+
+.loginField {
+    font-size: 20px;
+    width: 75%;
+    min-width: 300px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.inputField {
+    border-radius: 5px;
+    height: 25px;
+    width: 150px;
+    font-size: 18px;
+}
+
+.blue-button {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    background-color: #0090E9;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+
+
+}
+
+.blue-button:hover {
+    cursor: pointer;
+}
+
+.errorText {
+    position: absolute;
+    top: 35px;
+    left: 142px;
+    font-size: 14px;
+    width: 475px;
+}
+
+.sidebarSection {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebarSectionTitle {
+    font-size: 20px;
+    font-weight: 600;
+}
+.sidebarSectionText {
+    font-size: 18px;
+    margin-left: 20px;
+}
+
+.sidebarSectionTextLink {
+    font-size: 18px;
+    margin-left: 20px;
+    margin-bottom: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+.profileForm {
+    width: 50%;
+    margin: 0 auto;
 }

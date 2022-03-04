@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template/sidebarTemplate.xhtml"
+                xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="sidebar" >
+        <h1 class="sidebarTitle">Users Page</h1>
+        <ezcomp:AdminLinks />
+    </ui:define>
+
+
+    <ui:define name="content">
+        <div >
+            <h:form>
+                <p:messages id="messages" redisplay="false" closable="true" />
+                <p:dataTable id="usersTable" widgetVar="usersTable" value="#{viewAllUsersManagedBean.listOfUsers}" var="user" rowKey="#{user.userId}" rowIndexVar="row"
+                             filteredValue="#{viewAllUsersManagedBean.filteredUsers}"
+                             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
+
+                    <f:facet name="header">
+                        <p:outputPanel style="text-align: right;">
+                            <h:outputText value="Search all fields:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('usersTable').filter()" style="width:300px" placeholder="Enter keyword"/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column headerText="ID" width="4%" sortBy="#{user.userId}" >
+                        <h:outputText value="#{user.userId}" />
+                    </p:column>
+
+                    <p:column headerText="First Name" sortBy="#{user.firstName}">
+                        <h:outputText value="#{user.firstName}" />
+                    </p:column>
+
+                    <p:column headerText="Last Name" sortBy="#{user.lastName}">
+                        <h:outputText value="#{user.lastName}" />
+                    </p:column>
+
+                    <p:column headerText="Username" sortBy="#{user.username}">
+                        <h:outputText value="#{user.username}" />
+                    </p:column>
+
+                    <p:column headerText="Contact No." sortBy="#{user.contactNumber}">
+                        <h:outputText value="#{user.contactNumber}" />
+                    </p:column>
+
+                    <p:column headerText="D.O.B" sortBy="#{user.dateOfBirth}">
+                        <h:outputText value="#{viewAllUsersManagedBean.getUserDOB(user)}" />
+                    </p:column>
+
+                    <p:column headerText="Join Date" sortBy="#{user.joinedOn}">
+                        <h:outputText value="#{viewAllUsersManagedBean.getUserJoinedOn(user)}" />
+                    </p:column>
+
+                    <p:column headerText="Email" width="250px" sortBy="#{user.email}">
+                        <h:outputText value="#{user.email}" />
+                    </p:column>
+
+                    <p:column headerText="Action">
+                        <h:commandButton class="blue-button" value="View" actionListener="#{viewAllUsersManagedBean.viewUserDetails}">
+                            <f:attribute name="userId" value="#{user.userId}" />
+                        </h:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>
