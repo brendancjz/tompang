@@ -7,10 +7,10 @@
                 template="/template/sidebarTemplate.xhtml">
 
     <ui:define name="sidebar">
-        <h1 class="sidebarTitle">User Profile Page</h1>
         <h:panelGroup rendered="#{sessionScope.isLogin == true}">
 
             <div class="sidebarSection">
+                <h:link class="sidebarSectionTextLink" id="backToHome" outcome="/home.xhtml">Home</h:link>
                 <h:commandLink class="sidebarSectionTextLink" id="editProfile" value="Edit Profile">
                     <f:ajax event="click" execute="@this" render="@all" listener="#{profileManagedBean.toggleEditProfile}" />
                 </h:commandLink>

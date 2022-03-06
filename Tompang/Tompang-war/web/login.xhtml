@@ -3,7 +3,8 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                template="/template/defaultTemplate.xhtml">
+                template="/template/defaultTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
 
@@ -28,7 +29,7 @@
                     <h:commandButton type="reset" class="blue-button" value="Clear" />
                     <h:commandButton type="submit" class="blue-button" value="Login" actionListener="#{loginManagedBean.login}" />
 
-                    <h:messages errorClass="errorTexts" fatalClass="errorTexts" infoClass="infoTexts" globalOnly="true" />
+                    <p:growl redisplay="false"  />
                 </div>
 
             </h:form>

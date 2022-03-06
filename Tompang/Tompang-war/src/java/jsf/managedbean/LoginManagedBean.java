@@ -12,6 +12,7 @@ import java.io.IOException;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
@@ -52,10 +53,13 @@ public class LoginManagedBean {
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isLogin", true);
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", user);
                 FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/home.xhtml");
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Incorrect username or password.", null));
             }
 
         } catch (EntityNotFoundException ex) {
-            System.out.println("No User found.");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Incorrect username or password.", null));
+            
         }
     }
 

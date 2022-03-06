@@ -4,12 +4,15 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <header id="header">
-        <h:form>
-            <h:commandLink actionListener="#{loginManagedBean.redirectToHomePage}" >
-                <h:graphicImage style="width: 240px;padding: 15px 30px 5px; margin-left: 15px;" library="images" name="tompang_logo_white.png" alt="tompang-logo" />
-                
-            </h:commandLink>
-        </h:form>
+        <div id="tompang-logo">
+            <h:form>
+                <h:commandLink actionListener="#{loginManagedBean.redirectToHomePage}" >
+                    <h:graphicImage style="width: 200px;padding: 15px 30px 5px; margin-left: 15px;" library="images" name="tompang_logo_white.png" alt="tompang-logo" />
+
+                </h:commandLink>
+            </h:form>
+        </div>
+        
         
         
 

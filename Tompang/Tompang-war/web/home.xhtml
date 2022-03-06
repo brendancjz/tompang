@@ -7,13 +7,25 @@
                 xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
 
     <ui:define name="sidebar" >
-        <h1 class="sidebarTitle">Home Page</h1>
         <ezcomp:AdminLinks />
     </ui:define>
 
 
     <ui:define name="content">
-        This is the Home Page.
+        <h1> Home Page </h1>
+        <br></br>
+        
+        <div class="stats-div">
+
+            <div class="statistics">
+                <h2>Users</h2>
+                <p style="font-size: 26px;">#{viewAllUsersManagedBean.getNumberOfUsers()}</p>
+            </div>
+            <div class="statistics">
+                <h2>Listings</h2>
+                <p style="font-size: 26px;">#{viewAllListingsManagedBean.getNumberOfListings()}</p>
+            </div>
+        </div>
     </ui:define>
 
 </ui:composition>

@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -96,6 +98,16 @@ public class ViewAllUsersManagedBean {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
         return simpleDateFormat.format(user.getJoinedOn());
+    }
+    
+    public Integer getNumberOfUsers() {
+        try {
+            return userSessionBean.retrieveAllUsers().size();
+        } catch (EmptyListException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return 0;
     }
 
     public List<User> getListOfUsers() {

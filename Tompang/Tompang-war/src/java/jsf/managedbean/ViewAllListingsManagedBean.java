@@ -9,6 +9,7 @@ import ejb.stateless.ListingSessionBeanLocal;
 import entity.Listing;
 import exception.EmptyListException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -47,6 +48,31 @@ public class ViewAllListingsManagedBean {
         System.err.print(listingIdToView);
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("listingIdToView", listingIdToView);
         FacesContext.getCurrentInstance().getExternalContext().redirect("viewListingDetails.xhtml");
+    }
+    
+    public Integer getNumberOfListings() {
+        
+        try {
+            return listingSessionBean.retrieveAllListings().size();
+        } catch (EmptyListException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return 0;
+    }
+    
+    public String getCreatedOn(Listing listing) {
+        String pattern = "dd-MM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        return simpleDateFormat.format(listing.getCreatedOn());
+    }
+    
+    public String getArrivalDate(Listing listing) {
+        String pattern = "dd-MM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        return simpleDateFormat.format(listing.getExpectedArrivalDate());
     }
     
     public List<Listing> getListings() {
