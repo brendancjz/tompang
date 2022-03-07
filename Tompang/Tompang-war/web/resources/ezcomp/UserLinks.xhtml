@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <cc:interface>
+        
+    </cc:interface>
+
+    <cc:implementation>
+
+        <nav>
+
+            <h:panelGroup rendered="#{sessionScope.isLogin == true}">
+                <div class="sidebarSection">
+                    <h:outputText class="sidebarSectionTitle" value="User Links" />
+                    <h:link class="sidebarSectionTextLink" id="createAListing" outcome="/userPages/createListing.xhtml">Create a Listing</h:link>
+                    
+                </div>
+
+            </h:panelGroup>
+        </nav>
+
+    </cc:implementation>
+</html>

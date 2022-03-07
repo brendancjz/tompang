@@ -7,11 +7,6 @@
                 xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
                 xmlns:p="http://primefaces.org/ui">
     
-     <ui:define name="sidebar" >
-        <h1 class="sidebarTitle">Listing Details Page</h1>
-        <ezcomp:AdminLinks />
-    </ui:define>
-    
     <ui:define name="content">
         
         <f:view beforePhase="#{viewListingDetailsManagedBean.phaseListener}" afterPhase="#{viewListingDetailsManagedBean.phaseListener}">

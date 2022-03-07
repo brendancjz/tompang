@@ -7,13 +7,20 @@
                 xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
 
     <ui:define name="content">
-         <h1> View all Transactions </h1>
-         <br></br>
-        <!--<ezcomp:Breadcrumb pageName="ViewAllTransactions"/>-->
-        This is the View All Transactions Page.
+        <h1> Create a Listing Page </h1>
+        <br></br>
+        
+        <div class="stats-div">
+
+            <div class="statistics">
+                <h2>Users</h2>
+                <p style="font-size: 26px;">#{viewAllUsersManagedBean.getNumberOfUsers()}</p>
+            </div>
+            <div class="statistics">
+                <h2>Listings</h2>
+                <p style="font-size: 26px;">#{viewAllListingsManagedBean.getNumberOfListings()}</p>
+            </div>
+        </div>
     </ui:define>
 
 </ui:composition>
-
-
-
