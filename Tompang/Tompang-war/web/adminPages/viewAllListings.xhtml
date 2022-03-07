@@ -44,6 +44,9 @@
                     <h:outputText value="#{listing.description}" />
                 </p:column>
                 
+                <p:column headerText="Title" sortBy="#{listing.category}" >
+                    <h:outputText value="#{listing.category}" />
+                </p:column>
 <!--                <p:column headerText="Price" width="4%" sortBy="#{listing.price}" >
                     <h:outputText value="$#{listing.price}" />
                 </p:column>-->
