@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Locale;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -24,9 +26,44 @@ import org.primefaces.event.FileUploadEvent;
 public class createListingManagedBean {
     private String uploadedFilePath;
     private Boolean showUploadedFile;
+    private String country;
+    private String city;
+    private HashMap<String, HashMap<String, String>> data = new HashMap<>();
+    private HashMap<String, String> countries;
+    private HashMap<String, String> cities;
 
     public createListingManagedBean() {
         showUploadedFile = false;
+        
+        countries = new HashMap<>();
+        countries.put("USA", "USA");
+        countries.put("Germany", "Germany");
+        countries.put("Brazil", "Brazil");
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("New York", "New York");
+        map.put("San Francisco", "San Francisco");
+        map.put("Denver", "Denver");
+        data.put("USA", map);
+
+        map = new HashMap<>();
+        map.put("Berlin", "Berlin");
+        map.put("Munich", "Munich");
+        map.put("Frankfurt", "Frankfurt");
+        data.put("Germany", map);
+
+        map = new HashMap<>();
+        map.put("Sao Paulo", "Sao Paulo");
+        map.put("Rio de Janerio", "Rio de Janerio");
+        map.put("Salvador", "Salvador");
+        data.put("Brazil", map);
+        
+        String[] isoCodes = Locale.getISOCountries();
+
+        for (int i = 0; i < isoCodes.length; i++) {
+            Locale locale = new Locale("", isoCodes[i]);
+            System.out.println(locale.getDisplayCountry());
+        }
     }
     
     public void handleFileUpload(FileUploadEvent event)
@@ -74,7 +111,14 @@ public class createListingManagedBean {
         }
     }
 
-    
+    public void onCountryChange() {
+        if (country != null && !"".equals(country)) {
+            cities = data.get(country);
+        }
+        else {
+            cities = new HashMap<>();
+        }
+    }
     
     public String getUploadedFilePath() {
         return uploadedFilePath;
@@ -90,6 +134,46 @@ public class createListingManagedBean {
 
     public void setShowUploadedFile(Boolean showUploadedFile) {
         this.showUploadedFile = showUploadedFile;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public HashMap<String, HashMap<String, String>> getData() {
+        return data;
+    }
+
+    public void setData(HashMap<String, HashMap<String, String>> data) {
+        this.data = data;
+    }
+
+    public HashMap<String, String> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(HashMap<String, String> countries) {
+        this.countries = countries;
+    }
+
+    public HashMap<String, String> getCities() {
+        return cities;
+    }
+
+    public void setCities(HashMap<String, String> cities) {
+        this.cities = cities;
     }
     
 }

@@ -10,11 +10,9 @@
     <ui:define name="content">
         <h1> Create a Listing  Page </h1>
         <br></br>
-
-        <div>
-            First, upload photos of the product you would like to buy back
-
-            <h:form id="formFileUpload" enctype="multipart/form-data">
+        <h:form id="formFileUpload" enctype="multipart/form-data">
+            <div>
+                <h2>Step 1: Uploaded Photos</h2>
 
                 <p:panel header="File Upload">
                     <p:messages  redisplay="false">
@@ -26,22 +24,41 @@
                 </p:panel>
 
                 <br/>
+                <!--
+                                <p:panel header="Uploaded File" visible="#{createListingManagedBean.showUploadedFile}">
+                                    <p:graphicImage value="#{createListingManagedBean.uploadedFilePath}" height="50%" />
+                                </p:panel>
+                -->
+            </div>
+            <div>
+                <h2>Step 2: Select Country and City</h2>
+                <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
 
-                <p:panel header="Uploaded File" visible="#{createListingManagedBean.showUploadedFile}">
-                    <p:graphicImage value="#{createListingManagedBean.uploadedFilePath}" height="50%" />
+                <p:panel header="Select a Location" style="margin-bottom:10px;">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:outputLabel for="country" value="Country: "/>
+                        <p:selectOneMenu id="country" value="#{createListingManagedBean.country}" style="width:150px">
+                            <p:ajax listener="#{createListingManagedBean.onCountryChange}" update="city"/>
+                            <f:selectItem itemLabel="Select Country" itemValue="" noSelectionOption="true"/>
+                            <f:selectItems value="#{createListingManagedBean.countries}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="city" value="City: "/>
+                        <p:selectOneMenu id="city" value="#{createListingManagedBean.city}" style="width:150px">
+                            <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true"/>
+                            <f:selectItems value="#{createListingManagedBean.cities}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
                 </p:panel>
 
-            </h:form>
-        </div>
-        <div>
-            Second, select the country and city you will buy the product in.
-        </div>
-        <div>
-            Third, select the category of your product.
-        </div>
-        <div>
-            Fourth, input Listing title, then input price and quantity you can carry, then input description
-        </div>
+            </div>
+            <div>
+                Third, select the category of your product.
+            </div>
+            <div>
+                Fourth, input Listing title, then input price and quantity you can carry, then input description
+            </div>
+        </h:form>
     </ui:define>
 
 </ui:composition>
