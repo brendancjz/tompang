@@ -48,6 +48,9 @@ public class Listing implements Serializable {
     @Column(nullable = false, length = 255)
     @NotNull
     private String description;
+    @Column(nullable = false, length = 50)
+    @NotNull
+    private String category;
     @Column(nullable = false)
     @NotNull
     @Digits(integer=6, fraction=2)
@@ -90,22 +93,31 @@ public class Listing implements Serializable {
     public Listing() {
         this.createdOn = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         this.conversations = new ArrayList<>();
-        this.photos = new ArrayList<String>();
+        this.photos = new ArrayList<>();
         this.numOfLikes = 0;
         this.isOpen = true;
         this.isDisabled = false;
     }
 
-    public Listing(String country, String city, String title, String description, Double price, Date expectedArrivalDate, User createdBy, Integer quantity) {
+    public Listing(String country, String city, String title, String description, String category, Double price, Date expectedArrivalDate, User createdBy, Integer quantity) {
         this();
         this.country = country;
         this.city = city;
         this.title = title;
         this.description = description;
+        this.category = category;
         this.price = price;
         this.expectedArrivalDate = expectedArrivalDate;
         this.createdBy = createdBy;
         this.quantity = quantity;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Long getListingId() {
