@@ -30,6 +30,7 @@ import org.primefaces.event.FileUploadEvent;
 @ViewScoped
 public class createListingManagedBean implements Serializable {
     private List<String> uploadedFilePaths;
+    private Boolean showUploadedFile;
     private String country;
     private String city;
     private HashMap<String, HashMap<String, String>> data = new HashMap<>();
@@ -134,6 +135,7 @@ public class createListingManagedBean implements Serializable {
             inputStream.close();
             
             uploadedFilePaths.add(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("uploadedFilesPath") + "/" + event.getFile().getFileName());
+            showUploadedFile = true;
             
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,  "File uploaded successfully", ""));
         }
@@ -150,6 +152,22 @@ public class createListingManagedBean implements Serializable {
         else {
             cities = new HashMap<>();
         }
+    }
+
+    public List<String> getUploadedFilePaths() {
+        return uploadedFilePaths;
+    }
+
+    public void setUploadedFilePaths(List<String> uploadedFilePaths) {
+        this.uploadedFilePaths = uploadedFilePaths;
+    }
+
+    public Boolean getShowUploadedFile() {
+        return showUploadedFile;
+    }
+
+    public void setShowUploadedFile(Boolean showUploadedFile) {
+        this.showUploadedFile = showUploadedFile;
     }
 
     public Date getExpectedArrivalDate() {

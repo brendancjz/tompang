@@ -12,27 +12,30 @@
         <br></br>
         <h:form id="formFileUpload" enctype="multipart/form-data">
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
-            <div>
+            <div class="listing-div">
                 <h2>Step 1: Upload Photos</h2>
 
-                <p:panel header="File Upload">
-
+                <p:panel header="File Upload" style="margin-top:10px;padding: 0.5em;">
                     <p:fileUpload listener="#{createListingManagedBean.handleFileUpload}" multiple="true" update="@form" />
-
                 </p:panel>
 
                 <br/>
-                <!--
-                    <p:panel header="Uploaded File" visible="#{createListingManagedBean.showUploadedFile}">
-                        <p:graphicImage value="#{createListingManagedBean.uploadedFilePath}" height="50%" />
-                    </p:panel>
-                -->
-            </div>
-            <div>
-                <h2>Step 2: Select Country and City</h2>
-                
+                <p:panel header="Uploaded File" visible="#{createListingManagedBean.showUploadedFile}">
+                    <p:dataView var="image" value="#{createListingManagedBean.uploadedFilePaths}" layout="grid">
 
-                <p:panel header="Select a Location" style="margin-bottom:10px;">
+                        <p:dataViewGridItem>
+                            <div style="display: flex;flex-direction: column;align-items: center;">
+                                <p:graphicImage value="#{image}" width="100%"/>
+                                <h3>#{image.substring(15)}</h3>
+                            </div>
+                        </p:dataViewGridItem>
+                    </p:dataView>
+                </p:panel>
+            </div>
+            <div class="listing-div">
+                <h2>Step 2: Select Country and City</h2>
+
+                <p:panel header="Select a Location" style="margin-top:10px;padding: 0.5em;">
                     <h:panelGrid columns="2" cellpadding="5">
                         <p:outputLabel for="country" value="Country:"/>
                         <p:selectOneMenu id="country" value="#{createListingManagedBean.country}" style="width:150px" required="true">
@@ -41,18 +44,18 @@
                             <f:selectItems value="#{createListingManagedBean.countries}"/>
                         </p:selectOneMenu>
 
-<!--                        <p:outputLabel for="city" value="City:"/>
-                        <p:selectOneMenu id="city" value="#{createListingManagedBean.city}" style="width:150px">
-                            <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true"/>
-                            <f:selectItems value="#{createListingManagedBean.cities}"/>
-                        </p:selectOneMenu>-->
+                        <!--                        <p:outputLabel for="city" value="City:"/>
+                                                <p:selectOneMenu id="city" value="#{createListingManagedBean.city}" style="width:150px">
+                                                    <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{createListingManagedBean.cities}"/>
+                                                </p:selectOneMenu>-->
                     </h:panelGrid>
                 </p:panel>
 
             </div>
-            <div>
+            <div class="listing-div">
                 <h2>Step 3: Select Category</h2>
-                <p:panel header="Select a Category" style="margin-bottom:10px;">
+                <p:panel header="Select a Category" style="margin-top:10px;padding: 0.5em;">
                     <h:panelGrid columns="2" cellpadding="5">
                         <p:outputLabel for="category" value="Category:"/>
                         <p:selectOneMenu id="category" value="#{createListingManagedBean.category}" style="width:150px" required="true">
@@ -62,10 +65,10 @@
                     </h:panelGrid>
                 </p:panel>
             </div>
-            <div>
+            <div class="listing-div">
                 <h2>Step 4: Input Title, Price and Quantity</h2>
 
-                <p:panel header="Input Information" style="margin-bottom:10px;">
+                <p:panel header="Input Information" style="margin-top:10px;padding: 0.5em;">
                     <h:panelGrid columns="2" cellpadding="5">
                         <p:outputLabel for="title" value="Title:"/>
                         <p:inputText id="title" placeholder="Title" value="#{createListingManagedBean.title}" required="true" />
@@ -78,9 +81,9 @@
                     </h:panelGrid>
                 </p:panel>
             </div>
-            <div>
+            <div class="listing-div">
                 <h2>Step 5: Input Description</h2>
-                <p:panel header="Input Information" style="margin-bottom:10px;">
+                <p:panel header="Input Information" style="margin-top:10px;padding: 0.5em;">
                     <h:panelGrid columns="2" cellpadding="5" >
                         <p:outputLabel for="description" value="Description:"/>
                         <p:inputTextarea id="description" placeholder="Description" 
@@ -89,19 +92,21 @@
                     </h:panelGrid>
                 </p:panel>
             </div>
-            <div>
-                <h2>Step 7: Delivery</h2>
-                <p:panel header="Input Information" style="margin-bottom:10px;">
+            <div class="listing-div">
+                <h2>Step 6: Delivery</h2>
+                <p:panel header="Input Information" style="margin-top:10px;padding: 0.5em;">
                     <h:panelGrid columns="2" cellpadding="5" >
                         <p:outputLabel for="arrivalDate" value="Expected Arrival Date: "/>
                         <p:datePicker id="arrivalDate" value="#{createListingManagedBean.expectedArrivalDate}" required="true" />
                     </h:panelGrid>
                 </p:panel>
             </div>
+            <div class="listing-div">
+                <h:commandButton class="blue-button" value="Create" type="submit" >
+                    <f:ajax event="click" execute="@form" render="@form" listener="#{createListingManagedBean.createListing}" />
+                </h:commandButton>
+            </div>
 
-            <h:commandButton class="blue-button" value="Create" type="submit">
-                <f:ajax event="click" execute="@form" render="@form" listener="#{createListingManagedBean.createListing}" />
-            </h:commandButton>
         </h:form>
         <div style="height: 200px;">
 

@@ -202,3 +202,8 @@ and open the template in the editor.
     display: flex;
     justify-content: center;
 }
+
+.listing-div {
+    width: 80%;
+    margin: 0 auto 30px auto;
+}
