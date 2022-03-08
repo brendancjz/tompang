@@ -9,12 +9,17 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.view.ViewScoped;
 import org.primefaces.event.FileUploadEvent;
 
 /**
@@ -22,18 +27,34 @@ import org.primefaces.event.FileUploadEvent;
  * @author brend
  */
 @Named(value = "createListingManagedBean")
-@RequestScoped
-public class createListingManagedBean {
-    private String uploadedFilePath;
-    private Boolean showUploadedFile;
+@ViewScoped
+public class createListingManagedBean implements Serializable {
+    private List<String> uploadedFilePaths;
     private String country;
     private String city;
     private HashMap<String, HashMap<String, String>> data = new HashMap<>();
     private HashMap<String, String> countries;
     private HashMap<String, String> cities;
+    
+    private String category;
+    private HashMap<String, String> categories;
+    
+    private String title;
+    private Double price;
+    private Integer quantity;
+    
+    private String description;
+    private Date expectedArrivalDate;
 
     public createListingManagedBean() {
-        showUploadedFile = false;
+        uploadedFilePaths = new ArrayList<>();
+        categories = new HashMap<>();
+        categories.put("FOOD", "FOOD");
+        categories.put("APPAREL", "APPAREL");
+        categories.put("ACCESSORIES", "ACCESSORIES");
+        categories.put("FOOTWEAR", "FOOTWEAR");
+        categories.put("GIFTS", "GIFTS");
+        categories.put("ELECTRONICS", "ELECTRONICS");
         
         countries = new HashMap<>();
         countries.put("USA", "USA");
@@ -62,10 +83,22 @@ public class createListingManagedBean {
 
         for (int i = 0; i < isoCodes.length; i++) {
             Locale locale = new Locale("", isoCodes[i]);
-            System.out.println(locale.getDisplayCountry());
         }
     }
     
+    
+    public void createListing(AjaxBehaviorEvent event) {
+        System.out.println("Country:" + country);
+        System.out.println("City: " + city);
+        System.out.println("Title: " + title);
+        System.out.println("Price: " + price);
+        System.out.println("Quantity: " + quantity);
+        System.out.println("Description: " + description);
+        System.out.println("Arrival Date: " + expectedArrivalDate.toInstant().toString());
+        for (String file : uploadedFilePaths) {
+            System.out.println("File: " + file);
+        }
+    }
     public void handleFileUpload(FileUploadEvent event)
     {
         try
@@ -100,8 +133,7 @@ public class createListingManagedBean {
             fileOutputStream.close();
             inputStream.close();
             
-            setUploadedFilePath(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("uploadedFilesPath") + "/" + event.getFile().getFileName());
-            showUploadedFile = true;
+            uploadedFilePaths.add(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("uploadedFilesPath") + "/" + event.getFile().getFileName());
             
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,  "File uploaded successfully", ""));
         }
@@ -119,21 +151,61 @@ public class createListingManagedBean {
             cities = new HashMap<>();
         }
     }
-    
-    public String getUploadedFilePath() {
-        return uploadedFilePath;
+
+    public Date getExpectedArrivalDate() {
+        return expectedArrivalDate;
     }
 
-    public void setUploadedFilePath(String uploadedFilePath) {
-        this.uploadedFilePath = uploadedFilePath;
-    }
-    
-    public Boolean getShowUploadedFile() {
-        return showUploadedFile;
+    public void setExpectedArrivalDate(Date expectedArrivalDate) {
+        this.expectedArrivalDate = expectedArrivalDate;
     }
 
-    public void setShowUploadedFile(Boolean showUploadedFile) {
-        this.showUploadedFile = showUploadedFile;
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public HashMap<String, String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(HashMap<String, String> categories) {
+        this.categories = categories;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public String getCountry() {
