@@ -16,7 +16,7 @@
                 <h2>Step 1: Upload Photos</h2>
 
                 <p:panel header="File Upload" style="margin-top:10px;padding: 0.5em;">
-                    <p:fileUpload listener="#{createListingManagedBean.handleFileUpload}" multiple="true" update="@form" />
+                    <p:fileUpload listener="#{createListingManagedBean.handleFileUpload}" multiple="true" update="@form:formFileUpload" />
                 </p:panel>
 
                 <br/>
@@ -32,6 +32,8 @@
                     </p:dataView>
                 </p:panel>
             </div>
+        </h:form>
+        <h:form id="listingInfo">
             <div class="listing-div">
                 <h2>Step 2: Select Country and City</h2>
 
@@ -39,16 +41,16 @@
                     <h:panelGrid columns="2" cellpadding="5">
                         <p:outputLabel for="country" value="Country:"/>
                         <p:selectOneMenu id="country" value="#{createListingManagedBean.country}" style="width:150px" required="true">
-                            <!--<p:ajax listener="#{createListingManagedBean.onCountryChange}" update="city"/>-->
+                            <p:ajax listener="#{createListingManagedBean.onCountryChange}" update="city"/>
                             <f:selectItem itemLabel="Select Country" itemValue="" noSelectionOption="true"/>
                             <f:selectItems value="#{createListingManagedBean.countries}"/>
                         </p:selectOneMenu>
 
-                        <!--                        <p:outputLabel for="city" value="City:"/>
-                                                <p:selectOneMenu id="city" value="#{createListingManagedBean.city}" style="width:150px">
-                                                    <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true"/>
-                                                    <f:selectItems value="#{createListingManagedBean.cities}"/>
-                                                </p:selectOneMenu>-->
+                        <p:outputLabel for="city" value="City:"/>
+                        <p:selectOneMenu id="city" value="#{createListingManagedBean.city}" style="width:150px">
+                            <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true"/>
+                            <f:selectItems value="#{createListingManagedBean.cities}"/>
+                        </p:selectOneMenu>
                     </h:panelGrid>
                 </p:panel>
 
@@ -103,7 +105,7 @@
             </div>
             <div class="listing-div">
                 <h:commandButton class="blue-button" value="Create" type="submit" >
-                    <f:ajax event="click" execute="@form" render="@form" listener="#{createListingManagedBean.createListing}" />
+                    <f:ajax event="click" execute="@form:listingInfo" render="@all" listener="#{createListingManagedBean.createListing}" />
                 </h:commandButton>
             </div>
 

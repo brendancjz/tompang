@@ -13,7 +13,8 @@
         <!--<ezcomp:Breadcrumb pageName="ViewAllUsers"/>-->
         <div >
             <h:form id="listOfUsers">
-                <p:messages id="messages" redisplay="false" closable="true" />
+                <p:growl id="messages" redisplay="false"  />
+                
                 <p:dataTable id="usersTable" widgetVar="usersTable" value="#{viewAllUsersManagedBean.listOfUsers}" var="user" rowKey="#{user.userId}" rowIndexVar="row"
                              filteredValue="#{viewAllUsersManagedBean.filteredUsers}"
                              rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
@@ -25,35 +26,35 @@
                         </p:outputPanel>
                     </f:facet>
 
-                    <p:column headerText="ID" width="4%" sortBy="#{user.userId}" >
+                    <p:column headerText="ID" width="4%" style="height: 30px" filterBy="#{user.userId}" sortBy="#{user.userId}" filterStyle="display:none;">
                         <h:outputText value="#{user.userId}" />
                     </p:column>
 
-                    <p:column headerText="First Name" filterBy="#{user.firstName}" sortBy="#{user.firstName}">
+                    <p:column headerText="First Name" filterBy="#{user.firstName}" sortBy="#{user.firstName}" filterStyle="display:none;">
                         <h:outputText value="#{user.firstName}" />
                     </p:column>
 
-                    <p:column headerText="Last Name" sortBy="#{user.lastName}">
+                    <p:column headerText="Last Name" filterBy="#{user.lastName}" sortBy="#{user.lastName}" filterStyle="display:none;">
                         <h:outputText value="#{user.lastName}" />
                     </p:column>
 
-                    <p:column headerText="Username" sortBy="#{user.username}">
+                    <p:column headerText="Username" filterBy="#{user.username}" sortBy="#{user.username}" filterStyle="display:none;">
                         <h:outputText value="#{user.username}" />
                     </p:column>
 
-                    <p:column headerText="Contact No." sortBy="#{user.contactNumber}">
+                    <p:column headerText="Contact No." filterBy="#{user.contactNumber}" sortBy="#{user.contactNumber}" filterStyle="display:none;">
                         <h:outputText value="#{user.contactNumber}" />
                     </p:column>
 
-                    <p:column headerText="D.O.B" sortBy="#{user.dateOfBirth}">
+                    <p:column headerText="D.O.B" filterBy="#{user.dateOfBirth}" sortBy="#{user.dateOfBirth}" filterStyle="display:none;">
                         <h:outputText value="#{viewAllUsersManagedBean.getUserDOB(user)}" />
                     </p:column>
 
-                    <p:column headerText="Join Date" sortBy="#{user.joinedOn}">
+                    <p:column headerText="Join Date" filterBy="#{user.joinedOn}" sortBy="#{user.joinedOn}" filterStyle="display:none;">
                         <h:outputText value="#{viewAllUsersManagedBean.getUserJoinedOn(user)}" />
                     </p:column>
 
-                    <p:column headerText="Email" width="250px" sortBy="#{user.email}">
+                    <p:column headerText="Email" width="250px" filterBy="#{user.email}" sortBy="#{user.email}" filterStyle="display:none;">
                         <h:outputText value="#{user.email}" />
                     </p:column>
 

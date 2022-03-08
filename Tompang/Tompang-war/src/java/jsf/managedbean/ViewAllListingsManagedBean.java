@@ -30,7 +30,7 @@ public class ViewAllListingsManagedBean {
     private ListingSessionBeanLocal listingSessionBean;
     
     private List<Listing> listings;
-    
+    private List<Listing> filteredListings;
     public ViewAllListingsManagedBean() {
     }
 
@@ -81,6 +81,14 @@ public class ViewAllListingsManagedBean {
 
     public void setListOfListings(List<Listing> listings) {
         this.listings = listings;
+    }
+
+    public List<Listing> getFilteredListings() {
+        return filteredListings;
+    }
+
+    public void setFilteredListings(List<Listing> filteredListings) {
+        this.filteredListings = filteredListings;
     }
     
 }
