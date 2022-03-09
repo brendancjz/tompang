@@ -192,15 +192,24 @@ and open the template in the editor.
 }
 
 .statistics {
-    width: 15%;
+    width: 150px;
+    height: 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    outline:0.3em solid #0090E9; 
+    border-radius: 50%;
+    color: #0090E9;
+    font-weight: bold;
 }
 
 .stats-div {
+    width: 60%;
+    min-width: 400px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    margin: 0 auto;
 }
 
 .listing-div {
