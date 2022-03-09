@@ -19,7 +19,7 @@ and open the template in the editor.
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 8vh;
+    height: 10vh;
 }
 
 #footer {
@@ -27,7 +27,7 @@ and open the template in the editor.
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 5vh;
+    height: 8vh;
     background-color: #D1D3D4;
     text-align: center;
 }
@@ -52,7 +52,7 @@ and open the template in the editor.
 
 #content {
     width: 100%;
-    height: 87vh;
+    height: 83vh;
     padding: 20px;
     float: inherit;
     overflow-x: overlay;
@@ -64,8 +64,8 @@ and open the template in the editor.
 }
 
 #sidebar {
-    min-width: 275px;
-    height: 87vh;
+    min-width: 230px;
+    height: 83vh;
     padding: 20px;
     background-color: #F1F2F2;
 }
@@ -80,7 +80,7 @@ and open the template in the editor.
 }
 
 #tompang-logo {
-    width: 316px;
+    width: 270px;
 }
 
 #tompang-logo:hover {
@@ -206,4 +206,14 @@ and open the template in the editor.
 .listing-div {
     width: 80%;
     margin: 0 auto 30px auto;
+}
+
+.dataTableDiv {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.viewDataTable {
+    width: 1400px;
 }

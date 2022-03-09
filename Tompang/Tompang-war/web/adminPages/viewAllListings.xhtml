@@ -11,53 +11,54 @@
         <h1> View all Listings </h1>
         <br></br>
         <!--<ezcomp:Breadcrumb pageName="ViewAllListings"/>-->
-        <h:form>
-            <p:growl id="messages" redisplay="false"  />
+        <div class="dataTableDiv">
+            <h:form class="viewDataTable">
+                <p:growl id="messages" redisplay="false"  />
 
-            <p:dataTable id="listingsTable" widgetVar="listingsTable" value="#{viewAllListingsManagedBean.listings}" var="listing" rowKey="#{listing.listingId}" rowIndexVar="row"
-                         filteredValue="#{viewAllListingsManagedBean.filteredListings}"
-                         rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
+                <p:dataTable id="listingsTable" widgetVar="listingsTable" value="#{viewAllListingsManagedBean.listings}" var="listing" rowKey="#{listing.listingId}" rowIndexVar="row"
+                             filteredValue="#{viewAllListingsManagedBean.filteredListings}"
+                             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
 
-                <f:facet name="header">
-                    <p:outputPanel style="text-align: right;">
-                        <h:outputText value="Search all fields:" />
-                        <p:inputText id="globalFilter" onkeyup="PF('listingsTable').filter()" style="width:300px" placeholder="Enter keyword"/>
-                    </p:outputPanel>
-                </f:facet>
-                <p:column headerText="ID" width="4%" sortBy="#{listing.listingId}" filterBy="#{listing.listingId}" filterStyle="display:none;">
-                    <h:outputText value="#{listing.listingId}" />
-                </p:column>
+                    <f:facet name="header">
+                        <p:outputPanel style="text-align: right;">
+                            <h:outputText value="Search all fields:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('listingsTable').filter()" style="width:200px" placeholder="Enter keyword"/>
+                        </p:outputPanel>
+                    </f:facet>
+                    <p:column headerText="ID" width="4%" sortBy="#{listing.listingId}" filterBy="#{listing.listingId}" filterStyle="display:none;">
+                        <h:outputText value="#{listing.listingId}" />
+                    </p:column>
 
-                <p:column headerText="Country" sortBy="#{listing.country}" filterBy="#{listing.country}" filterStyle="display:none;">
-                    <h:outputText value="#{listing.country}" />
-                </p:column>
+                    <p:column headerText="Country" sortBy="#{listing.country}" filterBy="#{listing.country}" filterStyle="display:none;">
+                        <h:outputText value="#{listing.country}" />
+                    </p:column>
 
-                <p:column headerText="City" sortBy="#{listing.city}" filterBy="#{listing.city}" filterStyle="display:none;">
-                    <h:outputText value="#{listing.city}" />
-                </p:column>
+                    <p:column headerText="City" sortBy="#{listing.city}" filterBy="#{listing.city}" filterStyle="display:none;">
+                        <h:outputText value="#{listing.city}" />
+                    </p:column>
 
-                <p:column headerText="Title" sortBy="#{listing.title}" filterBy="#{listing.title}" filterStyle="display:none;">
-                    <h:outputText value="#{listing.title}" />
-                </p:column>
+                    <p:column headerText="Title" sortBy="#{listing.title}" filterBy="#{listing.title}" filterStyle="display:none;">
+                        <h:outputText value="#{listing.title}" />
+                    </p:column>
 
-                <p:column headerText="Creation Date" sortBy="#{listing.createdOn}" filterBy="#{listing.createdOn}" filterStyle="display:none;">
-                    <h:outputText value="#{viewAllListingsManagedBean.getCreatedOn(listing)}" />
-                </p:column>
+                    <p:column headerText="Creation Date" sortBy="#{listing.createdOn}" filterBy="#{listing.createdOn}" filterStyle="display:none;">
+                        <h:outputText value="#{viewAllListingsManagedBean.getCreatedOn(listing)}" />
+                    </p:column>
 
-                <p:column headerText="Expected Arrival Date" sortBy="#{listing.expectedArrivalDate}" filterBy="#{listing.expectedArrivalDate}" filterStyle="display:none;">
-                    <h:outputText value="#{viewAllListingsManagedBean.getArrivalDate(listing)}" />
-                </p:column>
+                    <p:column headerText="Arrival Date" sortBy="#{listing.expectedArrivalDate}" filterBy="#{listing.expectedArrivalDate}" filterStyle="display:none;">
+                        <h:outputText value="#{viewAllListingsManagedBean.getArrivalDate(listing)}" />
+                    </p:column>
 
-                <p:column headerText="Description" width="25%" sortBy="#{listing.description}" filterBy="#{listing.description}" filterStyle="display:none;">
-                    <h:outputText value="#{listing.description}" />
-                </p:column>
+                    <p:column headerText="Description" width="25%" sortBy="#{listing.description}" filterBy="#{listing.description}" filterStyle="display:none;">
+                        <h:outputText value="#{listing.description}" />
+                    </p:column>
 
-                <p:column headerText="Title" sortBy="#{listing.category}" filterBy="#{listing.category}" filterStyle="display:none;">
-                    <h:outputText value="#{listing.category}" />
-                </p:column>
-<!--                <p:column headerText="Price" width="4%" sortBy="#{listing.price}" >
-                    <h:outputText value="$#{listing.price}" />
-                </p:column>-->
+                    <p:column headerText="Title" sortBy="#{listing.category}" filterBy="#{listing.category}" filterStyle="display:none;">
+                        <h:outputText value="#{listing.category}" />
+                    </p:column>
+    <!--                <p:column headerText="Price" width="4%" sortBy="#{listing.price}" >
+                        <h:outputText value="$#{listing.price}" />
+                    </p:column>-->
 
 
 
@@ -73,13 +74,14 @@
     <h:outputText value="#{listing.photos}" />
 </p:column>-->
 
-                <p:column headerText="Action" >
-                    <h:commandButton class="blue-button" value="View" actionListener="#{viewAllListingsManagedBean.viewListingDetails}">
-                        <f:attribute name="listingId" value="#{listing.listingId}" />
-                    </h:commandButton>
-                </p:column>
-            </p:dataTable>
-        </h:form>
+                    <p:column headerText="Action" >
+                        <h:commandButton class="blue-button" value="View" actionListener="#{viewAllListingsManagedBean.viewListingDetails}">
+                            <f:attribute name="listingId" value="#{listing.listingId}" />
+                        </h:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
     </ui:define>
 
 </ui:composition>

@@ -45,8 +45,9 @@ public class ViewAllUsersManagedBean implements Serializable {
 
     @PostConstruct
     public void retrieveAllUsers() {
+        System.out.println("Post Construct of ViewAllUsersManagedBean called.");
         try {
-            listOfUsers = userSessionBean.retrieveAllUsers();
+            listOfUsers = userSessionBean.retrieveAllNotDisabledUsers();
         } catch (EmptyListException ex) {
             System.out.println("Unable to retrieve list of users.");
         }
@@ -59,6 +60,7 @@ public class ViewAllUsersManagedBean implements Serializable {
     }
 
     public void deleteUser(ActionEvent event) {
+        System.out.println("Deleting User in ViewAllUsersManagedBean");
         try {
             User userEntityToDelete = (User) event.getComponent().getAttributes().get("userEntityToDelete");
             userSessionBean.deleteUser(userEntityToDelete.getUserId());
@@ -68,6 +70,10 @@ public class ViewAllUsersManagedBean implements Serializable {
             if (filteredUsers != null) {
                 filteredUsers.remove(userEntityToDelete);
             }
+            
+            for (User user : userSessionBean.retrieveAllUsers()) {
+                System.out.println("User: " + user.getUserId());
+            } 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "User deleted successfully", null));
         } catch (EntityNotFoundException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while deleting user: " + ex.getMessage(), null));

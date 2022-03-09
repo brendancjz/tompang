@@ -59,6 +59,20 @@ public class UserSessionBean implements UserSessionBeanLocal {
 
         return users; 
     }
+    
+    @Override
+    public List<User> retrieveAllNotDisabledUsers() throws EmptyListException {
+         
+
+        List<User> users = this.retrieveAllUsers();
+        
+        for (int i = 0; i < users.size(); i++) {
+            User user = users.get(i);
+            if (user.getIsDisabled()) users.remove(user);
+        }
+
+        return users; 
+    }
 
     @Override
     public User getUserByUserId(Long userId) throws EntityNotFoundException {
@@ -138,6 +152,7 @@ public class UserSessionBean implements UserSessionBeanLocal {
             user.setIsDisabled(true);
         } else { 
             em.remove(user);
+            System.out.println("Successfully deleted User from sesison bean.");
         }
 
     }
@@ -186,5 +201,7 @@ public class UserSessionBean implements UserSessionBeanLocal {
             throw new InvalidLoginCredentialsException("Username does not exist or invalid password!");
         }
     }
+
+    
 
 }

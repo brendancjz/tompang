@@ -40,5 +40,7 @@ public interface UserSessionBeanLocal {
     public User retrieveUserByUsername(String username) throws EntityNotFoundException;
     
     public User userLogin(String username, String password) throws InvalidLoginCredentialsException;
+
+    public List<User> retrieveAllNotDisabledUsers() throws EmptyListException;
     
 }
