@@ -27,7 +27,7 @@ import javax.faces.view.ViewScoped;
 @Named(value = "viewListingDetailsManagedBean")
 @ViewScoped
 
-public class viewListingDetailsManagedBean implements Serializable {
+public class ViewListingDetailsManagedBean implements Serializable {
 
     @EJB
     private ListingSessionBeanLocal listingSessionBeanLocal;
@@ -36,7 +36,7 @@ public class viewListingDetailsManagedBean implements Serializable {
     private String backMode;
     private Listing listingToView;
     
-    public viewListingDetailsManagedBean() {
+    public ViewListingDetailsManagedBean() {
     }
     
     @PostConstruct

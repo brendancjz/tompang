@@ -35,7 +35,7 @@ import org.primefaces.event.FileUploadEvent;
  */
 @Named(value = "createListingManagedBean")
 @ViewScoped
-public class createListingManagedBean implements Serializable {
+public class CreateListingManagedBean implements Serializable {
 
     @EJB
     private ListingSessionBeanLocal listingSessionBean;
@@ -58,7 +58,7 @@ public class createListingManagedBean implements Serializable {
     private String description;
     private Date expectedArrivalDate;
 
-    public createListingManagedBean() {
+    public CreateListingManagedBean() {
         uploadedFilePaths = new ArrayList<>();
         categories = new HashMap<>();
         categories.put("FOOD", "FOOD");

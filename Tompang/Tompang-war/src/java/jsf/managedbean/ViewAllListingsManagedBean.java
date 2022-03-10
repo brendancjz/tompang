@@ -20,6 +20,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 
+
 /**
  *
  * @author GuoJun
@@ -32,8 +33,8 @@ public class ViewAllListingsManagedBean implements Serializable {
     @EJB
     private ListingSessionBeanLocal listingSessionBean;
     
-    //@Inject
-    //private ViewListingDetailsManagedBean viewListingDetailsManagedBean;
+    @Inject
+    private ViewListingDetailsManagedBean viewListingDetailsManagedBean;
     
     private List<Listing> listings;
     private List<Listing> filteredListings;
