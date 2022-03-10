@@ -26,7 +26,8 @@
 /Tompang/nbproject/project.properties
 
 # EJB Folder
-/Tompang/Tompang-war/web/WEB-INF/*
+/Tompang/Tompang-war/web/WEB-INF/glassfish-web.xml
+/Tompang/Tompang-war/web/WEB-INF/web.xml
 /Tompang/Tompang-war/nbproject/private/
 /Tompang/Tompang-war/nbproject/project.properties
 /Tompang/Tompang-ejb/nbproject/private/

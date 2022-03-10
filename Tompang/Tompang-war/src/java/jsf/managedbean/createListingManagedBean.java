@@ -19,8 +19,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
@@ -128,7 +126,8 @@ public class CreateListingManagedBean implements Serializable {
 
     public void handleFileUpload(FileUploadEvent event) {
         try {
-            String newFilePath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("alternatedocroot_1") + System.getProperty("file.separator") + event.getFile().getFileName();
+            String newFilePath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("alternatedocroot_1") + 
+                    System.getProperty("file.separator") + event.getFile().getFileName();
 
             System.err.println("********** CreateListingManagedBean.handleFileUpload(): File name: " + event.getFile().getFileName());
             System.err.println("********** CreateListingManagedBean.handleFileUpload(): newFilePath: " + newFilePath);
