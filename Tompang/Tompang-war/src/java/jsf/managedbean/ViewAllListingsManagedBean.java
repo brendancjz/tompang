@@ -6,32 +6,34 @@
 package jsf.managedbean;
 
 import ejb.stateless.ListingSessionBeanLocal;
-import ejb.stateless.UserSessionBeanLocal;
 import entity.Listing;
 import exception.EmptyListException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 
 /**
  *
  * @author GuoJun
  */
 @Named(value = "viewAllListingsManagedBean")
-@RequestScoped
-public class ViewAllListingsManagedBean {
+@ViewScoped
+public class ViewAllListingsManagedBean implements Serializable {
 
-    @EJB
-    private UserSessionBeanLocal userSessionBean;
-
+    
     @EJB
     private ListingSessionBeanLocal listingSessionBean;
+    
+    //@Inject
+    //private ViewListingDetailsManagedBean viewListingDetailsManagedBean;
     
     private List<Listing> listings;
     private List<Listing> filteredListings;

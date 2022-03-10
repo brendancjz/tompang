@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <cc:interface>
+    </cc:interface>
+
+    <cc:implementation>
+
+        <h:form id="formViewListingDetails">
+
+            <p:dialog id="dialogViewListingDetails" widgetVar="dialogViewListingDetails" header="View Listing Details" closable="true">
+
+                <p:panelGrid>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Listing ID: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.listingId}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Country: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.country}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="City: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.city}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Title: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.title}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Description: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.description}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Category " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.category}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Price: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.price}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Created On: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.createdOn.toString().substring(4, 10)}
+                                          #{viewListingDetailsManagedBean.listingToView.createdOn.toString().substring(24)}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Expected Arrival Date: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.expectedArrivalDate.toString().substring(4, 10)}
+                                          #{viewListingDetailsManagedBean.listingToView.expectedArrivalDate.toString().substring(24)}" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Number of Likes: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.numOfLikes}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Quantity: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.quantity}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Is Open: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.isOpen}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Is Disabled: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.isDisabled}" />
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+
+<!--                <h:commandButton style="margin-top: 10px;" class="blue-button" value="View User" actionListener="#{viewListingDetailsManagedBean.viewListingUser}">
+                    <f:attribute name="listingUser" value="#{viewListingDetailsManagedBean.listingToView.createdBy}" />
+                </h:commandButton>-->
+            </p:dialog>
+
+        </h:form>
+
+    </cc:implementation>
+</html>

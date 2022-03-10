@@ -7,6 +7,7 @@ package jsf.managedbean;
 
 import ejb.stateless.ListingSessionBeanLocal;
 import entity.Listing;
+import entity.User;
 import exception.EntityNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
@@ -34,7 +35,6 @@ public class viewListingDetailsManagedBean implements Serializable {
     private Long listingIdToView;
     private String backMode;
     private Listing listingToView;
-
     
     public viewListingDetailsManagedBean() {
     }
@@ -58,6 +58,11 @@ public class viewListingDetailsManagedBean implements Serializable {
         {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An unexpected error has occurred: " + ex.getMessage(), null));
         }
+    }
+    
+    //Maybe no need to use.
+    public void viewListingUser(ActionEvent event) {
+        User user = (User) event.getComponent().getAttributes().get("listingUser");
     }
     
     public void phaseListener(PhaseEvent event)
