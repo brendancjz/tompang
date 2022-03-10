@@ -5,6 +5,10 @@
  */
 package jsf.managedbean;
 
+import ejb.stateless.ListingSessionBeanLocal;
+import entity.Listing;
+import entity.User;
+import exception.CreateNewListingException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,6 +19,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -29,6 +36,10 @@ import org.primefaces.event.FileUploadEvent;
 @Named(value = "createListingManagedBean")
 @ViewScoped
 public class createListingManagedBean implements Serializable {
+
+    @EJB
+    private ListingSessionBeanLocal listingSessionBean;
+
     private List<String> uploadedFilePaths;
     private Boolean showUploadedFile;
     private String country;
@@ -36,14 +47,14 @@ public class createListingManagedBean implements Serializable {
     private HashMap<String, HashMap<String, String>> data = new HashMap<>();
     private HashMap<String, String> countries;
     private HashMap<String, String> cities;
-    
+
     private String category;
     private HashMap<String, String> categories;
-    
+
     private String title;
     private Double price;
     private Integer quantity;
-    
+
     private String description;
     private Date expectedArrivalDate;
 
@@ -56,7 +67,7 @@ public class createListingManagedBean implements Serializable {
         categories.put("FOOTWEAR", "FOOTWEAR");
         categories.put("GIFTS", "GIFTS");
         categories.put("ELECTRONICS", "ELECTRONICS");
-        
+
         countries = new HashMap<>();
         countries.put("USA", "USA");
         countries.put("Germany", "Germany");
@@ -79,31 +90,50 @@ public class createListingManagedBean implements Serializable {
         map.put("Rio de Janerio", "Rio de Janerio");
         map.put("Salvador", "Salvador");
         data.put("Brazil", map);
-        
+
         String[] isoCodes = Locale.getISOCountries();
 
         for (int i = 0; i < isoCodes.length; i++) {
             Locale locale = new Locale("", isoCodes[i]);
         }
     }
-    
-    
+
     public void createListing(AjaxBehaviorEvent event) {
-        System.out.println("Country:" + country);
-        System.out.println("City: " + city);
-        System.out.println("Title: " + title);
-        System.out.println("Price: " + price);
-        System.out.println("Quantity: " + quantity);
-        System.out.println("Description: " + description);
-        System.out.println("Arrival Date: " + expectedArrivalDate.toInstant().toString());
-        for (String file : uploadedFilePaths) {
-            System.out.println("File: " + file);
+        try {
+            System.out.println("Country:" + country);
+            System.out.println("City: " + city);
+            System.out.println("Title: " + title);
+            System.out.println("Price: " + price);
+            System.out.println("Quantity: " + quantity);
+            System.out.println("Description: " + description);
+            System.out.println("Arrival Date: " + expectedArrivalDate.toInstant().toString());
+            for (String file : uploadedFilePaths) {
+                System.out.println("File: " + file);
+            }
+
+            User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
+
+            Listing listing = new Listing(country, city, title, description, category, price, expectedArrivalDate, user, quantity);
+            listingSessionBean.createNewListing(listing, user.getUserId());
+            
+            country = null;
+            city = null;
+            title = null;
+            description = null;
+            category = null;
+            price = null;
+            expectedArrivalDate = null;
+            quantity = null;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Listing created.", null));
+        
+        } catch (CreateNewListingException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Listing failed to create.", null));
         }
+
     }
-    public void handleFileUpload(FileUploadEvent event)
-    {
-        try
-        { 
+
+    public void handleFileUpload(FileUploadEvent event) {
+        try {
             String newFilePath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("alternatedocroot_1") + System.getProperty("file.separator") + event.getFile().getFileName();
 
             System.err.println("********** CreateListingManagedBean.handleFileUpload(): File name: " + event.getFile().getFileName());
@@ -118,12 +148,10 @@ public class createListingManagedBean implements Serializable {
 
             InputStream inputStream = event.getFile().getInputStream();
 
-            while (true)
-            {
+            while (true) {
                 a = inputStream.read(buffer);
 
-                if (a < 0)
-                {
+                if (a < 0) {
                     break;
                 }
 
@@ -133,23 +161,20 @@ public class createListingManagedBean implements Serializable {
 
             fileOutputStream.close();
             inputStream.close();
-            
+
             uploadedFilePaths.add(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("uploadedFilesPath") + "/" + event.getFile().getFileName());
             showUploadedFile = true;
-            
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,  "File uploaded successfully", ""));
-        }
-        catch(IOException ex)
-        {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,  "File upload error: " + ex.getMessage(), ""));
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "File uploaded successfully", ""));
+        } catch (IOException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "File upload error: " + ex.getMessage(), ""));
         }
     }
 
     public void onCountryChange() {
         if (country != null && !"".equals(country)) {
             cities = data.get(country);
-        }
-        else {
+        } else {
             cities = new HashMap<>();
         }
     }
@@ -265,5 +290,5 @@ public class createListingManagedBean implements Serializable {
     public void setCities(HashMap<String, String> cities) {
         this.cities = cities;
     }
-    
+
 }

@@ -11,7 +11,7 @@
         <h1> Create a Listing  Page </h1>
         <br></br>
         <h:form id="formFileUpload" enctype="multipart/form-data">
-            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
+            <p:growl showDetail="true" skipDetailIfEqualsSummary="true"/>
             <div class="listing-div">
                 <h2>Step 1: Upload Photos</h2>
 
@@ -34,6 +34,7 @@
             </div>
         </h:form>
         <h:form id="listingInfo">
+            <p:growl showDetail="true" skipDetailIfEqualsSummary="true"/>
             <div class="listing-div">
                 <h2>Step 2: Select Country and City</h2>
 
@@ -47,7 +48,7 @@
                         </p:selectOneMenu>
 
                         <p:outputLabel for="city" value="City:"/>
-                        <p:selectOneMenu id="city" value="#{createListingManagedBean.city}" style="width:150px">
+                        <p:selectOneMenu id="city" value="#{createListingManagedBean.city}" style="width:150px" required="true">
                             <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true"/>
                             <f:selectItems value="#{createListingManagedBean.cities}"/>
                         </p:selectOneMenu>
