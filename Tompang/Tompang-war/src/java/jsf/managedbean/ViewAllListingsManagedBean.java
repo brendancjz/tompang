@@ -6,6 +6,7 @@
 package jsf.managedbean;
 
 import ejb.stateless.ListingSessionBeanLocal;
+import ejb.stateless.UserSessionBeanLocal;
 import entity.Listing;
 import exception.EmptyListException;
 import java.io.IOException;
@@ -27,17 +28,30 @@ import javax.faces.event.ActionEvent;
 public class ViewAllListingsManagedBean {
 
     @EJB
+    private UserSessionBeanLocal userSessionBean;
+
+    @EJB
     private ListingSessionBeanLocal listingSessionBean;
     
     private List<Listing> listings;
     private List<Listing> filteredListings;
+    
+    private String filteredUsername;
     public ViewAllListingsManagedBean() {
     }
 
     @PostConstruct
     public void postConstruct() {
         try {
-            listings = listingSessionBean.retrieveAllListings();
+            //This is for when admin wishes to view User's Listings from the View User Details
+            filteredUsername = (String)FacesContext.getCurrentInstance().getExternalContext().getFlash().get("username");
+            
+            if (filteredUsername == null) {
+                listings = listingSessionBean.retrieveAllListings();
+            } else {
+                listings = listingSessionBean.retrieveUserListings(filteredUsername);
+            }
+
         } catch (EmptyListException ex) {
             System.out.println("List of listings empty.");
         }
@@ -90,5 +104,15 @@ public class ViewAllListingsManagedBean {
     public void setFilteredListings(List<Listing> filteredListings) {
         this.filteredListings = filteredListings;
     }
+
+    public String getFilteredUsername() {
+        return filteredUsername;
+    }
+
+    public void setFilteredUsername(String filteredUsername) {
+        this.filteredUsername = filteredUsername;
+    }
+
+    
     
 }

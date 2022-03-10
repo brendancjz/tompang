@@ -8,15 +8,15 @@
 
     <cc:interface>
     </cc:interface>
-    
+
     <cc:implementation>
-        
+
         <h:form id="formViewUserDetails">
-            
+
             <p:dialog id="dialogViewUserDetails" widgetVar="dialogViewUserDetails" header="View User Details" closable="true">
 
                 <p:panelGrid>
-                    
+
                     <p:row>
                         <p:column>
                             <h:outputLabel value="User ID: " />
@@ -25,7 +25,7 @@
                             <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.userId}" />
                         </p:column>
                     </p:row>
-                    
+
                     <p:row>
                         <p:column>
                             <h:outputLabel value="First Name: " />
@@ -34,7 +34,7 @@
                             <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.firstName}" />
                         </p:column>
                     </p:row>
-                    
+
                     <p:row>
                         <p:column>
                             <h:outputLabel value="Last Name: " />
@@ -43,7 +43,7 @@
                             <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.lastName}" />
                         </p:column>
                     </p:row>
-                    
+
                     <p:row>
                         <p:column>
                             <h:outputLabel value="Email: " />
@@ -52,16 +52,7 @@
                             <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.email}" />
                         </p:column>
                     </p:row>
-                    
-                    <p:row>
-                        <p:column>
-                            <h:outputLabel value="Date of Birth: " />
-                        </p:column>
-                        <p:column>
-                            <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.dateOfBirth}" />
-                        </p:column>
-                    </p:row>
-                    
+
                     <p:row>
                         <p:column>
                             <h:outputLabel value="Contact Number: " />
@@ -70,21 +61,53 @@
                             <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.contactNumber}" />
                         </p:column>
                     </p:row>
-                    
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Is Disabled: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.isDisabled}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Is Admin: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.isAdmin}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Date of Birth: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.dateOfBirth.toString().substring(4, 10)}
+                                          #{viewUserDetailsManagedBean.userEntityToView.dateOfBirth.toString().substring(24)}" />
+                        </p:column>
+                    </p:row>
+
                     <p:row>
                         <p:column>
                             <h:outputLabel value="Joined on: " />
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.joinedOn}"/>
+                            <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.joinedOn.toString().substring(4, 10)}
+                                          #{viewUserDetailsManagedBean.userEntityToView.joinedOn.toString().substring(24)}" />
                         </p:column>
                     </p:row>
-                             
+
                 </p:panelGrid>
 
+                <h:commandButton style="margin-top: 10px;" class="blue-button" value="View User Listings" actionListener="#{viewUserDetailsManagedBean.viewUserListings}">
+                    <f:attribute name="username" value="#{viewUserDetailsManagedBean.userEntityToView.username}" />
+                </h:commandButton>
             </p:dialog>
-            
+
         </h:form>
-        
+
     </cc:implementation>
 </html>

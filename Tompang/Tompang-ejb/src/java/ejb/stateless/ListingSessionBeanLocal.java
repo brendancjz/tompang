@@ -5,10 +5,8 @@
  */
 package ejb.stateless;
 
-import entity.Conversation;
 import entity.Listing;
 import entity.Transaction;
-import entity.User;
 import exception.CreateNewListingException;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
@@ -38,4 +36,6 @@ public interface ListingSessionBeanLocal {
 //    void associateConversationWithListing(Conversation conversation, long listingId) throws EntityNotFoundException;
             
     void associateTransactionWithListing(Transaction transaction, long listingId) throws EntityNotFoundException;
+
+    public List<Listing> retrieveUserListings(String username)  throws EmptyListException;
 }

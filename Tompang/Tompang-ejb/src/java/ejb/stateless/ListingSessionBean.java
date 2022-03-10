@@ -66,6 +66,28 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
 
         return listings;
     }
+    
+    @Override
+    public List<Listing> retrieveUserListings(String filteredUsername) throws EmptyListException {
+        
+        if (filteredUsername == null) throw new EmptyListException("List of listings is empty.\n");
+        
+        Query query = em.createQuery("SELECT l FROM Listing l WHERE l.createdBy.username = :name");
+        query.setParameter("name", filteredUsername);
+        
+        List<Listing> listings = query.getResultList();
+
+        if (listings.isEmpty()) {
+            throw new EmptyListException("List of listings is empty.\n");
+        }
+
+        for (Listing listing : listings) {
+            listing.getConversations().size();
+            listing.getPhotos().size();
+        }
+
+        return listings;
+    }
 
     @Override
     public Listing getListingByListingId(long listingId) throws EntityNotFoundException {
@@ -131,5 +153,7 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
             listing.getTransactions().add(transaction);
         }
     }
+
+    
 
 }

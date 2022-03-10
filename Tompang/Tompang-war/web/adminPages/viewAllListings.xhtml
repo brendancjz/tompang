@@ -8,7 +8,12 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        <h1> View all Listings </h1>
+        <p:outputPanel rendered="#{viewAllListingsManagedBean.filteredUsername == null}">
+            <h1 style="font-size: 24px"> View all Listings </h1>
+        </p:outputPanel>
+        <p:outputPanel rendered="#{viewAllListingsManagedBean.filteredUsername != null}">
+            <h1 style="font-size: 24px"> View User Listings: #{viewAllListingsManagedBean.filteredUsername} </h1>
+        </p:outputPanel>
         <br></br>
         <!--<ezcomp:Breadcrumb pageName="ViewAllListings"/>-->
         <div class="dataTableDiv">
