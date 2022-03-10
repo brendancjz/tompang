@@ -31,7 +31,7 @@ import org.primefaces.event.FileUploadEvent;
 
 /**
  *
- * @author brend
+ * @author GuoJun
  */
 @Named(value = "createListingManagedBean")
 @ViewScoped
@@ -113,7 +113,7 @@ public class CreateListingManagedBean implements Serializable {
 
             User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
 
-            Listing listing = new Listing(country, city, title, description, category, price, expectedArrivalDate, user, quantity);
+            Listing listing = new Listing(country, city, title, description, category, price, expectedArrivalDate, user, quantity, uploadedFilePaths);
             listingSessionBean.createNewListing(listing, user.getUserId());
             
             country = null;

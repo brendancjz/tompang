@@ -99,7 +99,7 @@ public class Listing implements Serializable {
         this.isDisabled = false;
     }
 
-    public Listing(String country, String city, String title, String description, String category, Double price, Date expectedArrivalDate, User createdBy, Integer quantity) {
+    public Listing(String country, String city, String title, String description, String category, Double price, Date expectedArrivalDate, User createdBy, Integer quantity, List<String> photos) {
         this();
         this.country = country;
         this.city = city;
@@ -110,6 +110,7 @@ public class Listing implements Serializable {
         this.expectedArrivalDate = expectedArrivalDate;
         this.createdBy = createdBy;
         this.quantity = quantity;
+        this.photos = photos;
     }
 
     public String getCategory() {

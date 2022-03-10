@@ -13,9 +13,9 @@ import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -104,17 +104,23 @@ public class DataInitSessionBean {
         if (em.find(Listing.class, 1L) == null) {
             Date expectedArrivalDate = Date.from(LocalDate.now().atStartOfDay().plusDays(7).atZone(ZoneId.systemDefault()).toInstant());
             User dummyUser1 = (User) em.find(User.class, 1L);
-            Listing listing = new Listing("Japan", "Osaka", "Japan Biscuit", "Lovely japanese biscuits!", "FOOD", 35.00, expectedArrivalDate, dummyUser1, 5);
+            List<String> photos1 = new ArrayList<>();
+            photos1.add("/Users/GuoJun/glassfish-5.1.0-uploadedfiles/uploadedFiles/japanese_biscuits.jpeg");
+            Listing listing = new Listing("Japan", "Osaka", "Japan Biscuit", "Lovely japanese biscuits!", "FOOD", 35.00, expectedArrivalDate, dummyUser1, 5, photos1);
             em.persist(listing); 
             em.flush();
             
             User dummyUser2 = (User) em.find(User.class, 2L);
-            listing = new Listing("Korea", "Seoul", "Tteokbokki", "Authentic spicy rice cakes!", "FOOD", 15.00, expectedArrivalDate, dummyUser2, 5);
+            List<String> photos2 = new ArrayList<>();
+            photos2.add("ttekbokki.jpg");
+            listing = new Listing("Korea", "Seoul", "Tteokbokki", "Authentic spicy rice cakes!", "FOOD", 15.00, expectedArrivalDate, dummyUser2, 5, photos2);
             em.persist(listing); 
             em.flush();
             
             User dummyUser3 = (User) em.find(User.class, 3L);
-            listing = new Listing("Germany", "Dresden", "Gummy Candy", "Gluten Tag!", "FOOD", 7.00, expectedArrivalDate, dummyUser3, 10);
+            List<String> photos3 = new ArrayList<>();
+            photos3.add("gummy.jpg");
+            listing = new Listing("Germany", "Dresden", "Gummy Candy", "Gluten Tag!", "FOOD", 7.00, expectedArrivalDate, dummyUser3, 10, photos3);
             em.persist(listing); 
             em.flush();
         }

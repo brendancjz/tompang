@@ -6,7 +6,12 @@
                 template="/template/sidebarTemplate.xhtml"
                 xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
                 xmlns:p="http://primefaces.org/ui">
+    
+    <head>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
+    </head>
 
+    
     <ui:define name="content">
         <h1> Create a Listing  Page </h1>
         <br></br>
@@ -37,6 +42,10 @@
             <p:growl showDetail="true" skipDetailIfEqualsSummary="true"/>
             <div class="listing-div">
                 <h2>Step 2: Select Country and City</h2>
+                
+                <div class="googleMap">
+                    <p:gmap center="35.6620, 139.7038" zoom="15" type="hybrid" style="width: 1000px; height: 600px" />
+                </div>
 
                 <p:panel header="Select a Location" style="margin-top:10px;padding: 0.5em;">
                     <h:panelGrid columns="2" cellpadding="5">
