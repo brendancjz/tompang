@@ -63,6 +63,7 @@ public class ViewListingDetailsManagedBean implements Serializable {
     //Maybe no need to use.
     public void viewListingUser(ActionEvent event) {
         User user = (User) event.getComponent().getAttributes().get("listingUser");
+        //Meant to view user from its listing
     }
     
     public void phaseListener(PhaseEvent event)

@@ -85,12 +85,6 @@ public class CreateListingManagedBean implements Serializable {
         map.put("Frankfurt", "Frankfurt");
         data.put("Germany", map);
 
-        map = new HashMap<>();
-        map.put("Sao Paulo", "Sao Paulo");
-        map.put("Rio de Janerio", "Rio de Janerio");
-        map.put("Salvador", "Salvador");
-        data.put("Brazil", map);
-
         String[] isoCodes = Locale.getISOCountries();
 
         for (int i = 0; i < isoCodes.length; i++) {

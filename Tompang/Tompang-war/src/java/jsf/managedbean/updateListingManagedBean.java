@@ -40,7 +40,7 @@ public class UpdateListingManagedBean implements Serializable {
     @PostConstruct
     public void postConstruct() {
         listingIdToUpdate = (Long)FacesContext.getCurrentInstance().getExternalContext().getFlash().get("listingIdToUpdate");
-        
+         
         try {
             if (listingIdToUpdate != null) {
                 listingToUpdate = listingSessionBeanLocal.getListingByListingId(listingIdToUpdate);
