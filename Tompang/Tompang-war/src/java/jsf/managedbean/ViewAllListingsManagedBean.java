@@ -8,12 +8,16 @@ package jsf.managedbean;
 import ejb.stateless.ListingSessionBeanLocal;
 import entity.Listing;
 import exception.EmptyListException;
+import exception.EntityNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -44,7 +48,7 @@ public class ViewAllListingsManagedBean implements Serializable {
     }
 
     @PostConstruct
-    public void postConstruct() {
+    public void retrieveAllListings() {
         try {
             //This is for when admin wishes to view User's Listings from the View User Details
             filteredUsername = (String)FacesContext.getCurrentInstance().getExternalContext().getFlash().get("username");
@@ -65,6 +69,33 @@ public class ViewAllListingsManagedBean implements Serializable {
         System.err.print(listingIdToView);
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("listingIdToView", listingIdToView);
         FacesContext.getCurrentInstance().getExternalContext().redirect("viewListingDetails.xhtml");
+    }
+    
+    public void deleteListing(ActionEvent event) {
+        try {
+            System.out.println("Deleting Listing in ViewAllListingsManagedBean");
+            
+            Listing listingToDelete = (Listing) event.getComponent().getAttributes().get("listingToDelete");
+            
+            listingSessionBean.deleteListing(listingToDelete.getListingId());
+            
+            try {
+                Listing listing = listingSessionBean.getListingByListingId(listingToDelete.getListingId());
+                //Means listing is disabled, not deleted.
+                this.retrieveAllListings();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Listing disabled successfully", null));
+            } catch (EntityNotFoundException ex) {
+                listings.remove(listingToDelete);
+
+                if (filteredListings != null) {
+                    filteredListings.remove(listingToDelete);
+                }
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Listing deleted successfully", null));
+            }} catch (EntityNotFoundException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while deleting listing: " + ex.getMessage(), null));
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An unexpected error has occurred: " + ex.getMessage(), null));
+        }
     }
     
     public Integer getNumberOfListings() {
@@ -114,6 +145,14 @@ public class ViewAllListingsManagedBean implements Serializable {
 
     public void setFilteredUsername(String filteredUsername) {
         this.filteredUsername = filteredUsername;
+    }
+
+    public ViewListingDetailsManagedBean getViewListingDetailsManagedBean() {
+        return viewListingDetailsManagedBean;
+    }
+
+    public void setViewListingDetailsManagedBean(ViewListingDetailsManagedBean viewListingDetailsManagedBean) {
+        this.viewListingDetailsManagedBean = viewListingDetailsManagedBean;
     }
 
     

@@ -47,7 +47,7 @@ public class ViewAllUsersManagedBean implements Serializable {
     public void retrieveAllUsers() {
         System.out.println("Post Construct of ViewAllUsersManagedBean called.");
         try {
-            listOfUsers = userSessionBean.retrieveAllNotDisabledUsers();
+            listOfUsers = userSessionBean.retrieveAllUsers();
         } catch (EmptyListException ex) {
             System.out.println("Unable to retrieve list of users.");
         }
@@ -65,16 +65,20 @@ public class ViewAllUsersManagedBean implements Serializable {
             User userEntityToDelete = (User) event.getComponent().getAttributes().get("userEntityToDelete");
             userSessionBean.deleteUser(userEntityToDelete.getUserId());
 
-            listOfUsers.remove(userEntityToDelete);
-
-            if (filteredUsers != null) {
-                filteredUsers.remove(userEntityToDelete);
-            }
+            try {
+                User user = userSessionBean.getUserByUserId(userEntityToDelete.getUserId());
+                //Means user is disabled, not deleted.
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "User disabled successfully", null));
+                this.retrieveAllUsers();
             
-            for (User user : userSessionBean.retrieveAllUsers()) {
-                System.out.println("User: " + user.getUserId());
-            } 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "User deleted successfully", null));
+            } catch (EntityNotFoundException ex) {
+                listOfUsers.remove(userEntityToDelete);
+
+                if (filteredUsers != null) {
+                    filteredUsers.remove(userEntityToDelete);
+                }
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "User deleted successfully", null));
+            }
         } catch (EntityNotFoundException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while deleting user: " + ex.getMessage(), null));
         } catch (Exception ex) {

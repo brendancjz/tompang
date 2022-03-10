@@ -17,7 +17,7 @@
         <br></br>
         <!--<ezcomp:Breadcrumb pageName="ViewAllListings"/>-->
         <div class="dataTableDiv">
-            <h:form class="viewDataTable">
+            <h:form class="viewDataTable"  id="listOfListings">
                 <p:growl id="messages" redisplay="false"  />
 
                 <p:dataTable id="listingsTable" widgetVar="listingsTable" value="#{viewAllListingsManagedBean.listings}" var="listing" rowKey="#{listing.listingId}" rowIndexVar="row"
@@ -61,31 +61,28 @@
                     <p:column headerText="Title" sortBy="#{listing.category}" filterBy="#{listing.category}" filterStyle="display:none;">
                         <h:outputText value="#{listing.category}" />
                     </p:column>
-    <!--                <p:column headerText="Price" width="4%" sortBy="#{listing.price}" >
-                        <h:outputText value="$#{listing.price}" />
-                    </p:column>-->
-
-
-
-<!--                <p:column headerText="Likes" width="4%" sortBy="#{listing.numOfLikes}" >
-    <h:outputText value="#{listing.numOfLikes}" />
-</p:column>
-
-<p:column headerText="Quantity" width="4%" sortBy="#{listing.quantity}" >
-    <h:outputText value="#{listing.quantity}" />
-</p:column>
-
-<p:column headerText="Photos" width="4%" sortBy="#{listing.photos}" >
-    <h:outputText value="#{listing.photos}" />
-</p:column>-->
 
                     <p:column headerText="Action" >
+                        <p:commandButton update="ccViewListingDetails:formViewListingDetails" oncomplete="PF('dialogViewListingDetails').show()" icon="ui-icon-document" title="View">
+                            <f:setPropertyActionListener value="#{listing}" target="#{viewAllListingsManagedBean.viewListingDetailsManagedBean.listingToView}" />
+                        </p:commandButton>
+                        <p:commandButton icon="ui-icon-trash" actionListener="#{viewAllListingsManagedBean.deleteListing}" update="listOfListings:listingsTable listOfListings:messages">
+                            <f:attribute name="listingToDelete" value="#{listing}" />
+                            <p:confirm header="Confirmation" message="Are you sure you want to delete #{listing.title}?" icon="ui-icon-alert" />
+                        </p:commandButton>
                         <h:commandButton class="blue-button" value="View" actionListener="#{viewAllListingsManagedBean.viewListingDetails}">
                             <f:attribute name="listingId" value="#{listing.listingId}" />
                         </h:commandButton>
                     </p:column>
                 </p:dataTable>
+                
+                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
             </h:form>
+            
+            <ezcomp:ViewListingDetails id="ccViewListingDetails" />
         </div>
     </ui:define>
 

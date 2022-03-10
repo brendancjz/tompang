@@ -136,11 +136,16 @@
                         </p:column>
                     </p:row>
 
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Created By: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.createdBy.username}" />
+                        </p:column>
+                    </p:row>
                 </p:panelGrid>
 
-<!--                <h:commandButton style="margin-top: 10px;" class="blue-button" value="View User" actionListener="#{viewListingDetailsManagedBean.viewListingUser}">
-                    <f:attribute name="listingUser" value="#{viewListingDetailsManagedBean.listingToView.createdBy}" />
-                </h:commandButton>-->
             </p:dialog>
 
         </h:form>

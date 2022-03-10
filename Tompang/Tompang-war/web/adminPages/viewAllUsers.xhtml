@@ -64,7 +64,7 @@
                         </p:commandButton>
                         <p:commandButton icon="ui-icon-trash" actionListener="#{viewAllUsersManagedBean.deleteUser}" update="listOfUsers:usersTable listOfUsers:messages">
                             <f:attribute name="userEntityToDelete" value="#{user}" />
-                            <p:confirm header="Confirmation" message="Are you sure you want to delete #{user.firstName} + #{user.lastName}?" icon="ui-icon-alert" />
+                            <p:confirm header="Confirmation" message="Are you sure you want to delete #{user.firstName} #{user.lastName}?" icon="ui-icon-alert" />
                         </p:commandButton>
                     </p:column>
                 </p:dataTable>
