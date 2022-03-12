@@ -116,10 +116,11 @@ public class CreateListingManagedBean implements Serializable {
             price = null;
             expectedArrivalDate = null;
             quantity = null;
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Listing created.", null));
+            uploadedFilePaths.clear();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Listing created.", ""));
         
         } catch (CreateNewListingException ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Listing failed to create.", null));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Listing failed to create.", ""));
         }
 
     }
