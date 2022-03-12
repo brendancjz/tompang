@@ -21,19 +21,20 @@
 
 /Tompang/dist/
 /Tompang/build/
-
 /Tompang/nbproject/private/
 /Tompang/nbproject/project.properties
 
 # EJB Folder
-/Tompang/Tompang-war/web/WEB-INF/glassfish-web.xml
-/Tompang/Tompang-war/web/WEB-INF/web.xml
-/Tompang/Tompang-war/nbproject/private/
-/Tompang/Tompang-war/nbproject/project.properties
 /Tompang/Tompang-ejb/nbproject/private/
 /Tompang/Tompang-ejb/nbproject/project.properties
 /Tompang/Tompang-ejb/build/
 /Tompang/Tompang-ejb/dist/
+
+# WAR Folder
+/Tompang/Tompang-war/web/WEB-INF/glassfish-web.xml
+/Tompang/Tompang-war/web/WEB-INF/web.xml
+/Tompang/Tompang-war/nbproject/private/
+/Tompang/Tompang-war/nbproject/project.properties
 /Tompang/Tompang-war/build/
 /Tompang/Tompang-war/dist/
 
