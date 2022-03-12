@@ -10,7 +10,7 @@
     </cc:interface>
 
     <cc:implementation>
-
+        
         <h:form id="formViewListingDetails">
 
             <p:dialog id="dialogViewListingDetails" widgetVar="dialogViewListingDetails" header="View Listing Details" closable="true">
@@ -99,7 +99,7 @@
                                           #{viewListingDetailsManagedBean.listingToView.expectedArrivalDate.toString().substring(24)}" />
                         </p:column>
                     </p:row>
-                    
+
                     <p:row>
                         <p:column>
                             <h:outputLabel value="Number of Likes: " />
@@ -144,7 +144,28 @@
                             <h:outputText value="#{viewListingDetailsManagedBean.listingToView.createdBy.username}" />
                         </p:column>
                     </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Photo(s): " />
+                        </p:column>
+                        <p:column>
+                            <p:dataView var="image" value="#{viewListingDetailsManagedBean.listingToView.photos}" layout="list">
+
+                                <p:dataViewListItem>
+                                    <div style="display: flex;flex-direction: column;align-items: center;">
+                                        <p:graphicImage value="#{image}" width="200px"/>
+                                        <h3>#{image.substring(15)}</h3>
+                                    </div>
+                                </p:dataViewListItem>
+                            </p:dataView>
+                        </p:column>
+                    </p:row>
                 </p:panelGrid>
+                
+<!--                <div style="width: 20%; min-width: 500px;">
+                    
+                </div>-->
 
             </p:dialog>
 
