@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ejb.stateless;
 
 import entity.Listing;
@@ -36,11 +31,11 @@ public interface UserSessionBeanLocal {
     public void deleteUser(Long userId) throws EntityNotFoundException;
 
     public void associateLikedListingWithUser(Listing listing, Long userId) throws EntityNotFoundException;
-    
+
     public User retrieveUserByUsername(String username) throws EntityNotFoundException;
-    
+
     public User userLogin(String username, String password) throws InvalidLoginCredentialsException;
 
     public List<User> retrieveAllNotDisabledUsers() throws EmptyListException;
-    
+
 }

@@ -60,7 +60,7 @@ public class Transaction implements Serializable {
     
     public Transaction() {
         this.isCompleted = false;
-        this.hasDispute = true;
+        this.hasDispute = false;
     }
 
     public Transaction(Double amount, Date createdOn, User buyer, User seller, Listing listing, CreditCard buyerCard, CreditCard sellerCard) {

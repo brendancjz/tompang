@@ -4,16 +4,69 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="/template/sidebarTemplate.xhtml"
-                xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
+                xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-         <h1> View all Transactions </h1>
-         <br></br>
-        <!--<ezcomp:Breadcrumb pageName="ViewAllTransactions"/>-->
-        This is the View All Transactions Page.
+        <h1> View all Transactions</h1>
+        <br></br>
+        <!--<ezcomp:Breadcrumb pageName="ViewAllUsers"/>-->
+        <div class="dataTableDiv">
+            <h:form class="viewDataTable" id="listOfTransactions">
+                <p:growl id="messages" redisplay="false"  />
+
+                <p:dataTable id="transactionsTable" widgetVar="transactionsTable" value="#{viewAllTransactionManagedBean.listOfTransactions}" var="transaction" rowKey="#{transaction.transactionId}" rowIndexVar="row"
+                             filteredValue="#{viewAllTransactionManagedBean.filteredTransactions}"
+                             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
+
+                    <f:facet name="header">
+                        <p:outputPanel style="text-align: right;">
+                            <h:outputText value="Search all fields:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('transactionsTable').filter()" style="width:200px" placeholder="Enter keyword"/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column headerText="ID" width="4%" style="height: 30px" filterBy="#{transaction.transactionId}" sortBy="#{transaction.transactionId}" filterStyle="display:none;">
+                        <h:outputText value="#{transaction.transactionId}" />
+                    </p:column>
+
+                    <p:column headerText="Date" filterBy="#{transaction.createdOn}" sortBy="#{transaction.createdOn}" filterStyle="display:none;">
+                        <h:outputText value="#{transaction.createdOn}" />
+                    </p:column>
+
+                    <p:column headerText="Amount" filterBy="#{transaction.amount}" sortBy="#{transaction.amount}" filterStyle="display:none;">
+                        <h:outputText value="#{transaction.amount}" />
+                    </p:column>
+
+                    <p:column headerText="Listing" filterBy="#{transaction.listing.title}" sortBy="#{transaction.listing.title}" filterStyle="display:none;">
+                        <h:outputText value="#{transaction.listing.title}" />
+                    </p:column>
+
+                    <p:column headerText="Seller" filterBy="#{transaction.seller.firstName} + #{transaction.seller.lastName}" sortBy="#{transaction.seller.firstName} + #{transaction.seller.lastName}" filterStyle="display:none;">
+                        <h:outputText value="#{transaction.seller.firstName} #{transaction.seller.lastName}" />
+                    </p:column>
+
+                    <p:column headerText="Buyer" filterBy="#{transaction.buyer.firstName} + #{transaction.buyer.lastName}" sortBy="#{transaction.buyer.firstName} + #{transaction.buyer.lastName}" filterStyle="display:none;">
+                        <h:outputText value="#{transaction.buyer.firstName} #{transaction.buyer.lastName}" />
+                    </p:column>
+
+                    <p:column headerText="Action">
+                        <p:commandButton update="ccViewTransactionDetails:formViewTransactionDetails" oncomplete="PF('dialogViewTransactionDetails').show()" icon="ui-icon-document" title="View">
+                            <f:setPropertyActionListener value="#{transaction}" target="#{viewAllTransactionsManagedBean.viewTransactionDetailsManagedBean.transactionToView}" />
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+
+            </h:form>
+
+            <ezcomp:ViewTransactionDetails id="ccViewTransactionDetails" />
+        </div>
     </ui:define>
 
 </ui:composition>
-
-
-

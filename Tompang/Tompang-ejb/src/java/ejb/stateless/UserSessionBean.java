@@ -57,21 +57,22 @@ public class UserSessionBean implements UserSessionBeanLocal {
             user.getFollowing().size();
         }
 
-        return users; 
+        return users;
     }
-    
+
     @Override
     public List<User> retrieveAllNotDisabledUsers() throws EmptyListException {
-         
 
         List<User> users = this.retrieveAllUsers();
-        
+
         for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
-            if (user.getIsDisabled()) users.remove(user);
+            if (user.getIsDisabled()) {
+                users.remove(user);
+            }
         }
 
-        return users; 
+        return users;
     }
 
     @Override
@@ -119,7 +120,6 @@ public class UserSessionBean implements UserSessionBeanLocal {
 //            user.getCreatedListings().add(listing);
 //        }
 //    }
-    
     @Override
     public void associateLikedListingWithUser(Listing listing, Long userId) throws EntityNotFoundException {
         User user = this.getUserByUserId(userId);
@@ -150,58 +150,44 @@ public class UserSessionBean implements UserSessionBeanLocal {
                 || !user.getFollowing().isEmpty()
                 || !user.getLikedListings().isEmpty()) {
             user.setIsDisabled(true);
-        } else { 
+        } else {
             em.remove(user);
             System.out.println("Successfully deleted User from sesison bean.");
         }
 
     }
-    
+
     @Override
-    public User retrieveUserByUsername(String username) throws EntityNotFoundException
-    {
+    public User retrieveUserByUsername(String username) throws EntityNotFoundException {
         Query query = em.createQuery("SELECT u FROM User u WHERE u.username = :inUsername");
         query.setParameter("inUsername", username);
-        
-        try
-        {
-            return (User)query.getSingleResult();
-        }
-        catch(NoResultException | NonUniqueResultException ex)
-        {
+
+        try {
+            return (User) query.getSingleResult();
+        } catch (NoResultException | NonUniqueResultException ex) {
             throw new EntityNotFoundException("Staff Username " + username + " does not exist!");
         }
     }
 
-    
-     @Override
-    public User userLogin(String username, String password) throws InvalidLoginCredentialsException
-    {
-        try
-        {
+    @Override
+    public User userLogin(String username, String password) throws InvalidLoginCredentialsException {
+        try {
             User user = retrieveUserByUsername(username);
             String passwordHash = CryptographicHelper.getInstance().byteArrayToHexString(CryptographicHelper.getInstance().doMD5Hashing(password + user.getSalt()));
-            
-            if(user.getPassword().equals(passwordHash))
-            {
+
+            if (user.getPassword().equals(passwordHash)) {
                 user.getBuyerTransactions().size();
                 user.getConversations().size();
                 user.getCreatedListings().size();
                 user.getCreditCards().size();
                 user.getSellerTransactions().size();
                 return user;
-            }
-            else
-            {
+            } else {
                 throw new InvalidLoginCredentialsException("Username does not exist or invalid password!");
             }
-        }
-        catch(EntityNotFoundException ex)
-        {
+        } catch (EntityNotFoundException ex) {
             throw new InvalidLoginCredentialsException("Username does not exist or invalid password!");
         }
     }
-
-    
 
 }
