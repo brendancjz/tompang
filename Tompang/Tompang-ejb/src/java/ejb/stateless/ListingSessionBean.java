@@ -106,9 +106,23 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
 
         return listings;
     }
+    
+    @Override
+    public void incrementListingLikes(Long listingId) throws EntityNotFoundException {
+        Listing listing = this.getListingByListingId(listingId);
+        
+        listing.setNumOfLikes(listing.getNumOfLikes() + 1);
+    }
+    
+    @Override
+    public void decrementListingLikes(Long listingId) throws EntityNotFoundException {
+        Listing listing = this.getListingByListingId(listingId);
+        
+        listing.setNumOfLikes(listing.getNumOfLikes() - 1);
+    }
 
     @Override
-    public Listing getListingByListingId(long listingId) throws EntityNotFoundException {
+    public Listing getListingByListingId(Long listingId) throws EntityNotFoundException {
         Listing listing = em.find(Listing.class, listingId);
 
         if (listing == null) {
@@ -137,7 +151,7 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
     }
 
     @Override
-    public void deleteListing(long listingId) throws EntityNotFoundException {
+    public void deleteListing(Long listingId) throws EntityNotFoundException {
         Listing listing = this.getListingByListingId(listingId);
         User user = listing.getCreatedBy();
         if (!listing.getTransactions().isEmpty()) {
@@ -164,7 +178,7 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
 //        }
 //    }
     @Override
-    public void associateTransactionWithListing(Transaction transaction, long listingId) throws EntityNotFoundException {
+    public void associateTransactionWithListing(Transaction transaction, Long listingId) throws EntityNotFoundException {
         Listing listing = this.getListingByListingId(listingId);
 
         if (!listing.getTransactions().contains(transaction)) {

@@ -57,9 +57,6 @@ public class ViewAllListingsManagedBean implements Serializable {
             
             if (filteredUsername == null) {
                 listings = listingSessionBean.retrieveAllListings();
-                for (Listing listing : listings) {
-                    System.out.println(listing.getDescription());
-                }
             } else {
                 listings = listingSessionBean.retrieveUserListings(filteredUsername);
             }

@@ -232,3 +232,15 @@ and open the template in the editor.
     width: 1400px;
     margin: 0 auto;
 }
+
+.listing-title {
+    font-size: 24px;
+    font-weight: 400;
+}
+.listing-category {
+    font-size: 14px;
+}
+.listing-likes {
+    font-size: 20px;
+    float: right;
+}

@@ -12,6 +12,7 @@ import exception.EntityNotFoundException;
 import exception.InvalidLoginCredentialsException;
 import java.util.Date;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -26,6 +27,9 @@ import security.CryptographicHelper;
  */
 @Stateless
 public class UserSessionBean implements UserSessionBeanLocal {
+
+    @EJB
+    private ListingSessionBeanLocal listingSessionBean;
 
     @PersistenceContext(unitName = "Tompang-ejbPU")
     private EntityManager em;
@@ -73,6 +77,20 @@ public class UserSessionBean implements UserSessionBeanLocal {
         }
 
         return users;
+    }
+    
+    @Override
+    public void associateListingToUserLikedListings(Long userId, Long listingId) throws EntityNotFoundException {
+        User user = this.getUserByUserId(userId);
+        Listing listing = listingSessionBean.getListingByListingId(listingId);
+        user.getLikedListings().add(listing);
+    }
+    
+    @Override
+    public void dissociateListingToUserLikedListings(Long userId, Long listingId) throws EntityNotFoundException {
+        User user = this.getUserByUserId(userId);
+        Listing listing = listingSessionBean.getListingByListingId(listingId);
+        user.getLikedListings().remove(listing);
     }
 
     @Override

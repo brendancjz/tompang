@@ -38,4 +38,8 @@ public interface UserSessionBeanLocal {
 
     public List<User> retrieveAllNotDisabledUsers() throws EmptyListException;
 
+    public void associateListingToUserLikedListings(Long userId, Long listingId) throws EntityNotFoundException;
+
+    public void dissociateListingToUserLikedListings(Long userId, Long listingId) throws EntityNotFoundException;
+
 }
