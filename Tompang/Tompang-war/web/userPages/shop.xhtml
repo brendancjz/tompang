@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template/sidebarTemplate.xhtml"
+                xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h1> Shopping Page </h1>
+        <br></br>
+        <h:form id="form">
+            <p:dataView var="listing" value="#{shopManagedBean.listings}" rows="12" paginator="true"
+                        rowsPerPageTemplate="6,12,16"
+                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+                <p:dataViewGridItem>
+                    <div class="">
+                        <div class="">
+                            <div>
+                                
+                                <span class="listing-category">#{listing.category}</span>
+                            </div>
+                        </div>
+                        <div class="listing-grid-item-content">
+                            <p:graphicImage name="images/product/#{product.image}" library="demo"/>
+                            <div class="listing-name">#{listing.title}</div>
+                            <div class="listing-description">#{listing.description}</div>
+                            <h:outputText value="#{listing.numOfLikes}"/>
+                        </div>
+                        <div class="listing-grid-item-bottom">
+                            <h:outputText value="#{listing.price}" styleClass="listing-price">
+                                <f:convertNumber currencySymbol="$" type="currency"/>
+                            </h:outputText>
+                            <p:commandButton type="button"
+                                             value="Buy Now">
+                            </p:commandButton>
+                        </div>
+                    </div>
+                </p:dataViewGridItem>
+
+                <p:dataViewListItem>
+                    <div class="">
+                        <div class="">
+                            <div>
+                                
+                                <span class="listing-category">#{listing.category}</span>
+                            </div>
+                        </div>
+                        <div class="listing-grid-item-content">
+                            <p:graphicImage name="images/product/#{product.image}" library="demo"/>
+                            <div class="listing-name">#{listing.title}</div>
+                            <div class="listing-description">#{listing.description}</div>
+                            <h:outputText value="#{listing.numOfLikes}"/>
+                        </div>
+                        <div class="listing-grid-item-bottom">
+                            <h:outputText value="#{listing.price}" styleClass="listing-price">
+                                <f:convertNumber currencySymbol="$" type="currency"/>
+                            </h:outputText>
+                            <p:commandButton type="button"
+                                             value="Buy Now">
+                            </p:commandButton>
+                        </div>
+                    </div>
+                </p:dataViewListItem>
+            </p:dataView>
+        </h:form>
+        <div style="height: 200px;">
+
+        </div>
+    </ui:define>
+
+</ui:composition>

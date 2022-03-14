@@ -38,4 +38,6 @@ public interface ListingSessionBeanLocal {
     void associateTransactionWithListing(Transaction transaction, long listingId) throws EntityNotFoundException;
 
     public List<Listing> retrieveUserListings(String username)  throws EmptyListException;
+
+    public List<Listing> retrieveAllAvailableListings() throws EmptyListException;
 }

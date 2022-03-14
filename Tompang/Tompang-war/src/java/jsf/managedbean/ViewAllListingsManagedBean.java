@@ -12,6 +12,7 @@ import exception.EntityNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -47,12 +48,18 @@ public class ViewAllListingsManagedBean implements Serializable {
 
     @PostConstruct
     public void retrieveAllListings() {
+        listings = new ArrayList<>();
+        
+        System.out.println("PostConstruct for ViewAllListingManagedBean called.");
         try {
             //This is for when admin wishes to view User's Listings from the View User Details
             filteredUsername = (String)FacesContext.getCurrentInstance().getExternalContext().getFlash().get("username");
             
             if (filteredUsername == null) {
                 listings = listingSessionBean.retrieveAllListings();
+                for (Listing listing : listings) {
+                    System.out.println(listing.getDescription());
+                }
             } else {
                 listings = listingSessionBean.retrieveUserListings(filteredUsername);
             }
