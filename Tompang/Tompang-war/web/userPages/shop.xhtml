@@ -12,7 +12,7 @@
         <br></br>
         <h:form id="form">
             <p:dataView var="listing" value="#{shopManagedBean.listings}" rows="12" paginator="true"
-                        rowsPerPageTemplate="6,12,16"
+                        rowsPerPageTemplate="6,12,16" layout="grid"
                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
                 <p:dataViewGridItem>
@@ -23,15 +23,17 @@
                             </p:panel>
                             <div class="">
                                 <div class="listing-title">#{listing.title}<span class="listing-likes">Likes: #{listing.numOfLikes} </span></div>
+                                <h:outputText value="#{listing.price}" styleClass="listing-price">
+                                    <f:convertNumber currencySymbol="$" type="currency"/>
+                                </h:outputText>
                                 <div class="listing-category">#{listing.category}</div>
                                 <hr />
+                                <div class="listing-createdby">Created by: #{listing.createdBy.username}</div>
                                 <div class="listing-description">#{listing.description}</div>
                             </div>
                         </div>
                         <div class="listing-grid-item-bottom">
-                            <h:outputText value="#{listing.price}" styleClass="listing-price">
-                                <f:convertNumber currencySymbol="$" type="currency"/>
-                            </h:outputText>
+
                             <h:commandButton rendered="#{!shopManagedBean.userLikedListings.contains(listing)}" class="blue-button" value="Like!" actionListener="#{shopManagedBean.likeListing}">
                                 <f:attribute name="listing" value="#{listing}" />
                             </h:commandButton>  

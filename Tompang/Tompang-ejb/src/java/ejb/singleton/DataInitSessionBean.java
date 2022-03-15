@@ -138,8 +138,12 @@ public class DataInitSessionBean {
 
             System.out.println(userSessionBean.retrieveAllUsers());
 
-            User user = userSessionBean.getUserByUserId(2L);
-            userSessionBean.updateUserDetails(user.getUserId(), user.getFirstName(), "User", user.getEmail(), user.getUsername(), user.getDateOfBirth(), user.getContactNumber());
+            User user = userSessionBean.getUserByUserId(1L);
+            //userSessionBean.updateUserDetails(user.getUserId(), user.getFirstName(), "User", user.getEmail(), user.getUsername(), user.getDateOfBirth(), user.getContactNumber());
+            
+            for (Listing listing: user.getLikedListings()) {
+                System.out.println(listing.getListingId());
+            }
             System.out.println();
         } catch (EntityNotFoundException | EmptyListException ex) {
             System.out.println(ex.getMessage());

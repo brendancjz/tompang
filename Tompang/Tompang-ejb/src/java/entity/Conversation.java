@@ -89,6 +89,17 @@ public class Conversation implements Serializable {
         this.messages = messages;
     }
     
-    
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Conversation)) {
+            return false;
+        }
+        Conversation other = (Conversation) object;
+        if ((this.convoId == null && other.convoId != null) || (this.convoId != null && !this.convoId.equals(other.convoId))) {
+            return false;
+        }
+        return true;
+    }
     
 }

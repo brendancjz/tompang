@@ -249,5 +249,16 @@ public class Listing implements Serializable {
         this.transactions = transactions;
     }
     
-    
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Listing)) {
+            return false;
+        }
+        Listing other = (Listing) object;
+        if ((this.listingId == null && other.listingId != null) || (this.listingId != null && !this.listingId.equals(other.listingId))) {
+            return false;
+        }
+        return true;
+    }
 }

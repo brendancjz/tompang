@@ -150,5 +150,16 @@ public class Transaction implements Serializable {
         this.dispute = dispute;
     }
  
-    
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Transaction)) {
+            return false;
+        }
+        Transaction other = (Transaction) object;
+        if ((this.transactionId == null && other.transactionId != null) || (this.transactionId != null && !this.transactionId.equals(other.transactionId))) {
+            return false;
+        }
+        return true;
+    }
 }

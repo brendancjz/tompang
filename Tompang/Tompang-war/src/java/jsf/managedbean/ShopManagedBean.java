@@ -12,22 +12,21 @@ import entity.User;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import javax.inject.Named;
-import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.view.ViewScoped;
 
 /**
  *
  * @author brend
  */
 @Named(value = "shopManagedBean")
-@ViewScoped
-public class ShopManagedBean implements Serializable {
+@RequestScoped
+public class ShopManagedBean {
 
     @EJB
     private UserSessionBeanLocal userSessionBean;
@@ -61,7 +60,10 @@ public class ShopManagedBean implements Serializable {
             
             listingSessionBean.incrementListingLikes(listing.getListingId());
             userSessionBean.associateListingToUserLikedListings(user.getUserId(), listing.getListingId());
-            this.userLikedListings.add(listing);
+            
+            //Update user in session scope
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", userSessionBean.getUserByUserId(user.getUserId()));
+            this.retrieveAllListings(); 
         } catch (EntityNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
@@ -74,9 +76,14 @@ public class ShopManagedBean implements Serializable {
             User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
             listingSessionBean.decrementListingLikes(listing.getListingId());
             userSessionBean.dissociateListingToUserLikedListings(user.getUserId(), listing.getListingId());
-            this.userLikedListings.remove(listing); 
+           
+            //Update user in session scope
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", userSessionBean.getUserByUserId(user.getUserId()));
+            this.retrieveAllListings(); 
         } catch (EntityNotFoundException ex) {
             System.out.println(ex.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 

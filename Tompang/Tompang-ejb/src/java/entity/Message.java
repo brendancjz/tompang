@@ -81,5 +81,16 @@ public class Message implements Serializable {
         this.fromBuyer = fromBuyer;
     }
     
-    
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Message)) {
+            return false;
+        }
+        Message other = (Message) object;
+        if ((this.messageId == null && other.messageId != null) || (this.messageId != null && !this.messageId.equals(other.messageId))) {
+            return false;
+        }
+        return true;
+    }
 }

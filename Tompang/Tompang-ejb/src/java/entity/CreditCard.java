@@ -99,6 +99,17 @@ public class CreditCard implements Serializable {
         this.expiryDate = expiryDate;
     }
     
-    
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof CreditCard)) {
+            return false;
+        }
+        CreditCard other = (CreditCard) object;
+        if ((this.ccId == null && other.ccId != null) || (this.ccId != null && !this.ccId.equals(other.ccId))) {
+            return false;
+        }
+        return true;
+    }
     
 }
