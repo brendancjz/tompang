@@ -16,16 +16,17 @@
             <div>
                 <img id="tompang-big-logo" alt="tompang-logo" src="resources/images/tompang_logo_white.png"/>
             </div>
-                    
+
             <div style="margin-top: 5%;">
                 <h:form rendered="#{sessionScope.isLogin != true}">
                     <h:commandLink class="header-button" value="Login as Admin" actionListener="#{loginManagedBean.redirectToLoginPage}" />
                 </h:form>
-                
+
                 <h:form rendered="#{sessionScope.isLogin == true}">
+                    <h:commandLink class="header-button" value="Logout" actionListener="#{loginManagedBean.logout}" />
                     <h:commandLink class="header-button" value="Enter Home Page" actionListener="#{loginManagedBean.redirectToHomePage}" />
                 </h:form>
-                
+
             </div>
 
         </div>

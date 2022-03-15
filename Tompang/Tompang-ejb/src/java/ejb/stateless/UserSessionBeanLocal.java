@@ -42,4 +42,6 @@ public interface UserSessionBeanLocal {
 
     public void dissociateListingToUserLikedListings(Long userId, Long listingId) throws EntityNotFoundException;
 
+    public void removeListingFromUserLikedListings(Long listingId) throws EmptyListException, EntityNotFoundException;
+
 }

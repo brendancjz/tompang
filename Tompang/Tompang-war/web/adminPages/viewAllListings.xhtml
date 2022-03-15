@@ -64,7 +64,7 @@
 
                     <p:column headerText="Action" >
                         <p:commandButton update="ccViewListingDetails:formViewListingDetails" oncomplete="PF('dialogViewListingDetails').show()" icon="ui-icon-document" title="View">
-                            <f:setPropertyActionListener value="#{listing}" target="#{viewAllListingsManagedBean.viewListingDetailsManagedBean.listingToView}" />
+                            <f:setPropertyActionListener value="#{listing}" target="#{viewAllListingsManagedBean.viewListingDetailsEzCompManagedBean.listingToView}" />
                         </p:commandButton>
                         <p:commandButton icon="ui-icon-trash" actionListener="#{viewAllListingsManagedBean.deleteListing}" update="listOfListings:listingsTable listOfListings:messages">
                             <f:attribute name="listingToDelete" value="#{listing}" />

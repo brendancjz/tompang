@@ -37,7 +37,7 @@ public class ViewAllListingsManagedBean implements Serializable {
     private ListingSessionBeanLocal listingSessionBean;
     
     @Inject
-    private ViewListingDetailsManagedBean viewListingDetailsManagedBean;
+    private ViewListingDetailsEzCompManagedBean viewListingDetailsEzCompManagedBean;
     
     private List<Listing> listings;
     private List<Listing> filteredListings;
@@ -149,13 +149,15 @@ public class ViewAllListingsManagedBean implements Serializable {
         this.filteredUsername = filteredUsername;
     }
 
-    public ViewListingDetailsManagedBean getViewListingDetailsManagedBean() {
-        return viewListingDetailsManagedBean;
+    public ViewListingDetailsEzCompManagedBean getViewListingDetailsEzCompManagedBean() {
+        return viewListingDetailsEzCompManagedBean;
     }
 
-    public void setViewListingDetailsManagedBean(ViewListingDetailsManagedBean viewListingDetailsManagedBean) {
-        this.viewListingDetailsManagedBean = viewListingDetailsManagedBean;
+    public void setViewListingDetailsEzCompManagedBean(ViewListingDetailsEzCompManagedBean viewListingDetailsEzCompManagedBean) {
+        this.viewListingDetailsEzCompManagedBean = viewListingDetailsEzCompManagedBean;
     }
+
+    
 
     
     

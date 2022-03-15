@@ -59,6 +59,7 @@ public class UserSessionBean implements UserSessionBeanLocal {
             user.getCreatedListings().size();
             user.getCreditCards().size();
             user.getFollowing().size();
+            user.getLikedListings().size();
         }
 
         return users;
@@ -78,14 +79,14 @@ public class UserSessionBean implements UserSessionBeanLocal {
 
         return users;
     }
-    
+
     @Override
     public void associateListingToUserLikedListings(Long userId, Long listingId) throws EntityNotFoundException {
         User user = this.getUserByUserId(userId);
         Listing listing = listingSessionBean.getListingByListingId(listingId);
         user.getLikedListings().add(listing);
     }
-    
+
     @Override
     public void dissociateListingToUserLikedListings(Long userId, Long listingId) throws EntityNotFoundException {
         User user = this.getUserByUserId(userId);
@@ -196,10 +197,12 @@ public class UserSessionBean implements UserSessionBeanLocal {
 
             if (user.getPassword().equals(passwordHash)) {
                 user.getBuyerTransactions().size();
+                user.getSellerTransactions().size();
                 user.getConversations().size();
                 user.getCreatedListings().size();
                 user.getCreditCards().size();
-                user.getSellerTransactions().size();
+                user.getFollowing().size();
+                user.getLikedListings().size();
                 return user;
             } else {
                 throw new InvalidLoginCredentialsException("Username does not exist or invalid password!");
@@ -207,6 +210,25 @@ public class UserSessionBean implements UserSessionBeanLocal {
         } catch (EntityNotFoundException ex) {
             throw new InvalidLoginCredentialsException("Username does not exist or invalid password!");
         }
+    }
+
+    @Override
+    public void removeListingFromUserLikedListings(Long listingId) throws EmptyListException, EntityNotFoundException {
+
+        Query query = em.createQuery("SELECT u FROM User u, IN (u.likedListings) l WHERE l.listingId = :id");
+        query.setParameter("id", listingId);
+        List<User> users = query.getResultList();
+
+        Listing listing = listingSessionBean.getListingByListingId(listingId);
+        
+        if (users.isEmpty()) {
+            throw new EmptyListException("List of users is empty.\n");
+        }
+
+        for (User user : users) {
+            user.getLikedListings().remove(listing);
+        }
+
     }
 
 }

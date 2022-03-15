@@ -54,6 +54,14 @@ public class DataInitSessionBean {
 
             em.persist(manager);
             em.flush();
+            
+            //Create Manager
+            dob = Date.from(LocalDate.of(1999, 12, 24).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+            //Date joinedOn = Date.from(LocalDate.of(2022, 2, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+            manager = new User("Sean", "Seduck", "seduck@gmail.com", "admin", "password", dob, 98769871L, true);
+
+            em.persist(manager);
+            em.flush();
 
             //Create Dummy User
             dob = Date.from(LocalDate.of(1999, 1, 1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());

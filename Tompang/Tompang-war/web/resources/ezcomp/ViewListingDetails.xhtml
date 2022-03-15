@@ -22,7 +22,7 @@
                             <h:outputLabel value="Listing ID: " />
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.listingId}" />
+                            <h:outputText value="#{viewListingDetailsEzCompManagedBean.listingToView.listingId}" />
                         </p:column>
                     </p:row>
 
@@ -31,7 +31,7 @@
                             <h:outputLabel value="Country: " />
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.country}" />
+                            <h:outputText value="#{viewListingDetailsEzCompManagedBean.listingToView.country}" />
                         </p:column>
                     </p:row>
 
@@ -40,7 +40,7 @@
                             <h:outputLabel value="City: " />
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.city}" />
+                            <h:outputText value="#{viewListingDetailsEzCompManagedBean.listingToView.city}" />
                         </p:column>
                     </p:row>
 
@@ -49,7 +49,7 @@
                             <h:outputLabel value="Title: " />
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.title}" />
+                            <h:outputText value="#{viewListingDetailsEzCompManagedBean.listingToView.title}" />
                         </p:column>
                     </p:row>
 
@@ -58,7 +58,7 @@
                             <h:outputLabel value="Description: " />
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.description}" />
+                            <h:outputText value="#{viewListingDetailsEzCompManagedBean.listingToView.description}" />
                         </p:column>
                     </p:row>
 
@@ -67,7 +67,7 @@
                             <h:outputLabel value="Category " />
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.category}" />
+                            <h:outputText value="#{viewListingDetailsEzCompManagedBean.listingToView.category}" />
                         </p:column>
                     </p:row>
 
@@ -76,7 +76,7 @@
                             <h:outputLabel value="Price: " />
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.price}" />
+                            <h:outputText value="#{viewListingDetailsEzCompManagedBean.listingToView.price}" />
                         </p:column>
                     </p:row>
 
@@ -85,8 +85,8 @@
                             <h:outputLabel value="Created On: " />
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.createdOn.toString().substring(4, 10)}
-                                          #{viewListingDetailsManagedBean.listingToView.createdOn.toString().substring(24)}" />
+                            <h:outputText value="#{viewListingDetailsEzCompManagedBean.listingToView.createdOn.toString().substring(4, 10)}
+                                          #{viewListingDetailsEzCompManagedBean.listingToView.createdOn.toString().substring(24)}" />
                         </p:column>
                     </p:row>
 
@@ -95,8 +95,8 @@
                             <h:outputLabel value="Expected Arrival Date: " />
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.expectedArrivalDate.toString().substring(4, 10)}
-                                          #{viewListingDetailsManagedBean.listingToView.expectedArrivalDate.toString().substring(24)}" />
+                            <h:outputText value="#{viewListingDetailsEzCompManagedBean.listingToView.expectedArrivalDate.toString().substring(4, 10)}
+                                          #{viewListingDetailsEzCompManagedBean.listingToView.expectedArrivalDate.toString().substring(24)}" />
                         </p:column>
                     </p:row>
 
@@ -105,7 +105,7 @@
                             <h:outputLabel value="Number of Likes: " />
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.numOfLikes}" />
+                            <h:outputText value="#{viewListingDetailsEzCompManagedBean.listingToView.numOfLikes}" />
                         </p:column>
                     </p:row>
 
@@ -114,7 +114,7 @@
                             <h:outputLabel value="Quantity: " />
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.quantity}" />
+                            <h:outputText value="#{viewListingDetailsEzCompManagedBean.listingToView.quantity}" />
                         </p:column>
                     </p:row>
 
@@ -123,7 +123,7 @@
                             <h:outputLabel value="Is Open: " />
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.isOpen}" />
+                            <h:outputText value="#{viewListingDetailsEzCompManagedBean.listingToView.isOpen}" />
                         </p:column>
                     </p:row>
 
@@ -132,7 +132,7 @@
                             <h:outputLabel value="Is Disabled: " />
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.isDisabled}" />
+                            <h:outputText value="#{viewListingDetailsEzCompManagedBean.listingToView.isDisabled}" />
                         </p:column>
                     </p:row>
 
@@ -141,7 +141,7 @@
                             <h:outputLabel value="Created By: " />
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{viewListingDetailsManagedBean.listingToView.createdBy.username}" />
+                            <h:outputText value="#{viewListingDetailsEzCompManagedBean.listingToView.createdBy.username}" />
                         </p:column>
                     </p:row>
 
@@ -150,12 +150,11 @@
                             <h:outputLabel value="Photo(s): " />
                         </p:column>
                         <p:column>
-                            <p:dataView var="image" value="#{viewListingDetailsManagedBean.listingToView.photos}" layout="list">
+                            <p:dataView var="image" value="#{viewListingDetailsEzCompManagedBean.listingToView.photos}" layout="list">
 
                                 <p:dataViewListItem>
                                     <div style="display: flex;flex-direction: column;align-items: center;">
                                         <p:graphicImage value="#{image}" width="200px"/>
-                                        <h3>#{image.substring(15)}</h3>
                                     </div>
                                 </p:dataViewListItem>
                             </p:dataView>
