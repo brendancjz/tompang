@@ -33,7 +33,7 @@ public class ViewListingDetailsManagedBean implements Serializable {
     private ListingSessionBeanLocal listingSessionBeanLocal;
     
     private Long listingIdToView;
-    private String backMode;
+    
     private Listing listingToView;
     
     public ViewListingDetailsManagedBean() {
@@ -41,8 +41,9 @@ public class ViewListingDetailsManagedBean implements Serializable {
     
     @PostConstruct
     public void postConstruct() {
-        listingIdToView = (Long)FacesContext.getCurrentInstance().getExternalContext().getFlash().get("listingIdToView");
-        backMode = (String)FacesContext.getCurrentInstance().getExternalContext().getFlash().get("backMode");
+        if (listingIdToView == null) listingIdToView = (Long)FacesContext.getCurrentInstance().getExternalContext().getFlash().get("listingIdToView");
+        
+        
         
         try {
             if (listingIdToView != null) {
@@ -60,27 +61,10 @@ public class ViewListingDetailsManagedBean implements Serializable {
         }
     }
     
-    //Maybe no need to use.
-    public void viewListingUser(ActionEvent event) {
-        User user = (User) event.getComponent().getAttributes().get("listingUser");
-        //Meant to view user from its listing
-    }
-    
     public void phaseListener(PhaseEvent event)
     {        
     }
     
-    public void back(ActionEvent event) throws IOException
-    {
-        if(backMode == null || backMode.trim().length() == 0)
-        {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("viewAllListings.xhtml");
-        }
-        else
-        {
-            FacesContext.getCurrentInstance().getExternalContext().redirect(backMode + ".xhtml");
-        }
-    }
     
     public void updateListing(ActionEvent event) throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("listingIdToUpdate", listingIdToView);

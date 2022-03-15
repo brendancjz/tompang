@@ -9,49 +9,43 @@ import ejb.stateless.ListingSessionBeanLocal;
 import ejb.stateless.UserSessionBeanLocal;
 import entity.Listing;
 import entity.User;
-import exception.EmptyListException;
 import exception.EntityNotFoundException;
-import java.io.IOException;
-import javax.inject.Named;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 /**
  *
  * @author brend
  */
-@Named(value = "shopManagedBean")
+@Named(value = "likedListingsManagedBean")
 @RequestScoped
-public class ShopManagedBean {
-
-    @EJB
-    private UserSessionBeanLocal userSessionBean;
+public class LikedListingsManagedBean {
 
     @EJB
     private ListingSessionBeanLocal listingSessionBean;
 
-    private List<Listing> listings;
-    private List<Listing> userLikedListings;
+    @EJB
+    private UserSessionBeanLocal userSessionBean;
+
     
-    public ShopManagedBean() {
+    private List<Listing> likedListings;
+    
+    public LikedListingsManagedBean() {
     }
     
     @PostConstruct
-    public void retrieveAllListings() {
-        try {
-            User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
-            
-            this.listings = listingSessionBean.retrieveAllAvailableListings();
-            this.userLikedListings =  user.getLikedListings();
-        } catch (EmptyListException ex) {
-            System.out.println(ex.getMessage());
-        }
+    public void retrieveLikedListings() {
+        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
+        
+        likedListings = user.getLikedListings();
     }
-    
+
     public void likeListing(AjaxBehaviorEvent event) {
         try {
             System.out.println("Like Listing method called.");
@@ -63,7 +57,7 @@ public class ShopManagedBean {
             
             //Update user in session scope
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", userSessionBean.getUserByUserId(user.getUserId()));
-            this.retrieveAllListings(); 
+            this.retrieveLikedListings(); 
         } catch (EntityNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
@@ -79,7 +73,7 @@ public class ShopManagedBean {
            
             //Update user in session scope
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", userSessionBean.getUserByUserId(user.getUserId()));
-            this.retrieveAllListings(); 
+            this.retrieveLikedListings(); 
         } catch (EntityNotFoundException ex) {
             System.out.println(ex.getMessage());
         } catch (Exception e) {
@@ -87,26 +81,14 @@ public class ShopManagedBean {
         }
     }
     
-    public void viewListing(AjaxBehaviorEvent event) throws IOException {
-        Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("listingIdToView", listing.getListingId());
-        FacesContext.getCurrentInstance().getExternalContext().redirect("viewListingDetails.xhtml");
+    public List<Listing> getLikedListings() {
+        return likedListings;
     }
 
-    public List<Listing> getListings() {
-        return listings;
+    public void setLikedListings(List<Listing> likedListings) {
+        this.likedListings = likedListings;
     }
-
-    public void setListings(List<Listing> listings) {
-        this.listings = listings;
-    }
-
-    public List<Listing> getUserLikedListings() {
-        return userLikedListings;
-    }
-
-    public void setUserLikedListings(List<Listing> userLikedListings) {
-        this.userLikedListings = userLikedListings;
-    }
+    
+    
     
 }

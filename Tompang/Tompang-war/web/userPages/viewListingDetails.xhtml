@@ -12,7 +12,7 @@
         <f:view beforePhase="#{viewListingDetailsManagedBean.phaseListener}" afterPhase="#{viewListingDetailsManagedBean.phaseListener}">
         
             <div>
-                <h3>View Listing Details</h3>
+                <h1>View Listing Details</h1>
 
                 <br/>
 
@@ -20,9 +20,7 @@
                 <br/>
 
                 <h:form rendered="#{viewListingDetailsManagedBean.listingToView != null}">
-                    <h:commandLink value="Back" actionListener="#{viewListingDetailsManagedBean.back}" />&nbsp;|
-                    <h:commandLink value="Update" actionListener="#{viewListingDetailsManagedBean.updateListing}" />&nbsp;|
-                    <h:commandLink value="Delete" actionListener="#{viewListingDetailsManagedBean.deleteListing}" />
+
                 </h:form>
 
                 <br/>

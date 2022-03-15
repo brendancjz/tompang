@@ -70,9 +70,6 @@
                             <f:attribute name="listingToDelete" value="#{listing}" />
                             <p:confirm header="Confirmation" message="Are you sure you want to delete #{listing.title}?" icon="ui-icon-alert" />
                         </p:commandButton>
-                        <h:commandButton class="blue-button" value="View" actionListener="#{viewAllListingsManagedBean.viewListingDetails}">
-                            <f:attribute name="listingId" value="#{listing.listingId}" />
-                        </h:commandButton>
                     </p:column>
                 </p:dataTable>
                 

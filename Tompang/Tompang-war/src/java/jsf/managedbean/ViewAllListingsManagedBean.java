@@ -66,12 +66,12 @@ public class ViewAllListingsManagedBean implements Serializable {
         }
     }
     
-    public void viewListingDetails(ActionEvent event) throws IOException {
-        Long listingIdToView = (Long)event.getComponent().getAttributes().get("listingId");
-        System.err.print(listingIdToView);
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("listingIdToView", listingIdToView);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("viewListingDetails.xhtml");
-    }
+//    public void viewListingDetails(ActionEvent event) throws IOException {
+//        Long listingIdToView = (Long)event.getComponent().getAttributes().get("listingId");
+//        System.err.print(listingIdToView);
+//        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("listingIdToView", listingIdToView);
+//        FacesContext.getCurrentInstance().getExternalContext().redirect("viewListingDetails.xhtml");
+//    }
     
     public void deleteListing(ActionEvent event) {
         try {

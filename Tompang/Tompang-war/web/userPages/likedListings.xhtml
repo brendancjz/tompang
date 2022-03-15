@@ -8,10 +8,10 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        <h1> Shopping Page </h1>
+        <h1> Liked Listings </h1>
         <br></br>
         <h:form id="form">
-            <p:dataView var="listing" value="#{shopManagedBean.listings}" rows="12" paginator="true"
+            <p:dataView var="listing" value="#{likedListingsManagedBean.likedListings}" rows="12" paginator="true"
                         rowsPerPageTemplate="6,12,16" layout="grid"
                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
@@ -42,10 +42,7 @@
                                 <f:attribute name="listing" value="#{listing}" />
                                 <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.dislikeListing}" />
                             </h:commandButton>  
-                            <h:commandButton class="blue-button" value="View">
-                                <f:attribute name="listing" value="#{listing}" />
-                                <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.viewListing}" />
-                            </h:commandButton>
+                            <p:commandButton type="button" value="Buy Now" />
                         </div>
                     </div>
                 </p:dataViewGridItem>
