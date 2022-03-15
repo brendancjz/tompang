@@ -6,6 +6,7 @@
 package jsf.managedbean;
 
 import ejb.stateless.ListingSessionBeanLocal;
+import ejb.stateless.UserSessionBeanLocal;
 import entity.Listing;
 import entity.User;
 import exception.EntityNotFoundException;
@@ -14,10 +15,8 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.PhaseEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 
 /**
@@ -30,50 +29,69 @@ import javax.faces.view.ViewScoped;
 public class ViewListingDetailsManagedBean implements Serializable {
 
     @EJB
-    private ListingSessionBeanLocal listingSessionBeanLocal;
-    
-    private Long listingIdToView;
-    
+    private UserSessionBeanLocal userSessionBean;
+
+    @EJB
+    private ListingSessionBeanLocal listingSessionBean;
+
     private Listing listingToView;
-    
+
     public ViewListingDetailsManagedBean() {
     }
-    
+
     @PostConstruct
     public void postConstruct() {
-        if (listingIdToView == null) listingIdToView = (Long)FacesContext.getCurrentInstance().getExternalContext().getFlash().get("listingIdToView");
-        
-        
-        
         try {
-            if (listingIdToView != null) {
-                    setListingToView(listingSessionBeanLocal.getListingByListingId(listingIdToView));
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No listing has been selected", null));
+            listingToView = (Listing) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("listingToView");
+            if (listingToView == null) {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("shop.xhtml");
             }
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
         }
-        catch (EntityNotFoundException ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while retrieving the product details: " + ex.getMessage(), null));
+    }
+
+    public void likeListing(AjaxBehaviorEvent event) {
+        try {
+            System.out.println("Like Listing method called.");
+            Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
+            User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
+
+            listingSessionBean.incrementListingLikes(listing.getListingId());
+            userSessionBean.associateListingToUserLikedListings(user.getUserId(), listing.getListingId());
+
+            //Update user in session scope
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", userSessionBean.getUserByUserId(user.getUserId()));
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listingToView", listingSessionBean.getListingByListingId(listing.getListingId()));
+
+            this.postConstruct();
+        } catch (EntityNotFoundException ex) {
+            System.out.println(ex.getMessage());
         }
-        catch(Exception ex)
-        {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An unexpected error has occurred: " + ex.getMessage(), null));
+    }
+
+    public void dislikeListing(AjaxBehaviorEvent event) {
+        try {
+            System.out.println("Dislike Listing method called.");
+            Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
+            User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
+            listingSessionBean.decrementListingLikes(listing.getListingId());
+            userSessionBean.dissociateListingToUserLikedListings(user.getUserId(), listing.getListingId());
+
+            //Update user in session scope
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", userSessionBean.getUserByUserId(user.getUserId()));
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listingToView", listingSessionBean.getListingByListingId(listing.getListingId()));
+            this.postConstruct();
+        } catch (EntityNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
     
-    public void phaseListener(PhaseEvent event)
-    {        
-    }
-    
-    
-    public void updateListing(ActionEvent event) throws IOException {
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("listingIdToUpdate", listingIdToView);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("updateListing.xhtml");
-    }
-    
-    public void deleteListing(ActionEvent event) throws IOException {
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("listingIdToDelete", listingIdToView);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("deleteListing.xhtml");
+    public boolean showLikeButton() {
+        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
+        return user.getLikedListings().contains(listingToView);  
     }
 
     public Listing getListingToView() {

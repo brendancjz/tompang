@@ -244,3 +244,7 @@ and open the template in the editor.
     font-size: 20px;
     float: right;
 }
+.listing-grid-item-bottom {
+    display: flex;
+    justify-content: space-around;
+}

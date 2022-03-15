@@ -6,11 +6,9 @@
                 template="/template/sidebarTemplate.xhtml"
                 xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
                 xmlns:p="http://primefaces.org/ui">
-    
+
     <ui:define name="content">
-        
-        <f:view beforePhase="#{viewListingDetailsManagedBean.phaseListener}" afterPhase="#{viewListingDetailsManagedBean.phaseListener}">
-        
+
             <div>
                 <h1>View Listing Details</h1>
 
@@ -20,11 +18,36 @@
                 <br/>
 
                 <h:form rendered="#{viewListingDetailsManagedBean.listingToView != null}">
-
+                    <h:commandButton class="blue-button" value="Chat">
+                        <f:attribute name="listing" value="#{listing}" />
+                        <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.likeListing}" />
+                    </h:commandButton>  
+                    <h:commandButton rendered="#{!viewListingDetailsManagedBean.showLikeButton()}" class="blue-button" value="Like!">
+                        <f:attribute name="listing" value="#{viewListingDetailsManagedBean.listingToView}" />
+                        <f:ajax event="click" execute="@this" render="@all" listener="#{viewListingDetailsManagedBean.likeListing}" />
+                    </h:commandButton>  
+                    <h:commandButton rendered="#{viewListingDetailsManagedBean.showLikeButton()}" class="blue-button" value="Unlike">
+                        <f:attribute name="listing" value="#{viewListingDetailsManagedBean.listingToView}" />
+                        <f:ajax event="click" execute="@this" render="@all" listener="#{viewListingDetailsManagedBean.dislikeListing}" />
+                    </h:commandButton>
+                    <h:commandButton class="blue-button" value="Buy Now">
+                        <f:attribute name="listing" value="#{listing}" />
+                        <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.likeListing}" />
+                    </h:commandButton> 
                 </h:form>
 
                 <br/>
+                <p:panel header="Photos">
+                    <p:dataView var="image" value="#{viewListingDetailsManagedBean.listingToView.photos}" layout="grid">
 
+                        <p:dataViewGridItem>
+                            <div style="display: flex;flex-direction: column;align-items: center;">
+                                <p:graphicImage value="#{image}" width="100%"/>
+                            </div>
+                        </p:dataViewGridItem>
+                    </p:dataView>
+                </p:panel>
+                <br />
                 <h:panelGrid columnClasses="dataTableLabel,dataTableValue" columns="2" style="width: 100%;" rendered="#{viewListingDetailsManagedBean.listingToView != null}">
 
                     <h:outputText style="font-weight: bold; width: 20%;" value="Listing ID"/>
@@ -32,10 +55,10 @@
 
                     <h:outputText style="font-weight: bold;" value="Title"/>
                     <h:outputText value="#{viewListingDetailsManagedBean.listingToView.title}"/>
-                    
+
                     <h:outputText style="font-weight: bold;" value="Country"/>
                     <h:outputText value="#{viewListingDetailsManagedBean.listingToView.country}"/>
-                    
+
                     <h:outputText style="font-weight: bold;" value="City"/>
                     <h:outputText value="#{viewListingDetailsManagedBean.listingToView.city}"/>
 
@@ -52,19 +75,16 @@
 
                     <h:outputText style="font-weight: bold;" value="Creation Date"/>
                     <h:outputText value="#{viewListingDetailsManagedBean.listingToView.createdOn}"/>
-                    
+
                     <h:outputText style="font-weight: bold;" value="Expected Arrival Date"/>
                     <h:outputText value="#{viewListingDetailsManagedBean.listingToView.expectedArrivalDate}"/>
-                    
+
                     <h:outputText style="font-weight: bold;" value="Number Of Likes"/>
                     <h:outputText value="#{viewListingDetailsManagedBean.listingToView.numOfLikes}"/>
                 </h:panelGrid>
             </div>
-        
-        </f:view>
-        
+
     </ui:define>
-    
+
 </ui:composition>
 
-    

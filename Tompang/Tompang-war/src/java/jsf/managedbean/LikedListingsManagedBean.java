@@ -10,13 +10,13 @@ import ejb.stateless.UserSessionBeanLocal;
 import entity.Listing;
 import entity.User;
 import exception.EntityNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 /**
@@ -79,6 +79,12 @@ public class LikedListingsManagedBean {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    public void viewListing(AjaxBehaviorEvent event) throws IOException {
+        Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listingToView", listing);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("viewListingDetails.xhtml");
     }
     
     public List<Listing> getLikedListings() {

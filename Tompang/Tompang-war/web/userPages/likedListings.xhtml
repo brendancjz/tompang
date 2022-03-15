@@ -36,13 +36,16 @@
 
                             <h:commandButton rendered="#{!shopManagedBean.userLikedListings.contains(listing)}" class="blue-button" value="Like!">
                                 <f:attribute name="listing" value="#{listing}" />
-                                <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.likeListing}" />
+                                <f:ajax event="click" execute="@this" render="@all" listener="#{likedListingsManagedBean.likeListing}" />
                             </h:commandButton>  
                             <h:commandButton rendered="#{shopManagedBean.userLikedListings.contains(listing)}" class="blue-button" value="Unlike">
                                 <f:attribute name="listing" value="#{listing}" />
-                                <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.dislikeListing}" />
+                                <f:ajax event="click" execute="@this" render="@all" listener="#{likedListingsManagedBean.dislikeListing}" />
                             </h:commandButton>  
-                            <p:commandButton type="button" value="Buy Now" />
+                            <h:commandButton class="blue-button" value="View">
+                                <f:attribute name="listing" value="#{listing}" />
+                                <f:ajax event="click" execute="@this" render="@all" listener="#{likedListingsManagedBean.viewListing}" />
+                            </h:commandButton>
                         </div>
                     </div>
                 </p:dataViewGridItem>
