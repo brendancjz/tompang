@@ -43,9 +43,9 @@
             <div class="listing-div">
                 <h2>Step 2: Select Country and City</h2>
                 
-                <div class="googleMap">
+<!--                <div class="googleMap">
                     <p:gmap center="35.6620, 139.7038" zoom="15" type="hybrid" style="width: 1000px; height: 600px" />
-                </div>
+                </div>-->
 
                 <p:panel header="Select a Location" style="margin-top:10px;padding: 0.5em;">
                     <h:panelGrid columns="2" cellpadding="5">
@@ -56,7 +56,7 @@
                             <f:selectItems value="#{createListingManagedBean.countries}"/>
                         </p:selectOneMenu>
 
-                        <p:outputLabel for="city" value="City:"/>
+                        <p:outputLabel for="city" value="City/State:"/>
                         <p:selectOneMenu id="city" value="#{createListingManagedBean.city}" style="width:150px" required="true">
                             <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true"/>
                             <f:selectItems value="#{createListingManagedBean.cities}"/>

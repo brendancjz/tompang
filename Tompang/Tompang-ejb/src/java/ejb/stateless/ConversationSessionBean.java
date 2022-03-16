@@ -16,6 +16,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -36,7 +38,7 @@ public class ConversationSessionBean implements ConversationSessionBeanLocal {
     private EntityManager em;
 
     @Override
-    public Long createNewConversation(Conversation convo, Long listingId, Long userId, Message firstMessage) throws CreateNewConversationException {
+    public Long createNewConversation(Conversation convo, Long listingId, Long userId) {
         try {
             Listing listing = listingSessionBeanLocal.getListingByListingId(listingId);
             User user = userSessionBeanLocal.getUserByUserId(userId);
@@ -46,12 +48,12 @@ public class ConversationSessionBean implements ConversationSessionBeanLocal {
             if (!listing.getConversations().contains(convo)) {
                 listing.getConversations().add(convo);
             }
-            convo.getMessages().add(firstMessage);
+            
+            em.persist(convo);
+            em.flush();
         } catch (EntityNotFoundException ex) {
-            throw new CreateNewConversationException();
+            return null;
         }
-        em.persist(convo);
-        em.flush();
 
         return convo.getConvoId();
     }
@@ -74,8 +76,28 @@ public class ConversationSessionBean implements ConversationSessionBeanLocal {
         return convos;
     }
 
+    public Conversation getUserConversationWithListing(Long userId, Long listingId) throws EntityNotFoundException {
+        System.out.println("conversationSessionBean.getUserConversationWithListing");
+
+        Query query = em.createQuery("SELECT c FROM Conversation c WHERE c.createdBy.userId = :uId AND c.listing.listingId = :lId");
+
+        query.setParameter("uId", userId);
+        query.setParameter("lId", listingId);
+        Conversation convo;
+        try {
+            convo = (Conversation) query.getSingleResult();
+        } catch (NoResultException | NonUniqueResultException e) {
+            throw new EntityNotFoundException("Conversation not found.\n");
+        }
+
+        convo.getMessages().size();
+
+        return convo;
+    }
+
     @Override
     public Conversation getConversationByConvoId(Long convoId) throws EntityNotFoundException {
+
         Conversation convo = em.find(Conversation.class, convoId);
 
         if (convo == null) {
