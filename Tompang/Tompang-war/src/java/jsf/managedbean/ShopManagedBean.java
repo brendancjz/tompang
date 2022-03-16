@@ -49,7 +49,7 @@ public class ShopManagedBean {
             this.userLikedListings =  user.getLikedListings();
         } catch (EmptyListException ex) {
             System.out.println(ex.getMessage());
-        }
+        } 
     }
     
     public void likeListing(AjaxBehaviorEvent event) {
