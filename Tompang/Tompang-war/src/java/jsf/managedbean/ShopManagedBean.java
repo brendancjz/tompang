@@ -5,10 +5,8 @@
  */
 package jsf.managedbean;
 
-import ejb.stateless.ConversationSessionBeanLocal;
 import ejb.stateless.ListingSessionBeanLocal;
 import ejb.stateless.UserSessionBeanLocal;
-import entity.Conversation;
 import entity.Listing;
 import entity.User;
 import exception.EmptyListException;
@@ -29,9 +27,6 @@ import javax.faces.event.AjaxBehaviorEvent;
 @Named(value = "shopManagedBean")
 @RequestScoped
 public class ShopManagedBean {
-
-    @EJB
-    private ConversationSessionBeanLocal conversationSessionBean;
 
     @EJB
     private UserSessionBeanLocal userSessionBean;
@@ -96,25 +91,6 @@ public class ShopManagedBean {
         Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listingToView", listing);
         FacesContext.getCurrentInstance().getExternalContext().redirect("viewListingDetails.xhtml");
-    }
-
-    public void goToChat(AjaxBehaviorEvent event) throws IOException {
-
-        Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
-        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
-        
-        Conversation convo;
-        try {
-            convo = conversationSessionBean.getUserConversationWithListing(user.getUserId(), listing.getListingId());
-            
-        } catch (EntityNotFoundException ex) {
-            System.out.println(ex.getMessage());
-            convo = new Conversation(user, listing);
-            conversationSessionBean.createNewConversation(convo, user.getUserId(), listing.getListingId());
-        }
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("conversation", convo);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("conversation.xhtml");
-
     }
 
     public List<Listing> getListings() {

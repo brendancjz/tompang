@@ -9,7 +9,6 @@ import ejb.stateless.ListingSessionBeanLocal;
 import entity.Listing;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
-import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

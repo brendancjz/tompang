@@ -18,9 +18,9 @@
             <br/>
 
             <h:form rendered="#{viewListingDetailsManagedBean.listingToView != null}" style="display: flex;justify-content: space-around;width: 25%;">
-                <h:commandButton class="blue-button" value="Chat">
+                <h:commandButton class="blue-button" value="Chat" rendered="#{!viewListingDetailsManagedBean.didUserCreateThisListing()}">
                     <f:attribute name="listing" value="#{viewListingDetailsManagedBean.listingToView}" />
-                    <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.goToChat}" />
+                    <f:ajax event="click" execute="@this" render="@all" listener="#{viewListingDetailsManagedBean.goToChat}" />
                 </h:commandButton>  
                 <h:commandButton rendered="#{!viewListingDetailsManagedBean.showLikeButton()}" class="blue-button" value="Like!">
                     <f:attribute name="listing" value="#{viewListingDetailsManagedBean.listingToView}" />

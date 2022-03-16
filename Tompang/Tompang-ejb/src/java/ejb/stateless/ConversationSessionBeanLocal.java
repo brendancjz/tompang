@@ -29,5 +29,7 @@ public interface ConversationSessionBeanLocal {
     public Conversation getUserConversationWithListing(Long userId, Long listingId) throws EntityNotFoundException;
 
     public Long createNewConversation(Conversation convo, Long listingId, Long userId);
+
+    public List<Conversation> retrieveAllUserConversations(Long userId) throws EmptyListException;
     
 }

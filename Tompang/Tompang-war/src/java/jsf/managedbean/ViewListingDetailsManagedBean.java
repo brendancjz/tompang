@@ -5,13 +5,16 @@
  */
 package jsf.managedbean;
 
+import ejb.stateless.ConversationSessionBeanLocal;
 import ejb.stateless.ListingSessionBeanLocal;
 import ejb.stateless.UserSessionBeanLocal;
+import entity.Conversation;
 import entity.Listing;
 import entity.User;
 import exception.EntityNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -27,6 +30,9 @@ import javax.faces.view.ViewScoped;
 @ViewScoped
 
 public class ViewListingDetailsManagedBean implements Serializable {
+
+    @EJB
+    private ConversationSessionBeanLocal conversationSessionBean;
 
     @EJB
     private UserSessionBeanLocal userSessionBean;
@@ -87,6 +93,30 @@ public class ViewListingDetailsManagedBean implements Serializable {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    public void goToChat(AjaxBehaviorEvent event) throws IOException {
+
+        Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
+        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
+        
+        Conversation convo;
+        try {
+            convo = conversationSessionBean.getUserConversationWithListing(user.getUserId(), listing.getListingId());
+            
+        } catch (EntityNotFoundException ex) {
+            System.out.println(ex.getMessage());
+            convo = new Conversation(user, listing);
+            conversationSessionBean.createNewConversation(convo, user.getUserId(), listing.getListingId());
+        }
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("conversation", convo);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("conversation.xhtml");
+
+    }
+    
+    public Boolean didUserCreateThisListing() {
+        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
+        return Objects.equals(user.getUserId(), listingToView.getCreatedBy().getUserId());
     }
     
     public boolean showLikeButton() {
