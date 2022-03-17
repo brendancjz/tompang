@@ -24,6 +24,8 @@ public class ConversationManagedBean implements Serializable {
     private Conversation conversationToView;
     private Boolean showListingDetails;
     
+    private String newMessage;
+    
     public ConversationManagedBean() {
         
     }
@@ -61,6 +63,14 @@ public class ConversationManagedBean implements Serializable {
 
     public void setShowListingDetails(Boolean showListingDetails) {
         this.showListingDetails = showListingDetails;
+    }
+
+    public String getNewMessage() {
+        return newMessage;
+    }
+
+    public void setNewMessage(String newMessage) {
+        this.newMessage = newMessage;
     }
     
     

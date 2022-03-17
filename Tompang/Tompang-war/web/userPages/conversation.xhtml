@@ -56,11 +56,11 @@
 
                     <h:outputText style="font-weight: bold;" value="Creation Date"/>
                     <h:outputText value="#{conversationManagedBean.conversationToView.listing.createdOn.toString().substring(4, 10)}
-                              #{conversationManagedBean.conversationToView.listing.createdOn.toString().substring(24)}" />
+                                  #{conversationManagedBean.conversationToView.listing.createdOn.toString().substring(24)}" />
 
                     <h:outputText style="font-weight: bold;" value="Expected Arrival Date"/>
                     <h:outputText value="#{conversationManagedBean.conversationToView.listing.expectedArrivalDate.toString().substring(4, 10)}
-                              #{conversationManagedBean.conversationToView.listing.expectedArrivalDate.toString().substring(24)}" />
+                                  #{conversationManagedBean.conversationToView.listing.expectedArrivalDate.toString().substring(24)}" />
 
                     <h:outputText style="font-weight: bold;" value="Number Of Likes"/>
                     <h:outputText value="#{conversationManagedBean.conversationToView.listing.numOfLikes}"/>
@@ -71,15 +71,37 @@
                 </h:panelGrid>
             </h:panelGroup>
         </h:form>
-        
+        <hr />
         <div class="convo-block">
-            #{conversationManagedBean.conversationToView.convoId}
-        </div>
-        
 
-        <div style="height: 200px;">
+            <div class="convo-history">
+                <h:form id="convoBlock">
+                    #{conversationManagedBean.conversationToView.convoId}
+                </h:form>
+                
+            </div>
+            <div class="convo-message">
+                <h:form id="convoNewMessage" style="display: flex; align-items: center;">
+                    <p:inputTextarea id="description" placeholder="Type here..." 
+                                     value="#{conversationManagedBean.newMessage}" 
+                                     style="width: 90%;
+                                     min-height: 100px;
+                                     max-height: 150px;
+                                     overflow: hidden;
+                                     overflow-wrap: break-word;
+                                     height: 100px;
+                                     padding: 10px;" required="true" />
+                    <div style="margin: 0 auto;">
+                        <h:commandButton class="blue-button" value="Send" type="submit" >
+                            <f:ajax event="click" execute="@form:convoNewMessage" render="@@form:convoNewMessage @form:convoBlock" listener="#{createListingManagedBean.createListing}" />
+                        </h:commandButton>
+                    </div>
+                    
 
+                </h:form>
+            </div>
         </div>
+
     </ui:define>
 
 </ui:composition>

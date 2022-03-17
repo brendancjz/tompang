@@ -253,3 +253,10 @@ and open the template in the editor.
     background-color: #F1F2F2;
     height: 65vh;
 }
+.convo-history {
+    background-color: white;
+    height: 72%;
+}
+.convo-message {
+    
+}
