@@ -30,6 +30,8 @@ public interface ConversationSessionBeanLocal {
 
     public Long createNewConversation(Conversation convo, Long listingId, Long userId);
 
-    public List<Conversation> retrieveAllUserConversations(Long userId) throws EmptyListException;
+    public List<Conversation> retrieveAllBuyerConversations(Long userId) throws EmptyListException;
+
+    public List<Conversation> retrieveAllSellerConversations(Long userId) throws EmptyListException;
     
 }

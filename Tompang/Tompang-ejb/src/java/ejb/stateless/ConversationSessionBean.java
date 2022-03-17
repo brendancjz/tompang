@@ -78,8 +78,26 @@ public class ConversationSessionBean implements ConversationSessionBeanLocal {
     }
     
     @Override
-    public List<Conversation> retrieveAllUserConversations(Long userId) throws EmptyListException {
+    public List<Conversation> retrieveAllBuyerConversations(Long userId) throws EmptyListException {
         Query query = em.createQuery("SELECT c FROM Conversation c WHERE c.createdBy.userId = :id");
+        query.setParameter("id", userId);
+        
+        List<Conversation> convos = query.getResultList();
+
+        if (convos.isEmpty()) {
+            throw new EmptyListException("List of convos is empty.\n");
+        }
+
+        for (Conversation convo : convos) {
+            convo.getMessages().size();
+        }
+
+        return convos;
+    }
+    
+    @Override
+    public List<Conversation> retrieveAllSellerConversations(Long userId) throws EmptyListException {
+        Query query = em.createQuery("SELECT c FROM Conversation c WHERE c.listing.createdBy.userId = :id");
         query.setParameter("id", userId);
         
         List<Conversation> convos = query.getResultList();

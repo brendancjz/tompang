@@ -32,8 +32,11 @@ public class InboxManagedBean implements Serializable {
     @EJB
     private ConversationSessionBeanLocal conversationSessionBean;
 
-    private List<Conversation> conversations;
-    private List<Conversation> filteredConversations;
+    private List<Conversation> buyerConversations;
+    private List<Conversation> filteredBuyerConversations;
+    
+    private List<Conversation> sellerConversations;
+    private List<Conversation> filteredSellerConversations;
 
     public InboxManagedBean() {
     }
@@ -42,7 +45,9 @@ public class InboxManagedBean implements Serializable {
     public void retrieveConversations() {
         try {
             User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
-            conversations = conversationSessionBean.retrieveAllUserConversations(user.getUserId());
+            buyerConversations = conversationSessionBean.retrieveAllBuyerConversations(user.getUserId());
+            
+            sellerConversations = conversationSessionBean.retrieveAllSellerConversations(user.getUserId());
         } catch (EmptyListException ex) {
             System.out.println(ex.getMessage());
         }
@@ -57,20 +62,36 @@ public class InboxManagedBean implements Serializable {
 
     }
 
-    public List<Conversation> getConversations() {
-        return conversations;
+    public List<Conversation> getBuyerConversations() {
+        return buyerConversations;
     }
 
-    public void setConversations(List<Conversation> conversations) {
-        this.conversations = conversations;
+    public void setBuyerConversations(List<Conversation> buyerConversations) {
+        this.buyerConversations = buyerConversations;
     }
 
-    public List<Conversation> getFilteredConversations() {
-        return filteredConversations;
+    public List<Conversation> getFilteredBuyerConversations() {
+        return filteredBuyerConversations;
     }
 
-    public void setFilteredConversations(List<Conversation> filteredConversations) {
-        this.filteredConversations = filteredConversations;
+    public void setFilteredBuyerConversations(List<Conversation> filteredBuyerConversations) {
+        this.filteredBuyerConversations = filteredBuyerConversations;
+    }
+
+    public List<Conversation> getSellerConversations() {
+        return sellerConversations;
+    }
+
+    public void setSellerConversations(List<Conversation> sellerConversations) {
+        this.sellerConversations = sellerConversations;
+    }
+
+    public List<Conversation> getFilteredSellerConversations() {
+        return filteredSellerConversations;
+    }
+
+    public void setFilteredSellerConversations(List<Conversation> filteredSellerConversations) {
+        this.filteredSellerConversations = filteredSellerConversations;
     }
 
 }
