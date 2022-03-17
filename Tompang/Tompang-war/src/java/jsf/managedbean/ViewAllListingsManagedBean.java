@@ -13,6 +13,8 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -40,6 +42,8 @@ public class ViewAllListingsManagedBean implements Serializable {
     
     private List<Listing> listings;
     private List<Listing> filteredListings;
+    
+    private Listing listingToUpdate;
     
     private String filteredUsername;
     public ViewAllListingsManagedBean() {
@@ -99,6 +103,15 @@ public class ViewAllListingsManagedBean implements Serializable {
         }
     }
     
+    public void saveListing(ActionEvent event) {
+        try {
+            listingSessionBean.updateListingDetails(listingToUpdate);
+            System.out.println("Updated listing details");
+        } catch (EntityNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
     public Integer getNumberOfListings() {
         
         try {
@@ -154,6 +167,14 @@ public class ViewAllListingsManagedBean implements Serializable {
 
     public void setViewListingDetailsEzCompManagedBean(ViewListingDetailsEzCompManagedBean viewListingDetailsEzCompManagedBean) {
         this.viewListingDetailsEzCompManagedBean = viewListingDetailsEzCompManagedBean;
+    }
+
+    public Listing getListingToUpdate() {
+        return listingToUpdate;
+    }
+
+    public void setListingToUpdate(Listing listingToUpdate) {
+        this.listingToUpdate = listingToUpdate;
     }
 
     

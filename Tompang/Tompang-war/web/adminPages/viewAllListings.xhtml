@@ -66,20 +66,187 @@
                         <p:commandButton update="ccViewListingDetails:formViewListingDetails" oncomplete="PF('dialogViewListingDetails').show()" icon="ui-icon-document" title="View">
                             <f:setPropertyActionListener value="#{listing}" target="#{viewAllListingsManagedBean.viewListingDetailsEzCompManagedBean.listingToView}" />
                         </p:commandButton>
+                        <p:commandButton update="formUpdateListingDetails" oncomplete="PF('dialogUpdateListingDetails').show()" icon="pi pi-pencil" title="Update">
+                            <f:setPropertyActionListener value="#{listing}" target="#{viewAllListingsManagedBean.listingToUpdate}" />
+                        </p:commandButton>
                         <p:commandButton icon="ui-icon-trash" actionListener="#{viewAllListingsManagedBean.deleteListing}" update="listOfListings:listingsTable listOfListings:messages">
                             <f:attribute name="listingToDelete" value="#{listing}" />
                             <p:confirm header="Confirmation" message="Are you sure you want to delete #{listing.title}?" icon="ui-icon-alert" />
                         </p:commandButton>
                     </p:column>
                 </p:dataTable>
-                
-                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                     <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>
             </h:form>
-            
+
             <ezcomp:ViewListingDetails id="ccViewListingDetails" />
+            <h:form id="formUpdateListingDetails">
+
+                <p:dialog id="dialogUpdateListingDetails" widgetVar="dialogUpdateListingDetails" header="Update Listing Details" closable="true">
+
+                    <p:panelGrid>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Listing ID: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.listingId}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Country: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.country}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="City: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.city}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Title: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.title}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Description: " />
+                            </p:column>
+                            <p:column style="max-width: 250px; height: 100px;">
+                                <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.description}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Category " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.category}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Price: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.price}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Created On: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.createdOn.toString().substring(4, 10)}
+                                              #{viewAllListingsManagedBean.listingToUpdate.createdOn.toString().substring(24)}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Expected Arrival Date: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{vviewAllListingsManagedBean.listingToUpdate.expectedArrivalDate.toString().substring(4, 10)}
+                                              #{viewAllListingsManagedBean.listingToUpdate.expectedArrivalDate.toString().substring(24)}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Number of Likes: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.numOfLikes}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Quantity: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.quantity}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Is Open: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.isOpen}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Is Disabled: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.isDisabled}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Created By: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.createdBy.username}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Photo(s): " />
+                            </p:column>
+                            <p:column>
+                                <p:dataView var="image" value="#{viewAllListingsManagedBean.listingToUpdate.photos}" layout="list">
+
+                                    <p:dataViewListItem>
+                                        <div style="display: flex;flex-direction: column;align-items: center;">
+                                            <p:graphicImage value="#{image}" width="200px"/>
+                                        </div>
+                                    </p:dataViewListItem>
+                                </p:dataView>
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                        <p:column colspan="3">
+                            <p:commandButton id="updateListing" value="Save" icon="pi pi-save" update="@form listOfListings:listingsTable" actionListener="#{viewAllListingsManagedBean.saveListing}" oncomplete="PF('dialogUpdateListingDetails').show();" />
+                        </p:column>
+                    </p:row>
+                    </p:panelGrid>
+
+                    <!--                <div style="width: 20%; min-width: 500px;">
+                                        
+                                    </div>-->
+
+                </p:dialog>
+
+            </h:form>
         </div>
     </ui:define>
 

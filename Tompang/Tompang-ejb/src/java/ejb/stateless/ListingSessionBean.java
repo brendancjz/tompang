@@ -153,6 +153,23 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
         listing.setIsOpen(isOpen);
         listing.setPhotos(photos);
     }
+    
+    @Override
+    public void updateListingDetails(Listing listingToUpdate) throws EntityNotFoundException {
+        Listing listing = this.getListingByListingId(listingToUpdate.getListingId());
+        listing.setCategory(listingToUpdate.getCategory());
+        listing.setCity(listingToUpdate.getCity());
+        listing.setCountry(listingToUpdate.getCountry());
+        listing.setCreatedOn(listingToUpdate.getCreatedOn());
+        listing.setDescription(listingToUpdate.getDescription());
+        listing.setExpectedArrivalDate(listingToUpdate.getExpectedArrivalDate());
+        listing.setIsDisabled(listingToUpdate.getIsDisabled());
+        listing.setIsOpen(listingToUpdate.getIsOpen());
+        listing.setNumOfLikes(listingToUpdate.getNumOfLikes());
+        listing.setPhotos(listingToUpdate.getPhotos());
+        listing.setPrice(listing.getPrice());
+        listing.setQuantity(listingToUpdate.getQuantity());
+    }
 
     @Override
     public void deleteListing(Long listingId) throws EntityNotFoundException {
