@@ -107,7 +107,7 @@ public class ViewListingDetailsManagedBean implements Serializable {
         } catch (EntityNotFoundException ex) {
             System.out.println(ex.getMessage());
             convo = new Conversation(user, listing);
-            conversationSessionBean.createNewConversation(convo, user.getUserId(), listing.getListingId());
+            conversationSessionBean.createNewConversation(convo, listing.getListingId(), user.getUserId());
         }
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("conversation", convo);
         FacesContext.getCurrentInstance().getExternalContext().redirect("conversation.xhtml");

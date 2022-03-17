@@ -50,30 +50,6 @@
                     </div>
                 </p:dataViewGridItem>
 
-                <p:dataViewListItem>
-                    <div class="">
-                        <div class="">
-                            <div>
-
-                                <span class="listing-category">#{listing.category}</span>
-                            </div>
-                        </div>
-                        <div class="listing-grid-item-content">
-                            <p:graphicImage name="images/product/#{product.image}" library="demo"/>
-                            <div class="listing-name">#{listing.title}</div>
-                            <div class="listing-description">#{listing.description}</div>
-                            <h:outputText value="#{listing.numOfLikes}"/>
-                        </div>
-                        <div class="listing-grid-item-bottom">
-                            <h:outputText value="#{listing.price}" styleClass="listing-price">
-                                <f:convertNumber currencySymbol="$" type="currency"/>
-                            </h:outputText>
-                            <p:commandButton type="button"
-                                             value="Buy Now">
-                            </p:commandButton>
-                        </div>
-                    </div>
-                </p:dataViewListItem>
             </p:dataView>
         </h:form>
         <div style="height: 200px;">

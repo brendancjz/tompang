@@ -248,3 +248,8 @@ and open the template in the editor.
     display: flex;
     justify-content: space-around;
 }
+
+.convo-block {
+    background-color: #F1F2F2;
+    height: 65vh;
+}

@@ -24,21 +24,25 @@
                             <p:inputText id="globalFilter" onkeyup="PF('conversationsTable').filter()" style="width:200px" placeholder="Enter keyword"/>
                         </p:outputPanel>
                     </f:facet>
-                    <p:column headerText="ID" width="4%" sortBy="#{conversation.convoId}" filterBy="#{conversation.convoId}" filterStyle="display:none;">
-                        <h:outputText value="#{conversation.convoId}" />
-                    </p:column>
 
+                    <p:column headerText="Image" width="10%">
+                        <p:panel rendered="#{!conversation.listing.photos.isEmpty()}">
+                            <p:graphicImage value="#{conversation.listing.photos.get(0)}" width="100%"/>
+                        </p:panel>
+                    </p:column>
                     <p:column headerText="Listing Title" sortBy="#{conversation.listing.title}" filterBy="#{conversation.listing.title}" filterStyle="display:none;">
                         <h:outputText value="#{conversation.listing.title}" />
                     </p:column>
 
-                    
+                    <p:column headerText="Action" >
+                        <h:commandButton class="blue-button" value="View Chat">
+                            <f:attribute name="conversation" value="#{conversation}" />
+                            <f:ajax event="click" execute="@this" render="@this" listener="#{inboxManagedBean.goToChat}" />
+                        </h:commandButton>
+                    </p:column>
                 </p:dataTable>
 
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                </p:confirmDialog>
+
             </h:form>
         </div>
         <div style="height: 200px;">

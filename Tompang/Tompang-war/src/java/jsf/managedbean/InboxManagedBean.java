@@ -7,8 +7,11 @@ package jsf.managedbean;
 
 import ejb.stateless.ConversationSessionBeanLocal;
 import entity.Conversation;
+import entity.Listing;
 import entity.User;
 import exception.EmptyListException;
+import exception.EntityNotFoundException;
+import java.io.IOException;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
@@ -16,6 +19,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 
 /**
  *
@@ -30,6 +34,7 @@ public class InboxManagedBean implements Serializable {
 
     private List<Conversation> conversations;
     private List<Conversation> filteredConversations;
+
     public InboxManagedBean() {
     }
 
@@ -42,7 +47,16 @@ public class InboxManagedBean implements Serializable {
             System.out.println(ex.getMessage());
         }
     }
-    
+
+    public void goToChat(AjaxBehaviorEvent event) throws IOException {
+
+        Conversation convo = (Conversation) event.getComponent().getAttributes().get("conversation");
+        
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("conversation", convo);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("conversation.xhtml");
+
+    }
+
     public List<Conversation> getConversations() {
         return conversations;
     }
@@ -58,5 +72,5 @@ public class InboxManagedBean implements Serializable {
     public void setFilteredConversations(List<Conversation> filteredConversations) {
         this.filteredConversations = filteredConversations;
     }
-    
+
 }

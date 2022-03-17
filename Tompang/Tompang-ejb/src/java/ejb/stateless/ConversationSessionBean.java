@@ -52,6 +52,7 @@ public class ConversationSessionBean implements ConversationSessionBeanLocal {
             em.persist(convo);
             em.flush();
         } catch (EntityNotFoundException ex) {
+            System.out.println(ex.getMessage());
             return null;
         }
 
