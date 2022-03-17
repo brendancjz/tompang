@@ -280,9 +280,6 @@ public class User implements Serializable {
             return false;
         }
         User other = (User) object;
-        if ((this.userId == null && other.userId != null) || (this.userId != null && !this.userId.equals(other.userId))) {
-            return false;
-        }
-        return true;
+        return this.userId == other.userId;
     }
 }

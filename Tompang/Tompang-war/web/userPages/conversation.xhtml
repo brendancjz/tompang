@@ -77,6 +77,8 @@
             <div class="convo-history">
                 <h:form id="convoBlock">
                     #{conversationManagedBean.conversationToView.convoId}
+                    #{conversationManagedBean.conversationToView.messages.size()}
+                    #{conversationManagedBean.isUserTheBuyer()}
                 </h:form>
                 
             </div>
@@ -93,7 +95,7 @@
                                      padding: 10px;" required="true" />
                     <div style="margin: 0 auto;">
                         <h:commandButton class="blue-button" value="Send" type="submit" >
-                            <f:ajax event="click" execute="@form:convoNewMessage" render="@@form:convoNewMessage @form:convoBlock" listener="#{createListingManagedBean.createListing}" />
+                            <f:ajax event="click" execute="@form:convoNewMessage" render="@form:convoNewMessage @form:convoBlock" listener="#{conversationManagedBean.createNewMessage}" />
                         </h:commandButton>
                     </div>
                     
