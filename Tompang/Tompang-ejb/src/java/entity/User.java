@@ -16,6 +16,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.validation.constraints.Digits;
@@ -56,6 +57,9 @@ public class User implements Serializable {
     @NotNull
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfBirth;
+    @Column(nullable = false)
+    @NotNull
+    private String profilePic;
     @Column(nullable = false, unique = true, length = 8)
     @NotNull
     @Digits(integer=8, fraction=0)
@@ -84,8 +88,10 @@ public class User implements Serializable {
     private List<Transaction> buyerTransactions;
     @OneToMany(mappedBy = "seller")
     private List<Transaction> sellerTransactions;
-    @OneToMany
+    @ManyToMany(mappedBy = "followers")
     private List<User> following;
+    @ManyToMany
+    private List<User> followers;
     @OneToMany
     private List<Listing> likedListings;
     
@@ -97,13 +103,14 @@ public class User implements Serializable {
         this.buyerTransactions = new ArrayList<>();
         this.sellerTransactions = new ArrayList<>();
         this.following = new ArrayList<>();
+        this.followers = new ArrayList<>();
         this.likedListings = new ArrayList<>();
         this.joinedOn = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         this.isDisabled = false;
         this.salt = "";
     }
 
-    public User(String firstName, String lastName, String email, String username, String password, Date dateOfBirth, Long contactNumber, Boolean isAdmin) {
+    public User(String firstName, String lastName, String email, String username, String password, Date dateOfBirth, String profilePic, Long contactNumber, Boolean isAdmin) {
         this();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -111,6 +118,7 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
+        this.profilePic = profilePic;
         this.contactNumber = contactNumber;
         this.isAdmin = isAdmin;
     }
@@ -145,6 +153,10 @@ public class User implements Serializable {
 
     public Long getContactNumber() {
         return contactNumber;
+    }
+    
+    public String getProfilePic() {
+        return profilePic;
     }
 
     public Date getJoinedOn() {
@@ -183,6 +195,10 @@ public class User implements Serializable {
         return following;
     }
     
+    public List<User> getFollowers() {
+        return followers;
+    }
+    
     public List<Listing> getLikedListings() {
         return likedListings;
     }
@@ -215,6 +231,10 @@ public class User implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+    
     public void setContactNumber(Long contactNumber) {
         this.contactNumber = contactNumber;
     }
@@ -253,6 +273,10 @@ public class User implements Serializable {
     
     public void setFollowing(List<User> following) {
         this.following = following;
+    }
+
+    public void setFollowers(List<User> followers) {
+        this.followers = followers;
     }
     
     public void setLikedListings(List<Listing> likedListings) {

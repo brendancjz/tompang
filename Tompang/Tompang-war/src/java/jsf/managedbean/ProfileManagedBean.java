@@ -10,6 +10,7 @@ import entity.User;
 import exception.EntityNotFoundException;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
@@ -36,11 +37,15 @@ public class ProfileManagedBean implements Serializable {
     private Long contactNum;
     @Past
     private Date dob;
+    private String profilePic;
     private Date joinedOn;
     private String profileContent;
 
     private String currPassword;
     private String newPassword;
+    
+    private List<User> following;
+    private List<User> followers;
 
     public ProfileManagedBean() {
         System.out.println("ProfileManagedBean");
@@ -55,13 +60,16 @@ public class ProfileManagedBean implements Serializable {
         lastName = user.getLastName();
         contactNum = user.getContactNumber();
         dob = user.getDateOfBirth();
+        profilePic = user.getProfilePic();
         joinedOn = user.getJoinedOn();
         profileContent = "EDIT_PROFILE";
+        following = user.getFollowing();
+        followers = user.getFollowers();
     }
 
     public void update() {
         try {
-            userSessionBean.updateUserDetails(user.getUserId(), firstName, lastName, email, username, dob, contactNum);
+            userSessionBean.updateUserDetails(user.getUserId(), firstName, lastName, email, username, dob, profilePic, contactNum);
             User updatedUser = userSessionBean.getUserByUserId(user.getUserId());
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", updatedUser);
 
@@ -156,6 +164,14 @@ public class ProfileManagedBean implements Serializable {
         this.dob = dob;
     }
 
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
     public Date getJoinedOn() {
         return joinedOn;
     }
@@ -184,4 +200,19 @@ public class ProfileManagedBean implements Serializable {
         this.newPassword = newPassword;
     }
 
+    public List<User> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(List<User> following) {
+        this.following = following;
+    }
+
+    public List<User> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<User> followers) {
+        this.followers = followers;
+    }
 }
