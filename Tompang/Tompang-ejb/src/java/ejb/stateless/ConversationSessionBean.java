@@ -48,7 +48,7 @@ public class ConversationSessionBean implements ConversationSessionBeanLocal {
             if (!listing.getConversations().contains(convo)) {
                 listing.getConversations().add(convo);
             }
-            
+
             em.persist(convo);
             em.flush();
         } catch (EntityNotFoundException ex) {
@@ -76,12 +76,12 @@ public class ConversationSessionBean implements ConversationSessionBeanLocal {
 
         return convos;
     }
-    
+
     @Override
     public List<Conversation> retrieveAllBuyerConversations(Long userId) throws EmptyListException {
         Query query = em.createQuery("SELECT c FROM Conversation c WHERE c.createdBy.userId = :id");
         query.setParameter("id", userId);
-        
+
         List<Conversation> convos = query.getResultList();
 
         if (convos.isEmpty()) {
@@ -94,14 +94,15 @@ public class ConversationSessionBean implements ConversationSessionBeanLocal {
 
         return convos;
     }
-    
+
     @Override
     public List<Conversation> retrieveAllSellerConversations(Long userId) throws EmptyListException {
         Query query = em.createQuery("SELECT c FROM Conversation c WHERE c.listing.createdBy.userId = :id");
         query.setParameter("id", userId);
-        
-        List<Conversation> convos = query.getResultList();
 
+        List<Conversation> convos = query.getResultList();
+        System.out.println("method called");
+        System.out.println(convos);
         if (convos.isEmpty()) {
             throw new EmptyListException("List of convos is empty.\n");
         }

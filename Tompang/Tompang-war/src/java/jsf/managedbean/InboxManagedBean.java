@@ -34,7 +34,7 @@ public class InboxManagedBean implements Serializable {
 
     private List<Conversation> buyerConversations;
     private List<Conversation> filteredBuyerConversations;
-    
+
     private List<Conversation> sellerConversations;
     private List<Conversation> filteredSellerConversations;
 
@@ -43,10 +43,13 @@ public class InboxManagedBean implements Serializable {
 
     @PostConstruct
     public void retrieveConversations() {
+        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
         try {
-            User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
             buyerConversations = conversationSessionBean.retrieveAllBuyerConversations(user.getUserId());
-            
+        } catch (EmptyListException ex) {
+            System.out.println(ex.getMessage());
+        }
+        try {
             sellerConversations = conversationSessionBean.retrieveAllSellerConversations(user.getUserId());
         } catch (EmptyListException ex) {
             System.out.println(ex.getMessage());
@@ -56,7 +59,7 @@ public class InboxManagedBean implements Serializable {
     public void goToChat(AjaxBehaviorEvent event) throws IOException {
 
         Conversation convo = (Conversation) event.getComponent().getAttributes().get("conversation");
-        
+
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("conversation", convo);
         FacesContext.getCurrentInstance().getExternalContext().redirect("conversation.xhtml");
 

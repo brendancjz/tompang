@@ -76,11 +76,18 @@
 
             <div class="convo-history">
                 <h:form id="convoBlock">
-                    #{conversationManagedBean.conversationToView.convoId}
-                    #{conversationManagedBean.conversationToView.messages.size()}
-                    #{conversationManagedBean.isUserTheBuyer()}
+                    <p:repeat value="#{conversationManagedBean.conversationToView.messages}" var="message">
+                        <p:column>
+                            <p:panelGrid>
+                                <h:outputText value="#{message.body}"/> 
+                                <h:outputText value="#{message.createdOn}"/>
+                                <br></br>
+                                <br></br>
+                            </p:panelGrid>
+                        </p:column>
+                    </p:repeat>
                 </h:form>
-                
+
             </div>
             <div class="convo-message">
                 <h:form id="convoNewMessage" style="display: flex; align-items: center;">
@@ -98,7 +105,7 @@
                             <f:ajax event="click" execute="@form:convoNewMessage" render="@form:convoNewMessage @form:convoBlock" listener="#{conversationManagedBean.createNewMessage}" />
                         </h:commandButton>
                     </div>
-                    
+
 
                 </h:form>
             </div>
