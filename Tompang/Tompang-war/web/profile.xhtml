@@ -23,16 +23,8 @@
 
     </ui:define>
 
-    <div>
-        
-    </div>
+
     <ui:define name="content">
-        <div style="background-color: #0190e9; padding: 0 0 15px 20px; margin-bottom: 10px; width: 100%">
-            <h:graphicImage style="border-radius: 20px" value="#{profileManagedBean.getProfilePic()}"/>
-            <p style="color: white; font-size: 20px">#{profileManagedBean.getUsername()}</p>
-            <p style="color: white">Following: #{profileManagedBean.getFollowing().size()}</p>
-            <p style="color: white">Followers: #{profileManagedBean.getFollowers().size()}</p>
-        </div>
         <div>
             <h:panelGroup rendered="#{profileManagedBean.profileContent eq 'EDIT_PROFILE'}">
                 <h2>Edit Profile</h2>

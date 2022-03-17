@@ -22,7 +22,7 @@ public interface UserSessionBeanLocal {
 
     public User getUserByUserId(Long userId) throws EntityNotFoundException;
 
-    public void updateUserDetails(Long userId, String firstName, String lastName, String email, String username, Date dob, String profilePic, Long contactNum) throws EntityNotFoundException;
+    public void updateUserDetails(Long userId, String firstName, String lastName, String email, String username, Date dob, Long contactNum) throws EntityNotFoundException;
 
     public void updateUserPassword(Long userId, String password) throws EntityNotFoundException;
 
