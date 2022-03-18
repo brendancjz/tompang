@@ -59,6 +59,7 @@ public class UserSessionBean implements UserSessionBeanLocal {
             user.getCreatedListings().size();
             user.getCreditCards().size();
             user.getFollowing().size();
+            user.getFollowers().size();
             user.getLikedListings().size();
         }
 
@@ -114,7 +115,7 @@ public class UserSessionBean implements UserSessionBeanLocal {
     }
 
     @Override
-    public void updateUserDetails(Long userId, String firstName, String lastName, String email, String username, Date dob, Long contactNum) throws EntityNotFoundException {
+    public void updateUserDetails(Long userId, String firstName, String lastName, String email, String username, Date dob, String profilePic, Long contactNum) throws EntityNotFoundException {
         User user = this.getUserByUserId(userId);
 
         user.setFirstName(firstName);
@@ -122,6 +123,7 @@ public class UserSessionBean implements UserSessionBeanLocal {
         user.setEmail(email);
         user.setUsername(username);
         user.setDateOfBirth(dob);
+        user.setProfilePic(profilePic);
         user.setContactNumber(contactNum);
     }
 
