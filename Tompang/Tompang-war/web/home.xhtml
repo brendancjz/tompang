@@ -5,6 +5,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="/template/sidebarTemplate.xhtml"
                 xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
+    <h:outputScript library = "js" name = "header.js"  /> 
 
     <ui:define name="content">
         <p style="font-size: 22px; font-weight: bold">Welcome #{profileManagedBean.getUsername()} </p> &nbsp;
@@ -21,6 +22,7 @@
                 <h2>Listings</h2>
                 <p style="font-size: 26px;">#{viewAllListingsManagedBean.getNumberOfListings()}</p>
             </div>
+
         </div>
     </ui:define>
 

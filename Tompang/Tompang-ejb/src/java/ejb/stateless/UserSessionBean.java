@@ -109,6 +109,7 @@ public class UserSessionBean implements UserSessionBeanLocal {
         user.getCreatedListings().size();
         user.getCreditCards().size();
         user.getFollowing().size();
+        user.getFollowers().size();
         user.getLikedListings().size();
 
         return user;

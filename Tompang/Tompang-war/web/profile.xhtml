@@ -5,6 +5,8 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 template="/template/sidebarTemplate.xhtml">
+    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+
 
     <ui:define name="sidebar">
         <h:panelGroup rendered="#{sessionScope.isLogin == true}">
