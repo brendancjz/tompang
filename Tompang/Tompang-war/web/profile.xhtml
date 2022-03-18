@@ -22,10 +22,18 @@
 
 
     </ui:define>
+    <div>
 
+    </div>
 
     <ui:define name="content">
         <div>
+            <div style="background-color: #0190e9; padding: 0 0 15px 20px; margin-bottom: 10px; width: 100%">
+                <h:graphicImage style="border-radius: 20px" value="#{profileManagedBean.getProfilePic()}"/>
+                <p style="color: white; font-size: 20px">#{profileManagedBean.getUsername()}</p>
+                <p style="color: white">Following: #{profileManagedBean.getFollowing().size()}</p>
+                <p style="color: white">Followers: #{profileManagedBean.getFollowers().size()}</p>
+            </div>
             <h:panelGroup rendered="#{profileManagedBean.profileContent eq 'EDIT_PROFILE'}">
                 <h2>Edit Profile</h2>
                 <br/>
@@ -79,7 +87,7 @@
                         <h:outputLabel for="currPassword" value="Current Password*" />
                         <p:password  id="currPassword" value="#{profileManagedBean.currPassword}" required="true" requiredMessage="Password is required" redisplay="true" />
                         <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="currPassword" />
-                        
+
                         <h:outputLabel for="newPassword" value="New Password*" />
                         <p:password  id="newPassword" value="#{profileManagedBean.newPassword}" required="true" feedback="true" requiredMessage="Password is required" redisplay="true" />
                         <h:message errorClass="errorTextsNoMarginLeft" fatalClass="errorTextsNoMarginLeft" for="newPassword" />

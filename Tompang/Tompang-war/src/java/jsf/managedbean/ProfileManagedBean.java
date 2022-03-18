@@ -10,6 +10,7 @@ import entity.User;
 import exception.EntityNotFoundException;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
@@ -36,11 +37,15 @@ public class ProfileManagedBean implements Serializable {
     private Long contactNum;
     @Past
     private Date dob;
+    private String profilePic;
     private Date joinedOn;
     private String profileContent;
 
     private String currPassword;
     private String newPassword;
+
+    private List<User> following;
+    private List<User> followers;
 
     public ProfileManagedBean() {
         System.out.println("ProfileManagedBean");
@@ -54,14 +59,17 @@ public class ProfileManagedBean implements Serializable {
         firstName = user.getFirstName();
         lastName = user.getLastName();
         contactNum = user.getContactNumber();
-        dob = user.getDateOfBirth();
-        joinedOn = user.getJoinedOn();
+        setDob(user.getDateOfBirth());
+        setProfilePic(user.getProfilePic());
+        setJoinedOn(user.getJoinedOn());
         profileContent = "EDIT_PROFILE";
+        setFollowing(user.getFollowing());
+        setFollowers(user.getFollowers());
     }
 
     public void update() {
         try {
-            userSessionBean.updateUserDetails(user.getUserId(), firstName, lastName, email, username, dob, contactNum);
+            userSessionBean.updateUserDetails(user.getUserId(), firstName, lastName, email, username, dob, getProfilePic(), contactNum);
             User updatedUser = userSessionBean.getUserByUserId(user.getUserId());
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", updatedUser);
 
@@ -78,7 +86,7 @@ public class ProfileManagedBean implements Serializable {
             if (user.getPassword().equals(currPassword)) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "User successfully changed password.", null));
                 userSessionBean.updateUserPassword(user.getUserId(), newPassword);
-                
+
                 User updatedUser = userSessionBean.getUserByUserId(user.getUserId());
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", updatedUser);
                 user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
@@ -153,7 +161,7 @@ public class ProfileManagedBean implements Serializable {
     }
 
     public void setDob(Date dob) {
-        this.dob = dob;
+        this.setDob(dob);
     }
 
     public Date getJoinedOn() {
@@ -182,6 +190,55 @@ public class ProfileManagedBean implements Serializable {
 
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
+    }
+
+    /**
+     * @return the profilePic
+     */
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    /**
+     * @param profilePic the profilePic to set
+     */
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
+    /**
+     * @param joinedOn the joinedOn to set
+     */
+    public void setJoinedOn(Date joinedOn) {
+        this.joinedOn = joinedOn;
+    }
+
+    /**
+     * @return the following
+     */
+    public List<User> getFollowing() {
+        return following;
+    }
+
+    /**
+     * @param following the following to set
+     */
+    public void setFollowing(List<User> following) {
+        this.following = following;
+    }
+
+    /**
+     * @return the followers
+     */
+    public List<User> getFollowers() {
+        return followers;
+    }
+
+    /**
+     * @param followers the followers to set
+     */
+    public void setFollowers(List<User> followers) {
+        this.followers = followers;
     }
 
 }

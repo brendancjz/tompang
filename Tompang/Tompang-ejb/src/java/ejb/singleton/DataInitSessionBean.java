@@ -52,7 +52,7 @@ public class DataInitSessionBean {
             //Create Manager
             Date dob = Date.from(LocalDate.of(1999, 12, 25).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
             //Date joinedOn = Date.from(LocalDate.of(2022, 2, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            User manager = new User("Brendan", "Chia", "bchia@gmail.com", "manager", "password", dob, 98769876L, true);
+            User manager = new User("Brendan", "Chia", "bchia@gmail.com", "manager", "password", dob, "", 98769876L, true);
 
             em.persist(manager);
             em.flush();
@@ -60,7 +60,7 @@ public class DataInitSessionBean {
             //Create Manager
             dob = Date.from(LocalDate.of(1999, 12, 24).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
             //Date joinedOn = Date.from(LocalDate.of(2022, 2, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            manager = new User("Sean", "Seduck", "seduck@gmail.com", "admin", "password", dob, 98769871L, true);
+            manager = new User("Sean", "Seduck", "seduck@gmail.com", "admin", "password", dob, "", 98769871L, true);
 
             em.persist(manager);
             em.flush();
@@ -68,16 +68,29 @@ public class DataInitSessionBean {
             //Create Dummy User
             dob = Date.from(LocalDate.of(1999, 1, 1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
             //joinedOn = Date.from(LocalDate.of(2022, 2, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            User dummyUser = new User("Dummy", "User", "dummyUser@gmail.com", "dummy", "password", dob, 12341234L, false);
+            User dummyUser = new User("Dummy", "User", "dummyUser@gmail.com", "dummy", "password", dob, "", 12341234L, false);
             em.persist(dummyUser);
             em.flush();
 
             //Create Dummy User2
             dob = Date.from(LocalDate.of(1999, 1, 1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
             //joinedOn = Date.from(LocalDate.of(2022, 2, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            User dummyUser2 = new User("Dummy2", "User2", "dummyUser2@gmail.com", "dummy2", "password", dob, 12341235L, false);
+            User dummyUser2 = new User("Dummy2", "User2", "dummyUser2@gmail.com", "dummy2", "password", dob, "", 12341235L, false);
             em.persist(dummyUser2);
             em.flush();
+
+            //Create dummy for following
+            dob = Date.from(LocalDate.of(1999, 12, 24).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+            //Date joinedOn = Date.from(LocalDate.of(2022, 2, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+            User dummyUser3 = new User("Guo Jun", "Heng", "gwajoon@gmail.com", "guojun", "password", dob, "", 98769872L, true);
+
+            em.persist(dummyUser3);
+            em.flush();
+
+            User user = (User) em.find(User.class, 5L);
+            user.getFollowers().add(dummyUser);
+            user.getFollowers().add(dummyUser2);
+            user.getFollowing().add(manager);
         }
 
         if (em.find(CreditCard.class, 1L) == null) {

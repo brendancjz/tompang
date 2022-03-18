@@ -16,6 +16,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.validation.constraints.Digits;
@@ -50,15 +51,18 @@ public class User implements Serializable {
     private String username;
     @Column(nullable = false, length = 30)
     @NotNull
-    @Size(min=5, max=30)
+    @Size(min = 5, max = 30)
     private String password;
     @Column(nullable = false)
     @NotNull
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfBirth;
+    @Column(nullable = false)
+    @NotNull
+    private String profilePic;
     @Column(nullable = false, unique = true, length = 8)
     @NotNull
-    @Digits(integer=8, fraction=0)
+    @Digits(integer = 8, fraction = 0)
     @Positive
     private Long contactNumber;
     @Column(nullable = false)
@@ -84,11 +88,12 @@ public class User implements Serializable {
     private List<Transaction> buyerTransactions;
     @OneToMany(mappedBy = "seller")
     private List<Transaction> sellerTransactions;
-    @OneToMany
+    @ManyToMany(mappedBy = "followers")
+    private List<User> followers;
+    @ManyToMany
     private List<User> following;
     @OneToMany
     private List<Listing> likedListings;
-    
 
     public User() {
         this.creditCards = new ArrayList<>();
@@ -97,13 +102,14 @@ public class User implements Serializable {
         this.buyerTransactions = new ArrayList<>();
         this.sellerTransactions = new ArrayList<>();
         this.following = new ArrayList<>();
+        this.followers = new ArrayList<>();
         this.likedListings = new ArrayList<>();
         this.joinedOn = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         this.isDisabled = false;
         this.salt = "";
     }
 
-    public User(String firstName, String lastName, String email, String username, String password, Date dateOfBirth, Long contactNumber, Boolean isAdmin) {
+    public User(String firstName, String lastName, String email, String username, String password, Date dateOfBirth, String profilePic, Long contactNumber, Boolean isAdmin) {
         this();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -111,6 +117,7 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
+        this.profilePic = profilePic;
         this.contactNumber = contactNumber;
         this.isAdmin = isAdmin;
     }
@@ -154,7 +161,7 @@ public class User implements Serializable {
     public Boolean getIsAdmin() {
         return isAdmin;
     }
-    
+
     public Boolean getIsDisabled() {
         return isDisabled;
     }
@@ -178,11 +185,11 @@ public class User implements Serializable {
     public List<Transaction> getSellerTransactions() {
         return sellerTransactions;
     }
-    
+
     public List<User> getFollowing() {
         return following;
     }
-    
+
     public List<Listing> getLikedListings() {
         return likedListings;
     }
@@ -219,14 +226,14 @@ public class User implements Serializable {
         this.contactNumber = contactNumber;
     }
 
-    public void setJoinedOn(Date joinedOn) { 
+    public void setJoinedOn(Date joinedOn) {
         this.joinedOn = joinedOn;
     }
 
     public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
-    
+
     public void setIsDisabled(Boolean isDisabled) {
         this.isDisabled = isDisabled;
     }
@@ -250,11 +257,11 @@ public class User implements Serializable {
     public void setSellerTransactions(List<Transaction> sellerTransactions) {
         this.sellerTransactions = sellerTransactions;
     }
-    
+
     public void setFollowing(List<User> following) {
         this.following = following;
     }
-    
+
     public void setLikedListings(List<Listing> likedListings) {
         this.likedListings = likedListings;
     }
@@ -272,7 +279,7 @@ public class User implements Serializable {
     public void setSalt(String salt) {
         this.salt = salt;
     }
-    
+
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -281,5 +288,33 @@ public class User implements Serializable {
         }
         User other = (User) object;
         return this.userId == other.userId;
+    }
+
+    /**
+     * @return the profilePic
+     */
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    /**
+     * @param profilePic the profilePic to set
+     */
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
+    /**
+     * @return the followers
+     */
+    public List<User> getFollowers() {
+        return followers;
+    }
+
+    /**
+     * @param followers the followers to set
+     */
+    public void setFollowers(List<User> followers) {
+        this.followers = followers;
     }
 }
