@@ -88,9 +88,9 @@ public class User implements Serializable {
     private List<Transaction> buyerTransactions;
     @OneToMany(mappedBy = "seller")
     private List<Transaction> sellerTransactions;
-    @ManyToMany(mappedBy = "followers")
-    private List<User> followers;
     @ManyToMany
+    private List<User> followers;
+    @ManyToMany(mappedBy = "followers")
     private List<User> following;
     @OneToMany
     private List<Listing> likedListings;
