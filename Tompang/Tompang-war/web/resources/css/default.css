@@ -244,3 +244,19 @@ and open the template in the editor.
     font-size: 20px;
     float: right;
 }
+.listing-grid-item-bottom {
+    display: flex;
+    justify-content: space-around;
+}
+
+.convo-block {
+    background-color: #F1F2F2;
+    height: 65vh;
+}
+.convo-history {
+    background-color: white;
+    height: 72%;
+}
+.convo-message {
+    
+}

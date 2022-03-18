@@ -9,11 +9,12 @@ import ejb.stateless.ListingSessionBeanLocal;
 import entity.Listing;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
-import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -37,10 +38,12 @@ public class ViewAllListingsManagedBean implements Serializable {
     private ListingSessionBeanLocal listingSessionBean;
     
     @Inject
-    private ViewListingDetailsManagedBean viewListingDetailsManagedBean;
+    private ViewListingDetailsEzCompManagedBean viewListingDetailsEzCompManagedBean;
     
     private List<Listing> listings;
     private List<Listing> filteredListings;
+    
+    private Listing listingToUpdate;
     
     private String filteredUsername;
     public ViewAllListingsManagedBean() {
@@ -66,12 +69,12 @@ public class ViewAllListingsManagedBean implements Serializable {
         }
     }
     
-    public void viewListingDetails(ActionEvent event) throws IOException {
-        Long listingIdToView = (Long)event.getComponent().getAttributes().get("listingId");
-        System.err.print(listingIdToView);
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("listingIdToView", listingIdToView);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("viewListingDetails.xhtml");
-    }
+//    public void viewListingDetails(ActionEvent event) throws IOException {
+//        Long listingIdToView = (Long)event.getComponent().getAttributes().get("listingId");
+//        System.err.print(listingIdToView);
+//        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("listingIdToView", listingIdToView);
+//        FacesContext.getCurrentInstance().getExternalContext().redirect("viewListingDetails.xhtml");
+//    }
     
     public void deleteListing(ActionEvent event) {
         try {
@@ -97,6 +100,15 @@ public class ViewAllListingsManagedBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while deleting listing: " + ex.getMessage(), null));
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An unexpected error has occurred: " + ex.getMessage(), null));
+        }
+    }
+    
+    public void saveListing(ActionEvent event) {
+        try {
+            listingSessionBean.updateListingDetails(listingToUpdate);
+            System.out.println("Updated listing details");
+        } catch (EntityNotFoundException ex) {
+            System.out.println(ex.getMessage());
         }
     }
     
@@ -149,13 +161,23 @@ public class ViewAllListingsManagedBean implements Serializable {
         this.filteredUsername = filteredUsername;
     }
 
-    public ViewListingDetailsManagedBean getViewListingDetailsManagedBean() {
-        return viewListingDetailsManagedBean;
+    public ViewListingDetailsEzCompManagedBean getViewListingDetailsEzCompManagedBean() {
+        return viewListingDetailsEzCompManagedBean;
     }
 
-    public void setViewListingDetailsManagedBean(ViewListingDetailsManagedBean viewListingDetailsManagedBean) {
-        this.viewListingDetailsManagedBean = viewListingDetailsManagedBean;
+    public void setViewListingDetailsEzCompManagedBean(ViewListingDetailsEzCompManagedBean viewListingDetailsEzCompManagedBean) {
+        this.viewListingDetailsEzCompManagedBean = viewListingDetailsEzCompManagedBean;
     }
+
+    public Listing getListingToUpdate() {
+        return listingToUpdate;
+    }
+
+    public void setListingToUpdate(Listing listingToUpdate) {
+        this.listingToUpdate = listingToUpdate;
+    }
+
+    
 
     
     

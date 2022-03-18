@@ -44,4 +44,6 @@ public interface ListingSessionBeanLocal {
     public void incrementListingLikes(Long listingId) throws EntityNotFoundException;
 
     public void decrementListingLikes(Long listingId) throws EntityNotFoundException;
+
+    public void updateListingDetails(Listing listingToUpdate) throws EntityNotFoundException;
 }

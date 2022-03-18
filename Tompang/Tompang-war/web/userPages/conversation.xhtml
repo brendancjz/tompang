@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template/sidebarTemplate.xhtml"
+                xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h1> Conversation </h1>
+        <br></br>
+        <h:form>
+            <h:commandButton class="blue-button" value="Toggle Listing">
+                <f:ajax event="click" execute="@this" render="@form:convoListing" listener="#{conversationManagedBean.toggleCollapseListingDetails()}" />
+            </h:commandButton>
+        </h:form>
+        <br />
+        <h:form id="convoListing" >
+            <h:panelGroup class="convo-details" rendered="#{conversationManagedBean.showListingDetails}">
+                <p:panel header="Photos" style="width: 75%;">
+                    <p:dataView var="image" value="#{conversationManagedBean.conversationToView.listing.photos}" layout="grid">
+
+                        <p:dataViewGridItem>
+                            <div style="display: flex;flex-direction: column;align-items: center;">
+                                <p:graphicImage value="#{image}" width="100%"/>
+                            </div>
+                        </p:dataViewGridItem>
+                    </p:dataView>
+                </p:panel>
+                <br />
+                <h:panelGrid columnClasses="dataTableLabel,dataTableValue" columns="2" style="width: 100%;" rendered="#{conversationManagedBean.conversationToView.listing != null}">
+
+                    <h:outputText style="font-weight: bold; width: 20%;" value="Listing ID"/>
+                    <h:outputText style="width: 80%;" value="#{conversationManagedBean.conversationToView.listing.listingId}"/>
+
+                    <h:outputText style="font-weight: bold; width: 20%;" value="Created By"/>
+                    <h:outputText value="#{conversationManagedBean.conversationToView.listing.createdBy.username}"/>
+
+                    <h:outputText style="font-weight: bold;" value="Title"/>
+                    <h:outputText value="#{conversationManagedBean.conversationToView.listing.title}"/>
+
+                    <h:outputText style="font-weight: bold;" value="Country"/>
+                    <h:outputText value="#{conversationManagedBean.conversationToView.listing.country}"/>
+
+                    <h:outputText style="font-weight: bold;" value="City"/>
+                    <h:outputText value="#{conversationManagedBean.conversationToView.listing.city}"/>
+
+                    <h:outputText style="font-weight: bold;" value="Quantity"/>
+                    <h:outputText value="#{conversationManagedBean.conversationToView.listing.quantity}"/>
+
+                    <h:outputText style="font-weight: bold;" value="Price"/>
+                    <h:outputText value="#{conversationManagedBean.conversationToView.listing.price}">
+                        <f:convertNumber minFractionDigits="2" maxFractionDigits="2" type="currency" currencyCode="SGD" />
+                    </h:outputText>
+
+                    <h:outputText style="font-weight: bold;" value="Creation Date"/>
+                    <h:outputText value="#{conversationManagedBean.conversationToView.listing.createdOn.toString().substring(4, 10)}
+                                  #{conversationManagedBean.conversationToView.listing.createdOn.toString().substring(24)}" />
+
+                    <h:outputText style="font-weight: bold;" value="Expected Arrival Date"/>
+                    <h:outputText value="#{conversationManagedBean.conversationToView.listing.expectedArrivalDate.toString().substring(4, 10)}
+                                  #{conversationManagedBean.conversationToView.listing.expectedArrivalDate.toString().substring(24)}" />
+
+                    <h:outputText style="font-weight: bold;" value="Number Of Likes"/>
+                    <h:outputText value="#{conversationManagedBean.conversationToView.listing.numOfLikes}"/>
+
+                    <h:outputText style="font-weight: bold;" value="Description"/>
+                    <h:outputText value="#{conversationManagedBean.conversationToView.listing.description}"/>
+
+                </h:panelGrid>
+            </h:panelGroup>
+        </h:form>
+        <hr />
+        <div class="convo-block">
+
+            <div class="convo-history">
+                <h:form id="convoBlock">
+                    <p:repeat value="#{conversationManagedBean.conversationToView.messages}" var="message">
+                        <p:column>
+                            <p:panelGrid>
+                                <h:outputText value="#{message.body}"/> 
+                                <h:outputText value="#{message.createdOn}"/>
+                                <br></br>
+                                <br></br>
+                            </p:panelGrid>
+                        </p:column>
+                    </p:repeat>
+                </h:form>
+
+            </div>
+            <div class="convo-message">
+                <h:form id="convoNewMessage" style="display: flex; align-items: center;">
+                    <p:inputTextarea id="description" placeholder="Type here..." 
+                                     value="#{conversationManagedBean.newMessage}" 
+                                     style="width: 90%;
+                                     min-height: 100px;
+                                     max-height: 150px;
+                                     overflow: hidden;
+                                     overflow-wrap: break-word;
+                                     height: 100px;
+                                     padding: 10px;" required="true" />
+                    <div style="margin: 0 auto;">
+                        <h:commandButton class="blue-button" value="Send" type="submit" >
+                            <f:ajax event="click" execute="@form:convoNewMessage" render="@form:convoNewMessage @form:convoBlock" listener="#{conversationManagedBean.createNewMessage}" />
+                        </h:commandButton>
+                    </div>
+
+
+                </h:form>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

@@ -6,8 +6,10 @@
 package ejb.singleton;
 
 import ejb.stateless.UserSessionBeanLocal;
+import entity.Conversation;
 import entity.CreditCard;
 import entity.Listing;
+import entity.Message;
 import entity.Transaction;
 import entity.User;
 import exception.EmptyListException;
@@ -51,6 +53,14 @@ public class DataInitSessionBean {
             Date dob = Date.from(LocalDate.of(1999, 12, 25).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
             //Date joinedOn = Date.from(LocalDate.of(2022, 2, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
             User manager = new User("Brendan", "Chia", "bchia@gmail.com", "manager", "password", dob, 98769876L, true);
+
+            em.persist(manager);
+            em.flush();
+
+            //Create Manager
+            dob = Date.from(LocalDate.of(1999, 12, 24).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+            //Date joinedOn = Date.from(LocalDate.of(2022, 2, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+            manager = new User("Sean", "Seduck", "seduck@gmail.com", "admin", "password", dob, 98769871L, true);
 
             em.persist(manager);
             em.flush();
@@ -133,6 +143,28 @@ public class DataInitSessionBean {
             em.flush();
         }
 
+        if (em.find(Conversation.class, 1L) == null) {
+            // japan biscuit created by manager (seller) convo initaited by admin (buyer)
+            Listing japanBiscuit = (Listing) em.find(Listing.class, 1L);
+            User buyerAdmin = (User) em.find(User.class, 2L);
+            Conversation convo = new Conversation(buyerAdmin, japanBiscuit);
+            em.persist(convo);
+            em.flush();
+        }
+
+        if (em.find(Message.class, 1L) == null) {
+            String buyerToSeller = "Hi, can i buy this?";
+            String sellerToBuyer = "Sure!";
+            Message initiate = new Message(buyerToSeller, true);
+            Message response = new Message(sellerToBuyer, false);
+            em.persist(initiate);
+            em.persist(response);
+            em.flush();
+            Conversation convo = em.find(Conversation.class, 1L);
+            convo.getMessages().add(initiate);
+            convo.getMessages().add(response);
+        }
+
         //TEST YOUR SESSION BEAN METHODS HERE
         try {
 
@@ -140,8 +172,8 @@ public class DataInitSessionBean {
 
             User user = userSessionBean.getUserByUserId(1L);
             //userSessionBean.updateUserDetails(user.getUserId(), user.getFirstName(), "User", user.getEmail(), user.getUsername(), user.getDateOfBirth(), user.getContactNumber());
-            
-            for (Listing listing: user.getLikedListings()) {
+
+            for (Listing listing : user.getLikedListings()) {
                 System.out.println(listing.getListingId());
             }
             System.out.println();

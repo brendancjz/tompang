@@ -14,6 +14,8 @@ import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -66,7 +68,7 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
 
         return listings;
     }
-    
+
     @Override
     public List<Listing> retrieveAllAvailableListings() throws EmptyListException {
         Query query = em.createQuery("SELECT l FROM Listing l WHERE l.isDisabled = false AND l.isOpen = true");
@@ -84,15 +86,17 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
 
         return listings;
     }
-    
+
     @Override
     public List<Listing> retrieveUserListings(String filteredUsername) throws EmptyListException {
-        
-        if (filteredUsername == null) throw new EmptyListException("List of listings is empty.\n");
-        
+
+        if (filteredUsername == null) {
+            throw new EmptyListException("List of listings is empty.\n");
+        }
+
         Query query = em.createQuery("SELECT l FROM Listing l WHERE l.createdBy.username = :name");
         query.setParameter("name", filteredUsername);
-        
+
         List<Listing> listings = query.getResultList();
 
         if (listings.isEmpty()) {
@@ -106,18 +110,18 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
 
         return listings;
     }
-    
+
     @Override
     public void incrementListingLikes(Long listingId) throws EntityNotFoundException {
         Listing listing = this.getListingByListingId(listingId);
-        
+
         listing.setNumOfLikes(listing.getNumOfLikes() + 1);
     }
-    
+
     @Override
     public void decrementListingLikes(Long listingId) throws EntityNotFoundException {
         Listing listing = this.getListingByListingId(listingId);
-        
+
         listing.setNumOfLikes(listing.getNumOfLikes() - 1);
     }
 
@@ -149,16 +153,41 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
         listing.setIsOpen(isOpen);
         listing.setPhotos(photos);
     }
+    
+    @Override
+    public void updateListingDetails(Listing listingToUpdate) throws EntityNotFoundException {
+        Listing listing = this.getListingByListingId(listingToUpdate.getListingId());
+        listing.setCategory(listingToUpdate.getCategory());
+        listing.setCity(listingToUpdate.getCity());
+        listing.setCountry(listingToUpdate.getCountry());
+        listing.setCreatedOn(listingToUpdate.getCreatedOn());
+        listing.setDescription(listingToUpdate.getDescription());
+        listing.setExpectedArrivalDate(listingToUpdate.getExpectedArrivalDate());
+        listing.setIsDisabled(listingToUpdate.getIsDisabled());
+        listing.setIsOpen(listingToUpdate.getIsOpen());
+        listing.setNumOfLikes(listingToUpdate.getNumOfLikes());
+        listing.setPhotos(listingToUpdate.getPhotos());
+        listing.setPrice(listing.getPrice());
+        listing.setQuantity(listingToUpdate.getQuantity());
+    }
 
     @Override
     public void deleteListing(Long listingId) throws EntityNotFoundException {
-        Listing listing = this.getListingByListingId(listingId);
-        User user = listing.getCreatedBy();
-        if (!listing.getTransactions().isEmpty()) {
-            listing.setIsDisabled(true);
-        } else {
-            user.getCreatedListings().remove(listing);
-            em.remove(listing);
+        try {
+            Listing listing = this.getListingByListingId(listingId);
+            User user = listing.getCreatedBy();
+            if (!listing.getTransactions().isEmpty() || !listing.getConversations().isEmpty()) {
+                listing.setIsDisabled(true);
+            } else {
+
+                userSessionBeanLocal.removeListingFromUserLikedListings(listing.getListingId());
+                user.getCreatedListings().remove(listing);
+                em.remove(listing);
+
+            }
+
+        } catch (EmptyListException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -168,7 +197,6 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
 //
 //        listing.setCreatedBy(user);
 //    }
-
 //    @Override
 //    public void associateConversationWithListing(Conversation conversation, long listingId) throws EntityNotFoundException {
 //        Listing listing = this.getListingByListingId(listingId);
@@ -185,7 +213,5 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
             listing.getTransactions().add(transaction);
         }
     }
-
-    
 
 }

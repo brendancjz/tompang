@@ -42,7 +42,7 @@ public class CreateListingManagedBean implements Serializable {
     private Boolean showUploadedFile;
     private String country;
     private String city;
-    private HashMap<String, HashMap<String, String>> data = new HashMap<>();
+    private HashMap<String, HashMap<String, String>> data;
     private HashMap<String, String> countries;
     private HashMap<String, String> cities;
 
@@ -58,30 +58,9 @@ public class CreateListingManagedBean implements Serializable {
 
     public CreateListingManagedBean() {
         uploadedFilePaths = new ArrayList<>();
-        categories = new HashMap<>();
-        categories.put("FOOD", "FOOD");
-        categories.put("APPAREL", "APPAREL");
-        categories.put("ACCESSORIES", "ACCESSORIES");
-        categories.put("FOOTWEAR", "FOOTWEAR");
-        categories.put("GIFTS", "GIFTS");
-        categories.put("ELECTRONICS", "ELECTRONICS");
 
-        countries = new HashMap<>();
-        countries.put("USA", "USA");
-        countries.put("Germany", "Germany");
-        countries.put("Brazil", "Brazil");
-
-        HashMap<String, String> map = new HashMap<>();
-        map.put("New York", "New York");
-        map.put("San Francisco", "San Francisco");
-        map.put("Denver", "Denver");
-        data.put("USA", map);
-
-        map = new HashMap<>();
-        map.put("Berlin", "Berlin");
-        map.put("Munich", "Munich");
-        map.put("Frankfurt", "Frankfurt");
-        data.put("Germany", map);
+        this.initialiseCategories();
+        this.initialiseDataCountriesAndCities();
 
         String[] isoCodes = Locale.getISOCountries();
 
@@ -107,7 +86,7 @@ public class CreateListingManagedBean implements Serializable {
 
             Listing listing = new Listing(country, city, title, description, category, price, expectedArrivalDate, user, quantity, uploadedFilePaths);
             listingSessionBean.createNewListing(listing, user.getUserId());
-            
+
             country = null;
             city = null;
             title = null;
@@ -117,18 +96,18 @@ public class CreateListingManagedBean implements Serializable {
             expectedArrivalDate = null;
             quantity = null;
             uploadedFilePaths.clear();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Listing created.", ""));
-        
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Listing created.", ""));
+
         } catch (CreateNewListingException ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Listing failed to create.", ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Listing failed to create.", ""));
         }
 
     }
 
     public void handleFileUpload(FileUploadEvent event) {
         try {
-            String newFilePath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("alternatedocroot_1") + 
-                    System.getProperty("file.separator") + event.getFile().getFileName();
+            String newFilePath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("alternatedocroot_1")
+                    + System.getProperty("file.separator") + event.getFile().getFileName();
 
             System.err.println("********** CreateListingManagedBean.handleFileUpload(): File name: " + event.getFile().getFileName());
             System.err.println("********** CreateListingManagedBean.handleFileUpload(): newFilePath: " + newFilePath);
@@ -171,6 +150,135 @@ public class CreateListingManagedBean implements Serializable {
         } else {
             cities = new HashMap<>();
         }
+    }
+
+    private void initialiseCategories() {
+        categories = new HashMap<>();
+        categories.put("FOOD", "FOOD");
+        categories.put("APPAREL", "APPAREL");
+        categories.put("ACCESSORIES", "ACCESSORIES");
+        categories.put("FOOTWEAR", "FOOTWEAR");
+        categories.put("GIFTS", "GIFTS");
+        categories.put("ELECTRONICS", "ELECTRONICS");
+    }
+
+    private void initialiseDataCountriesAndCities() {
+        data = new HashMap<>();
+        countries = new HashMap<>();
+        countries.put("USA", "USA");
+        countries.put("Singapore", "Singapore");
+        countries.put("Japan", "Japan");
+        countries.put("Korea", "Korea");
+        countries.put("Malaysia", "Malaysia");
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("Alabama", "Alabama");
+        map.put("Alaska", "Alaska");
+        map.put("Arizona", "Arizona");
+        map.put("Arkansas", "Arkansas");
+        map.put("California", "California");
+        map.put("Colorado", "Colorado");
+        map.put("Connecticut", "Connecticut");
+        map.put("Delaware", "Delaware");
+        map.put("Florida", "Florida");
+        map.put("Georgia", "Georgia");
+        map.put("Hawaii", "Hawaii");
+        map.put("Idaho", "Idaho");
+        map.put("Illinois", "Illinois");
+        map.put("Indiana", "Indiana");
+        map.put("Iowa", "Iowa");
+        map.put("Kansas", "Kansas");
+        map.put("Kentucky", "Kentucky");
+        map.put("Louisiana", "Louisiana");
+        map.put("Maine", "Maine");
+        map.put("Maryland", "Maryland");
+        map.put("Massachusetts", "Massachusetts");
+        map.put("Michigan", "Michigan");
+        map.put("Minnesota", "Minnesota");
+        map.put("Missouri", "Missouri");
+        map.put("Montana", "Montana");
+        map.put("Nebraska", "Nebraska");
+        map.put("Nevada", "Nevada");
+        map.put("New Hampshire", "New Hampshire");
+        map.put("New Jersey", "New Jersey");
+        map.put("New Mexico", "New Mexico");
+        map.put("New York", "New York");
+        map.put("North Carolina", "North Carolina");
+        map.put("North Dakota", "North Dakota");
+        map.put("Ohio", "Ohio");
+        map.put("Oklahoma", "Oklahoma");
+        map.put("Oregon", "Oregon");
+        map.put("Pennsylvania", "Pennsylvania");
+        map.put("Rhode Island", "Rhode Island");
+        map.put("South Carolina", "South Carolina");
+        map.put("South Dakota", "South Dakota");
+        map.put("Tennessee", "Tennessee");
+        map.put("Texas", "Texas");
+        map.put("Utah", "Utah");
+        map.put("Vermont", "Vermont");
+        map.put("Washington", "Washington");
+        map.put("West Virginia", "West Virginia");
+        map.put("Wisconsin", "Wisconsin");
+        map.put("Wyoming", "Wyoming");
+        data.put("USA", map);
+
+        map = new HashMap<>();
+        map.put("Singapore", "Singapore");
+        data.put("Singapore", map);
+        
+        //Korea Cities
+        map = new HashMap<>();
+        map.put("Seoul", "Seoul");
+        map.put("Busan", "Busan");
+        map.put("Incheon", "Incheon");
+        map.put("Daegu", "Daegu");
+        map.put("Daejeon", "Daejeon");
+        map.put("Gwangju", "Gwangju");
+        map.put("Suwon", "Suwon");
+        map.put("Ulsan", "Ulsan");
+        map.put("Yongin", "Yongin");
+        map.put("Goyang", "Goyang");
+        map.put("Changwon", "Changwon");
+        map.put("Seongnam", "Seongnam");
+        map.put("Hwaseong", "Hwaseong");
+        map.put("Cheongju", "Cheongju");
+        data.put("Korea", map);
+        
+        //Japan Cities
+        map = new HashMap<>();
+        map.put("Tokyo", "Tokyo");
+        map.put("Yokohama", "Yokohama");
+        map.put("Osaka", "Osaka");
+        map.put("Nagoya", "Nagoya");
+        map.put("Sapporo", "Sapporo");
+        map.put("Fukuoka", "Fukuoka");
+        map.put("Kobe", "Kobe");
+        map.put("Kawasaki", "Kawasaki");
+        map.put("Kyoto", "Kyoto");
+        map.put("Saitama", "Saitama");
+        map.put("Hiroshima", "Hiroshima");
+        map.put("Sendai", "Sendai");
+        map.put("Chiba", "Chiba");
+        map.put("Kitakyushu", "Kitakyushu");
+        data.put("Japan", map);
+        
+        //Malaysia Cities
+        map = new HashMap<>();
+        map.put("George Town", "George Town");
+        map.put("Kuala Lumpur", "Kuala Lumpur");
+        map.put("Ipoh", "Ipoh");
+        map.put("Kuching", "Kuching");
+        map.put("Johor Bahru", "Johor Bahru");
+        map.put("Kota Kinabula", "Kota Kinabula");
+        map.put("Shah Alam", "Shah Alam");
+        map.put("Malacca City", "Malacca City");
+        map.put("Alor Setar", "Alor Setar");
+        map.put("Miri", "Miri");
+        map.put("Petaling Jaya", "Petaling Jaya");
+        map.put("Iskandar Puteri", "Iskandar Puteri");
+        map.put("Seberang Perai", "Seberang Perai");
+        map.put("Seremban", "Seremban");
+        data.put("Malaysia", map);
     }
 
     public List<String> getUploadedFilePaths() {
