@@ -161,7 +161,7 @@ public class ProfileManagedBean implements Serializable {
     }
 
     public void setDob(Date dob) {
-        this.setDob(dob);
+        this.dob = dob;
     }
 
     public Date getJoinedOn() {
