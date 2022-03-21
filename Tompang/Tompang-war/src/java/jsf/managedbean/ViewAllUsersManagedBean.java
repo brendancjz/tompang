@@ -19,6 +19,7 @@ import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 
 import javax.inject.Inject;
@@ -39,6 +40,8 @@ public class ViewAllUsersManagedBean implements Serializable {
 
     @Inject
     private ViewUserDetailsManagedBean viewUserDetailsManagedBean;
+
+    private User userToUpdate;
 
     public ViewAllUsersManagedBean() {
     }
@@ -70,7 +73,7 @@ public class ViewAllUsersManagedBean implements Serializable {
                 //Means user is disabled, not deleted.
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "User disabled successfully", null));
                 this.retrieveAllUsers();
-            
+
             } catch (EntityNotFoundException ex) {
                 listOfUsers.remove(userEntityToDelete);
 
@@ -94,6 +97,22 @@ public class ViewAllUsersManagedBean implements Serializable {
         this.viewUserDetailsManagedBean = viewUserDetailsManagedBean;
     }
 
+    public void updateUser(ActionEvent event) {
+        User user = (User) event.getComponent().getAttributes().get("user");
+        this.userToUpdate = user;
+    }
+
+    public void saveUser(ActionEvent event) {
+        try {
+            userSessionBean.updateUserDetails(userToUpdate);
+            System.out.println("Updated user details.");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "User updated successfully", null));
+            
+        } catch (EntityNotFoundException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Failed to update User", null));
+        }
+    }
+
     public String getUserDOB(User user) {
         String pattern = "dd-MM-yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -107,15 +126,23 @@ public class ViewAllUsersManagedBean implements Serializable {
 
         return simpleDateFormat.format(user.getJoinedOn());
     }
-    
+
     public Integer getNumberOfUsers() {
         try {
             return userSessionBean.retrieveAllUsers().size();
         } catch (EmptyListException ex) {
             System.out.println(ex.getMessage());
         }
-        
+
         return 0;
+    }
+
+    public User getUserToUpdate() {
+        return userToUpdate;
+    }
+
+    public void setUserToUpdate(User userToUpdate) {
+        this.userToUpdate = userToUpdate;
     }
 
     public List<User> getListOfUsers() {

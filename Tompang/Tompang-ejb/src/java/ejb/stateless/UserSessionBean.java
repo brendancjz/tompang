@@ -127,6 +127,18 @@ public class UserSessionBean implements UserSessionBeanLocal {
         user.setProfilePic(profilePic);
         user.setContactNumber(contactNum);
     }
+    
+    @Override
+    public void updateUserDetails(User userToUpdate) throws EntityNotFoundException {
+        User user = this.getUserByUserId(userToUpdate.getUserId());
+        user.setFirstName(userToUpdate.getFirstName());
+        user.setLastName(userToUpdate.getLastName());
+        user.setEmail(userToUpdate.getEmail());
+        user.setUsername(userToUpdate.getUsername());
+        user.setDateOfBirth(userToUpdate.getDateOfBirth());
+        user.setProfilePic(userToUpdate.getProfilePic());
+        user.setContactNumber(userToUpdate.getContactNumber());
+    }
 
     @Override
     public void updateUserPassword(Long userId, String password) throws EntityNotFoundException {

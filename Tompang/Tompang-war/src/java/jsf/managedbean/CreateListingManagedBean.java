@@ -61,12 +61,6 @@ public class CreateListingManagedBean implements Serializable {
 
         this.initialiseCategories();
         this.initialiseDataCountriesAndCities();
-
-        String[] isoCodes = Locale.getISOCountries();
-
-        for (int i = 0; i < isoCodes.length; i++) {
-            Locale locale = new Locale("", isoCodes[i]);
-        }
     }
 
     public void createListing(AjaxBehaviorEvent event) {

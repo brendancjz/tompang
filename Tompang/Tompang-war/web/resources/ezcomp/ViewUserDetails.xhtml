@@ -99,7 +99,33 @@
                                           #{viewUserDetailsManagedBean.userEntityToView.joinedOn.toString().substring(24)}" />
                         </p:column>
                     </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="No. of Followers: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.followers.size()}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="No. of Followers: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewUserDetailsManagedBean.userEntityToView.following.size()}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Profile Photo: " />
+                        </p:column>
+                        <p:column>
+                            <div style="display: flex;flex-direction: column;align-items: center;">
+                                <p:graphicImage value="#{viewAllUsersManagedBean.userToUpdate.profilePic}" width="200px"/>
+                            </div>
 
+                        </p:column>
+                    </p:row>
                 </p:panelGrid>
 
                 <h:commandButton style="margin-top: 10px;" class="blue-button" value="View User Listings" actionListener="#{viewUserDetailsManagedBean.viewUserListings}">

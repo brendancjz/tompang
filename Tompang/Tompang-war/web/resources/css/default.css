@@ -260,3 +260,8 @@ and open the template in the editor.
 .convo-message {
     
 }
+
+/*To hide the irrelevant city after country changed*/
+.ui-selectonemenu-panel.hideDisabled .ui-selectonemenu-item.ui-state-disabled { 
+    display: none;
+}

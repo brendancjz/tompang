@@ -62,6 +62,9 @@
                         <p:commandButton update="ccViewUserDetails:formViewUserDetails" oncomplete="PF('dialogViewUserDetails').show()" icon="ui-icon-document" title="View">
                             <f:setPropertyActionListener value="#{user}" target="#{viewAllUsersManagedBean.viewUserDetailsManagedBean.userEntityToView}" />
                         </p:commandButton>
+                        <p:commandButton update="formUpdateUserDetails" actionListener="#{viewAllUsersManagedBean.updateUser}" oncomplete="PF('dialogUpdateUserDetails').show()" icon="pi pi-pencil" title="Update">
+                            <f:attribute name="user"  value="#{user}"/>
+                        </p:commandButton>
                         <p:commandButton icon="ui-icon-trash" actionListener="#{viewAllUsersManagedBean.deleteUser}" update="listOfUsers:usersTable listOfUsers:messages">
                             <f:attribute name="userEntityToDelete" value="#{user}" />
                             <p:confirm header="Confirmation" message="Are you sure you want to delete #{user.firstName} #{user.lastName}?" icon="ui-icon-alert" />
@@ -77,6 +80,80 @@
             </h:form>
 
             <ezcomp:ViewUserDetails id="ccViewUserDetails" />
+            <h:form id="formUpdateUserDetails">
+                <p:growl for="formUpdateUserDetails" showDetail="true" globalOnly="true"/>
+                <p:dialog id="dialogUpdateUserDetails" widgetVar="dialogUpdateUserDetails" header="Update User Details" closable="true">
+
+                    <p:panelGrid>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="User ID: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{viewAllUsersManagedBean.userToUpdate.userId}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="First Name: " />
+                            </p:column>
+                            <p:column>
+                                <p:inputText placeholder="Input First Name..." value="#{viewAllUsersManagedBean.userToUpdate.firstName}" required="true" />
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Last Name: " />
+                            </p:column>
+                            <p:column>
+                                <p:inputText placeholder="Input Last Name..." value="#{viewAllUsersManagedBean.userToUpdate.lastName}" required="true" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Email: " />
+                            </p:column>
+                            <p:column>
+                                <p:inputText placeholder="Input Email..." value="#{viewAllUsersManagedBean.userToUpdate.email}" required="true" />
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Contact Number: " />
+                            </p:column>
+                            <p:column>
+                                <p:inputText placeholder="Input Number..." value="#{viewAllUsersManagedBean.userToUpdate.contactNumber}" required="true" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Date of Birth: " />
+                            </p:column>
+                            <p:column>
+                                <p:datePicker value="#{viewAllUsersManagedBean.userToUpdate.dateOfBirth}" required="true" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column colspan="3">
+                                <p:commandButton id="updateUser" value="Save" icon="pi pi-save" update="@form listOfUsers:usersTable" actionListener="#{viewAllUsersManagedBean.saveUser}" oncomplete="PF('dialogUpdateUserDetails').show();" />
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+
+                    <!--                <div style="width: 20%; min-width: 500px;">
+                                        
+                                    </div>-->
+
+                </p:dialog>
+
+            </h:form>
         </div>
     </ui:define>
 

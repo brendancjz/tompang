@@ -44,4 +44,6 @@ public interface UserSessionBeanLocal {
 
     public void removeListingFromUserLikedListings(Long listingId) throws EmptyListException, EntityNotFoundException;
 
+    public void updateUserDetails(User userToUpdate) throws EntityNotFoundException;
+
 }
