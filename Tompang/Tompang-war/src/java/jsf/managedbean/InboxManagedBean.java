@@ -20,6 +20,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.inject.Inject;
 
 /**
  *
@@ -31,6 +32,9 @@ public class InboxManagedBean implements Serializable {
 
     @EJB
     private ConversationSessionBeanLocal conversationSessionBean;
+    
+    @Inject
+    private ConversationManagedBean conversationManagedBean;
 
     private List<Conversation> buyerConversations;
     private List<Conversation> filteredBuyerConversations;
@@ -59,10 +63,18 @@ public class InboxManagedBean implements Serializable {
     public void goToChat(AjaxBehaviorEvent event) throws IOException {
 
         Conversation convo = (Conversation) event.getComponent().getAttributes().get("conversation");
-
+        User currentUser = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
+        User postedBy = convo.getListing().getCreatedBy();
+        if (currentUser.equals(postedBy)) {
+            // seller
+            System.out.println("SET TO 0");
+            convo.setSellerUnread(0);
+        } else {
+            //buyer
+            convo.setBuyerUnread(0);
+        }
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("conversation", convo);
         FacesContext.getCurrentInstance().getExternalContext().redirect("conversation.xhtml");
-
     }
 
     public List<Conversation> getBuyerConversations() {
@@ -95,6 +107,20 @@ public class InboxManagedBean implements Serializable {
 
     public void setFilteredSellerConversations(List<Conversation> filteredSellerConversations) {
         this.filteredSellerConversations = filteredSellerConversations;
+    }
+
+    /**
+     * @return the conversationManagedBean
+     */
+    public ConversationManagedBean getConversationManagedBean() {
+        return conversationManagedBean;
+    }
+
+    /**
+     * @param conversationManagedBean the conversationManagedBean to set
+     */
+    public void setConversationManagedBean(ConversationManagedBean conversationManagedBean) {
+        this.conversationManagedBean = conversationManagedBean;
     }
 
 }

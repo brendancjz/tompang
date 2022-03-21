@@ -38,6 +38,12 @@ public class Message implements Serializable, Comparable {
     @Column(nullable = false)
     @NotNull
     private Boolean fromBuyer;
+    @Column(nullable = false)
+    @NotNull
+    private Boolean readByBuyer;
+    @Column(nullable = false)
+    @NotNull
+    private Boolean readBySeller;
 
     public Message() {
         this.createdOn = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
@@ -47,6 +53,13 @@ public class Message implements Serializable, Comparable {
         this();
         this.body = body;
         this.fromBuyer = fromBuyer;
+        if (fromBuyer) {
+            this.readByBuyer = true;
+            this.readBySeller = false;
+        } else {
+            this.readBySeller = true;
+            this.readByBuyer = false;
+        }
     }
 
     public Long getMessageId() {
@@ -98,5 +111,33 @@ public class Message implements Serializable, Comparable {
     public int compareTo(Object o) {
         Message m = (Message) o;
         return this.getCreatedOn().compareTo(m.getCreatedOn());
+    }
+
+    /**
+     * @return the readByBuyer
+     */
+    public Boolean getReadByBuyer() {
+        return readByBuyer;
+    }
+
+    /**
+     * @param readByBuyer the readByBuyer to set
+     */
+    public void setReadByBuyer(Boolean readByBuyer) {
+        this.readByBuyer = readByBuyer;
+    }
+
+    /**
+     * @return the readBySeller
+     */
+    public Boolean getReadBySeller() {
+        return readBySeller;
+    }
+
+    /**
+     * @param readBySeller the readBySeller to set
+     */
+    public void setReadBySeller(Boolean readBySeller) {
+        this.readBySeller = readBySeller;
     }
 }

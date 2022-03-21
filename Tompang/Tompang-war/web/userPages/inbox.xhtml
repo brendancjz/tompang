@@ -37,13 +37,15 @@
                     <p:column headerText="Action" >
                         <h:commandButton class="blue-button" value="View Chat">
                             <f:attribute name="conversation" value="#{conversation}" />
-                            <f:ajax event="click" execute="@this" render="@this" listener="#{inboxManagedBean.goToChat}" />
+                            <p:ajax event="click" update="listOfConversations:sellerConversationsTable" listener="#{inboxManagedBean.goToChat}"/>
                         </h:commandButton>
+                        <h:outputText value ="#{conversation.sellerUnread}"/>
                     </p:column>
+
                 </p:dataTable>
                 <br />
                 <h3>Buyer Conversations </h3>
-                <p:dataTable id="buyerConversationsTable" widgetVar="sellerConversationsTable" value="#{inboxManagedBean.buyerConversations}" var="conversation" rowKey="#{conversation.convoId}" rowIndexVar="row"
+                <p:dataTable id="buyerConversationsTable" widgetVar="buyerConversationsTable" value="#{inboxManagedBean.buyerConversations}" var="conversation" rowKey="#{conversation.convoId}" rowIndexVar="row"
                              filteredValue="#{inboxManagedBean.filteredBuyerConversations}"
                              rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
 
@@ -68,6 +70,7 @@
                             <f:attribute name="conversation" value="#{conversation}" />
                             <f:ajax event="click" execute="@this" render="@this" listener="#{inboxManagedBean.goToChat}" />
                         </h:commandButton>
+                        <h:outputText value ="#{conversation.buyerUnread}"/>
                     </p:column>
                 </p:dataTable>
 

@@ -37,10 +37,18 @@ public class Conversation implements Serializable {
     private Listing listing;
     @OneToMany
     private List<Message> messages;
+    @Column(nullable = false)
+    @NotNull
+    private int buyerUnread;
+    @Column(nullable = false)
+    @NotNull
+    private int sellerUnread;
 
     public Conversation() {
         this.messages = new ArrayList<>();
         this.isOpen = true;
+        this.buyerUnread = 0;
+        this.sellerUnread = 0;
     }
 
     public Conversation(User createdBy, Listing listing) {
@@ -100,6 +108,34 @@ public class Conversation implements Serializable {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return the buyerUnread
+     */
+    public int getBuyerUnread() {
+        return buyerUnread;
+    }
+
+    /**
+     * @param buyerUnread the buyerUnread to set
+     */
+    public void setBuyerUnread(int buyerUnread) {
+        this.buyerUnread = buyerUnread;
+    }
+
+    /**
+     * @return the sellerUnread
+     */
+    public int getSellerUnread() {
+        return sellerUnread;
+    }
+
+    /**
+     * @param sellerUnread the sellerUnread to set
+     */
+    public void setSellerUnread(int sellerUnread) {
+        this.sellerUnread = sellerUnread;
     }
     
 }

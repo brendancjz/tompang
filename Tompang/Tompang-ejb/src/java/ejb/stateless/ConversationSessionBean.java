@@ -152,6 +152,15 @@ public class ConversationSessionBean implements ConversationSessionBeanLocal {
     @Override
     public void addMessage(Long convoId, Message message) throws EntityNotFoundException {
         Conversation convo = this.getConversationByConvoId(convoId);
+        if (message.getFromBuyer()) {
+            convo.setBuyerUnread(0);
+            int sellerUnread = convo.getSellerUnread();
+            convo.setSellerUnread(sellerUnread + 1);
+        } else {
+            convo.setSellerUnread(0);
+            int buyerUnread = convo.getBuyerUnread();
+            convo.setBuyerUnread(buyerUnread + 1);
+        }
         convo.getMessages().add(message);
     }
 

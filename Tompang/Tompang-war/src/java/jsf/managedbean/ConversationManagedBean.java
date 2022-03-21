@@ -39,6 +39,8 @@ public class ConversationManagedBean implements Serializable {
     private Boolean showListingDetails;
 
     private String newMessage;
+    private int buyerUnread;
+    private int sellerUnread;
 
     public ConversationManagedBean() {
         showListingDetails = true;
@@ -52,6 +54,8 @@ public class ConversationManagedBean implements Serializable {
             if (conversationToView == null) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("shop.xhtml");
             }
+            setBuyerUnread(conversationToView.getBuyerUnread());
+            setSellerUnread(conversationToView.getSellerUnread());
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
@@ -96,11 +100,11 @@ public class ConversationManagedBean implements Serializable {
             } else {
                 message = new Message(newMessage, false);
             }
-            Long messageId = messageSessionBean.createNewMessage(message);
+            Long messageId = getMessageSessionBean().createNewMessage(message);
 
-            conversationSessionBean.addMessage(conversationToView.getConvoId(), messageSessionBean.getMessageByMessageId(messageId));
+            getConversationSessionBean().addMessage(conversationToView.getConvoId(), getMessageSessionBean().getMessageByMessageId(messageId));
 
-            Conversation updatedConvo = conversationSessionBean.getConversationByConvoId(conversationToView.getConvoId());
+            Conversation updatedConvo = getConversationSessionBean().getConversationByConvoId(conversationToView.getConvoId());
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("conversation", updatedConvo);
             this.postConstruct();
         } catch (EntityNotFoundException ex) {
@@ -136,6 +140,62 @@ public class ConversationManagedBean implements Serializable {
 
     public void setNewMessage(String newMessage) {
         this.newMessage = newMessage;
+    }
+
+    /**
+     * @return the conversationSessionBean
+     */
+    public ConversationSessionBeanLocal getConversationSessionBean() {
+        return conversationSessionBean;
+    }
+
+    /**
+     * @param conversationSessionBean the conversationSessionBean to set
+     */
+    public void setConversationSessionBean(ConversationSessionBeanLocal conversationSessionBean) {
+        this.conversationSessionBean = conversationSessionBean;
+    }
+
+    /**
+     * @return the messageSessionBean
+     */
+    public MessageSessionBeanLocal getMessageSessionBean() {
+        return messageSessionBean;
+    }
+
+    /**
+     * @param messageSessionBean the messageSessionBean to set
+     */
+    public void setMessageSessionBean(MessageSessionBeanLocal messageSessionBean) {
+        this.messageSessionBean = messageSessionBean;
+    }
+
+    /**
+     * @return the buyerUnread
+     */
+    public int getBuyerUnread() {
+        return buyerUnread;
+    }
+
+    /**
+     * @param buyerUnread the buyerUnread to set
+     */
+    public void setBuyerUnread(int buyerUnread) {
+        this.buyerUnread = buyerUnread;
+    }
+
+    /**
+     * @return the sellerUnread
+     */
+    public int getSellerUnread() {
+        return sellerUnread;
+    }
+
+    /**
+     * @param sellerUnread the sellerUnread to set
+     */
+    public void setSellerUnread(int sellerUnread) {
+        this.sellerUnread = sellerUnread;
     }
 
 }
