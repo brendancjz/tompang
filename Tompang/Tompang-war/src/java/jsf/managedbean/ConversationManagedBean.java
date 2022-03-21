@@ -35,16 +35,15 @@ public class ConversationManagedBean implements Serializable {
     @EJB
     private MessageSessionBeanLocal messageSessionBean;
 
-    
     private Conversation conversationToView;
     private Boolean showListingDetails;
-    
+
     private String newMessage;
-    
+
     public ConversationManagedBean() {
         showListingDetails = true;
     }
-    
+
     @PostConstruct
     public void postConstruct() {
         try {
@@ -57,7 +56,7 @@ public class ConversationManagedBean implements Serializable {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     public List<Message> retrieveAllBuyerMessages() {
         List<Message> buyerMessages = conversationToView.getMessages();
         for (int i = 0; i < buyerMessages.size(); i++) {
@@ -67,10 +66,10 @@ public class ConversationManagedBean implements Serializable {
                 i--;
             }
         }
-        
+
         return buyerMessages;
     }
-    
+
     public List<Message> retrieveAllSellerMessages() {
         List<Message> buyerMessages = conversationToView.getMessages();
         for (int i = 0; i < buyerMessages.size(); i++) {
@@ -80,23 +79,27 @@ public class ConversationManagedBean implements Serializable {
                 i--;
             }
         }
-        
+
         return buyerMessages;
     }
-    
+
     public Boolean isUserTheBuyer() {
         User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
-        
         return Objects.equals(conversationToView.getCreatedBy().getUserId(), user.getUserId());
     }
-    
+
     public void createNewMessage() {
         try {
-            Message message = new Message(newMessage, true);
+            Message message = new Message();
+            if (isUserTheBuyer()) {
+                message = new Message(newMessage, true);
+            } else {
+                message = new Message(newMessage, false);
+            }
             Long messageId = messageSessionBean.createNewMessage(message);
-            
+
             conversationSessionBean.addMessage(conversationToView.getConvoId(), messageSessionBean.getMessageByMessageId(messageId));
-            
+
             Conversation updatedConvo = conversationSessionBean.getConversationByConvoId(conversationToView.getConvoId());
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("conversation", updatedConvo);
             this.postConstruct();
@@ -104,7 +107,7 @@ public class ConversationManagedBean implements Serializable {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     public void toggleCollapseListingDetails() {
         showListingDetails = !showListingDetails;
         System.out.println("ShowListingDetails : " + showListingDetails);
@@ -134,7 +137,5 @@ public class ConversationManagedBean implements Serializable {
     public void setNewMessage(String newMessage) {
         this.newMessage = newMessage;
     }
-    
-    
-    
+
 }

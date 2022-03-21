@@ -12,6 +12,7 @@ import entity.User;
 import exception.CreateNewConversationException;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
+import java.util.Collections;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -143,6 +144,7 @@ public class ConversationSessionBean implements ConversationSessionBeanLocal {
         }
 
         convo.getMessages().size();
+        Collections.sort(convo.getMessages());
 
         return convo;
     }

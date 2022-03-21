@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
  * @author brend
  */
 @Entity
-public class Message implements Serializable {
+public class Message implements Serializable, Comparable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -80,7 +80,7 @@ public class Message implements Serializable {
     public void setFromBuyer(Boolean fromBuyer) {
         this.fromBuyer = fromBuyer;
     }
-    
+
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -92,5 +92,11 @@ public class Message implements Serializable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Message m = (Message) o;
+        return this.getCreatedOn().compareTo(m.getCreatedOn());
     }
 }
