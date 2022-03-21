@@ -59,5 +59,15 @@ public class ViewAllDisputesManagedBean implements Serializable{
             
         }
     }
+
+    public List<Dispute> getDisputes() {
+        return disputes;
+    }
+
+    public void setDisputes(List<Dispute> disputes) {
+        this.disputes = disputes;
+    }
+    
+    
     
 }

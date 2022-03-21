@@ -51,38 +51,37 @@ public class DataInitSessionBean {
         if (em.find(User.class, 1L) == null) {
             //Create Manager
             Date dob = Date.from(LocalDate.of(1999, 12, 25).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            //Date joinedOn = Date.from(LocalDate.of(2022, 2, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            User manager = new User("Brendan", "Chia", "bchia@gmail.com", "manager", "password", dob, "", 98769876L, true);
+            String managerProfilePic = "/uploadedFiles/manager_picture.jpg";
+            User manager = new User("Brendan", "Chia", "bchia@gmail.com", "manager", "password", dob, managerProfilePic, 98769876L, true);
 
             em.persist(manager);
             em.flush();
-
-            //Create Manager
+            
+            String userProfilePic = "/uploadedFiles/default_picture.jpg";
+            
+            //Create Admin
             dob = Date.from(LocalDate.of(1999, 12, 24).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            //Date joinedOn = Date.from(LocalDate.of(2022, 2, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            manager = new User("Sean", "Seduck", "seduck@gmail.com", "admin", "password", dob, "", 98769871L, true);
+            
+            manager = new User("Sean", "Ang", "sean.ang@gmail.com", "admin", "password", dob, userProfilePic, 98769871L, true);
 
             em.persist(manager);
             em.flush();
 
-            //Create Dummy User
+            //Create User1
             dob = Date.from(LocalDate.of(1999, 1, 1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            //joinedOn = Date.from(LocalDate.of(2022, 2, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            User dummyUser = new User("Dummy", "User", "dummyUser@gmail.com", "dummy", "password", dob, "", 12341234L, false);
+            User dummyUser = new User("Ignitius", "Goh", "ig.goh@gmail.com", "iggy", "password", dob, userProfilePic, 12341234L, false);
             em.persist(dummyUser);
             em.flush();
 
-            //Create Dummy User2
+            //Create User2
             dob = Date.from(LocalDate.of(1999, 1, 1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            //joinedOn = Date.from(LocalDate.of(2022, 2, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            User dummyUser2 = new User("Dummy2", "User2", "dummyUser2@gmail.com", "dummy2", "password", dob, "", 12341235L, false);
+            User dummyUser2 = new User("Alice", "Tan", "alice.tan@gmail.com", "alice", "password", dob, userProfilePic, 12341235L, false);
             em.persist(dummyUser2);
             em.flush();
 
-            //Create dummy for following
+            //Create User3 for following
             dob = Date.from(LocalDate.of(1999, 12, 24).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            //Date joinedOn = Date.from(LocalDate.of(2022, 2, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            User dummyUser3 = new User("Guo Jun", "Heng", "gwajoon@gmail.com", "guojun", "password", dob, "", 98769872L, true);
+            User dummyUser3 = new User("Guo Jun", "Heng", "gwajoon@gmail.com", "guojun", "password", dob, userProfilePic, 98769872L, true);
 
             em.persist(dummyUser3);
             em.flush();
@@ -126,21 +125,21 @@ public class DataInitSessionBean {
             Date expectedArrivalDate = Date.from(LocalDate.now().atStartOfDay().plusDays(7).atZone(ZoneId.systemDefault()).toInstant());
             User dummyUser1 = (User) em.find(User.class, 1L);
             List<String> photos1 = new ArrayList<>();
-            photos1.add("/Users/GuoJun/glassfish-5.1.0-uploadedfiles/uploadedFiles/japanese_biscuits.jpeg");
+            photos1.add("/uploadedFiles/japanese_biscuits.jpeg");
             Listing listing = new Listing("Japan", "Osaka", "Japan Biscuit", "Lovely japanese biscuits!", "FOOD", 35.00, expectedArrivalDate, dummyUser1, 5, photos1);
             em.persist(listing);
             em.flush();
 
             User dummyUser2 = (User) em.find(User.class, 2L);
             List<String> photos2 = new ArrayList<>();
-            photos2.add("ttekbokki.jpg");
+            photos2.add("/uploadedFiles/tteokbokki.jpg");
             listing = new Listing("Korea", "Seoul", "Tteokbokki", "Authentic spicy rice cakes!", "FOOD", 15.00, expectedArrivalDate, dummyUser2, 5, photos2);
             em.persist(listing);
             em.flush();
 
             User dummyUser3 = (User) em.find(User.class, 3L);
             List<String> photos3 = new ArrayList<>();
-            photos3.add("gummy.jpg");
+            photos3.add("/uploadedFiles/gummy.jpg");
             listing = new Listing("Germany", "Dresden", "Gummy Candy", "Gluten Tag!", "FOOD", 7.00, expectedArrivalDate, dummyUser3, 10, photos3);
             em.persist(listing);
             em.flush();

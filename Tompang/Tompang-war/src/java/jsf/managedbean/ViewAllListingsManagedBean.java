@@ -49,6 +49,7 @@ public class ViewAllListingsManagedBean implements Serializable {
     
     private Listing listingToUpdate;
     private Boolean listingToUpdateChangedCountry; 
+    private List<String> updatedListOfPhotos;
     
     private String filteredUsername;
     
@@ -166,13 +167,17 @@ public class ViewAllListingsManagedBean implements Serializable {
             fileOutputStream.close();
             inputStream.close();
 
-            this.listingToUpdate.getPhotos().add(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("uploadedFilesPath") + "/" + event.getFile().getFileName());
+            this.updatedListOfPhotos.add(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("uploadedFilesPath") + "/" + event.getFile().getFileName());
+            System.out.println("Updated List Of Photos size: " + this.updatedListOfPhotos.size());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "File uploaded successfully", ""));
         } catch (IOException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "File upload error: " + ex.getMessage(), ""));
         }
     }
     
+    public void imageHover() {
+        System.out.println("Image Hover");
+    }
     public Integer getNumberOfListings() {
         
         try {
@@ -201,6 +206,7 @@ public class ViewAllListingsManagedBean implements Serializable {
     public void getListingToUpdate(ActionEvent event) {
         Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
         this.listingToUpdate = listing;
+        this.updatedListOfPhotos = listing.getPhotos();
         cities = data.get(listingToUpdate.getCountry());
     }
     
@@ -421,6 +427,14 @@ public class ViewAllListingsManagedBean implements Serializable {
 
     public void setListingToUpdate(Listing listingToUpdate) {
         this.listingToUpdate = listingToUpdate;
+    }
+
+    public List<String> getUpdatedListOfPhotos() {
+        return updatedListOfPhotos;
+    }
+
+    public void setUpdatedListOfPhotos(List<String> updatedListOfPhotos) {
+        this.updatedListOfPhotos = updatedListOfPhotos;
     }
 
     

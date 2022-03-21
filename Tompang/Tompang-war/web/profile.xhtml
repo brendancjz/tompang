@@ -31,15 +31,36 @@
     <ui:define name="content">
         <div>
             <div style="background-color: #0190e9; padding: 0 0 15px 20px; margin-bottom: 10px; width: 100%">
-                <h:graphicImage style="border-radius: 20px" value="#{profileManagedBean.getProfilePic()}"/>
-                <p style="color: white; font-size: 20px">#{profileManagedBean.getUsername()}</p>
-                <p style="color: white">Following: #{profileManagedBean.getFollowing().size()}</p>
-                <p style="color: white">Followers: #{profileManagedBean.getFollowers().size()}</p>
+                <h:form id="profileHeader"> <!-- Just to rerender the profile pic-->
+                    <h:graphicImage style="border-radius: 20px;width: 15%;min-width: 185px;margin-top: 20px;" value="#{profileManagedBean.getProfilePic()}"/>
+                    <p style="color: white; font-size: 20px">#{profileManagedBean.getUsername()}</p>
+                    <p style="color: white">Following: #{profileManagedBean.getFollowing().size()}</p>
+                    <p style="color: white">Followers: #{profileManagedBean.getFollowers().size()}</p>
+                </h:form>
+
             </div>
             <h:panelGroup rendered="#{profileManagedBean.profileContent eq 'EDIT_PROFILE'}">
                 <h2>Edit Profile</h2>
                 <br/>
 
+                <h:form id="formFileUpload" enctype="multipart/form-data">
+                    <p:growl showDetail="true" skipDetailIfEqualsSummary="true"/>
+                    <div class="">
+                        <p:panel header="Photo Upload" style="margin-top:10px;padding: 0.5em;">
+                            <p:fileUpload listener="#{profileManagedBean.handleFileUpload}" multiple="true" update="@form:formFileUpload" />
+                        </p:panel>
+
+                        <br/>
+                        <p:panel header="Uploaded File" visible="#{profileManagedBean.showUploadedFile}">
+
+                            <div style="display: flex;flex-direction: column;align-items: center;">
+                                <p:graphicImage width="30%" value="#{profileManagedBean.profilePic}" />
+                            </div>
+
+                        </p:panel>
+                    </div>
+                </h:form>
+                <br />
                 <h:form class="profileForm">
                     <h:messages errorClass="errorTextsWithBullet" fatalClass="fatalTextsWithBullet" warnClass="warnTextsWithBullet" infoClass="infoTextsWithBullet" globalOnly="true" />
 
@@ -70,7 +91,7 @@
 
                         <br />
                         <h:commandButton class="blue-button" value="Update" type="submit">
-                            <f:ajax event="click" execute="@form" render="@form" listener="#{profileManagedBean.update}" />
+                            <f:ajax event="click" execute="@form" render="@form @form:profileHeader" listener="#{profileManagedBean.update}" />
                         </h:commandButton>
 
                     </p:panelGrid>
