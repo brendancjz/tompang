@@ -26,19 +26,14 @@ public class ViewTransactionDetailsManagedBean implements Serializable {
         transactionToView = new Transaction();
     }
 
-    /**
-     * @return the transcationToView
-     */
-    public Transaction getTranscationToView() {
+    public Transaction getTransactionToView() {
         return transactionToView;
     }
 
-    /**
-     * @param transcationToView the transcationToView to set
-     */
-    public void setTranscationToView(Transaction transcationToView) {
-        System.out.println("Set method called");
-        this.transactionToView = transcationToView;
+    public void setTransactionToView(Transaction transactionToView) {
+        this.transactionToView = transactionToView;
     }
+    
+    
     
 }

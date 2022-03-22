@@ -178,7 +178,6 @@ public class ViewAllListingsManagedBean implements Serializable {
             inputStream.close();
 
             this.listingToUpdate.getPhotos().add(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("uploadedFilesPath") + "/" + event.getFile().getFileName());
-            System.out.println("Updated List Of Photos size: " + this.listingToUpdate.getPhotos().size());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "File uploaded successfully", ""));
         } catch (IOException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "File upload error: " + ex.getMessage(), ""));
