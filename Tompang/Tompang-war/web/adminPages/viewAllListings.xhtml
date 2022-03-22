@@ -201,25 +201,31 @@
                         <h:form id="formFileUpload" enctype="multipart/form-data">
                             <p:growl showDetail="true" skipDetailIfEqualsSummary="true"/>
                             <p:column>
-                                <p:panel header="Photo(s) Upload (Current Buggy)" style="margin-top:10px;padding: 0.5em;width: 650px;">
-                                    <p:fileUpload listener="#{viewAllListingsManagedBean.handleFileUpload}" multiple="true" update="@form:formFileUpload @form:displayPhotosForm" />
+                                <p:panel header="Photo(s) Upload" style="margin-top:10px;padding: 0.5em;width: 650px;">
+                                    <p:fileUpload listener="#{viewAllListingsManagedBean.handleFileUpload}" multiple="true" update="@form:displayPhotosForm:displayPhotosView" />
                                 </p:panel>
 
                                 <br/>
-                                <h:form id="displayPhotosForm">
-                                    <p:panel header="Photo Files" visible="#{viewAllListingsManagedBean.updatedListOfPhotos.size() > 0}" style="width: 650px;">
-                                        <p:dataView var="image" value="#{viewAllListingsManagedBean.updatedListOfPhotos}" layout="grid">
 
+
+                                <p:panel header="Photo Files" visible="#{viewAllListingsManagedBean.listingToUpdate.photos.size() > 0}" style="width: 650px;">
+                                    <h:form id="displayPhotosForm">
+                                        <p:messages />
+                                        <p:dataView id="displayPhotosView" var="image" value="#{viewAllListingsManagedBean.listingToUpdate.photos}" layout="grid">
                                             <p:dataViewGridItem>
                                                 <div style="display: flex;flex-direction: column;align-items: center;">
                                                     <p:graphicImage value="#{image}" width="100%"/>
-                                                    <h:button value="Remove" onclick="#{viewAllListingsManagedBean.imageHover()}" />
+                                                    <h:commandButton value="Remove">
+                                                        <f:attribute name="photo" value="#{image}" />
+                                                        <f:ajax event="click" execute="@this" render="@form:displayPhotosForm:displayPhotosView" listener="#{viewAllListingsManagedBean.removePhotoFromListingToUpdate}" />
+                                                    </h:commandButton>
                                                 </div>
                                             </p:dataViewGridItem>
                                         </p:dataView>
-                                    </p:panel>
-                                </h:form>
-                                
+                                    </h:form>
+                                </p:panel>
+
+
                             </p:column>
                         </h:form>
 

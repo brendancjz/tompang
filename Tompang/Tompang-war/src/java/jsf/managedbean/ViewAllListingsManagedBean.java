@@ -24,9 +24,11 @@ import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import org.primefaces.event.FileUploadEvent;
+
 
 /**
  *
@@ -36,27 +38,28 @@ import org.primefaces.event.FileUploadEvent;
 @ViewScoped
 public class ViewAllListingsManagedBean implements Serializable {
 
+    
     @EJB
     private ListingSessionBeanLocal listingSessionBean;
-
+    
     @Inject
     private ViewListingDetailsEzCompManagedBean viewListingDetailsEzCompManagedBean;
-
+    
     private List<Listing> listings;
     private List<Listing> filteredListings;
-
+    
     private Listing listingToUpdate;
-    private Boolean listingToUpdateChangedCountry;
+    private Boolean listingToUpdateChangedCountry; 
     private List<String> updatedListOfPhotos;
-
+    
     private String filteredUsername;
-
+    
     private HashMap<String, HashMap<String, String>> data;
     private HashMap<String, String> countries;
     private HashMap<String, String> cities;
 
     private HashMap<String, String> categories;
-
+    
     public ViewAllListingsManagedBean() {
         this.initialiseCategories();
         this.initialiseDataCountriesAndCities();
@@ -65,12 +68,12 @@ public class ViewAllListingsManagedBean implements Serializable {
     @PostConstruct
     public void retrieveAllListings() {
         listings = new ArrayList<>();
-
+        
         System.out.println("PostConstruct for ViewAllListingManagedBean called.");
         try {
             //This is for when admin wishes to view User's Listings from the View User Details
-            filteredUsername = (String) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("username");
-
+            filteredUsername = (String)FacesContext.getCurrentInstance().getExternalContext().getFlash().get("username");
+            
             if (filteredUsername == null) {
                 listings = listingSessionBean.retrieveAllListings();
             } else {
@@ -81,21 +84,22 @@ public class ViewAllListingsManagedBean implements Serializable {
             System.out.println("List of listings empty.");
         }
     }
-
+    
 //    public void viewListingDetails(ActionEvent event) throws IOException {
 //        Long listingIdToView = (Long)event.getComponent().getAttributes().get("listingId");
 //        System.err.print(listingIdToView);
 //        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("listingIdToView", listingIdToView);
 //        FacesContext.getCurrentInstance().getExternalContext().redirect("viewListingDetails.xhtml");
 //    }
+    
     public void deleteListing(ActionEvent event) {
         try {
             System.out.println("Deleting Listing in ViewAllListingsManagedBean");
-
+            
             Listing listingToDelete = (Listing) event.getComponent().getAttributes().get("listingToDelete");
-
+            
             listingSessionBean.deleteListing(listingToDelete.getListingId());
-
+            
             try {
                 Listing listing = listingSessionBean.getListingByListingId(listingToDelete.getListingId());
                 //Means listing is disabled, not deleted.
@@ -108,32 +112,40 @@ public class ViewAllListingsManagedBean implements Serializable {
                     filteredListings.remove(listingToDelete);
                 }
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Listing deleted successfully", null));
-            }
-        } catch (EntityNotFoundException ex) {
+            }} catch (EntityNotFoundException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while deleting listing: " + ex.getMessage(), null));
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An unexpected error has occurred: " + ex.getMessage(), null));
         }
     }
-
+    
+    public void removePhotoFromListingToUpdate(AjaxBehaviorEvent event) {
+        System.out.println(this.listingToUpdate.getPhotos().size());
+        String photoToRemove = (String) event.getComponent().getAttributes().get("photo");
+        this.listingToUpdate.getPhotos().remove(photoToRemove);
+        System.out.println(photoToRemove);
+        System.out.println(this.listingToUpdate.getPhotos().size());
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Removed Photo", null));
+    }
+    
     public void saveListing(ActionEvent event) {
         try {
-
+            
             if (data.get(listingToUpdate.getCountry()).containsKey(listingToUpdate.getCity())) {
                 listingSessionBean.updateListingDetails(listingToUpdate);
                 System.out.println("Updated listing details");
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successfully updated listing.", null));
-
+        
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Unsuccessful update. Input correct city/country.", null));
                 System.out.println("Did not Update listing details");
             }
-
+              
         } catch (EntityNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
     }
-
+    
     public void handleFileUpload(FileUploadEvent event) {
         try {
             String newFilePath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("alternatedocroot_1")
@@ -165,53 +177,45 @@ public class ViewAllListingsManagedBean implements Serializable {
             fileOutputStream.close();
             inputStream.close();
 
-            this.updatedListOfPhotos.add(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("uploadedFilesPath") + "/" + event.getFile().getFileName());
-            System.out.println("Updated List Of Photos size: " + this.updatedListOfPhotos.size());
+            this.listingToUpdate.getPhotos().add(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("uploadedFilesPath") + "/" + event.getFile().getFileName());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "File uploaded successfully", ""));
         } catch (IOException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "File upload error: " + ex.getMessage(), ""));
         }
     }
 
-    public void imageHover() {
-        System.out.println("Image Hover");
-    }
-
     public Integer getNumberOfListings() {
-
+        
         try {
             return listingSessionBean.retrieveAllListings().size();
         } catch (EmptyListException ex) {
             System.out.println(ex.getMessage());
         }
-
+        
         return 0;
     }
-
+    
     public String getCreatedOn(Listing listing) {
         String pattern = "dd-MM-yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
         return simpleDateFormat.format(listing.getCreatedOn());
     }
-
+    
     public String getArrivalDate(Listing listing) {
         String pattern = "dd-MM-yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
         return simpleDateFormat.format(listing.getExpectedArrivalDate());
     }
-
+    
     public void getListingToUpdate(ActionEvent event) {
         Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
         this.listingToUpdate = listing;
-        this.updatedListOfPhotos = new ArrayList<>();
-        for (String photo : listing.getPhotos()) {
-            this.updatedListOfPhotos.add(photo);
-        }
+        this.updatedListOfPhotos = listing.getPhotos();
         cities = data.get(listingToUpdate.getCountry());
     }
-
+    
     public void onCountryChange() {
         this.listingToUpdateChangedCountry = true;
         if (listingToUpdate.getCountry() != null && !"".equals(listingToUpdate.getCountry())) {
@@ -294,7 +298,7 @@ public class ViewAllListingsManagedBean implements Serializable {
         map = new HashMap<>();
         map.put("Singapore", "Singapore");
         data.put("Singapore", map);
-
+        
         //Korea Cities
         map = new HashMap<>();
         map.put("Seoul", "Seoul");
@@ -312,7 +316,7 @@ public class ViewAllListingsManagedBean implements Serializable {
         map.put("Hwaseong", "Hwaseong");
         map.put("Cheongju", "Cheongju");
         data.put("Korea", map);
-
+        
         //Japan Cities
         map = new HashMap<>();
         map.put("Tokyo", "Tokyo");
@@ -330,7 +334,7 @@ public class ViewAllListingsManagedBean implements Serializable {
         map.put("Chiba", "Chiba");
         map.put("Kitakyushu", "Kitakyushu");
         data.put("Japan", map);
-
+        
         //Malaysia Cities
         map = new HashMap<>();
         map.put("George Town", "George Town");
@@ -390,6 +394,7 @@ public class ViewAllListingsManagedBean implements Serializable {
         this.listingToUpdateChangedCountry = listingToUpdateChangedCountry;
     }
 
+    
     public List<Listing> getListings() {
         return listings;
     }
@@ -438,4 +443,8 @@ public class ViewAllListingsManagedBean implements Serializable {
         this.updatedListOfPhotos = updatedListOfPhotos;
     }
 
+    
+
+    
+    
 }

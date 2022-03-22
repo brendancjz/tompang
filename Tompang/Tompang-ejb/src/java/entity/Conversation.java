@@ -44,6 +44,7 @@ public class Conversation implements Serializable {
     @NotNull
     private int sellerUnread;
 
+    
     public Conversation() {
         this.messages = new ArrayList<>();
         this.isOpen = true;

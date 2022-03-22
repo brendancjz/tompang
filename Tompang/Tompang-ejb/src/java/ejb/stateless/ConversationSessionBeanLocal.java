@@ -7,7 +7,6 @@ package ejb.stateless;
 
 import entity.Conversation;
 import entity.Message;
-import exception.CreateNewConversationException;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import java.util.List;
