@@ -158,6 +158,7 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
         listing.setCity(listingToUpdate.getCity());
         listing.setCountry(listingToUpdate.getCountry());
         listing.setCreatedOn(listingToUpdate.getCreatedOn());
+        listing.setTitle(listingToUpdate.getTitle());
         listing.setDescription(listingToUpdate.getDescription());
         listing.setExpectedArrivalDate(listingToUpdate.getExpectedArrivalDate());
         listing.setIsDisabled(listingToUpdate.getIsDisabled());

@@ -24,6 +24,7 @@ import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import org.primefaces.event.FileUploadEvent;
@@ -118,6 +119,15 @@ public class ViewAllListingsManagedBean implements Serializable {
         }
     }
     
+    public void removePhotoFromListingToUpdate(AjaxBehaviorEvent event) {
+        System.out.println(this.listingToUpdate.getPhotos().size());
+        String photoToRemove = (String) event.getComponent().getAttributes().get("photo");
+        this.listingToUpdate.getPhotos().remove(photoToRemove);
+        System.out.println(photoToRemove);
+        System.out.println(this.listingToUpdate.getPhotos().size());
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Removed Photo", null));
+    }
+    
     public void saveListing(ActionEvent event) {
         try {
             
@@ -167,17 +177,14 @@ public class ViewAllListingsManagedBean implements Serializable {
             fileOutputStream.close();
             inputStream.close();
 
-            this.updatedListOfPhotos.add(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("uploadedFilesPath") + "/" + event.getFile().getFileName());
-            System.out.println("Updated List Of Photos size: " + this.updatedListOfPhotos.size());
+            this.listingToUpdate.getPhotos().add(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("uploadedFilesPath") + "/" + event.getFile().getFileName());
+            System.out.println("Updated List Of Photos size: " + this.listingToUpdate.getPhotos().size());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "File uploaded successfully", ""));
         } catch (IOException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "File upload error: " + ex.getMessage(), ""));
         }
     }
-    
-    public void imageHover() {
-        System.out.println("Image Hover");
-    }
+
     public Integer getNumberOfListings() {
         
         try {

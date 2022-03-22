@@ -140,7 +140,7 @@ public class DataInitSessionBean {
             User iggy = (User) em.find(User.class, 3L);
             List<String> photos3 = new ArrayList<>();
             photos3.add("/uploadedFiles/gummy.jpg");
-            listing = new Listing("Japan", "Hokkaido", "Gummy Candy", "Gluten Tag!", "FOOD", 7.00, expectedArrivalDate, iggy, 10, photos3);
+            listing = new Listing("Japan", "Chiba", "Gummy Candy", "Gluten Tag!", "FOOD", 7.00, expectedArrivalDate, iggy, 10, photos3);
             em.persist(listing);
             em.flush();
 
