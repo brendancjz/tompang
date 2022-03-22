@@ -9,7 +9,6 @@ import entity.Conversation;
 import entity.Listing;
 import entity.Message;
 import entity.User;
-import exception.CreateNewConversationException;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import java.util.Collections;

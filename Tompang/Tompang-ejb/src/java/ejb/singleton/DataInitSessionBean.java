@@ -56,12 +56,12 @@ public class DataInitSessionBean {
 
             em.persist(manager);
             em.flush();
-            
+
             String userProfilePic = "/uploadedFiles/default_picture.jpg";
-            
+
             //Create Admin
             dob = Date.from(LocalDate.of(1999, 12, 24).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            
+
             manager = new User("Sean", "Ang", "sean.ang@gmail.com", "admin", "password", dob, userProfilePic, 98769871L, true);
 
             em.persist(manager);
@@ -103,22 +103,22 @@ public class DataInitSessionBean {
             manager.getCreditCards().add(cc);
 
             expiryDate = Date.from(LocalDate.of(2025, 05, 02).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            cc = new CreditCard("DUMMY USER ONE", 4605123456781020L, 123, expiryDate);
+            cc = new CreditCard("SEAN ANG", 4605123456781020L, 123, expiryDate);
             em.persist(cc);
             em.flush();
 
             //Associate CreditCard to User1
-            User dummyUser1 = (User) em.find(User.class, 2L);
-            dummyUser1.getCreditCards().add(cc);
+            User admin = (User) em.find(User.class, 2L);
+            admin.getCreditCards().add(cc);
 
             expiryDate = Date.from(LocalDate.of(2025, 05, 02).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            cc = new CreditCard("DUMMY USER TWO", 4605123456781030L, 123, expiryDate);
+            cc = new CreditCard("Ignitius Goh", 4605123456781030L, 123, expiryDate);
             em.persist(cc);
             em.flush();
 
             //Associate CreditCard to User2
-            User dummyUser2 = (User) em.find(User.class, 3L);
-            dummyUser2.getCreditCards().add(cc);
+            User iggy = (User) em.find(User.class, 3L);
+            iggy.getCreditCards().add(cc);
         }
 
         if (em.find(Listing.class, 1L) == null) {
@@ -130,17 +130,25 @@ public class DataInitSessionBean {
             em.persist(listing);
             em.flush();
 
-            User dummyUser2 = (User) em.find(User.class, 2L);
+            User admin = (User) em.find(User.class, 2L);
             List<String> photos2 = new ArrayList<>();
             photos2.add("/uploadedFiles/tteokbokki.jpg");
-            listing = new Listing("Korea", "Seoul", "Tteokbokki", "Authentic spicy rice cakes!", "FOOD", 15.00, expectedArrivalDate, dummyUser2, 5, photos2);
+            listing = new Listing("Korea", "Seoul", "Tteokbokki", "Authentic spicy rice cakes!", "FOOD", 15.00, expectedArrivalDate, admin, 5, photos2);
             em.persist(listing);
             em.flush();
 
-            User dummyUser3 = (User) em.find(User.class, 3L);
+            User iggy = (User) em.find(User.class, 3L);
             List<String> photos3 = new ArrayList<>();
             photos3.add("/uploadedFiles/gummy.jpg");
-            listing = new Listing("Germany", "Dresden", "Gummy Candy", "Gluten Tag!", "FOOD", 7.00, expectedArrivalDate, dummyUser3, 10, photos3);
+            listing = new Listing("Japan", "Hokkaido", "Gummy Candy", "Gluten Tag!", "FOOD", 7.00, expectedArrivalDate, iggy, 10, photos3);
+            em.persist(listing);
+            em.flush();
+
+            User guojun = (User) em.find(User.class, 5L);
+            List<String> photos = new ArrayList<>();
+            photos.add("/uploadedFiles/bathing_ape_bape.jpg");
+            photos.add("/uploadedFiles/bathing_ape_bape_sizing_chart.jpg");
+            listing = new Listing("Korea", "Seoul", "Black Bape T-Shirt", "Going to Korea for a business trip. Will pass by their local Bathing Ape store. Let's chat if you're keen to buy!", "APPAREL", 100.00, expectedArrivalDate, guojun, 3, photos);
             em.persist(listing);
             em.flush();
         }

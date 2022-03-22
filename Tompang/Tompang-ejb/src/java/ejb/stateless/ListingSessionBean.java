@@ -5,7 +5,6 @@
  */
 package ejb.stateless;
 
-import entity.Conversation;
 import entity.Listing;
 import entity.Transaction;
 import entity.User;
@@ -14,8 +13,6 @@ import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
