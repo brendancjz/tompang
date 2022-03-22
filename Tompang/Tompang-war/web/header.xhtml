@@ -24,17 +24,14 @@
         </h:form>
 
         <h:panelGroup class="header-buttons" rendered="#{sessionScope.isLogin == true}" >
-            <p style="color: white; font-size: 20px; margin-right: 10px" onmouseover="showDropdown();" onmouseout="hideDropdown();">Hello #{profileManagedBean.getUsername()}</p>
-            <i class="pi pi-chevron-down" style="color:white; margin-right: 30px; padding-top: 5px" onmouseover="showDropdown();" onmouseout="hideDropdown();"></i>
-            <div id="dropdown" style="background-color: white; display: none">
-                <p>Profile</p>
-                <p>Logout</p>
-            </div>
-            <h:form rendered="#{sessionScope.isLogin == true}" >
-                <h:commandLink class="header-button" value="Logout" actionListener="#{loginManagedBean.logout}" />
-            </h:form>
-            <h:form rendered="#{sessionScope.isLogin == true}">
-                <h:commandLink class="header-button" value="Profile" actionListener="#{loginManagedBean.redirectToProfilePage}" />
+            <h:form>
+            <p:growl id="navbar" showDetail="true" />
+                <p:menu toggleable="true" style="background: none; border: none">
+                    <p:submenu label="Hello #{profileManagedBean.username}" style="background: none; border: none; color: white">
+                        <p:menuitem value="Profile" actionListener="#{loginManagedBean.redirectToProfilePage}" update="navbar" icon="pi pi-user"/>
+                        <p:menuitem value="Log Out" actionListener="#{loginManagedBean.logout}" update="navbar" icon="pi pi-refresh"/>
+                    </p:submenu>
+                </p:menu>
             </h:form>
         </h:panelGroup>
         
