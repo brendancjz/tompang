@@ -4,6 +4,14 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <style>
+        .white .ui-menuitem-text{
+            color: white;
+        }
+        .black .ui-menuitem-text{
+            color: black;
+        }
+    </style>
     <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
     <h:outputScript library = "js" name = "header.js"  /> 
     <header id="header">
@@ -25,13 +33,19 @@
 
         <h:panelGroup class="header-buttons" rendered="#{sessionScope.isLogin == true}" >
             <h:form>
-            <p:growl id="navbar" showDetail="true" />
-                <p:menu toggleable="true" style="background: none; border: none">
-                    <p:submenu label="Hello #{profileManagedBean.username}" style="background: none; border: none; color: white">
-                        <p:menuitem value="Profile" actionListener="#{loginManagedBean.redirectToProfilePage}" update="navbar" icon="pi pi-user"/>
-                        <p:menuitem value="Log Out" actionListener="#{loginManagedBean.logout}" update="navbar" icon="pi pi-refresh"/>
+            <p:growl id="navbar" showDetail="false" />
+                <p:menubar style="background: none; border: none">
+                    <p:menuitem>
+                        <h:graphicImage style="border-radius: 20px;height: 30px; " value="#{profileManagedBean.getProfilePic()}" alt="profile picture"/>
+                    </p:menuitem>
+                    <p:submenu label="Hello #{profileManagedBean.username}" styleClass="white" style=" margin-top: 7px;">
+                        <p:menuitem containerStyle="background-color: white" styleClass="black" value="Profile" actionListener="#{loginManagedBean.redirectToProfilePage}" update="navbar" icon="pi pi-user"/>
+                        <p:menuitem containerStyle="background-color: white" styleClass="black" value="Log Out" actionListener="#{loginManagedBean.logout}" update="navbar" icon="pi pi-power-off"/>
                     </p:submenu>
-                </p:menu>
+                    <p:menuitem  actionListener="#{inboxManagedBean.redirectToInboxPage}">
+                        <i class="pi pi-comment" style="font-size: 30px; color: white" />
+                    </p:menuitem>
+                </p:menubar>
             </h:form>
         </h:panelGroup>
         
