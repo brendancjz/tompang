@@ -8,6 +8,7 @@ package ejb.singleton;
 import ejb.stateless.UserSessionBeanLocal;
 import entity.Conversation;
 import entity.CreditCard;
+import entity.Dispute;
 import entity.Listing;
 import entity.Message;
 import entity.Transaction;
@@ -119,6 +120,15 @@ public class DataInitSessionBean {
             //Associate CreditCard to User2
             User iggy = (User) em.find(User.class, 3L);
             iggy.getCreditCards().add(cc);
+            
+            expiryDate = Date.from(LocalDate.of(2025, 07, 22).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+            cc = new CreditCard("Guo Jun Heng", 4605123456781133L, 125, expiryDate);
+            em.persist(cc);
+            em.flush();
+
+            //Associate CreditCard to User2
+            User guojun = (User) em.find(User.class, 5L);
+            guojun.getCreditCards().add(cc);
         }
 
         if (em.find(Listing.class, 1L) == null) {
@@ -161,6 +171,19 @@ public class DataInitSessionBean {
             Transaction transaction1 = new Transaction(Double.parseDouble("100"), createdOn, dummyUser2, dummyUser3, listing3, dummyUser2.getCreditCards().get(0), dummyUser3.getCreditCards().get(0));
             em.persist(transaction1);
             em.flush();
+            
+            //same listing 3
+            User guojun = (User) em.find(User.class, 5L);
+            Transaction transaction2 = new Transaction(Double.parseDouble("100"), createdOn, guojun, dummyUser3, listing3, guojun.getCreditCards().get(0), dummyUser3.getCreditCards().get(0));
+            transaction2.setIsCompleted(true);
+            transaction2.setHasDispute(true);
+            em.persist(transaction2);
+            em.flush();
+            
+            Dispute dispute = new Dispute("Seller does not want to buy additional product for me.", transaction2);
+            em.persist(dispute);
+            em.flush();
+            transaction2.setDispute(dispute);
         }
 
         if (em.find(Conversation.class, 1L) == null) {
