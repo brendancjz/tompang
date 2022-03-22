@@ -19,6 +19,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 
@@ -75,6 +76,10 @@ public class InboxManagedBean implements Serializable {
         }
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("conversation", convo);
         FacesContext.getCurrentInstance().getExternalContext().redirect("conversation.xhtml");
+    }
+    
+    public void redirectToInboxPage(ActionEvent event) throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/userPages/inbox.xhtml");
     }
 
     public List<Conversation> getBuyerConversations() {
