@@ -15,6 +15,7 @@ import java.io.IOException;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -33,7 +34,7 @@ public class InboxManagedBean implements Serializable {
 
     @EJB
     private ConversationSessionBeanLocal conversationSessionBean;
-    
+
     @Inject
     private ConversationManagedBean conversationManagedBean;
 
@@ -44,6 +45,8 @@ public class InboxManagedBean implements Serializable {
     private List<Conversation> filteredSellerConversations;
 
     public InboxManagedBean() {
+        this.buyerConversations = new ArrayList<>();
+        this.sellerConversations = new ArrayList<>();
     }
 
     @PostConstruct
@@ -61,6 +64,23 @@ public class InboxManagedBean implements Serializable {
         }
     }
 
+    public int getUnreadConversations() {
+        int buyerUnread = 0;
+        int sellerUnread = 0;
+        if (!buyerConversations.isEmpty()) {
+            for (int i = 0; i < buyerConversations.size(); i++) {
+                buyerUnread += buyerConversations.get(i).getBuyerUnread();
+            }
+        }
+
+        if (!sellerConversations.isEmpty()) {
+            for (int i = 0; i < sellerConversations.size(); i++) {
+                sellerUnread += sellerConversations.get(i).getSellerUnread();
+            }
+        }
+        return buyerUnread + sellerUnread;
+    }
+
     public void goToChat(AjaxBehaviorEvent event) throws IOException {
 
         Conversation convo = (Conversation) event.getComponent().getAttributes().get("conversation");
@@ -69,15 +89,24 @@ public class InboxManagedBean implements Serializable {
         if (currentUser.equals(postedBy)) {
             // seller
             System.out.println("SET TO 0");
+            Integer index = sellerConversations.indexOf(convo);
             convo.setSellerUnread(0);
+            conversationSessionBean.setSellerUnreadToZero(convo.getConvoId());
+            sellerConversations.set(index, convo);
         } else {
             //buyer
+            System.out.println("BUYER");
+            Integer index = buyerConversations.indexOf(convo);
             convo.setBuyerUnread(0);
+            conversationSessionBean.setBuyerUnreadToZero(convo.getConvoId());
+            buyerConversations.set(index, convo);
         }
+        System.out.println("BEFORE REDIRECTING");
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("conversation", convo);
         FacesContext.getCurrentInstance().getExternalContext().redirect("conversation.xhtml");
+        System.out.println("AFTER REDIRECTING");
     }
-    
+
     public void redirectToInboxPage(ActionEvent event) throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/userPages/inbox.xhtml");
     }

@@ -32,5 +32,9 @@ public interface ConversationSessionBeanLocal {
     public List<Conversation> retrieveAllBuyerConversations(Long userId) throws EmptyListException;
 
     public List<Conversation> retrieveAllSellerConversations(Long userId) throws EmptyListException;
+
+    public void setBuyerUnreadToZero(Long convoId);
+
+    public void setSellerUnreadToZero(Long convoId);
     
 }

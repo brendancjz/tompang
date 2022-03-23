@@ -32,14 +32,14 @@
                     </p:column>
                     <p:column headerText="Listing Title" sortBy="#{conversation.listing.title}" filterBy="#{conversation.listing.title}" filterStyle="display:none;">
                         <h:outputText value="#{conversation.listing.title}" />
+                        <h:outputText id="unreadSellerMessages" style="float: right" value ="#{conversation.sellerUnread} unread messages"/>
                     </p:column>
 
                     <p:column headerText="Action" >
-                        <h:commandButton class="blue-button" value="View Chat">
+                        <p:commandButton class="blue-button" value="View Chat" update="unreadSellerMessages">
                             <f:attribute name="conversation" value="#{conversation}" />
-                            <p:ajax event="click" update="listOfConversations:sellerConversationsTable" listener="#{inboxManagedBean.goToChat}"/>
-                        </h:commandButton>
-                        <h:outputText value ="#{conversation.sellerUnread}"/>
+                            <f:ajax event="click" execute="@this" render="@this" listener="#{inboxManagedBean.goToChat}" />
+                        </p:commandButton>
                     </p:column>
 
                 </p:dataTable>
@@ -63,14 +63,14 @@
                     </p:column>
                     <p:column headerText="Listing Title" sortBy="#{conversation.listing.title}" filterBy="#{conversation.listing.title}" filterStyle="display:none;">
                         <h:outputText value="#{conversation.listing.title}" />
+                        <h:outputText id="unreadBuyerMessages" style="float: right" value ="#{conversation.buyerUnread} unread messages"/>
                     </p:column>
 
                     <p:column headerText="Action" >
-                        <h:commandButton class="blue-button" value="View Chat">
+                        <p:commandButton class="blue-button" value="View Chat" update="unreadBuyerMessages">
                             <f:attribute name="conversation" value="#{conversation}" />
                             <f:ajax event="click" execute="@this" render="@this" listener="#{inboxManagedBean.goToChat}" />
-                        </h:commandButton>
-                        <h:outputText value ="#{conversation.buyerUnread}"/>
+                        </p:commandButton>
                     </p:column>
                 </p:dataTable>
 
