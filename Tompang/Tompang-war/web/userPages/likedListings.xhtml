@@ -31,7 +31,7 @@
                                 <div class="listing-createdby">Created by: #{listing.createdBy.username}</div>
                             </div>
                         </div>
-                        <div class="listing-grid-item-bottom">
+                        <div class="listing-grid-item-bottom" style="margin-top: 10px;">
 
                             <h:commandButton rendered="#{!shopManagedBean.userLikedListings.contains(listing)}" class="blue-button" value="Like!">
                                 <f:attribute name="listing" value="#{listing}" />

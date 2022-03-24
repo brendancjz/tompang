@@ -13,6 +13,8 @@ import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -150,7 +152,7 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
         listing.setIsOpen(isOpen);
         listing.setPhotos(photos);
     }
-    
+
     @Override
     public void updateListingDetails(Listing listingToUpdate) throws EntityNotFoundException {
         Listing listing = this.getListingByListingId(listingToUpdate.getListingId());
@@ -171,22 +173,23 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
 
     @Override
     public void deleteListing(Long listingId) throws EntityNotFoundException {
-        try {
-            Listing listing = this.getListingByListingId(listingId);
-            User user = listing.getCreatedBy();
-            if (!listing.getTransactions().isEmpty() || !listing.getConversations().isEmpty()) {
-                listing.setIsDisabled(true);
-            } else {
-
+        System.out.println("Delete Listing method called.");
+        Listing listing = this.getListingByListingId(listingId);
+        User user = listing.getCreatedBy();
+        if (!listing.getTransactions().isEmpty() || !listing.getConversations().isEmpty()) {
+            System.out.println("isDisabled is TRUE");
+            listing.setIsDisabled(true);
+        } else {
+            System.out.println("removing Listing");
+            try {
                 userSessionBeanLocal.removeListingFromUserLikedListings(listing.getListingId());
-                user.getCreatedListings().remove(listing);
-                em.remove(listing);
-
+            } catch (EmptyListException ex) {
+                System.out.println(ex.getMessage());
             }
-
-        } catch (EmptyListException ex) {
-            System.out.println(ex.getMessage());
+            user.getCreatedListings().remove(listing);
+            em.remove(listing);
         }
+
     }
 
 //    @Override

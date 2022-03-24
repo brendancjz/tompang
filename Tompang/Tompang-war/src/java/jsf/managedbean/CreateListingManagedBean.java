@@ -9,6 +9,7 @@ import ejb.stateless.ListingSessionBeanLocal;
 import entity.Listing;
 import entity.User;
 import exception.CreateNewListingException;
+import exception.EntityNotFoundException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,6 +23,7 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 import org.primefaces.event.FileUploadEvent;
@@ -54,10 +56,13 @@ public class CreateListingManagedBean implements Serializable {
 
     private String description;
     private Date expectedArrivalDate;
+    
+    private Boolean hasCreatedNewListing;
+    private Listing newListing;
 
     public CreateListingManagedBean() {
         uploadedFilePaths = new ArrayList<>();
-
+        this.hasCreatedNewListing = false;
         this.initialiseCategories();
         this.initialiseDataCountriesAndCities();
     }
@@ -78,7 +83,7 @@ public class CreateListingManagedBean implements Serializable {
             User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
 
             Listing listing = new Listing(country, city, title, description, category, price, expectedArrivalDate, user, quantity, uploadedFilePaths);
-            listingSessionBean.createNewListing(listing, user.getUserId());
+            Long newListingId = listingSessionBean.createNewListing(listing, user.getUserId());
 
             country = null;
             city = null;
@@ -89,9 +94,12 @@ public class CreateListingManagedBean implements Serializable {
             expectedArrivalDate = null;
             quantity = null;
             uploadedFilePaths.clear();
+            
+            this.hasCreatedNewListing = true;
+            this.newListing = listingSessionBean.getListingByListingId(newListingId);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Listing created.", ""));
 
-        } catch (CreateNewListingException ex) {
+        } catch (CreateNewListingException | EntityNotFoundException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Listing failed to create.", ""));
         }
 
@@ -137,6 +145,11 @@ public class CreateListingManagedBean implements Serializable {
         }
     }
 
+    public void viewNewListing(ActionEvent event) throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listingToView", newListing);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("viewListingDetails.xhtml");
+    }
+    
     public void onCountryChange() {
         if (country != null && !"".equals(country)) {
             cities = data.get(country);
@@ -384,6 +397,22 @@ public class CreateListingManagedBean implements Serializable {
 
     public void setCities(HashMap<String, String> cities) {
         this.cities = cities;
+    }
+
+    public Boolean getHasCreatedNewListing() {
+        return hasCreatedNewListing;
+    }
+
+    public void setHasCreatedNewListing(Boolean hasCreatedNewListing) {
+        this.hasCreatedNewListing = hasCreatedNewListing;
+    }
+
+    public Listing getNewListing() {
+        return newListing;
+    }
+
+    public void setNewListing(Listing newListing) {
+        this.newListing = newListing;
     }
 
 }

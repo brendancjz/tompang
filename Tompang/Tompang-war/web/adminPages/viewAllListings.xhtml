@@ -61,6 +61,10 @@
                     <p:column headerText="Title" sortBy="#{listing.category}" filterBy="#{listing.category}" filterStyle="display:none;">
                         <h:outputText value="#{listing.category}" />
                     </p:column>
+                    
+                    <p:column headerText="Is Disabled" sortBy="#{listing.isDisabled}" filterBy="#{listing.isDisabled}" filterStyle="display:none;">
+                        <h:outputText value="#{listing.isDisabled}" />
+                    </p:column>
 
                     <p:column headerText="Action" >
                         <p:commandButton update="ccViewListingDetails:formViewListingDetails" oncomplete="PF('dialogViewListingDetails').show()" icon="ui-icon-document" title="View">
