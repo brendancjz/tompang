@@ -8,10 +8,25 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        <h1> Shopping Page </h1>
+        <div style="background-color: #0190e9; padding: 0 0 15px 20px; margin-bottom: 10px; width: 100%">
+                    <h:graphicImage style="border-radius: 20px;width: 15%;min-width: 185px;margin-top: 20px;" value="#{profileManagedBean.getProfilePic()}"/>
+                    <p style="color: white; font-size: 20px">#{userProfileManagedBean.userToView.getUsername()}</p>
+                    <p style="color: white">Following: #{userProfileManagedBean.userToView.getFollowing().size()}</p>
+                    <p style="color: white">Followers: #{userProfileManagedBean.userToView.getFollowers().size()}</p>
+                    <h:commandButton rendered="#{!userManagedBean.following.contains(userProfileManagedBean.userToView)}" class="white-button" value="Follow">
+                        <f:attribute name="user" value="#{userProfileManagedBean.userToView}" />
+                        <f:ajax event="click" execute="@this" render="@all" listener="#{userManagedBean.followUser}" />
+                    </h:commandButton>
+                    <h:commandButton rendered="#{userManagedBean.following.contains(userProfileManagedBean.userToView)}" class="white-button" value="Unfollow">
+                        <f:attribute name="user" value="#{userProfileManagedBean.userToView}" />
+                        <f:ajax event="click" execute="@this" render="@all" listener="#{userManagedBean.followUser}" />
+                    </h:commandButton>
+        </div>
+        
+        <h1> #{userProfileManagedBean.userToView.getUsername()} Listings </h1>
         <br></br>
         <h:form id="form">
-            <p:dataView var="listing" value="#{shopManagedBean.listings}" rows="12" paginator="true"
+            <p:dataView var="listing" value="#{userProfileManagedBean.userToView.getCreatedListings()}" rows="12" paginator="true"
                         rowsPerPageTemplate="6,12,16" layout="grid"
                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
@@ -28,11 +43,8 @@
                                 </h:outputText>
                                 <div class="listing-category">#{listing.category}</div>
                                 <hr />
-                                <div class="listing-createdby">
-                                    Created by: <h:link outcome="/userPages/userListings.xhtml">
-                                        <f:param name="username" value="#{listing.createdBy.username}" /> 
-                                        #{listing.createdBy.username}
-                                    </h:link></div>
+                                <div class="listing-createdby">Created by: #{listing.createdBy.username}</div>
+                                
                             </div>
                         </div>
                         <div class="listing-grid-item-bottom">
@@ -48,10 +60,6 @@
                             <h:commandButton class="blue-button" value="View">
                                 <f:attribute name="listing" value="#{listing}" />
                                 <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.viewListing}" />
-                            </h:commandButton>
-                            <h:commandButton class="blue-button" value="View User">
-                                    <f:attribute name="user" value="#{listing.createdBy}" />
-                                    <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.viewUserProfile}" />
                             </h:commandButton>
                         </div>
                     </div>

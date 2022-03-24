@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jsf.managedbean;
 
 import ejb.stateless.ConversationSessionBeanLocal;
@@ -94,16 +89,16 @@ public class ViewListingDetailsManagedBean implements Serializable {
             System.out.println(e.getMessage());
         }
     }
-    
+
     public void goToChat(AjaxBehaviorEvent event) throws IOException {
 
         Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
         User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
-        
+
         Conversation convo;
         try {
             convo = conversationSessionBean.getUserConversationWithListing(user.getUserId(), listing.getListingId());
-            
+
         } catch (EntityNotFoundException ex) {
             System.out.println(ex.getMessage());
             convo = new Conversation(user, listing);
@@ -113,12 +108,12 @@ public class ViewListingDetailsManagedBean implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().redirect("conversation.xhtml");
 
     }
-    
+
     public Boolean didUserCreateThisListing() {
         User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
         return Objects.equals(user.getUserId(), listingToView.getCreatedBy().getUserId());
     }
-    
+
     public boolean showLikeButton() {
         User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
         return user.getLikedListings().contains(listingToView);  

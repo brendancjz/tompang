@@ -7,6 +7,7 @@ package jsf.managedbean;
 
 import ejb.stateless.ListingSessionBeanLocal;
 import entity.Listing;
+import entity.User;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import java.io.File;
@@ -45,6 +46,7 @@ public class ViewAllListingsManagedBean implements Serializable {
     @Inject
     private ViewListingDetailsEzCompManagedBean viewListingDetailsEzCompManagedBean;
     
+    private List<Listing> myListings;
     private List<Listing> listings;
     private List<Listing> filteredListings;
     
@@ -73,6 +75,9 @@ public class ViewAllListingsManagedBean implements Serializable {
         try {
             //This is for when admin wishes to view User's Listings from the View User Details
             filteredUsername = (String)FacesContext.getCurrentInstance().getExternalContext().getFlash().get("username");
+            
+            User currentUser = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
+            this.myListings = listingSessionBean.retrieveUserListings(currentUser.getUsername());
             
             if (filteredUsername == null) {
                 listings = listingSessionBean.retrieveAllListings();
@@ -443,8 +448,13 @@ public class ViewAllListingsManagedBean implements Serializable {
         this.updatedListOfPhotos = updatedListOfPhotos;
     }
 
-    
+    public List<Listing> getMyListings() {
+        return myListings;
+    }
 
-    
+    public void setMyListings(List<Listing> myListings) {
+        this.myListings = myListings;
+    }
+
     
 }
