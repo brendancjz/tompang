@@ -35,6 +35,42 @@
                         </p:column>
                     </p:row>
                     
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Buyer's Contact No.: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewDisputeDetailsManagedBean.dispute.transaction.buyer.contactNumber}" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Buyer's Email: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewDisputeDetailsManagedBean.dispute.transaction.buyer.email}" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Seller's Contact No.: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewDisputeDetailsManagedBean.dispute.transaction.seller.contactNumber}" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Seller's Email: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewDisputeDetailsManagedBean.dispute.transaction.seller.email}" />
+                        </p:column>
+                    </p:row>
+                    
                 </p:panelGrid>
 
             </p:dialog>
