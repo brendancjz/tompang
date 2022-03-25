@@ -212,7 +212,7 @@ public class DataInitSessionBean {
             convo.getMessages().add(response);
         }
 
-        //TEST YOUR SESSION BEAN METHODS HERE
+       
         try {
 
             System.out.println(userSessionBean.retrieveAllUsers());
