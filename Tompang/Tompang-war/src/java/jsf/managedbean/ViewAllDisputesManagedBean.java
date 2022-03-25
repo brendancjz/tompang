@@ -47,7 +47,7 @@ public class ViewAllDisputesManagedBean implements Serializable{
     public void retrieveAllDisputes() {
   
         try {
-            disputes = disputeSessionBean.retrieveAllDisputes();
+            setDisputes(disputeSessionBean.retrieveAllDisputes());
         } catch (EmptyListException ex) {
             System.out.println("Unable to retrieve list of users.");
         }

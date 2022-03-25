@@ -22,6 +22,10 @@
                 <h:commandLink class="sidebarSectionTextLink" id="myListing" value="My Listing">
                     <f:ajax event="click" execute="@this" render="@all" listener="#{profileManagedBean.toggleMyListing}" />
                 </h:commandLink>
+                <h:commandLink class="sidebarSectionTextLink" id="creditCards" value="Credit Cards">
+                    <f:ajax event="click" execute="@this" render="@all" listener="#{profileManagedBean.toggleViewCreditCards}" />
+                </h:commandLink>
+                
             </div>
         </h:panelGroup>
 
@@ -173,6 +177,105 @@
 
                 </p:dataView>
             </h:panelGroup>
+            <h:panelGroup rendered="#{profileManagedBean.profileContent eq 'VIEW_CREDIT_CARDS'}">
+                <h2>Credit Cards</h2>
+                <h:form id="formAllCreditCards">
+                     <p:menubar>
+
+                        <p:submenu label="File" icon="ui-icon-document">
+                            <p:menuitem value="Add New Credit Card" onclick="PF('dialogAddNewCreditCard').show()" icon="pi pi-plus" />
+                        </p:submenu>                                        
+
+                    </p:menubar>
+                    <p:dataTable id="dataTableAllCreditCards" value="#{profileManagedBean.user.creditCards}" var="creditCard">
+
+                        <p:column headerText="CC Name">
+                            <h:outputText value="#{creditCard.ccName}" />
+                        </p:column>
+                        <p:column headerText="CC Number" >
+                            <h:outputText value="#{creditCard.ccNumber}" />
+                        </p:column>
+                        <p:column headerText="CC Expiry Date" >
+                            <h:outputText value="#{creditCard.expiryDate}" />
+                        </p:column>
+                        <p:column headerText="Action" >
+                            <p:commandButton icon="ui-icon-trash" actionListener="#{profileManagedBean.deleteCreditCard}" >
+                                <f:attribute name="creditCardToDelete" value="#{creditCard}" />                                
+                                <p:confirm header="Confirmation" message="Are you sure you want to delete #{creditCard.ccNumber}?" icon="ui-icon-alert" />
+                            </p:commandButton>    
+                        </p:column>
+                    </p:dataTable>                
+                </h:form>  
+            </h:panelGroup>
+            
+            <h:form id="formAddNewCreditCard">
+
+                <p:dialog id="dialogAddNewCreditCard" widgetVar="dialogAddNewCreditCard" header="Add a New Credit Card" closable="true">
+
+                    <p:messages id="messagesCreateNewProduct" redisplay="false" />
+
+                    <p:panelGrid>
+
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="ccNumber" value="Credit Card Number " style="font-weight: bold;" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="ccNumber" value="#{profileManagedBean.newCreditCard.ccNumber}" placeholder="XXXX XXXX XXXX XXXX" required="true" requiredMessage="Credit Card Number is required" />
+                            </p:column>
+                            <p:column>
+                                <p:message for="ccNumber" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="ccName" value="Credit Card Name: " style="font-weight: bold;" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="ccName" value="#{profileManagedBean.newCreditCard.ccName}" placeholder="VISA" required="true" requiredMessage="Credit Card Name is required" />
+                            </p:column>
+                            <p:column>
+                                <p:message for="ccName" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="ccCIV" value="Credit Card CIV: " style="font-weight: bold;" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="ccCIV" value="#{profileManagedBean.newCreditCard.ccCIV}" placeholder="XXX" required="true" requiredMessage="Credit Card CIV is required" />
+                            </p:column>
+                            <p:column>
+                                <p:message for="ccCIV" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="ccExpiryDate" value="Credit Card Expiry Date: " style="font-weight: bold;" />
+                            </p:column>
+                            <p:column>
+                                <p:datePicker id="ccExpiryDate" value="#{profileManagedBean.newCreditCard.expiryDate}" required="true" requiredMessage="Credit Card Expiry Date is required"/>
+                            </p:column>
+                            <p:column>
+                                <p:message for="ccExpiryDate" />
+                            </p:column>
+                        </p:row>
+                 
+                        <p:row>
+                            <p:column colspan="3">
+                                <p:commandButton type="reset" value="Clear" />&nbsp;
+                                <p:commandButton  value="Add New Credit Card" update="@form formAllCreditCards:dataTableAllCreditCards" actionListener="#{profileManagedBean.addCreditCard}" oncomplete="PF('dialogAddNewCreditCard').show();" />
+                            </p:column>
+                        </p:row>
+
+                    </p:panelGrid>
+
+                </p:dialog>
+
+            </h:form>
 
 
         </div>

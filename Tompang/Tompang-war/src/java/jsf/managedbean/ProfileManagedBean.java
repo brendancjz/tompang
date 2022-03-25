@@ -5,8 +5,11 @@
  */
 package jsf.managedbean;
 
+import ejb.stateless.CreditCardSessionBeanLocal;
 import ejb.stateless.UserSessionBeanLocal;
+import entity.CreditCard;
 import entity.User;
+import exception.CreateNewCreditCardException;
 import exception.EntityNotFoundException;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,6 +23,8 @@ import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+
 import javax.validation.constraints.Past;
 import org.primefaces.event.FileUploadEvent;
 
@@ -30,6 +35,9 @@ import org.primefaces.event.FileUploadEvent;
 @Named(value = "profileManagedBean")
 @ViewScoped
 public class ProfileManagedBean implements Serializable {
+
+    @EJB
+    private CreditCardSessionBeanLocal creditCardSessionBean;
 
     @EJB
     private UserSessionBeanLocal userSessionBean;
@@ -48,14 +56,18 @@ public class ProfileManagedBean implements Serializable {
 
     private String currPassword;
     private String newPassword;
+    private CreditCard newCreditCard;
 
     private List<User> following;
     private List<User> followers;
     
     private Boolean showUploadedFile; //To hide the initial display of uploaded file
+    private List<CreditCard> creditCards;
+   
 
     public ProfileManagedBean() {
         System.out.println("ProfileManagedBean");
+        newCreditCard = new CreditCard();
         initialise();
     }
 
@@ -72,6 +84,8 @@ public class ProfileManagedBean implements Serializable {
         profileContent = "EDIT_PROFILE";
         setFollowing(user.getFollowing());
         setFollowers(user.getFollowers());
+        setCreditCards(user.getCreditCards());
+//        newCreditCard = new CreditCard();
     }
 
     public void update() {
@@ -103,8 +117,33 @@ public class ProfileManagedBean implements Serializable {
             }
 
         } catch (EntityNotFoundException ex) {
-            System.out.println("Unable to update User Password");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while updating password: " + ex.getMessage(), null));
         }
+    }
+    
+    public void deleteCreditCard(ActionEvent event) {
+        System.out.println("delete credit card");
+        CreditCard creditCard = (CreditCard)event.getComponent().getAttributes().get("creditCardToDelete");
+        
+         if(getCreditCards().contains(creditCard)){
+            getCreditCards().remove(creditCard);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Credit Card deleted successfully!", null));
+        }  else {
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "An error has occured while deleting the Credit Card", null));
+         }
+    }
+    
+    public void addCreditCard(ActionEvent event) {
+        try{
+            creditCardSessionBean.createNewCreditCard(getNewCreditCard(), this.user.getUserId());
+            this.user = userSessionBean.getUserByUserId(this.user.getUserId());
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", this.user);
+            this.initialise();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Credit Card added successfully!", null));
+        } catch(CreateNewCreditCardException | EntityNotFoundException ex){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while adding the new Credit Card: " + ex.getMessage(), null));
+        }
+        
     }
 
     public void handleFileUpload(FileUploadEvent event) {
@@ -158,6 +197,10 @@ public class ProfileManagedBean implements Serializable {
         profileContent = "MY_LISTINGS";
     }
 
+    public void toggleViewCreditCards() {
+        profileContent = "VIEW_CREDIT_CARDS";
+    }
+    
     public User getUser() {
         return user;
     }
@@ -291,13 +334,32 @@ public class ProfileManagedBean implements Serializable {
         this.followers = followers;
     }
 
-    public Boolean getShowUploadedFile() {
-        return showUploadedFile;
+    /**
+     * @return the creditCards
+     */
+    public List<CreditCard> getCreditCards() {
+        return creditCards;
     }
 
-    public void setShowUploadedFile(Boolean showUploadedFile) {
-        this.showUploadedFile = showUploadedFile;
+    /**
+     * @param creditCards the creditCards to set
+     */
+    public void setCreditCards(List<CreditCard> creditCards) {
+        this.creditCards = creditCards;
     }
 
-    
+    /**
+     * @return the newCreditCard
+     */
+    public CreditCard getNewCreditCard() {
+        return newCreditCard;
+    }
+
+    /**
+     * @param newCreditCard the newCreditCard to set
+     */
+    public void setNewCreditCard(CreditCard newCreditCard) {
+        this.newCreditCard = newCreditCard;
+    }
+
 }

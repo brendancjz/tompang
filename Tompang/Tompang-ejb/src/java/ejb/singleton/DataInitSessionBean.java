@@ -175,13 +175,13 @@ public class DataInitSessionBean {
             User dummyUser2 = (User) em.find(User.class, 2L);
             User dummyUser3 = (User) em.find(User.class, 3L);
             Listing listing3 = (Listing) em.find(Listing.class, 3L);
-            Transaction transaction1 = new Transaction(Double.parseDouble("100"), createdOn, dummyUser2, dummyUser3, listing3, dummyUser2.getCreditCards().get(0), dummyUser3.getCreditCards().get(0));
+            Transaction transaction1 = new Transaction(Double.parseDouble("100"), createdOn, dummyUser2, dummyUser3, listing3, dummyUser2.getCreditCards().get(0));
             em.persist(transaction1);
             em.flush();
             
             //same listing 3
             User guojun = (User) em.find(User.class, 5L);
-            Transaction transaction2 = new Transaction(Double.parseDouble("100"), createdOn, guojun, dummyUser3, listing3, guojun.getCreditCards().get(0), dummyUser3.getCreditCards().get(0));
+            Transaction transaction2 = new Transaction(Double.parseDouble("100"), createdOn, guojun, dummyUser3, listing3, guojun.getCreditCards().get(0));
             transaction2.setIsCompleted(true);
             transaction2.setHasDispute(true);
             em.persist(transaction2);
@@ -205,8 +205,10 @@ public class DataInitSessionBean {
         if (em.find(Message.class, 1L) == null) {
             String buyerToSeller = "Hi, can i buy this?";
             String sellerToBuyer = "Sure!";
-            Message initiate = new Message(buyerToSeller, true);
-            Message response = new Message(sellerToBuyer, false);
+            User buyerAdmin = (User) em.find(User.class, 2L);
+            User sellerManager = (User) em.find(User.class, 1L);
+            Message initiate = new Message(buyerToSeller, true, buyerAdmin.getUserId());
+            Message response = new Message(sellerToBuyer, false, sellerManager.getUserId());
             em.persist(initiate);
             em.persist(response);
             em.flush();
