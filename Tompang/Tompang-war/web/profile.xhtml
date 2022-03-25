@@ -190,13 +190,9 @@
                 <h2>Credit Cards</h2>
                 <h:form id="formAllCreditCards">
                     <p:menubar>
-
-                        <p:submenu label="File" icon="ui-icon-document">
-                            <p:menuitem value="Add New Credit Card" onclick="PF('dialogAddNewCreditCard').show()" icon="pi pi-plus" />
-                        </p:submenu>                                        
-
+                        <p:menuitem value="Add New Credit Card" onclick="PF('dialogAddNewCreditCard').show()" icon="pi pi-plus" />
                     </p:menubar>
-                    <p:dataTable id="dataTableAllCreditCards" value="#{profileManagedBean.user.creditCards}" var="creditCard">
+                    <p:dataTable id="dataTableAllCreditCards" value="#{profileManagedBean.creditCards}" var="creditCard">
 
                         <p:column headerText="CC Name">
                             <h:outputText value="#{creditCard.ccName}" />
@@ -245,7 +241,7 @@
                                 <p:outputLabel for="ccName" value="Credit Card Name: " style="font-weight: bold;" />
                             </p:column>
                             <p:column>
-                                <p:inputText id="ccName" value="#{profileManagedBean.newCreditCard.ccName}" placeholder="VISA" required="true" requiredMessage="Credit Card Name is required" />
+                                <p:inputText id="ccName" value="#{profileManagedBean.newCreditCard.ccName}" placeholder="JOHN DOE" required="true" requiredMessage="Credit Card Name is required" />
                             </p:column>
                             <p:column>
                                 <p:message for="ccName" />

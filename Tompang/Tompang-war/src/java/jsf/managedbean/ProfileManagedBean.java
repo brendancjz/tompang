@@ -56,14 +56,15 @@ public class ProfileManagedBean implements Serializable {
 
     private String currPassword;
     private String newPassword;
-    private CreditCard newCreditCard;
+   
 
     private List<User> following;
     private List<User> followers;
     
-    private Boolean showUploadedFile; //To hide the initial display of uploaded file
+    private Boolean showUploadedFile; //To hide the initial display of uploaded file 
+    
+    private CreditCard newCreditCard;
     private List<CreditCard> creditCards;
-   
 
     public ProfileManagedBean() {
         System.out.println("ProfileManagedBean");
@@ -81,11 +82,12 @@ public class ProfileManagedBean implements Serializable {
         setDob(user.getDateOfBirth());
         setProfilePic(user.getProfilePic());
         setJoinedOn(user.getJoinedOn());
-        profileContent = "EDIT_PROFILE";
         setFollowing(user.getFollowing());
         setFollowers(user.getFollowers());
         setCreditCards(user.getCreditCards());
-//        newCreditCard = new CreditCard();
+        
+        profileContent = "EDIT_PROFILE";
+
     }
 
     public void update() {
@@ -135,10 +137,11 @@ public class ProfileManagedBean implements Serializable {
     
     public void addCreditCard(ActionEvent event) {
         try{
-            creditCardSessionBean.createNewCreditCard(getNewCreditCard(), this.user.getUserId());
+            creditCardSessionBean.createNewCreditCard(this.newCreditCard, this.user.getUserId());
             this.user = userSessionBean.getUserByUserId(this.user.getUserId());
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", this.user);
             this.initialise();
+            this.newCreditCard = null;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Credit Card added successfully!", null));
         } catch(CreateNewCreditCardException | EntityNotFoundException ex){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while adding the new Credit Card: " + ex.getMessage(), null));
