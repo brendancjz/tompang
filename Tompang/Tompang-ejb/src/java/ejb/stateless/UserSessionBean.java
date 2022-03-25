@@ -252,6 +252,8 @@ public class UserSessionBean implements UserSessionBeanLocal {
         User followingUser = this.getUserByUserId(followingUserId);
         User followedUser = this.getUserByUserId(followedUserId);
         
+        System.out.print("Following user: " + followingUser.getUsername() + " Followed user: " + followedUser.getUsername());
+
         followingUser.getFollowing().add(followedUser);
         followedUser.getFollowers().add(followingUser);
     }
@@ -261,6 +263,7 @@ public class UserSessionBean implements UserSessionBeanLocal {
         User followingUser = this.getUserByUserId(followingUserId);
         User followedUser = this.getUserByUserId(followedUserId);
         
+        System.out.print("Following user: " + followingUser.getUsername() + " Followed user: " + followedUser.getUsername());
         followingUser.getFollowing().remove(followedUser);
         followedUser.getFollowers().remove(followingUser);
     }

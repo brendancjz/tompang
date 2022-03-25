@@ -70,28 +70,31 @@ public class DataInitSessionBean {
 
             //Create User1
             dob = Date.from(LocalDate.of(1999, 1, 1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            User dummyUser = new User("Ignitius", "Goh", "ig.goh@gmail.com", "iggy", "password", dob, userProfilePic, 12341234L, false);
-            em.persist(dummyUser);
+            User iggy = new User("Ignitius", "Goh", "ig.goh@gmail.com", "iggy", "password", dob, userProfilePic, 12341234L, false);
+            em.persist(iggy);
             em.flush();
 
             //Create User2
             dob = Date.from(LocalDate.of(1999, 1, 1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            User dummyUser2 = new User("Alice", "Tan", "alice.tan@gmail.com", "alice", "password", dob, userProfilePic, 12341235L, false);
-            em.persist(dummyUser2);
+            User alice = new User("Alice", "Tan", "alice.tan@gmail.com", "alice", "password", dob, userProfilePic, 12341235L, false);
+            em.persist(alice);
             em.flush();
 
             //Create User3 for following
+            String guojunPic = "/uploadedFiles/guojun.jpg";
             dob = Date.from(LocalDate.of(1999, 12, 24).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            User dummyUser3 = new User("Guo Jun", "Heng", "gwajoon@gmail.com", "guojun", "password", dob, userProfilePic, 98769872L, true);
-
-            em.persist(dummyUser3);
+            User guojun = new User("Guo Jun", "Heng", "gwajoon@gmail.com", "guojun", "password", dob, guojunPic, 98769872L, true);
+            em.persist(guojun);
             em.flush();
 
             User user = (User) em.find(User.class, 5L);
+            // manager has 1 follower :guojun
+            // iggy has 2 followers : guojun and manager
+            // guojun has 1 follower: manager
             try {
-                userSessionBean.follow(manager.getUserId(), dummyUser2.getUserId());
-                userSessionBean.follow(dummyUser3.getUserId(), dummyUser2.getUserId());
-                userSessionBean.follow(dummyUser3.getUserId(), manager.getUserId());
+                userSessionBean.follow(manager.getUserId(), iggy.getUserId());
+                userSessionBean.follow(guojun.getUserId(), iggy.getUserId());
+                userSessionBean.follow(guojun.getUserId(), manager.getUserId());
             } catch (EntityNotFoundException ex) {
                 System.out.print(ex.getMessage());
             }

@@ -38,7 +38,9 @@
                     <h:graphicImage style="border-radius: 20px;width: 15%;min-width: 185px;margin-top: 20px;" value="#{profileManagedBean.getProfilePic()}"/>
                     <p style="color: white; font-size: 20px">#{profileManagedBean.getUsername()}</p>
                     <p style="color: white">Following: #{profileManagedBean.getFollowing().size()}</p>
+                    <p:commandButton update="viewFollowing" oncomplete="PF('dialogViewFollowing').show()" title="View Following" />
                     <p style="color: white">Followers: #{profileManagedBean.getFollowers().size()}</p>
+                    <p:commandButton update="viewFollowers" oncomplete="PF('dialogViewFollowers').show()" title="View Followers" />
                 </h:form>
 
             </div>
@@ -175,6 +177,32 @@
 
         </div>
 
+        <h:form id="viewFollowers" >
+            <p:growl for="viewFollowers" showDetail="true" />
+            <p:dialog id="dialogViewFollowers" widgetVar="dialogViewFollowers" header="My Followers" closable="true">
+                <p:dataList var="follower" value="#{profileManagedBean.getFollowers()}" type="definition">
+<!--                    class style not applying-->
+                    <div class="follower-following">
+                        <p:graphicImage value="#{follower.getProfilePic()}" width="70px" height="70px" />
+                        <span>#{follower.getUsername()}</span>
+                    </div>
+                </p:dataList>
+
+            </p:dialog>
+        </h:form>
+        
+        <h:form id="viewFollowing" >
+            <p:growl for="viewFollowing" showDetail="true" />
+            <p:dialog id="dialogViewFollowing" widgetVar="dialogViewFollowing" header="My Following" closable="true">
+                <p:dataList var="following" value="#{profileManagedBean.getFollowing()}">
+                    <div class="follower-following">
+                        <p:graphicImage value="#{following.getProfilePic()}" width="70px" height="70px" />
+                        <span>#{following.getUsername()}</span>
+                    </div>
+                </p:dataList>
+
+            </p:dialog>
+        </h:form>
     </ui:define>
 
 </ui:composition>

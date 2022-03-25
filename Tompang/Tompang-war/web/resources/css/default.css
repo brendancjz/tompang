@@ -273,6 +273,12 @@ and open the template in the editor.
     
 }
 
+.follower-following {
+    display: flex;
+    flex-direction: row;
+    align-content: center
+}
+
 /*To hide the irrelevant city after country changed*/
 .ui-selectonemenu-panel.hideDisabled .ui-selectonemenu-item.ui-state-disabled { 
     display: none;

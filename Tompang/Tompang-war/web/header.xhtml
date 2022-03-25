@@ -35,7 +35,7 @@
             <p:growl id="navbar" showDetail="false" />
                 <p:menubar style="background: none; border: none">
                     <p:menuitem>
-                        <h:graphicImage style="border-radius: 20px;height: 30px; " value="#{profileManagedBean.getProfilePic()}" alt="profile picture"/>
+                        <h:graphicImage style="border-radius: 20px;height: 35px; width: 35px " value="#{profileManagedBean.getProfilePic()}" alt="profile picture"/>
                     </p:menuitem>
                     <p:submenu label="Hello #{profileManagedBean.username}" styleClass="white" style=" margin-top: 7px;">
                         <p:menuitem containerStyle="background-color: white" styleClass="black" value="Profile" actionListener="#{loginManagedBean.redirectToProfilePage}" update="navbar" icon="pi pi-user"/>

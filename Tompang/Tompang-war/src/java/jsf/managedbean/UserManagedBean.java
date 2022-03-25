@@ -9,11 +9,11 @@ import ejb.stateless.UserSessionBeanLocal;
 import entity.User;
 import exception.EntityNotFoundException;
 import javax.inject.Named;
-import javax.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
@@ -22,7 +22,7 @@ import javax.faces.event.AjaxBehaviorEvent;
  * @author GuoJun
  */
 @Named(value = "userManagedBean")
-@ViewScoped
+@RequestScoped
 public class UserManagedBean implements Serializable {
 
     @EJB
@@ -41,6 +41,8 @@ public class UserManagedBean implements Serializable {
         
         following = user.getFollowing();
         followers = user.getFollowers();
+        
+        
     }
     
     public void followUser(AjaxBehaviorEvent event) {
@@ -50,7 +52,7 @@ public class UserManagedBean implements Serializable {
             
             userSessionBean.follow(user.getUserId(), userToFollow.getUserId());
             
-            //Update user in session scope
+            //Update user to view in session scope
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", userSessionBean.getUserByUserId(user.getUserId()));
             this.retrieveUser(); 
         } catch (EntityNotFoundException ex) {
@@ -65,7 +67,7 @@ public class UserManagedBean implements Serializable {
             
             userSessionBean.unfollow(user.getUserId(), userToUnfollow.getUserId());
             
-            //Update user in session scope
+            //Update user to view in session scope
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", userSessionBean.getUserByUserId(user.getUserId()));
             this.retrieveUser(); 
         } catch (EntityNotFoundException ex) {
@@ -96,6 +98,5 @@ public class UserManagedBean implements Serializable {
     public void setFollowers(List<User> followers) {
         this.followers = followers;
     }
-    
     
 }
