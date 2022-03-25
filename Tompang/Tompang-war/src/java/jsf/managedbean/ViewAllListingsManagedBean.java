@@ -7,6 +7,7 @@ package jsf.managedbean;
 
 import ejb.stateless.ListingSessionBeanLocal;
 import entity.Listing;
+import entity.User;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import java.io.File;
@@ -45,6 +46,7 @@ public class ViewAllListingsManagedBean implements Serializable {
     @Inject
     private ViewListingDetailsEzCompManagedBean viewListingDetailsEzCompManagedBean;
     
+    private List<Listing> myListings;
     private List<Listing> listings;
     private List<Listing> filteredListings;
     
@@ -74,6 +76,9 @@ public class ViewAllListingsManagedBean implements Serializable {
             //This is for when admin wishes to view User's Listings from the View User Details
             filteredUsername = (String)FacesContext.getCurrentInstance().getExternalContext().getFlash().get("username");
             
+            User currentUser = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
+            this.myListings = listingSessionBean.retrieveUserListings(currentUser.getUsername());
+            
             if (filteredUsername == null) {
                 listings = listingSessionBean.retrieveAllListings();
             } else {
@@ -84,13 +89,6 @@ public class ViewAllListingsManagedBean implements Serializable {
             System.out.println("List of listings empty.");
         }
     }
-    
-//    public void viewListingDetails(ActionEvent event) throws IOException {
-//        Long listingIdToView = (Long)event.getComponent().getAttributes().get("listingId");
-//        System.err.print(listingIdToView);
-//        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("listingIdToView", listingIdToView);
-//        FacesContext.getCurrentInstance().getExternalContext().redirect("viewListingDetails.xhtml");
-//    }
     
     public void deleteListing(ActionEvent event) {
         try {
@@ -103,6 +101,7 @@ public class ViewAllListingsManagedBean implements Serializable {
             try {
                 Listing listing = listingSessionBean.getListingByListingId(listingToDelete.getListingId());
                 //Means listing is disabled, not deleted.
+                
                 this.retrieveAllListings();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Listing disabled successfully", null));
             } catch (EntityNotFoundException ex) {
@@ -443,8 +442,13 @@ public class ViewAllListingsManagedBean implements Serializable {
         this.updatedListOfPhotos = updatedListOfPhotos;
     }
 
-    
+    public List<Listing> getMyListings() {
+        return myListings;
+    }
 
-    
+    public void setMyListings(List<Listing> myListings) {
+        this.myListings = myListings;
+    }
+
     
 }

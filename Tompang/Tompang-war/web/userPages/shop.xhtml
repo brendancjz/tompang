@@ -28,11 +28,14 @@
                                 </h:outputText>
                                 <div class="listing-category">#{listing.category}</div>
                                 <hr />
-                                <div class="listing-createdby">Created by: #{listing.createdBy.username}</div>
-                                
+                                <div class="listing-createdby">
+                                    Created by: <h:link outcome="/userPages/userListings.xhtml">
+                                        <f:param name="username" value="#{listing.createdBy.username}" /> 
+                                        #{listing.createdBy.username}
+                                    </h:link></div>
                             </div>
                         </div>
-                        <div class="listing-grid-item-bottom">
+                        <div class="listing-grid-item-bottom" style="margin-top: 10px;">
 
                             <h:commandButton rendered="#{!shopManagedBean.userLikedListings.contains(listing)}" class="blue-button" value="Like!">
                                 <f:attribute name="listing" value="#{listing}" />
@@ -45,6 +48,10 @@
                             <h:commandButton class="blue-button" value="View">
                                 <f:attribute name="listing" value="#{listing}" />
                                 <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.viewListing}" />
+                            </h:commandButton>
+                            <h:commandButton class="blue-button" value="View User">
+                                    <f:attribute name="user" value="#{listing.createdBy}" />
+                                    <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.viewUserProfile}" />
                             </h:commandButton>
                         </div>
                     </div>

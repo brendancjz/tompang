@@ -8,10 +8,25 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        <h1> Liked Listings </h1>
+        <div style="background-color: #0190e9; padding: 0 0 15px 20px; margin-bottom: 10px; width: 100%">
+                    <h:graphicImage style="border-radius: 20px;width: 15%;min-width: 185px;margin-top: 20px;" value="#{profileManagedBean.getProfilePic()}"/>
+                    <p style="color: white; font-size: 20px">#{userProfileManagedBean.userToView.getUsername()}</p>
+                    <p style="color: white">Following: #{userProfileManagedBean.userToView.getFollowing().size()}</p>
+                    <p style="color: white">Followers: #{userProfileManagedBean.userToView.getFollowers().size()}</p>
+                    <h:commandButton rendered="#{!userManagedBean.following.contains(userProfileManagedBean.userToView)}" class="white-button" value="Follow">
+                        <f:attribute name="user" value="#{userProfileManagedBean.userToView}" />
+                        <f:ajax event="click" execute="@this" render="@all" listener="#{userManagedBean.followUser}" />
+                    </h:commandButton>
+                    <h:commandButton rendered="#{userManagedBean.following.contains(userProfileManagedBean.userToView)}" class="white-button" value="Unfollow">
+                        <f:attribute name="user" value="#{userProfileManagedBean.userToView}" />
+                        <f:ajax event="click" execute="@this" render="@all" listener="#{userManagedBean.followUser}" />
+                    </h:commandButton>
+        </div>
+        
+        <h1> #{userProfileManagedBean.userToView.getUsername()} Listings </h1>
         <br></br>
         <h:form id="form">
-            <p:dataView var="listing" value="#{likedListingsManagedBean.likedListings}" rows="12" paginator="true"
+            <p:dataView var="listing" value="#{userProfileManagedBean.userToView.getCreatedListings()}" rows="12" paginator="true"
                         rowsPerPageTemplate="6,12,16" layout="grid"
                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
@@ -29,25 +44,27 @@
                                 <div class="listing-category">#{listing.category}</div>
                                 <hr />
                                 <div class="listing-createdby">Created by: #{listing.createdBy.username}</div>
+                                
                             </div>
                         </div>
-                        <div class="listing-grid-item-bottom" style="margin-top: 10px;">
+                        <div class="listing-grid-item-bottom">
 
                             <h:commandButton rendered="#{!shopManagedBean.userLikedListings.contains(listing)}" class="blue-button" value="Like!">
                                 <f:attribute name="listing" value="#{listing}" />
-                                <f:ajax event="click" execute="@this" render="@all" listener="#{likedListingsManagedBean.likeListing}" />
+                                <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.likeListing}" />
                             </h:commandButton>  
                             <h:commandButton rendered="#{shopManagedBean.userLikedListings.contains(listing)}" class="blue-button" value="Unlike">
                                 <f:attribute name="listing" value="#{listing}" />
-                                <f:ajax event="click" execute="@this" render="@all" listener="#{likedListingsManagedBean.dislikeListing}" />
+                                <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.dislikeListing}" />
                             </h:commandButton>  
                             <h:commandButton class="blue-button" value="View">
                                 <f:attribute name="listing" value="#{listing}" />
-                                <f:ajax event="click" execute="@this" render="@all" listener="#{likedListingsManagedBean.viewListing}" />
+                                <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.viewListing}" />
                             </h:commandButton>
                         </div>
                     </div>
                 </p:dataViewGridItem>
+
             </p:dataView>
         </h:form>
         <div style="height: 200px;">

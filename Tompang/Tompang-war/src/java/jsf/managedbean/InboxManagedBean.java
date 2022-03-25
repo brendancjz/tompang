@@ -7,10 +7,8 @@ package jsf.managedbean;
 
 import ejb.stateless.ConversationSessionBeanLocal;
 import entity.Conversation;
-import entity.Listing;
 import entity.User;
 import exception.EmptyListException;
-import exception.EntityNotFoundException;
 import java.io.IOException;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;

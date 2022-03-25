@@ -40,6 +40,7 @@
                             <f:attribute name="conversation" value="#{conversation}" />
                             <f:ajax event="click" execute="@this" render="@this" listener="#{inboxManagedBean.goToChat}" />
                         </p:commandButton>
+                        <h:panelGroup rendered="#{conversation.listing.isDisabled}">Listing has been deleted/disabled.</h:panelGroup>
                     </p:column>
 
                 </p:dataTable>
@@ -67,10 +68,11 @@
                     </p:column>
 
                     <p:column headerText="Action" >
-                        <p:commandButton class="blue-button" value="View Chat" update="unreadBuyerMessages">
+                        <p:commandButton class="blue-button" value="View Chat" update="unreadBuyerMessages" >
                             <f:attribute name="conversation" value="#{conversation}" />
                             <f:ajax event="click" execute="@this" render="@this" listener="#{inboxManagedBean.goToChat}" />
                         </p:commandButton>
+                        <h:panelGroup rendered="#{conversation.listing.isDisabled}">Listing has been deleted/disabled.</h:panelGroup>
                     </p:column>
                 </p:dataTable>
 
