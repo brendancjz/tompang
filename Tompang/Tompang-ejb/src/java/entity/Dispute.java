@@ -35,11 +35,14 @@ public class Dispute implements Serializable {
     private Transaction transaction;
 
     public Dispute() {
+        this.isResolved = false;
     }
 
-    public Dispute(String description) {
+    public Dispute(String description, Transaction transaction) {
+        this();
         this.description = description;
-        this.isResolved = false;
+        this.transaction = transaction;
+        
     }
 
     public Long getDisputeId() {

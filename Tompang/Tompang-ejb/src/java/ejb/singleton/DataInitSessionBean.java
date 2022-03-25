@@ -8,6 +8,7 @@ package ejb.singleton;
 import ejb.stateless.UserSessionBeanLocal;
 import entity.Conversation;
 import entity.CreditCard;
+import entity.Dispute;
 import entity.Listing;
 import entity.Message;
 import entity.Transaction;
@@ -51,46 +52,49 @@ public class DataInitSessionBean {
         if (em.find(User.class, 1L) == null) {
             //Create Manager
             Date dob = Date.from(LocalDate.of(1999, 12, 25).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            //Date joinedOn = Date.from(LocalDate.of(2022, 2, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            User manager = new User("Brendan", "Chia", "bchia@gmail.com", "manager", "password", dob, "", 98769876L, true);
+            String managerProfilePic = "/uploadedFiles/manager_picture.jpg";
+            User manager = new User("Brendan", "Chia", "bchia@gmail.com", "manager", "password", dob, managerProfilePic, 98769876L, true);
 
             em.persist(manager);
             em.flush();
 
-            //Create Manager
+            String userProfilePic = "/uploadedFiles/default_picture.jpg";
+
+            //Create Admin
             dob = Date.from(LocalDate.of(1999, 12, 24).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            //Date joinedOn = Date.from(LocalDate.of(2022, 2, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            manager = new User("Sean", "Seduck", "seduck@gmail.com", "admin", "password", dob, "", 98769871L, true);
 
-            em.persist(manager);
+            User admin = new User("Sean", "Ang", "sean.ang@gmail.com", "admin", "password", dob, userProfilePic, 98769871L, true);
+
+            em.persist(admin);
             em.flush();
 
-            //Create Dummy User
+            //Create User1
             dob = Date.from(LocalDate.of(1999, 1, 1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            //joinedOn = Date.from(LocalDate.of(2022, 2, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            User dummyUser = new User("Dummy", "User", "dummyUser@gmail.com", "dummy", "password", dob, "", 12341234L, false);
+            User dummyUser = new User("Ignitius", "Goh", "ig.goh@gmail.com", "iggy", "password", dob, userProfilePic, 12341234L, false);
             em.persist(dummyUser);
             em.flush();
 
-            //Create Dummy User2
+            //Create User2
             dob = Date.from(LocalDate.of(1999, 1, 1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            //joinedOn = Date.from(LocalDate.of(2022, 2, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            User dummyUser2 = new User("Dummy2", "User2", "dummyUser2@gmail.com", "dummy2", "password", dob, "", 12341235L, false);
+            User dummyUser2 = new User("Alice", "Tan", "alice.tan@gmail.com", "alice", "password", dob, userProfilePic, 12341235L, false);
             em.persist(dummyUser2);
             em.flush();
 
-            //Create dummy for following
+            //Create User3 for following
             dob = Date.from(LocalDate.of(1999, 12, 24).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            //Date joinedOn = Date.from(LocalDate.of(2022, 2, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            User dummyUser3 = new User("Guo Jun", "Heng", "gwajoon@gmail.com", "guojun", "password", dob, "", 98769872L, true);
+            User dummyUser3 = new User("Guo Jun", "Heng", "gwajoon@gmail.com", "guojun", "password", dob, userProfilePic, 98769872L, true);
 
             em.persist(dummyUser3);
             em.flush();
 
             User user = (User) em.find(User.class, 5L);
-            user.getFollowers().add(dummyUser);
-            user.getFollowers().add(dummyUser2);
-            user.getFollowing().add(manager);
+            try {
+                userSessionBean.follow(manager.getUserId(), dummyUser2.getUserId());
+                userSessionBean.follow(dummyUser3.getUserId(), dummyUser2.getUserId());
+                userSessionBean.follow(dummyUser3.getUserId(), manager.getUserId());
+            } catch (EntityNotFoundException ex) {
+                System.out.print(ex.getMessage());
+            }
         }
 
         if (em.find(CreditCard.class, 1L) == null) {
@@ -104,44 +108,61 @@ public class DataInitSessionBean {
             manager.getCreditCards().add(cc);
 
             expiryDate = Date.from(LocalDate.of(2025, 05, 02).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            cc = new CreditCard("DUMMY USER ONE", 4605123456781020L, 123, expiryDate);
+            cc = new CreditCard("SEAN ANG", 4605123456781020L, 123, expiryDate);
             em.persist(cc);
             em.flush();
 
             //Associate CreditCard to User1
-            User dummyUser1 = (User) em.find(User.class, 2L);
-            dummyUser1.getCreditCards().add(cc);
+            User admin = (User) em.find(User.class, 2L);
+            admin.getCreditCards().add(cc);
 
             expiryDate = Date.from(LocalDate.of(2025, 05, 02).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            cc = new CreditCard("DUMMY USER TWO", 4605123456781030L, 123, expiryDate);
+            cc = new CreditCard("Ignitius Goh", 4605123456781030L, 123, expiryDate);
             em.persist(cc);
             em.flush();
 
             //Associate CreditCard to User2
-            User dummyUser2 = (User) em.find(User.class, 3L);
-            dummyUser2.getCreditCards().add(cc);
+            User iggy = (User) em.find(User.class, 3L);
+            iggy.getCreditCards().add(cc);
+            
+            expiryDate = Date.from(LocalDate.of(2025, 07, 22).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+            cc = new CreditCard("Guo Jun Heng", 4605123456781133L, 125, expiryDate);
+            em.persist(cc);
+            em.flush();
+
+            //Associate CreditCard to User2
+            User guojun = (User) em.find(User.class, 5L);
+            guojun.getCreditCards().add(cc);
         }
 
         if (em.find(Listing.class, 1L) == null) {
             Date expectedArrivalDate = Date.from(LocalDate.now().atStartOfDay().plusDays(7).atZone(ZoneId.systemDefault()).toInstant());
             User dummyUser1 = (User) em.find(User.class, 1L);
             List<String> photos1 = new ArrayList<>();
-            photos1.add("/Users/GuoJun/glassfish-5.1.0-uploadedfiles/uploadedFiles/japanese_biscuits.jpeg");
+            photos1.add("/uploadedFiles/japanese_biscuits.jpeg");
             Listing listing = new Listing("Japan", "Osaka", "Japan Biscuit", "Lovely japanese biscuits!", "FOOD", 35.00, expectedArrivalDate, dummyUser1, 5, photos1);
             em.persist(listing);
             em.flush();
 
-            User dummyUser2 = (User) em.find(User.class, 2L);
+            User admin = (User) em.find(User.class, 2L);
             List<String> photos2 = new ArrayList<>();
-            photos2.add("ttekbokki.jpg");
-            listing = new Listing("Korea", "Seoul", "Tteokbokki", "Authentic spicy rice cakes!", "FOOD", 15.00, expectedArrivalDate, dummyUser2, 5, photos2);
+            photos2.add("/uploadedFiles/tteokbokki.jpg");
+            listing = new Listing("Korea", "Seoul", "Tteokbokki", "Authentic spicy rice cakes!", "FOOD", 15.00, expectedArrivalDate, admin, 5, photos2);
             em.persist(listing);
             em.flush();
 
-            User dummyUser3 = (User) em.find(User.class, 3L);
+            User iggy = (User) em.find(User.class, 3L);
             List<String> photos3 = new ArrayList<>();
-            photos3.add("gummy.jpg");
-            listing = new Listing("Germany", "Dresden", "Gummy Candy", "Gluten Tag!", "FOOD", 7.00, expectedArrivalDate, dummyUser3, 10, photos3);
+            photos3.add("/uploadedFiles/gummy.jpg");
+            listing = new Listing("Japan", "Chiba", "Gummy Candy", "Gluten Tag!", "FOOD", 7.00, expectedArrivalDate, iggy, 10, photos3);
+            em.persist(listing);
+            em.flush();
+
+            User guojun = (User) em.find(User.class, 5L);
+            List<String> photos = new ArrayList<>();
+            photos.add("/uploadedFiles/bathing_ape_bape.jpg");
+            photos.add("/uploadedFiles/bathing_ape_bape_sizing_chart.jpg");
+            listing = new Listing("Korea", "Seoul", "Black Bape T-Shirt", "Going to Korea for a business trip. Will pass by their local Bathing Ape store. Let's chat if you're keen to buy!", "APPAREL", 100.00, expectedArrivalDate, guojun, 3, photos);
             em.persist(listing);
             em.flush();
         }
@@ -154,6 +175,19 @@ public class DataInitSessionBean {
             Transaction transaction1 = new Transaction(Double.parseDouble("100"), createdOn, dummyUser2, dummyUser3, listing3, dummyUser2.getCreditCards().get(0));
             em.persist(transaction1);
             em.flush();
+            
+            //same listing 3
+            User guojun = (User) em.find(User.class, 5L);
+            Transaction transaction2 = new Transaction(Double.parseDouble("100"), createdOn, guojun, dummyUser3, listing3, guojun.getCreditCards().get(0));
+            transaction2.setIsCompleted(true);
+            transaction2.setHasDispute(true);
+            em.persist(transaction2);
+            em.flush();
+            
+            Dispute dispute = new Dispute("Seller does not want to buy additional product for me.", transaction2);
+            em.persist(dispute);
+            em.flush();
+            transaction2.setDispute(dispute);
         }
 
         if (em.find(Conversation.class, 1L) == null) {
@@ -168,8 +202,10 @@ public class DataInitSessionBean {
         if (em.find(Message.class, 1L) == null) {
             String buyerToSeller = "Hi, can i buy this?";
             String sellerToBuyer = "Sure!";
-            Message initiate = new Message(buyerToSeller, true);
-            Message response = new Message(sellerToBuyer, false);
+            User buyerAdmin = (User) em.find(User.class, 2L);
+            User sellerManager = (User) em.find(User.class, 1L);
+            Message initiate = new Message(buyerToSeller, true, buyerAdmin.getUserId());
+            Message response = new Message(sellerToBuyer, false, sellerManager.getUserId());
             em.persist(initiate);
             em.persist(response);
             em.flush();
@@ -178,7 +214,7 @@ public class DataInitSessionBean {
             convo.getMessages().add(response);
         }
 
-        //TEST YOUR SESSION BEAN METHODS HERE
+       
         try {
 
             System.out.println(userSessionBean.retrieveAllUsers());

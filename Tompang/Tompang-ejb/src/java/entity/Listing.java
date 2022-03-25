@@ -90,6 +90,7 @@ public class Listing implements Serializable {
     @OneToMany(mappedBy = "listing")
     private List<Transaction> transactions;
 
+    
     public Listing() {
         this.createdOn = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         this.conversations = new ArrayList<>();

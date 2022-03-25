@@ -69,10 +69,11 @@ public class DisputeSessionBean implements DisputeSessionBeanLocal {
         return disputes;
     }
     @Override
-    public void resolveDispute(Dispute dispute) {
-        if(dispute != null){
-            dispute.setIsResolved(true);
-        }
+    public void resolveDispute(Long disputeId) throws EntityNotFoundException {
+        System.out.println("Resolve dispute.");
+        Dispute updatedDispute = this.getDisputeByDisputeId(disputeId);
+        
+        updatedDispute.setIsResolved(true);
     }
     
     @Override

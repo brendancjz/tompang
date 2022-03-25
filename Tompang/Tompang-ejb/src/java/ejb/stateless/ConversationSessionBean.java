@@ -9,9 +9,9 @@ import entity.Conversation;
 import entity.Listing;
 import entity.Message;
 import entity.User;
-import exception.CreateNewConversationException;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
+import java.util.Collections;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -143,6 +143,7 @@ public class ConversationSessionBean implements ConversationSessionBeanLocal {
         }
 
         convo.getMessages().size();
+        Collections.sort(convo.getMessages());
 
         return convo;
     }
@@ -150,7 +151,35 @@ public class ConversationSessionBean implements ConversationSessionBeanLocal {
     @Override
     public void addMessage(Long convoId, Message message) throws EntityNotFoundException {
         Conversation convo = this.getConversationByConvoId(convoId);
+        if (message.getFromBuyer()) {
+            convo.setBuyerUnread(0);
+            int sellerUnread = convo.getSellerUnread();
+            convo.setSellerUnread(sellerUnread + 1);
+        } else {
+            convo.setSellerUnread(0);
+            int buyerUnread = convo.getBuyerUnread();
+            convo.setBuyerUnread(buyerUnread + 1);
+        }
         convo.getMessages().add(message);
     }
 
+    @Override
+    public void setSellerUnreadToZero(Long convoId) {
+        try {
+            Conversation convo = this.getConversationByConvoId(convoId);
+            convo.setSellerUnread(0);
+        } catch (EntityNotFoundException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    @Override
+    public void setBuyerUnreadToZero(Long convoId) {
+        try {
+            Conversation convo = this.getConversationByConvoId(convoId);
+            convo.setBuyerUnread(0);
+        } catch (EntityNotFoundException ex) {
+            System.out.println(ex);
+        }
+    }
 }

@@ -11,6 +11,10 @@ import entity.CreditCard;
 import entity.User;
 import exception.CreateNewCreditCardException;
 import exception.EntityNotFoundException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +26,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import javax.validation.constraints.Past;
+import org.primefaces.event.FileUploadEvent;
 
 /**
  *
@@ -55,6 +60,8 @@ public class ProfileManagedBean implements Serializable {
 
     private List<User> following;
     private List<User> followers;
+    
+    private Boolean showUploadedFile; //To hide the initial display of uploaded file
     private List<CreditCard> creditCards;
    
 
@@ -139,6 +146,45 @@ public class ProfileManagedBean implements Serializable {
         
     }
 
+    public void handleFileUpload(FileUploadEvent event) {
+        try {
+            String newFilePath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("alternatedocroot_1")
+                    + System.getProperty("file.separator") + event.getFile().getFileName();
+
+            System.err.println("********** Profile Managed Bean.handleFileUpload(): File name: " + event.getFile().getFileName());
+            System.err.println("********** Profile Managed Bean.handleFileUpload(): newFilePath: " + newFilePath);
+
+            File file = new File(newFilePath);
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+
+            int a;
+            int BUFFER_SIZE = 8192;
+            byte[] buffer = new byte[BUFFER_SIZE];
+
+            InputStream inputStream = event.getFile().getInputStream();
+
+            while (true) {
+                a = inputStream.read(buffer);
+
+                if (a < 0) {
+                    break;
+                }
+
+                fileOutputStream.write(buffer, 0, a);
+                fileOutputStream.flush();
+            }
+
+            fileOutputStream.close();
+            inputStream.close();
+
+            profilePic = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("uploadedFilesPath") + "/" + event.getFile().getFileName();
+            showUploadedFile = true;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "File uploaded successfully", ""));
+        } catch (IOException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "File upload error: " + ex.getMessage(), ""));
+        }
+    }
+
     public void toggleEditProfile() {
         profileContent = "EDIT_PROFILE";
     }
@@ -147,6 +193,10 @@ public class ProfileManagedBean implements Serializable {
         profileContent = "CHANGE_PASSWORD";
     }
     
+    public void toggleMyListing() {
+        profileContent = "MY_LISTINGS";
+    }
+
     public void toggleViewCreditCards() {
         profileContent = "VIEW_CREDIT_CARDS";
     }

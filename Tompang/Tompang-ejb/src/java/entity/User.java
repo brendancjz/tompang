@@ -95,6 +95,7 @@ public class User implements Serializable {
     @OneToMany
     private List<Listing> likedListings;
 
+    
     public User() {
         this.creditCards = new ArrayList<>();
         this.conversations = new ArrayList<>();

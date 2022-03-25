@@ -32,18 +32,21 @@
                     </p:column>
                     <p:column headerText="Listing Title" sortBy="#{conversation.listing.title}" filterBy="#{conversation.listing.title}" filterStyle="display:none;">
                         <h:outputText value="#{conversation.listing.title}" />
+                        <h:outputText id="unreadSellerMessages" style="float: right" value ="#{conversation.sellerUnread} unread messages"/>
                     </p:column>
 
                     <p:column headerText="Action" >
-                        <h:commandButton class="blue-button" value="View Chat">
+                        <p:commandButton class="blue-button" value="View Chat" update="unreadSellerMessages">
                             <f:attribute name="conversation" value="#{conversation}" />
                             <f:ajax event="click" execute="@this" render="@this" listener="#{inboxManagedBean.goToChat}" />
-                        </h:commandButton>
+                        </p:commandButton>
+                        <h:panelGroup rendered="#{conversation.listing.isDisabled}">Listing has been deleted/disabled.</h:panelGroup>
                     </p:column>
+
                 </p:dataTable>
                 <br />
                 <h3>Buyer Conversations </h3>
-                <p:dataTable id="buyerConversationsTable" widgetVar="sellerConversationsTable" value="#{inboxManagedBean.buyerConversations}" var="conversation" rowKey="#{conversation.convoId}" rowIndexVar="row"
+                <p:dataTable id="buyerConversationsTable" widgetVar="buyerConversationsTable" value="#{inboxManagedBean.buyerConversations}" var="conversation" rowKey="#{conversation.convoId}" rowIndexVar="row"
                              filteredValue="#{inboxManagedBean.filteredBuyerConversations}"
                              rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
 
@@ -61,13 +64,15 @@
                     </p:column>
                     <p:column headerText="Listing Title" sortBy="#{conversation.listing.title}" filterBy="#{conversation.listing.title}" filterStyle="display:none;">
                         <h:outputText value="#{conversation.listing.title}" />
+                        <h:outputText id="unreadBuyerMessages" style="float: right" value ="#{conversation.buyerUnread} unread messages"/>
                     </p:column>
 
                     <p:column headerText="Action" >
-                        <h:commandButton class="blue-button" value="View Chat">
+                        <p:commandButton class="blue-button" value="View Chat" update="unreadBuyerMessages" >
                             <f:attribute name="conversation" value="#{conversation}" />
                             <f:ajax event="click" execute="@this" render="@this" listener="#{inboxManagedBean.goToChat}" />
-                        </h:commandButton>
+                        </p:commandButton>
+                        <h:panelGroup rendered="#{conversation.listing.isDisabled}">Listing has been deleted/disabled.</h:panelGroup>
                     </p:column>
                 </p:dataTable>
 

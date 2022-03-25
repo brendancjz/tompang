@@ -74,16 +74,31 @@
         <hr />
         <div class="convo-block">
 
-            <div class="convo-history">
+            <div class="convo-history" style="overflow-y: scroll">
                 <h:form id="convoBlock">
                     <p:repeat value="#{conversationManagedBean.conversationToView.messages}" var="message">
                         <p:column>
-                            <p:panelGrid>
-                                <h:outputText value="#{message.body}"/> 
-                                <h:outputText value="#{message.createdOn}"/>
+                            <p:panelGrid rendered="#{message.sentBy == currentUser.userId}">
+                                <h:outputText style="float: right; font-size: 30px" value="#{message.body}"/>
+                                <br></br>
+                                <br></br>
+                                <h:outputText style="float: right; font-size: 15px" value="#{message.createdOn}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                                </h:outputText>
                                 <br></br>
                                 <br></br>
                             </p:panelGrid>
+
+                            <p:panelGrid rendered="#{message.sentBy != currentUser.userId}">
+                                <h:outputText style="font-size: 30px" value="#{message.body}"/>
+                                <br></br>
+                                <h:outputText style="font-size: 15px" value="#{message.createdOn}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                                </h:outputText>
+                                <br></br>
+                                <br></br>
+                            </p:panelGrid>
+
                         </p:column>
                     </p:repeat>
                 </h:form>

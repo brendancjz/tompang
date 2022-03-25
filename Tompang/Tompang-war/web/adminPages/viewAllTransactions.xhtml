@@ -15,8 +15,8 @@
             <h:form class="viewDataTable" id="listOfTransactions">
                 <p:growl id="messages" redisplay="false"  />
 
-                <p:dataTable id="transactionsTable" widgetVar="transactionsTable" value="#{viewAllTransactionManagedBean.listOfTransactions}" var="transaction" rowKey="#{transaction.transactionId}" rowIndexVar="row"
-                             filteredValue="#{viewAllTransactionManagedBean.filteredTransactions}"
+                <p:dataTable id="transactionsTable" widgetVar="transactionsTable" value="#{viewAllTransactionsManagedBean.listOfTransactions}" var="transaction" rowKey="#{transaction.transactionId}" rowIndexVar="row"
+                             filteredValue="#{viewAllTransactionsManagedBean.filteredTransactions}"
                              rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
 
                     <f:facet name="header">

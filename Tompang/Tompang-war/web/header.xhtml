@@ -4,6 +4,14 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <style>
+        .white .ui-menuitem-text{
+            color: white;
+        }
+        .black .ui-menuitem-text{
+            color: black;
+        }
+    </style>
     <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
     <h:outputScript library = "js" name = "header.js"  /> 
     <header id="header">
@@ -17,26 +25,29 @@
         </div>
         
         
-        
 
         <h:form rendered="#{sessionScope.isLogin != true}">
             <h:commandLink class="header-button" value="Login" actionListener="#{loginManagedBean.redirectToLoginPage}" />
         </h:form>
 
         <h:panelGroup class="header-buttons" rendered="#{sessionScope.isLogin == true}" >
-            <p style="color: white; font-size: 20px; margin-right: 10px" onmouseover="showDropdown();" onmouseout="hideDropdown();">Hello #{profileManagedBean.getUsername()}</p>
-            <i class="pi pi-chevron-down" style="color:white; margin-right: 30px; padding-top: 5px" onmouseover="showDropdown();" onmouseout="hideDropdown();"></i>
-            <div id="dropdown" style="background-color: white; display: none">
-                <p>Profile</p>
-                <p>Logout</p>
-            </div>
-            <h:form rendered="#{sessionScope.isLogin == true}" >
-                <h:commandLink class="header-button" value="Logout" actionListener="#{loginManagedBean.logout}" />
-            </h:form>
-            <h:form rendered="#{sessionScope.isLogin == true}">
-                <h:commandLink class="header-button" value="Profile" actionListener="#{loginManagedBean.redirectToProfilePage}" />
+            <h:form>
+            <p:growl id="navbar" showDetail="false" />
+                <p:menubar style="background: none; border: none">
+                    <p:menuitem>
+                        <h:graphicImage style="border-radius: 20px;height: 30px; " value="#{profileManagedBean.getProfilePic()}" alt="profile picture"/>
+                    </p:menuitem>
+                    <p:submenu label="Hello #{profileManagedBean.username}" styleClass="white" style=" margin-top: 7px;">
+                        <p:menuitem containerStyle="background-color: white" styleClass="black" value="Profile" actionListener="#{loginManagedBean.redirectToProfilePage}" update="navbar" icon="pi pi-user"/>
+                        <p:menuitem containerStyle="background-color: white" styleClass="black" value="Log Out" actionListener="#{loginManagedBean.logout}" update="navbar" icon="pi pi-power-off"/>
+                    </p:submenu>
+                    <p:menuitem  actionListener="#{inboxManagedBean.redirectToInboxPage}">
+                        <i class="pi pi-comment" style="font-size: 30px; color: white" />
+                    </p:menuitem>
+                </p:menubar>
             </h:form>
         </h:panelGroup>
+        
 
         
     </header>

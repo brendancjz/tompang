@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
  * @author brend
  */
 @Entity
-public class Message implements Serializable {
+public class Message implements Serializable, Comparable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,15 +38,32 @@ public class Message implements Serializable {
     @Column(nullable = false)
     @NotNull
     private Boolean fromBuyer;
+    @Column(nullable = false)
+    @NotNull
+    private Long sentBy;
+    @Column(nullable = false)
+    @NotNull
+    private Boolean readByBuyer;
+    @Column(nullable = false)
+    @NotNull
+    private Boolean readBySeller;
 
     public Message() {
         this.createdOn = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    public Message(String body, Boolean fromBuyer) {
+    public Message(String body, Boolean fromBuyer, Long sentBy) {
         this();
         this.body = body;
         this.fromBuyer = fromBuyer;
+        this.sentBy = sentBy;
+        if (fromBuyer) {
+            this.readByBuyer = true;
+            this.readBySeller = false;
+        } else {
+            this.readBySeller = true;
+            this.readByBuyer = false;
+        }
     }
 
     public Long getMessageId() {
@@ -80,7 +97,7 @@ public class Message implements Serializable {
     public void setFromBuyer(Boolean fromBuyer) {
         this.fromBuyer = fromBuyer;
     }
-    
+
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -92,5 +109,53 @@ public class Message implements Serializable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Message m = (Message) o;
+        return this.getCreatedOn().compareTo(m.getCreatedOn());
+    }
+
+    /**
+     * @return the readByBuyer
+     */
+    public Boolean getReadByBuyer() {
+        return readByBuyer;
+    }
+
+    /**
+     * @param readByBuyer the readByBuyer to set
+     */
+    public void setReadByBuyer(Boolean readByBuyer) {
+        this.readByBuyer = readByBuyer;
+    }
+
+    /**
+     * @return the readBySeller
+     */
+    public Boolean getReadBySeller() {
+        return readBySeller;
+    }
+
+    /**
+     * @param readBySeller the readBySeller to set
+     */
+    public void setReadBySeller(Boolean readBySeller) {
+        this.readBySeller = readBySeller;
+    }
+
+    /**
+     * @return the sentBy
+     */
+    public Long getSentBy() {
+        return sentBy;
+    }
+
+    /**
+     * @param sentBy the sentBy to set
+     */
+    public void setSentBy(Long sentBy) {
+        this.sentBy = sentBy;
     }
 }

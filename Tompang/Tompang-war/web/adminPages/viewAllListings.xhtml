@@ -61,6 +61,10 @@
                     <p:column headerText="Title" sortBy="#{listing.category}" filterBy="#{listing.category}" filterStyle="display:none;">
                         <h:outputText value="#{listing.category}" />
                     </p:column>
+                    
+                    <p:column headerText="Is Disabled" sortBy="#{listing.isDisabled}" filterBy="#{listing.isDisabled}" filterStyle="display:none;">
+                        <h:outputText value="#{listing.isDisabled}" />
+                    </p:column>
 
                     <p:column headerText="Action" >
                         <p:commandButton update="ccViewListingDetails:formViewListingDetails" oncomplete="PF('dialogViewListingDetails').show()" icon="ui-icon-document" title="View">
@@ -82,168 +86,169 @@
                 </p:confirmDialog>
             </h:form>
 
-            <ezcomp:ViewListingDetails id="ccViewListingDetails" />
-            <h:form id="formUpdateListingDetails">
-                <p:growl for="formUpdateListingDetails" showDetail="true" />
-                <p:dialog id="dialogUpdateListingDetails" widgetVar="dialogUpdateListingDetails" header="Update Listing Details" closable="true">
+        </div>
+        <ezcomp:ViewListingDetails id="ccViewListingDetails" />
+        <h:form id="formUpdateListingDetails" >
+            <p:growl for="formUpdateListingDetails" showDetail="true" />
+            <p:dialog id="dialogUpdateListingDetails" widgetVar="dialogUpdateListingDetails" header="Update Listing Details" closable="true" style="height: 700px;">
 
-                    <p:panelGrid>
+                <p:panelGrid>
 
-                        <p:row>
-                            <p:column>
-                                <h:outputLabel value="Listing ID: " />
-                            </p:column>
-                            <p:column>
-                                <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.listingId}" />
-                            </p:column>
-                        </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Listing ID: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.listingId}" />
+                        </p:column>
+                    </p:row>
 
-                        <p:row>
-                            <p:column>
-                                <h:outputLabel value="Country: " />
-                            </p:column>
-                            <p:column>
-                                <p:selectOneMenu id="country" value="#{viewAllListingsManagedBean.listingToUpdate.country}" style="width:150px" required="true">
-                                    <p:ajax listener="#{viewAllListingsManagedBean.onCountryChange}" update="city"/>
-                                    <f:selectItem itemLabel="#{viewAllListingsManagedBean.listingToUpdate.country}" 
-                                                  itemValue="#{viewAllListingsManagedBean.listingToUpdate.country}"/>
-                                    <f:selectItems value="#{viewAllListingsManagedBean.countries}"/>
-                                </p:selectOneMenu>
-                            </p:column>
-                        </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Country: " />
+                        </p:column>
+                        <p:column>
+                            <p:selectOneMenu id="country" value="#{viewAllListingsManagedBean.listingToUpdate.country}" style="width:150px" required="true">
+                                <p:ajax listener="#{viewAllListingsManagedBean.onCountryChange}" update="city"/>
+                                <f:selectItem itemLabel="#{viewAllListingsManagedBean.listingToUpdate.country}" 
+                                              itemValue="#{viewAllListingsManagedBean.listingToUpdate.country}"/>
+                                <f:selectItems value="#{viewAllListingsManagedBean.countries}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
 
-                        <p:row>
-                            <p:column>
-                                <h:outputLabel value="City/State: " />
-                            </p:column>
-                            <p:column>
-                                <p:selectOneMenu id="city" value="#{viewAllListingsManagedBean.listingToUpdate.city}" style="width:150px" required="true">
-                                    <f:selectItem itemDisabled="#{viewAllListingsManagedBean.listingToUpdateChangedCountry}" itemLabel="#{viewAllListingsManagedBean.listingToUpdate.city}"
-                                                  itemValue="#{viewAllListingsManagedBean.listingToUpdate.city}"/>
-                                    <f:selectItems value="#{viewAllListingsManagedBean.cities}"/>
-                                </p:selectOneMenu>
-                            </p:column>
-                        </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="City/State: " />
+                        </p:column>
+                        <p:column>
+                            <p:selectOneMenu id="city" value="#{viewAllListingsManagedBean.listingToUpdate.city}" style="width:150px" required="true">
+                                <f:selectItem itemDisabled="#{viewAllListingsManagedBean.listingToUpdateChangedCountry}" itemLabel="#{viewAllListingsManagedBean.listingToUpdate.city}"
+                                              itemValue="#{viewAllListingsManagedBean.listingToUpdate.city}"/>
+                                <f:selectItems value="#{viewAllListingsManagedBean.cities}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
 
-                        <p:row>
-                            <p:column>
-                                <h:outputLabel value="Title: " />
-                            </p:column>
-                            <p:column>
-                                <p:inputText placeholder="Input Title..." value="#{viewAllListingsManagedBean.listingToUpdate.title}" required="true" />
-                            </p:column>
-                        </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Title: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText placeholder="Input Title..." value="#{viewAllListingsManagedBean.listingToUpdate.title}" required="true" />
+                        </p:column>
+                    </p:row>
 
-                        <p:row>
-                            <p:column>
-                                <h:outputLabel value="Description: " />
-                            </p:column>
-                            <p:column style="max-width: 350px; height: 200px;">
-                                <p:inputTextarea value="#{viewAllListingsManagedBean.listingToUpdate.description}" 
-                                                 style="width: 320px; min-height: 100px;max-height: 200px" required="true" 
-                                                 placeholder="Input Detailed Description..." />
-                            </p:column>
-                        </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Description: " />
+                        </p:column>
+                        <p:column style="max-width: 650px; height: 200px;">
+                            <p:inputTextarea value="#{viewAllListingsManagedBean.listingToUpdate.description}" 
+                                             style="width: 650px; min-height: 100px;max-height: 200px" required="true" 
+                                             placeholder="Input Detailed Description..." />
+                        </p:column>
+                    </p:row>
 
-                        <p:row>
-                            <p:column>
-                                <h:outputLabel value="Category " />
-                            </p:column>
-                            <p:column>
-                                <p:selectOneMenu id="category" value="#{viewAllListingsManagedBean.listingToUpdate.category}" style="width:150px" required="true">
-                                    <f:selectItems value="#{viewAllListingsManagedBean.categories}"/>
-                                </p:selectOneMenu>
-                            </p:column>
-                        </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Category " />
+                        </p:column>
+                        <p:column>
+                            <p:selectOneMenu id="category" value="#{viewAllListingsManagedBean.listingToUpdate.category}" style="width:150px" required="true">
+                                <f:selectItems value="#{viewAllListingsManagedBean.categories}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
 
-                        <p:row>
-                            <p:column>
-                                <h:outputLabel value="Price: " />
-                            </p:column>
-                            <p:column>
-                                <p:inputNumber placeholder="0.00" value="#{viewAllListingsManagedBean.listingToUpdate.price}" required="true" />
-                            </p:column>
-                        </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Price: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputNumber placeholder="0.00" value="#{viewAllListingsManagedBean.listingToUpdate.price}" required="true" />
+                        </p:column>
+                    </p:row>
 
-                        <p:row>
-                            <p:column>
-                                <h:outputLabel value="Quantity: " />
-                            </p:column>
-                            <p:column>
-                                <p:inputNumber placeholder="1" value="#{viewAllListingsManagedBean.listingToUpdate.quantity}" decimalPlaces="0" required="true" />
-                            </p:column>
-                        </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Quantity: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputNumber placeholder="1" value="#{viewAllListingsManagedBean.listingToUpdate.quantity}" decimalPlaces="0" required="true" />
+                        </p:column>
+                    </p:row>
 
-                        <p:row>
-                            <p:column>
-                                <h:outputLabel value="Created On: " />
-                            </p:column>
-                            <p:column>
-                                <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.createdOn.toString().substring(4, 10)}
-                                              #{viewAllListingsManagedBean.listingToUpdate.createdOn.toString().substring(24)}" />
-                            </p:column>
-                        </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Created On: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.createdOn.toString().substring(4, 10)}
+                                          #{viewAllListingsManagedBean.listingToUpdate.createdOn.toString().substring(24)}" />
+                        </p:column>
+                    </p:row>
 
-                        <p:row>
-                            <p:column>
-                                <h:outputLabel value="Expected Arrival Date: " />
-                            </p:column>
-                            <p:column>
-                                <p:datePicker value="#{viewAllListingsManagedBean.listingToUpdate.expectedArrivalDate}" required="true" />
-                            </p:column>
-                        </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Expected Arrival Date: " />
+                        </p:column>
+                        <p:column>
+                            <p:datePicker value="#{viewAllListingsManagedBean.listingToUpdate.expectedArrivalDate}" required="true" />
+                        </p:column>
+                    </p:row>
 
-                        <p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Photo(s): " />
+                        </p:column>
+                        <h:form id="formFileUpload" enctype="multipart/form-data">
+                            <p:growl showDetail="true" skipDetailIfEqualsSummary="true"/>
                             <p:column>
-                                <h:outputLabel value="Number of Likes: " />
-                            </p:column>
-                            <p:column>
-                                <h:outputText value="#{viewAllListingsManagedBean.listingToUpdate.numOfLikes}" />
-                            </p:column>
-                        </p:row>
+                                <p:panel header="Photo(s) Upload" style="margin-top:10px;padding: 0.5em;width: 650px;">
+                                    <p:fileUpload listener="#{viewAllListingsManagedBean.handleFileUpload}" multiple="true" update="@form:displayPhotosForm:displayPhotosView" />
+                                </p:panel>
 
-                        <p:row>
-                            <p:column>
-                                <h:outputLabel value="Photo(s): " />
-                            </p:column>
-                            <h:form id="formFileUpload" enctype="multipart/form-data">
-                                <p:growl showDetail="true" skipDetailIfEqualsSummary="true"/>
-                                <p:column>
-                                    <p:panel header="File Upload" style="margin-top:10px;padding: 0.5em;">
-                                        <p:fileUpload listener="#{viewAllListingsManagedBean.handleFileUpload}" multiple="true" update="@form:formFileUpload" />
-                                    </p:panel>
+                                <br/>
 
-                                    <br/>
-                                    <p:panel header="Uploaded File" visible="#{viewAllListingsManagedBean.listingToUpdate.photos.size() > 0}">
-                                        <p:dataView var="image" value="#{viewAllListingsManagedBean.listingToUpdate.photos}" layout="grid">
 
+                                <p:panel header="Photo Files" visible="#{viewAllListingsManagedBean.listingToUpdate.photos.size() > 0}" style="width: 650px;">
+                                    <h:form id="displayPhotosForm">
+                                        <p:messages />
+                                        <p:dataView id="displayPhotosView" var="image" value="#{viewAllListingsManagedBean.listingToUpdate.photos}" layout="grid">
                                             <p:dataViewGridItem>
                                                 <div style="display: flex;flex-direction: column;align-items: center;">
                                                     <p:graphicImage value="#{image}" width="100%"/>
+                                                    <h:commandButton value="Remove">
+                                                        <f:attribute name="photo" value="#{image}" />
+                                                        <f:ajax event="click" execute="@this" render="@form:displayPhotosForm:displayPhotosView" listener="#{viewAllListingsManagedBean.removePhotoFromListingToUpdate}" />
+                                                    </h:commandButton>
                                                 </div>
                                             </p:dataViewGridItem>
                                         </p:dataView>
-                                    </p:panel>
-                                </p:column>
-                            </h:form>
+                                    </h:form>
+                                </p:panel>
 
-                        </p:row>
 
-                        <p:row>
-                            <p:column colspan="3">
-                                <p:commandButton id="updateListing" value="Save" icon="pi pi-save" update="@form listOfListings:listingsTable" actionListener="#{viewAllListingsManagedBean.saveListing}" oncomplete="PF('dialogUpdateListingDetails').show();" />
                             </p:column>
-                        </p:row>
-                    </p:panelGrid>
+                        </h:form>
 
-                    <!--                <div style="width: 20%; min-width: 500px;">
-                                        
-                                    </div>-->
+                    </p:row>
 
-                </p:dialog>
+                    <p:row>
+                        <p:column colspan="3">
+                            <p:commandButton id="updateListing" value="Save" icon="pi pi-save" update="@form listOfListings:listingsTable" actionListener="#{viewAllListingsManagedBean.saveListing}" oncomplete="PF('dialogUpdateListingDetails').show();" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
 
-            </h:form>
-        </div>
+                <!--                <div style="width: 20%; min-width: 500px;">
+                                    
+                                </div>-->
+
+            </p:dialog>
+
+        </h:form>
     </ui:define>
 
 </ui:composition>

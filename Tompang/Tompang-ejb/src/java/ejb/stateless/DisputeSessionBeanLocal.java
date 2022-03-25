@@ -23,7 +23,7 @@ public interface DisputeSessionBeanLocal {
     
     public Long createNewDispute(Long transactionId, Dispute dispute) throws CreateNewDisputeException;
     
-    public void resolveDispute(Dispute dispute);
+    public void resolveDispute(Long disputeId) throws EntityNotFoundException;
     
     public Dispute getDisputeByDisputeId(Long disputeId) throws EntityNotFoundException;
 }

@@ -21,6 +21,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import security.CryptographicHelper;
 
+
 /**
  *
  * @author brend
@@ -246,4 +247,21 @@ public class UserSessionBean implements UserSessionBeanLocal {
 
     }
 
+    @Override
+    public void follow(Long followingUserId, Long followedUserId) throws EntityNotFoundException {
+        User followingUser = this.getUserByUserId(followingUserId);
+        User followedUser = this.getUserByUserId(followedUserId);
+        
+        followingUser.getFollowing().add(followedUser);
+        followedUser.getFollowers().add(followingUser);
+    }
+
+    @Override
+    public void unfollow(Long followingUserId, Long followedUserId) throws EntityNotFoundException {
+        User followingUser = this.getUserByUserId(followingUserId);
+        User followedUser = this.getUserByUserId(followedUserId);
+        
+        followingUser.getFollowing().remove(followedUser);
+        followedUser.getFollowers().remove(followingUser);
+    }
 }

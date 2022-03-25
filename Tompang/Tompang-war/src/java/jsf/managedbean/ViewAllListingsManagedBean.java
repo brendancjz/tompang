@@ -7,6 +7,7 @@ package jsf.managedbean;
 
 import ejb.stateless.ListingSessionBeanLocal;
 import entity.Listing;
+import entity.User;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import java.io.File;
@@ -24,6 +25,7 @@ import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import org.primefaces.event.FileUploadEvent;
@@ -44,11 +46,13 @@ public class ViewAllListingsManagedBean implements Serializable {
     @Inject
     private ViewListingDetailsEzCompManagedBean viewListingDetailsEzCompManagedBean;
     
+    private List<Listing> myListings;
     private List<Listing> listings;
     private List<Listing> filteredListings;
     
     private Listing listingToUpdate;
     private Boolean listingToUpdateChangedCountry; 
+    private List<String> updatedListOfPhotos;
     
     private String filteredUsername;
     
@@ -72,6 +76,9 @@ public class ViewAllListingsManagedBean implements Serializable {
             //This is for when admin wishes to view User's Listings from the View User Details
             filteredUsername = (String)FacesContext.getCurrentInstance().getExternalContext().getFlash().get("username");
             
+            User currentUser = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
+            this.myListings = listingSessionBean.retrieveUserListings(currentUser.getUsername());
+            
             if (filteredUsername == null) {
                 listings = listingSessionBean.retrieveAllListings();
             } else {
@@ -82,13 +89,6 @@ public class ViewAllListingsManagedBean implements Serializable {
             System.out.println("List of listings empty.");
         }
     }
-    
-//    public void viewListingDetails(ActionEvent event) throws IOException {
-//        Long listingIdToView = (Long)event.getComponent().getAttributes().get("listingId");
-//        System.err.print(listingIdToView);
-//        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("listingIdToView", listingIdToView);
-//        FacesContext.getCurrentInstance().getExternalContext().redirect("viewListingDetails.xhtml");
-//    }
     
     public void deleteListing(ActionEvent event) {
         try {
@@ -101,6 +101,7 @@ public class ViewAllListingsManagedBean implements Serializable {
             try {
                 Listing listing = listingSessionBean.getListingByListingId(listingToDelete.getListingId());
                 //Means listing is disabled, not deleted.
+                
                 this.retrieveAllListings();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Listing disabled successfully", null));
             } catch (EntityNotFoundException ex) {
@@ -115,6 +116,15 @@ public class ViewAllListingsManagedBean implements Serializable {
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An unexpected error has occurred: " + ex.getMessage(), null));
         }
+    }
+    
+    public void removePhotoFromListingToUpdate(AjaxBehaviorEvent event) {
+        System.out.println(this.listingToUpdate.getPhotos().size());
+        String photoToRemove = (String) event.getComponent().getAttributes().get("photo");
+        this.listingToUpdate.getPhotos().remove(photoToRemove);
+        System.out.println(photoToRemove);
+        System.out.println(this.listingToUpdate.getPhotos().size());
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Removed Photo", null));
     }
     
     public void saveListing(ActionEvent event) {
@@ -172,7 +182,7 @@ public class ViewAllListingsManagedBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "File upload error: " + ex.getMessage(), ""));
         }
     }
-    
+
     public Integer getNumberOfListings() {
         
         try {
@@ -201,6 +211,7 @@ public class ViewAllListingsManagedBean implements Serializable {
     public void getListingToUpdate(ActionEvent event) {
         Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
         this.listingToUpdate = listing;
+        this.updatedListOfPhotos = listing.getPhotos();
         cities = data.get(listingToUpdate.getCountry());
     }
     
@@ -423,8 +434,21 @@ public class ViewAllListingsManagedBean implements Serializable {
         this.listingToUpdate = listingToUpdate;
     }
 
-    
+    public List<String> getUpdatedListOfPhotos() {
+        return updatedListOfPhotos;
+    }
 
-    
+    public void setUpdatedListOfPhotos(List<String> updatedListOfPhotos) {
+        this.updatedListOfPhotos = updatedListOfPhotos;
+    }
+
+    public List<Listing> getMyListings() {
+        return myListings;
+    }
+
+    public void setMyListings(List<Listing> myListings) {
+        this.myListings = myListings;
+    }
+
     
 }

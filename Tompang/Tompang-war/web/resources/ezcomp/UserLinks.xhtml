@@ -2,10 +2,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
     <cc:interface>
-        
+
     </cc:interface>
 
     <cc:implementation>
@@ -18,7 +19,13 @@
                     <h:link class="sidebarSectionTextLink" id="createAListing" outcome="/userPages/createListing.xhtml">Create a Listing</h:link>
                     <h:link class="sidebarSectionTextLink" id="shop" outcome="/userPages/shop.xhtml">Shop</h:link>
                     <h:link class="sidebarSectionTextLink" id="likedListings" outcome="/userPages/likedListings.xhtml">Liked Listings</h:link>
-                    <h:link class="sidebarSectionTextLink" id="inbox" outcome="/userPages/inbox.xhtml">Inbox</h:link>
+                    <h:link class="sidebarSectionTextLink" id="myListings" outcome="/userPages/myListings.xhtml">My Listings</h:link>
+                    <h:link class="sidebarSectionTextLink" id="inbox" outcome="/userPages/inbox.xhtml">Inbox
+                        <h:outputText value="(#{inboxManagedBean.getUnreadConversations()})" />
+                    </h:link>
+                    <h:link class="sidebarSectionTextLink" id="myListings" outcome="/userPages/myListings.xhtml">My Listings</h:link>
+
+
                 </div>
 
             </h:panelGroup>

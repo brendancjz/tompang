@@ -23,9 +23,9 @@ import javax.inject.Inject;
  *
  * @author ignit
  */
-@Named(value = "viewAllTransactionManagedBean")
+@Named(value = "viewAllTransactionsManagedBean")
 @ViewScoped
-public class ViewAllTransactionManagedBean implements Serializable {
+public class ViewAllTransactionsManagedBean implements Serializable {
 
     @EJB
     private TransactionSessionBeanLocal transactionSessionBean;
@@ -39,7 +39,7 @@ public class ViewAllTransactionManagedBean implements Serializable {
     /**
      * Creates a new instance of ViewAllTransactionManagedBean
      */
-    public ViewAllTransactionManagedBean() {
+    public ViewAllTransactionsManagedBean() {
     }
 
     @PostConstruct
@@ -85,4 +85,14 @@ public class ViewAllTransactionManagedBean implements Serializable {
     public void setFilteredTransactions(List<Transaction> filteredTransactions) {
         this.filteredTransactions = filteredTransactions;
     }
+
+    public ViewTransactionDetailsManagedBean getViewTransactionDetailsManagedBean() {
+        return viewTransactionDetailsManagedBean;
+    }
+
+    public void setViewTransactionDetailsManagedBean(ViewTransactionDetailsManagedBean viewTransactionDetailsManagedBean) {
+        this.viewTransactionDetailsManagedBean = viewTransactionDetailsManagedBean;
+    }
+    
+    
 }

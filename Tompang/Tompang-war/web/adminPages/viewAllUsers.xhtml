@@ -14,7 +14,7 @@
         <div class="dataTableDiv">
             <h:form class="viewDataTable" id="listOfUsers">
                 <p:growl id="messages" redisplay="false"  />
-                
+
                 <p:dataTable id="usersTable" widgetVar="usersTable" value="#{viewAllUsersManagedBean.listOfUsers}" var="user" rowKey="#{user.userId}" rowIndexVar="row"
                              filteredValue="#{viewAllUsersManagedBean.filteredUsers}"
                              rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
@@ -57,6 +57,10 @@
                     <p:column headerText="Email" width="20%" filterBy="#{user.email}" sortBy="#{user.email}" filterStyle="display:none;">
                         <h:outputText value="#{user.email}" />
                     </p:column>
+                    
+                    <p:column headerText="Is Disabled" width="8%" filterBy="#{user.isDisabled}" sortBy="#{user.isDisabled}" filterStyle="display:none;">
+                        <h:outputText value="#{user.isDisabled}" />
+                    </p:column>
 
                     <p:column headerText="Action">
                         <p:commandButton update="ccViewUserDetails:formViewUserDetails" oncomplete="PF('dialogViewUserDetails').show()" icon="ui-icon-document" title="View">
@@ -76,11 +80,12 @@
                     <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>
-                
+
             </h:form>
 
             <ezcomp:ViewUserDetails id="ccViewUserDetails" />
             <h:form id="formUpdateUserDetails">
+                <p:messages />
                 <p:growl for="formUpdateUserDetails" showDetail="true" globalOnly="true"/>
                 <p:dialog id="dialogUpdateUserDetails" widgetVar="dialogUpdateUserDetails" header="Update User Details" closable="true">
 
@@ -103,7 +108,7 @@
                                 <p:inputText placeholder="Input First Name..." value="#{viewAllUsersManagedBean.userToUpdate.firstName}" required="true" />
                             </p:column>
                         </p:row>
-                        
+
                         <p:row>
                             <p:column>
                                 <h:outputLabel value="Last Name: " />
@@ -121,7 +126,7 @@
                                 <p:inputText placeholder="Input Email..." value="#{viewAllUsersManagedBean.userToUpdate.email}" required="true" />
                             </p:column>
                         </p:row>
-                        
+
                         <p:row>
                             <p:column>
                                 <h:outputLabel value="Contact Number: " />
@@ -139,7 +144,7 @@
                                 <p:datePicker value="#{viewAllUsersManagedBean.userToUpdate.dateOfBirth}" required="true" />
                             </p:column>
                         </p:row>
-
+                        
                         <p:row>
                             <p:column colspan="3">
                                 <p:commandButton id="updateUser" value="Save" icon="pi pi-save" update="@form listOfUsers:usersTable" actionListener="#{viewAllUsersManagedBean.saveUser}" oncomplete="PF('dialogUpdateUserDetails').show();" />

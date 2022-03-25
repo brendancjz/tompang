@@ -7,7 +7,6 @@ package ejb.stateless;
 
 import entity.Conversation;
 import entity.Message;
-import exception.CreateNewConversationException;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import java.util.List;
@@ -33,5 +32,9 @@ public interface ConversationSessionBeanLocal {
     public List<Conversation> retrieveAllBuyerConversations(Long userId) throws EmptyListException;
 
     public List<Conversation> retrieveAllSellerConversations(Long userId) throws EmptyListException;
+
+    public void setBuyerUnreadToZero(Long convoId);
+
+    public void setSellerUnreadToZero(Long convoId);
     
 }

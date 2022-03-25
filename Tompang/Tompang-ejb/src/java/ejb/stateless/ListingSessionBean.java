@@ -5,7 +5,6 @@
  */
 package ejb.stateless;
 
-import entity.Conversation;
 import entity.Listing;
 import entity.Transaction;
 import entity.User;
@@ -153,7 +152,7 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
         listing.setIsOpen(isOpen);
         listing.setPhotos(photos);
     }
-    
+
     @Override
     public void updateListingDetails(Listing listingToUpdate) throws EntityNotFoundException {
         Listing listing = this.getListingByListingId(listingToUpdate.getListingId());
@@ -161,6 +160,7 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
         listing.setCity(listingToUpdate.getCity());
         listing.setCountry(listingToUpdate.getCountry());
         listing.setCreatedOn(listingToUpdate.getCreatedOn());
+        listing.setTitle(listingToUpdate.getTitle());
         listing.setDescription(listingToUpdate.getDescription());
         listing.setExpectedArrivalDate(listingToUpdate.getExpectedArrivalDate());
         listing.setIsDisabled(listingToUpdate.getIsDisabled());
@@ -173,22 +173,23 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
 
     @Override
     public void deleteListing(Long listingId) throws EntityNotFoundException {
-        try {
-            Listing listing = this.getListingByListingId(listingId);
-            User user = listing.getCreatedBy();
-            if (!listing.getTransactions().isEmpty() || !listing.getConversations().isEmpty()) {
-                listing.setIsDisabled(true);
-            } else {
-
+        System.out.println("Delete Listing method called.");
+        Listing listing = this.getListingByListingId(listingId);
+        User user = listing.getCreatedBy();
+        if (!listing.getTransactions().isEmpty() || !listing.getConversations().isEmpty()) {
+            System.out.println("isDisabled is TRUE");
+            listing.setIsDisabled(true);
+        } else {
+            System.out.println("removing Listing");
+            try {
                 userSessionBeanLocal.removeListingFromUserLikedListings(listing.getListingId());
-                user.getCreatedListings().remove(listing);
-                em.remove(listing);
-
+            } catch (EmptyListException ex) {
+                System.out.println(ex.getMessage());
             }
-
-        } catch (EmptyListException ex) {
-            System.out.println(ex.getMessage());
+            user.getCreatedListings().remove(listing);
+            em.remove(listing);
         }
+
     }
 
 //    @Override
