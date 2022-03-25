@@ -204,10 +204,19 @@
                             <h:outputText value="#{creditCard.expiryDate}" />
                         </p:column>
                         <p:column headerText="Action" >
-                            <p:commandButton icon="ui-icon-trash" actionListener="#{profileManagedBean.deleteCreditCard}" >
-                                <f:attribute name="creditCardToDelete" value="#{creditCard}" />                                
-                                <p:confirm header="Confirmation" message="Are you sure you want to delete #{creditCard.ccNumber}?" icon="ui-icon-alert" />
-                            </p:commandButton>    
+                            <p:commandButton icon="ui-icon-trash" oncomplete="PF('dialogDeleteCreditCard').show();" >
+                                <f:setPropertyActionListener value="#{creditCard}" target="#{profileManagedBean.creditCardToDelete}"/>                          
+                                <p:dialog id="dialogDeleteCreditCard" widgetVar="dialogDeleteCreditCard" header="Delete Credit Card" closable="true">
+                                    <p:row>
+                                        <p:column>
+                                            <p:commandButton value="Confirm deletion" update="@this dataTableAllCreditCards" action="#{profileManagedBean.deleteCreditCard()}" oncomplete="PF('dialogDeleteCreditCard').hide()"/>
+                                        </p:column>
+                                        <p:column>
+                                            <p:commandButton value="Cancel" oncomplete="PF('dialogDeleteCreditCard').hide()"/>
+                                        </p:column>
+                                    </p:row>
+                                </p:dialog>
+                            </p:commandButton>
                         </p:column>
                     </p:dataTable>                
                 </h:form>

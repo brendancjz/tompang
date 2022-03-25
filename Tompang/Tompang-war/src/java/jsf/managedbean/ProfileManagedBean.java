@@ -56,15 +56,16 @@ public class ProfileManagedBean implements Serializable {
 
     private String currPassword;
     private String newPassword;
-   
 
     private List<User> following;
     private List<User> followers;
-    
+
     private Boolean showUploadedFile; //To hide the initial display of uploaded file 
-    
+
     private CreditCard newCreditCard;
     private List<CreditCard> creditCards;
+
+    private CreditCard creditCardToDelete;
 
     public ProfileManagedBean() {
         System.out.println("ProfileManagedBean");
@@ -85,7 +86,7 @@ public class ProfileManagedBean implements Serializable {
         setFollowing(user.getFollowing());
         setFollowers(user.getFollowers());
         setCreditCards(user.getCreditCards());
-        
+
         profileContent = "EDIT_PROFILE";
 
     }
@@ -122,31 +123,29 @@ public class ProfileManagedBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while updating password: " + ex.getMessage(), null));
         }
     }
-    
-    public void deleteCreditCard(ActionEvent event) {
+
+    public void deleteCreditCard() {
         System.out.println("delete credit card");
-        CreditCard creditCard = (CreditCard)event.getComponent().getAttributes().get("creditCardToDelete");
-        
-         if(getCreditCards().contains(creditCard)){
-            getCreditCards().remove(creditCard);
+        if (getCreditCards().contains(creditCardToDelete)) {
+            getCreditCards().remove(creditCardToDelete);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Credit Card deleted successfully!", null));
-        }  else {
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "An error has occured while deleting the Credit Card", null));
-         }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "An error has occured while deleting the Credit Card", null));
+        }
     }
-    
+
     public void addCreditCard(ActionEvent event) {
-        try{
+        try {
             creditCardSessionBean.createNewCreditCard(this.newCreditCard, this.user.getUserId());
             this.user = userSessionBean.getUserByUserId(this.user.getUserId());
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", this.user);
             this.initialise();
             this.newCreditCard = null;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Credit Card added successfully!", null));
-        } catch(CreateNewCreditCardException | EntityNotFoundException ex){
+        } catch (CreateNewCreditCardException | EntityNotFoundException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while adding the new Credit Card: " + ex.getMessage(), null));
         }
-        
+
     }
 
     public void handleFileUpload(FileUploadEvent event) {
@@ -195,7 +194,7 @@ public class ProfileManagedBean implements Serializable {
     public void toggleChangePassword() {
         profileContent = "CHANGE_PASSWORD";
     }
-    
+
     public void toggleMyListing() {
         profileContent = "MY_LISTINGS";
     }
@@ -203,7 +202,7 @@ public class ProfileManagedBean implements Serializable {
     public void toggleViewCreditCards() {
         profileContent = "VIEW_CREDIT_CARDS";
     }
-    
+
     public User getUser() {
         return user;
     }
@@ -371,6 +370,20 @@ public class ProfileManagedBean implements Serializable {
 
     public void setShowUploadedFile(Boolean showUploadedFile) {
         this.showUploadedFile = showUploadedFile;
+    }
+
+    /**
+     * @return the creditCardToDelete
+     */
+    public CreditCard getCreditCardToDelete() {
+        return creditCardToDelete;
+    }
+
+    /**
+     * @param creditCardToDelete the creditCardToDelete to set
+     */
+    public void setCreditCardToDelete(CreditCard creditCardToDelete) {
+        this.creditCardToDelete = creditCardToDelete;
     }
 
 }
