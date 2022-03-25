@@ -37,16 +37,16 @@
 
     <ui:define name="content">
         <div>
-            <div style="background-color: #0190e9; padding: 0 0 15px 20px; margin-bottom: 10px; width: 100%">
+            <div style="background-color: #0190e9; padding: 0 0 15px 20px; margin-bottom: 10px; width: 100%; ">
                 <h:form id="profileHeader"> <!-- Just to rerender the profile pic-->
-                    <h:graphicImage style="border-radius: 20px;width: 15%;min-width: 185px;margin-top: 20px;" value="#{profileManagedBean.getProfilePic()}"/>
-                    <p style="color: white; font-size: 20px">#{profileManagedBean.getUsername()}</p>
-                    <p style="color: white">Following: #{profileManagedBean.getFollowing().size()}</p>
-                    <p:commandButton update="viewFollowing" oncomplete="PF('dialogViewFollowing').show()" title="View Following" />
-                    <p style="color: white">Followers: #{profileManagedBean.getFollowers().size()}</p>
-                    <p:commandButton update="viewFollowers" oncomplete="PF('dialogViewFollowers').show()" title="View Followers" />
+                    <p style="color: white; font-size: 40px; padding-top: 10px">#{profileManagedBean.getUsername()}</p>
+                    
+                    <h:graphicImage style="border-radius: 70px;width: 140px;height: 120px;margin-top: 20px;" value="#{profileManagedBean.getProfilePic()}"/>
+                    
+                    <p:commandButton class="blue-button" update="viewFollowing" oncomplete="PF('dialogViewFollowing').show()" title="#{profileManagedBean.getFollowing().size()} Following" />
+                    
+                    <p:commandButton class="blue-button" update="viewFollowers" oncomplete="PF('dialogViewFollowers').show()" title="#{profileManagedBean.getFollowers().size()} Followers" />
                 </h:form>
-
             </div>
             <h:panelGroup rendered="#{profileManagedBean.profileContent eq 'EDIT_PROFILE'}">
                 <h2>Edit Profile</h2>
