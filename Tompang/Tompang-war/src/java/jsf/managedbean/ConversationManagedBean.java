@@ -95,11 +95,10 @@ public class ConversationManagedBean implements Serializable {
     public void createNewMessage() {
         try {
             Message message = new Message();
-            User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
             if (isUserTheBuyer()) {
-                message = new Message(newMessage, true, user.getUserId());
+                message = new Message(newMessage, true);
             } else {
-                message = new Message(newMessage, false, user.getUserId());
+                message = new Message(newMessage, false);
             }
             Long messageId = getMessageSessionBean().createNewMessage(message);
 
