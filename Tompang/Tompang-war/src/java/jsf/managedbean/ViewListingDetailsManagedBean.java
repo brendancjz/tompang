@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 
@@ -113,6 +114,14 @@ public class ViewListingDetailsManagedBean implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().redirect("conversation.xhtml");
 
     }
+    
+    public void checkOut(ActionEvent event) throws IOException {
+        Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listing", listing);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("checkout.xhtml");
+          
+    }
+    
     
     public Boolean didUserCreateThisListing() {
         User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");

@@ -151,7 +151,7 @@ public class DataInitSessionBean {
             User dummyUser2 = (User) em.find(User.class, 2L);
             User dummyUser3 = (User) em.find(User.class, 3L);
             Listing listing3 = (Listing) em.find(Listing.class, 3L);
-            Transaction transaction1 = new Transaction(Double.parseDouble("100"), createdOn, dummyUser2, dummyUser3, listing3, dummyUser2.getCreditCards().get(0), dummyUser3.getCreditCards().get(0));
+            Transaction transaction1 = new Transaction(Double.parseDouble("100"), createdOn, dummyUser2, dummyUser3, listing3, dummyUser2.getCreditCards().get(0));
             em.persist(transaction1);
             em.flush();
         }

@@ -30,9 +30,8 @@
                     <f:attribute name="listing" value="#{viewListingDetailsManagedBean.listingToView}" />
                     <f:ajax event="click" execute="@this" render="@all" listener="#{viewListingDetailsManagedBean.dislikeListing}" />
                 </h:commandButton>
-                <h:commandButton class="blue-button" value="Buy Now" rendered="#{!viewListingDetailsManagedBean.didUserCreateThisListing()}">
-                    <f:attribute name="listing" value="#{listing}" />
-                    <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.likeListing}" />
+                <h:commandButton class="blue-button" value="Buy Now" rendered="#{!viewListingDetailsManagedBean.didUserCreateThisListing()}" actionListener="#{viewListingDetailsManagedBean.checkOut}">
+                    <f:attribute name="listing" value="#{viewListingDetailsManagedBean.listingToView}" />
                 </h:commandButton> 
             </h:form>
 

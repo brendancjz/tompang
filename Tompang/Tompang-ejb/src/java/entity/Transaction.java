@@ -57,19 +57,23 @@ public class Transaction implements Serializable {
     private Listing listing;
     @OneToOne
     private Dispute dispute;
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
+    private CreditCard creditCard;
     
     public Transaction() {
         this.isCompleted = false;
         this.hasDispute = false;
     }
 
-    public Transaction(Double amount, Date createdOn, User buyer, User seller, Listing listing, CreditCard buyerCard, CreditCard sellerCard) {
+    public Transaction(Double amount, Date createdOn, User buyer, User seller, Listing listing, CreditCard buyerCard) {
         this();
         this.amount = amount;
         this.createdOn = createdOn;
         this.buyer = buyer;
         this.seller = seller;
         this.listing = listing;
+        this.creditCard = buyerCard;
     }
 
     public Long getTransactionId() {
@@ -161,5 +165,19 @@ public class Transaction implements Serializable {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return the creditCard
+     */
+    public CreditCard getCreditCard() {
+        return creditCard;
+    }
+
+    /**
+     * @param creditCard the creditCard to set
+     */
+    public void setCreditCard(CreditCard creditCard) {
+        this.creditCard = creditCard;
     }
 }

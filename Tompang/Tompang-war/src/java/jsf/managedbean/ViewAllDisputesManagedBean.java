@@ -44,7 +44,7 @@ public class ViewAllDisputesManagedBean implements Serializable{
     public void retrieveAllUsers() {
   
         try {
-            disputes = disputeSessionBean.retrieveAllDisputes();
+            setDisputes(disputeSessionBean.retrieveAllDisputes());
         } catch (EmptyListException ex) {
             System.out.println("Unable to retrieve list of users.");
         }
@@ -58,6 +58,34 @@ public class ViewAllDisputesManagedBean implements Serializable{
         }catch(EntityNotFoundException ex){
             
         }
+    }
+
+    /**
+     * @return the viewDisputeDetailsManagedBean
+     */
+    public ViewDisputeDetailsManagedBean getViewDisputeDetailsManagedBean() {
+        return viewDisputeDetailsManagedBean;
+    }
+
+    /**
+     * @param viewDisputeDetailsManagedBean the viewDisputeDetailsManagedBean to set
+     */
+    public void setViewDisputeDetailsManagedBean(ViewDisputeDetailsManagedBean viewDisputeDetailsManagedBean) {
+        this.viewDisputeDetailsManagedBean = viewDisputeDetailsManagedBean;
+    }
+
+    /**
+     * @return the disputes
+     */
+    public List<Dispute> getDisputes() {
+        return disputes;
+    }
+
+    /**
+     * @param disputes the disputes to set
+     */
+    public void setDisputes(List<Dispute> disputes) {
+        this.disputes = disputes;
     }
     
 }
