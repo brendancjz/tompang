@@ -279,6 +279,13 @@ and open the template in the editor.
     align-content: center
 }
 
+.profile-details {
+    background-color: #0190e9; 
+    padding: 0 0 15px 20px; 
+    margin-bottom: 10px; 
+    width: 100%
+}
+
 /*To hide the irrelevant city after country changed*/
 .ui-selectonemenu-panel.hideDisabled .ui-selectonemenu-item.ui-state-disabled { 
     display: none;

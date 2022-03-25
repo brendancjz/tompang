@@ -6,9 +6,11 @@
 package jsf.managedbean;
 
 import ejb.stateless.ListingSessionBeanLocal;
+import ejb.stateless.UserSessionBeanLocal;
 import entity.Listing;
 import entity.User;
 import exception.EmptyListException;
+import exception.EntityNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -25,6 +27,9 @@ import javax.faces.event.AjaxBehaviorEvent;
 @Named(value = "userProfileManagedBean")
 @RequestScoped
 public class UserProfileManagedBean {
+
+    @EJB
+    private UserSessionBeanLocal userSessionBean;
 
     @EJB
     private ListingSessionBeanLocal listingSessionBeanLocal;
@@ -65,6 +70,38 @@ public class UserProfileManagedBean {
         
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userToView", user);
         FacesContext.getCurrentInstance().getExternalContext().redirect("userListings.xhtml");
+    }
+    
+    public void followUser(AjaxBehaviorEvent event) {
+        try {
+            User userToFollow = (User) event.getComponent().getAttributes().get("user");
+            User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
+            
+            userSessionBean.follow(user.getUserId(), userToFollow.getUserId());
+            
+            //Update user to view in session scope
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", userSessionBean.getUserByUserId(user.getUserId()));
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userToView", userSessionBean.getUserByUserId(userToView.getUserId()));
+            this.retrieveUser(); 
+        } catch (EntityNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    public void unfollowUser(AjaxBehaviorEvent event) {
+        try {
+            User userToUnfollow = (User) event.getComponent().getAttributes().get("user");
+            User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
+            
+            userSessionBean.unfollow(user.getUserId(), userToUnfollow.getUserId());
+            
+            //Update users to view in session scope
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", userSessionBean.getUserByUserId(user.getUserId()));
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userToView", userSessionBean.getUserByUserId(userToView.getUserId()));
+            this.retrieveUser(); 
+        } catch (EntityNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
     
     public List<Listing> getMyListings() {
