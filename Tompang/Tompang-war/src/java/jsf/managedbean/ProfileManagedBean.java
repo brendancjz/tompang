@@ -362,4 +362,12 @@ public class ProfileManagedBean implements Serializable {
         this.newCreditCard = newCreditCard;
     }
 
+    public Boolean getShowUploadedFile() {
+        return showUploadedFile;
+    }
+
+    public void setShowUploadedFile(Boolean showUploadedFile) {
+        this.showUploadedFile = showUploadedFile;
+    }
+
 }

@@ -54,15 +54,15 @@
                         <h:outputText value="#{viewAllUsersManagedBean.getUserJoinedOn(user)}" />
                     </p:column>
 
-                    <p:column headerText="Email" width="20%" filterBy="#{user.email}" sortBy="#{user.email}" filterStyle="display:none;">
+                    <p:column headerText="Email" width="15%" filterBy="#{user.email}" sortBy="#{user.email}" filterStyle="display:none;">
                         <h:outputText value="#{user.email}" />
                     </p:column>
                     
-                    <p:column headerText="Is Disabled" width="8%" filterBy="#{user.isDisabled}" sortBy="#{user.isDisabled}" filterStyle="display:none;">
+                    <p:column headerText="Is Disabled" filterBy="#{user.isDisabled}" sortBy="#{user.isDisabled}" filterStyle="display:none;">
                         <h:outputText value="#{user.isDisabled}" />
                     </p:column>
 
-                    <p:column headerText="Action">
+                    <p:column headerText="Action" width="10%" >
                         <p:commandButton update="ccViewUserDetails:formViewUserDetails" oncomplete="PF('dialogViewUserDetails').show()" icon="ui-icon-document" title="View">
                             <f:setPropertyActionListener value="#{user}" target="#{viewAllUsersManagedBean.viewUserDetailsManagedBean.userEntityToView}" />
                         </p:commandButton>

@@ -31,6 +31,7 @@ public class MyListingsManagedBean {
     @EJB
     private UserSessionBeanLocal userSessionBean;
     private List<Listing> myListings;
+    private List<Listing> userLikedListings;
     
     /**
      * Creates a new instance of MyListingsManagedBean
@@ -41,7 +42,7 @@ public class MyListingsManagedBean {
     @PostConstruct
     public void retrieveMyListings() {
         User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
-        
+        this.userLikedListings = user.getLikedListings();
         myListings = user.getCreatedListings();
     }
 
@@ -92,6 +93,14 @@ public class MyListingsManagedBean {
 
     public void setMyListings(List<Listing> myListings) {
         this.myListings = myListings;
+    }
+
+    public List<Listing> getUserLikedListings() {
+        return userLikedListings;
+    }
+
+    public void setUserLikedListings(List<Listing> userLikedListings) {
+        this.userLikedListings = userLikedListings;
     }
     
     
