@@ -153,6 +153,10 @@ public class ProfileManagedBean implements Serializable {
     public void toggleChangePassword() {
         profileContent = "CHANGE_PASSWORD";
     }
+    
+    public void toggleMyListing() {
+        profileContent = "MY_LISTINGS";
+    }
 
     public User getUser() {
         return user;

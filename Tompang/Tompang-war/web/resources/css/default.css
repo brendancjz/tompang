@@ -152,11 +152,23 @@ and open the template in the editor.
     border: none;
     border-radius: 5px;
     padding: 5px 10px;
-
-
 }
 
 .blue-button:hover {
+    cursor: pointer;
+}
+
+.white-button {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.white-button:hover {
     cursor: pointer;
 }
 

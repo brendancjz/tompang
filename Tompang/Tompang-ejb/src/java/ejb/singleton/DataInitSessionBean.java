@@ -63,9 +63,9 @@ public class DataInitSessionBean {
             //Create Admin
             dob = Date.from(LocalDate.of(1999, 12, 24).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 
-            manager = new User("Sean", "Ang", "sean.ang@gmail.com", "admin", "password", dob, userProfilePic, 98769871L, true);
+            User admin = new User("Sean", "Ang", "sean.ang@gmail.com", "admin", "password", dob, userProfilePic, 98769871L, true);
 
-            em.persist(manager);
+            em.persist(admin);
             em.flush();
 
             //Create User1
@@ -88,9 +88,13 @@ public class DataInitSessionBean {
             em.flush();
 
             User user = (User) em.find(User.class, 5L);
-            user.getFollowers().add(dummyUser);
-            user.getFollowers().add(dummyUser2);
-            user.getFollowing().add(manager);
+            try {
+                userSessionBean.follow(manager.getUserId(), dummyUser2.getUserId());
+                userSessionBean.follow(dummyUser3.getUserId(), dummyUser2.getUserId());
+                userSessionBean.follow(dummyUser3.getUserId(), manager.getUserId());
+            } catch (EntityNotFoundException ex) {
+                System.out.print(ex.getMessage());
+            }
         }
 
         if (em.find(CreditCard.class, 1L) == null) {
