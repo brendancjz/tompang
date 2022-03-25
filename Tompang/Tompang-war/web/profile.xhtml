@@ -284,7 +284,7 @@
                         <p:row>
                             <p:column colspan="3">
                                 <p:commandButton type="reset" value="Clear" />&nbsp;
-                                <p:commandButton  value="Add New Credit Card" update="@form formAllCreditCards:dataTableAllCreditCards" actionListener="#{profileManagedBean.addCreditCard}" oncomplete="PF('dialogAddNewCreditCard').show();" />
+                                <p:commandButton  value="Add New Credit Card" update="@parent" actionListener="#{profileManagedBean.addCreditCard}" oncomplete="PF('dialogAddNewCreditCard').hide());" />
                             </p:column>
                         </p:row>
 
