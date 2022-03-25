@@ -198,10 +198,11 @@
                             <h:outputText value="#{creditCard.ccName}" />
                         </p:column>
                         <p:column headerText="CC Number" >
-                            <h:outputText value="#{creditCard.ccNumber}" />
+                            <h:outputText value="#{profileManagedBean.getFormattedCCNumber(creditCard.ccNumber)}" />
                         </p:column>
                         <p:column headerText="CC Expiry Date" >
-                            <h:outputText value="#{creditCard.expiryDate}" />
+                            <h:outputText value="#{creditCard.expiryDate.toString().substring(4, 10)}
+                                          #{creditCard.expiryDate.toString().substring(24)}" />
                         </p:column>
                         <p:column headerText="Action" >
                             <p:commandButton icon="ui-icon-trash" oncomplete="PF('dialogDeleteCreditCard').show();" >

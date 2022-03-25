@@ -186,6 +186,12 @@ public class ProfileManagedBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "File upload error: " + ex.getMessage(), ""));
         }
     }
+    
+    public String getFormattedCCNumber(Long ccNumber) {
+        String number = Long.toString(ccNumber);
+        String formattedNumber = number.substring(0,4) + " " + number.substring(4,8) + " " + number.substring(8,12) + " " + number.substring(12,16);
+        return formattedNumber;
+    }
 
     public void toggleEditProfile() {
         profileContent = "EDIT_PROFILE";
