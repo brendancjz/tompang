@@ -41,6 +41,7 @@ public class MyListingsManagedBean {
     
     @PostConstruct
     public void retrieveMyListings() {
+        System.out.println("Post Construct of MyListingsManagedBean called.");
         User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
         this.userLikedListings = user.getLikedListings();
         myListings = user.getCreatedListings();

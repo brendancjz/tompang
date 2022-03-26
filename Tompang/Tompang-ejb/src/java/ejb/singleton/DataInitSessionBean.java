@@ -5,6 +5,7 @@
  */
 package ejb.singleton;
 
+import ejb.stateless.ListingSessionBeanLocal;
 import ejb.stateless.UserSessionBeanLocal;
 import entity.Conversation;
 import entity.CreditCard;
@@ -36,6 +37,9 @@ import javax.persistence.PersistenceContext;
 @LocalBean
 @Startup
 public class DataInitSessionBean {
+
+    @EJB
+    private ListingSessionBeanLocal listingSessionBean;
 
     @EJB
     private UserSessionBeanLocal userSessionBean;
@@ -164,7 +168,7 @@ public class DataInitSessionBean {
             photosHeadphone.add("/uploadedFiles/headphone_4.jpg");
             
             listing = new Listing("USA", "Michigan", "Noise Cancelling Wireless Bluetooth Headphones", "I'm heading over to Michigan for business. Office is near the official Bose store. Reach out if you would like to buy a pair!", 
-                    "ELECTRONICS", 600.00, expectedArrivalDate, manager, 2, photosKeyboard);
+                    "ELECTRONICS", 600.00, expectedArrivalDate, manager, 2, photosHeadphone);
             em.persist(listing);
             em.flush();
             
@@ -191,7 +195,28 @@ public class DataInitSessionBean {
             listing = new Listing("Japan", "Chiba", "Gummy Candy", "Gluten Tag!", "FOOD", 7.00, expectedArrivalDate, iggy, 10, photos3);
             em.persist(listing);
             em.flush();
+            
+            List<String> photosSunblock = new ArrayList<>();
+            photosSunblock.add("/uploadedFiles/sunblock_1.jpg");
+            photosSunblock.add("/uploadedFiles/sunblock_2.jpg");
+            listing = new Listing("Japan", "Kawasaki", "Anessa UV Sunscreen Skin Care", "Sunscreen skin care 60ml authentic from Japan. SPF50+ moisturiser", "GIFTS", 25.00, expectedArrivalDate, iggy, 8, photosSunblock);
+            em.persist(listing);
+            em.flush();
+            
+            List<String> photosBagpack = new ArrayList<>();
+            photosBagpack.add("/uploadedFiles/bagpack_1.jpg");
+            photosBagpack.add("/uploadedFiles/bagpack_2.jpg");
+            listing = new Listing("USA", "Colorado", "Wandrd Prvke Bagpack", "Two options, 21L or 31L. Let me know ASAP and I can only buy back 2 due to limited luggage space.", "GIFTS", 250.00, expectedArrivalDate, iggy, 2, photosBagpack);
+            em.persist(listing);
+            em.flush();
 
+            User alice = (User) em.find(User.class, 4L);
+            List<String> photosChain = new ArrayList<>();
+            photosChain.add("/uploadedFiles/chain_1.jpg");
+            listing = new Listing("Korea", "Busan", "Stainless Steel Bracelet", "There are these cool bracelet nearby my area in Korea right now. Anybody wants one?", "ACCESSORIES", 25.00, expectedArrivalDate, iggy, 12, photosChain);
+            em.persist(listing);
+            em.flush();
+            
             User guojun = (User) em.find(User.class, 5L);
             List<String> photos = new ArrayList<>();
             photos.add("/uploadedFiles/bathing_ape_bape.jpg");
@@ -199,6 +224,45 @@ public class DataInitSessionBean {
             listing = new Listing("Korea", "Seoul", "Black Bape T-Shirt", "Going to Korea for a business trip. Will pass by their local Bathing Ape store. Let's chat if you're keen to buy!", "APPAREL", 100.00, expectedArrivalDate, guojun, 3, photos);
             em.persist(listing);
             em.flush();
+            
+            
+            try {
+                // LIKE LISTINGS
+                //manager liking some listings
+                listingSessionBean.incrementListingLikes(4L);
+                userSessionBean.associateListingToUserLikedListings(1L, 4L);
+                listingSessionBean.incrementListingLikes(7L);
+                userSessionBean.associateListingToUserLikedListings(1L, 7L);
+                listingSessionBean.incrementListingLikes(3L);
+                userSessionBean.associateListingToUserLikedListings(1L, 3L);
+                //admin liking some listings
+                listingSessionBean.incrementListingLikes(4L);
+                userSessionBean.associateListingToUserLikedListings(2L, 4L);
+                listingSessionBean.incrementListingLikes(5L);
+                userSessionBean.associateListingToUserLikedListings(2L, 5L);
+                listingSessionBean.incrementListingLikes(10L);
+                userSessionBean.associateListingToUserLikedListings(2L, 10L);
+                //iggy liking some listings
+                listingSessionBean.incrementListingLikes(4L);
+                userSessionBean.associateListingToUserLikedListings(3L, 4L);
+                listingSessionBean.incrementListingLikes(5L);
+                userSessionBean.associateListingToUserLikedListings(3L, 5L);
+                listingSessionBean.incrementListingLikes(10L);
+                userSessionBean.associateListingToUserLikedListings(3L, 10L);
+                listingSessionBean.incrementListingLikes(1L);
+                userSessionBean.associateListingToUserLikedListings(3L, 1L);
+                listingSessionBean.incrementListingLikes(2L);
+                userSessionBean.associateListingToUserLikedListings(3L, 2L);
+                listingSessionBean.incrementListingLikes(3L);
+                userSessionBean.associateListingToUserLikedListings(3L, 3L);
+                //guojun liking some listings
+                listingSessionBean.incrementListingLikes(6L);
+                userSessionBean.associateListingToUserLikedListings(5L, 6L);
+                listingSessionBean.incrementListingLikes(8L);
+                userSessionBean.associateListingToUserLikedListings(5L, 8L);
+            } catch (EntityNotFoundException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
 
         if (em.find(Transaction.class, 1L) == null) {
