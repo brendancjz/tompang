@@ -9,37 +9,29 @@
 
     <ui:define name="content">
         <div  style="background-color: #0190e9; padding: 0 0 15px 20px; margin-bottom: 10px; width: 100%;">
-<!--            <div style="background-color: #0190e9; padding: 0 0 15px 20px; margin-bottom: 10px; width: 100%; align-items: center ">
-                <h:form id="profileHeader">  Just to rerender the profile pic
-                    <p style="color: white; font-size: 40px; padding-top: 10px">#{profileManagedBean.getUsername()}</p>
-                    
-                    <h:graphicImage style="border-radius: 70px;width: 140px;height: 120px;margin-top: 20px;" value="#{profileManagedBean.getProfilePic()}"/>
-                    
-                    <p:commandButton class="blue-button" update="viewFollowing" oncomplete="PF('dialogViewFollowing').show()" title="#{profileManagedBean.getFollowing().size()} Following" />
-                    
-                    <p:commandButton class="blue-button" update="viewFollowers" oncomplete="PF('dialogViewFollowers').show()" title="#{profileManagedBean.getFollowers().size()} Followers" />
-                </h:form>
-            </div>-->
                     <p style="color: white; font-size: 40px; padding-top: 10px">#{userProfileManagedBean.userToView.getUsername()}</p>
                     <h:graphicImage style="border-radius: 70px;width: 140px;height: 120px;margin-top: 20px" value="#{userProfileManagedBean.userToView.getProfilePic()}"/>
                     
-                    <p:commandButton class="blue-button" update="viewFollowing" oncomplete="PF('dialogViewFollowing').show()" title="#{profileManagedBean.getFollowing().size()} Following" />
+                    <p:commandButton class="blue-button" update="viewFollowing" oncomplete="PF('dialogViewFollowing').show()" title="#{userProfileManagedBean.userToViewFollowing.size()} Following" />
                     
-                    <p:commandButton class="blue-button" update="viewFollowers" oncomplete="PF('dialogViewFollowers').show()" title="#{profileManagedBean.getFollowers().size()} Followers" />
+                    <p:commandButton class="blue-button" update="viewFollowers" oncomplete="PF('dialogViewFollowers').show()" title="#{userProfileManagedBean.userToViewFollowers.size()} Followers" />
                     
                     <div>
-                    <p:commandButton class="white-button" rendered="#{!userManagedBean.following.contains(userProfileManagedBean.userToView)}" value="Follow">
-                        <f:attribute name="user" value="#{userProfileManagedBean.userToView}" />
-                        <f:ajax event="click" execute="@this" render="@all" listener="#{userProfileManagedBean.followUser}" />
-                    </p:commandButton>
-                    <p:commandButton class="white-button" rendered="#{userManagedBean.following.contains(userProfileManagedBean.userToView)}" value="Unfollow">
-                        <f:attribute name="user" value="#{userProfileManagedBean.userToView}" />
-                        <f:ajax event="click" execute="@this" render="@all" listener="#{userProfileManagedBean.unfollowUser}" />
-                    </p:commandButton>
-                    <p:commandButton class="white-button" value="Message">
-                        <f:attribute name="user" value="#{userProfileManagedBean.userToView}" />
-                        <f:ajax event="click" execute="@this" render="@all" listener="#{userProfileManagedBean.unfollowUser}" />
-                    </p:commandButton>
+                        <h:form>
+                            <h:commandButton class="white-button" rendered="#{userProfileManagedBean.currentUser != userProfileManagedBean.userToView and !userProfileManagedBean.currentUser.following.contains(userProfileManagedBean.userToView)}" value="Follow">
+                                <f:attribute name="user" value="#{userProfileManagedBean.userToView}" />
+                                <f:ajax event="click" execute="@this" render="@all" listener="#{userProfileManagedBean.followUser}" />
+                            </h:commandButton>
+                            <h:commandButton class="white-button" rendered="#{userProfileManagedBean.currentUser != userProfileManagedBean.userToView and userProfileManagedBean.currentUser.following.contains(userProfileManagedBean.userToView)}" value="Unfollow">
+                                <f:attribute name="user" value="#{userProfileManagedBean.userToView}" />
+                                <f:ajax event="click" execute="@this" render="@all" listener="#{userProfileManagedBean.unfollowUser}" />
+                            </h:commandButton>
+                            <h:commandButton class="white-button" value="Message" style="margin-left: 10px;" rendered="#{userProfileManagedBean.currentUser != userProfileManagedBean.userToView}">
+                                <f:attribute name="user" value="#{userProfileManagedBean.userToView}" />
+                                <f:ajax event="click" execute="@this" render="@all" listener="#{userProfileManagedBean.unfollowUser}" />
+                            </h:commandButton>
+                        </h:form>
+                    
                    </div>
         </div>
         

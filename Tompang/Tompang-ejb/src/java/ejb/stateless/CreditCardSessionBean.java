@@ -14,6 +14,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -77,5 +79,19 @@ public class CreditCardSessionBean implements CreditCardSessionBeanLocal {
             user.getCreditCards().remove(cc);
         }
         em.remove(cc);
+    }
+    
+    @Override
+    public CreditCard getCreditCardByCCNumber(String ccNum) throws EntityNotFoundException {
+        Query query = em.createQuery("SELECT c FROM CreditCard c WHERE c.ccNumber = :num");
+        query.setParameter("num", Long.valueOf(ccNum));
+        
+        
+        try {
+            return (CreditCard) query.getSingleResult();
+        } catch (NoResultException | NonUniqueResultException ex) {
+            throw new EntityNotFoundException("Credit Card Number " + ccNum + " does not exist!");
+        }
+        
     }
 }

@@ -34,7 +34,12 @@ public class UserProfileManagedBean {
     @EJB
     private ListingSessionBeanLocal listingSessionBeanLocal;
     
+    private User currentUser;
+    
     private User userToView;
+    private List<User> userToViewFollowing;
+    private List<User> userToViewFollowers;
+    
     private String username;
     private List<Listing> myListings;
     private List<Listing> userListings;
@@ -45,9 +50,11 @@ public class UserProfileManagedBean {
     @PostConstruct
     public void retrieveUser() {
         try {
-            User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
+            currentUser = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
             userToView = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userToView");
-            this.myListings = listingSessionBeanLocal.retrieveUserListings(user.getUsername());
+            this.userToViewFollowing = userToView.getFollowing();
+            this.userToViewFollowers = userToView.getFollowers();
+            this.myListings = listingSessionBeanLocal.retrieveUserListings(currentUser.getUsername());
         } catch (EmptyListException ex) {
             System.out.println(ex.getMessage());
         }
@@ -134,6 +141,30 @@ public class UserProfileManagedBean {
 
     public void setUserToView(User userToView) {
         this.userToView = userToView;
+    }
+
+    public List<User> getUserToViewFollowing() {
+        return userToViewFollowing;
+    }
+
+    public void setUserToViewFollowing(List<User> userToViewFollowing) {
+        this.userToViewFollowing = userToViewFollowing;
+    }
+
+    public List<User> getUserToViewFollowers() {
+        return userToViewFollowers;
+    }
+
+    public void setUserToViewFollowers(List<User> userToViewFollowers) {
+        this.userToViewFollowers = userToViewFollowers;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
     
     
