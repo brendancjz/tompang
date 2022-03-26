@@ -140,17 +140,48 @@ public class DataInitSessionBean {
 
         if (em.find(Listing.class, 1L) == null) {
             Date expectedArrivalDate = Date.from(LocalDate.now().atStartOfDay().plusDays(7).atZone(ZoneId.systemDefault()).toInstant());
-            User dummyUser1 = (User) em.find(User.class, 1L);
+            User manager = (User) em.find(User.class, 1L);
             List<String> photos1 = new ArrayList<>();
             photos1.add("/uploadedFiles/japanese_biscuits.jpeg");
-            Listing listing = new Listing("Japan", "Osaka", "Japan Biscuit", "Lovely japanese biscuits!", "FOOD", 35.00, expectedArrivalDate, dummyUser1, 5, photos1);
+            Listing listing = new Listing("Japan", "Osaka", "Japan Biscuit", "Lovely japanese biscuits!", "FOOD", 35.00, expectedArrivalDate, manager, 5, photos1);
+            em.persist(listing);
+            em.flush();
+            
+            List<String> photosKeyboard = new ArrayList<>();
+            photosKeyboard.add("/uploadedFiles/keyboard_1.jpg");
+            photosKeyboard.add("/uploadedFiles/keyboard_2.jpg");
+            photosKeyboard.add("/uploadedFiles/keyboard_3.jpg");
+            listing = new Listing("USA", "Washington", "Mechanical Keyboard Pokemon Style", "Work on a minimalist keyboard that places every key, command, and shortcut at your fingertips.\n" +
+                    "The minimalist form factor aligns your shoulders and allows you to place your mouse closer to your keyboard for less hand reaching.", 
+                    "ELECTRONICS", 65.00, expectedArrivalDate, manager, 3, photosKeyboard);
             em.persist(listing);
             em.flush();
 
+            List<String> photosHeadphone = new ArrayList<>();
+            photosHeadphone.add("/uploadedFiles/headphone_1.jpg");
+            photosHeadphone.add("/uploadedFiles/headphone_2.jpg");
+            photosHeadphone.add("/uploadedFiles/headphone_3.jpg");
+            photosHeadphone.add("/uploadedFiles/headphone_4.jpg");
+            
+            listing = new Listing("USA", "Michigan", "Noise Cancelling Wireless Bluetooth Headphones", "I'm heading over to Michigan for business. Office is near the official Bose store. Reach out if you would like to buy a pair!", 
+                    "ELECTRONICS", 600.00, expectedArrivalDate, manager, 2, photosKeyboard);
+            em.persist(listing);
+            em.flush();
+            
             User admin = (User) em.find(User.class, 2L);
             List<String> photos2 = new ArrayList<>();
             photos2.add("/uploadedFiles/tteokbokki.jpg");
             listing = new Listing("Korea", "Seoul", "Tteokbokki", "Authentic spicy rice cakes!", "FOOD", 15.00, expectedArrivalDate, admin, 5, photos2);
+            em.persist(listing);
+            em.flush();
+            
+            List<String> photosShoes = new ArrayList<>();
+            photosShoes.add("/uploadedFiles/adidas_shoes_1.jpg");
+            photosShoes.add("/uploadedFiles/adidas_shoes_2.jpg");
+            photosShoes.add("/uploadedFiles/adidas_shoes_3.jpg");
+            listing = new Listing("Malaysia", "George Town", "Adidas Alphatorsion 2.0 - Women Running Shoes", "VERSATILE RUNNING SHOES THAT SUPPORT ALL YOUR WORKOUT GOALS.\n" +
+" Diversify your training and get a leg up on the competition. Box jumps, bear crawls, burpees? Take it all in stride and push towards excellence in these adidas running shoes.", 
+                    "FOOTWEAR", 150.00, expectedArrivalDate, admin, 2, photosShoes);
             em.persist(listing);
             em.flush();
 
