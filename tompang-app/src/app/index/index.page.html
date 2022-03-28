@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Index</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button [routerLink]="['/login']">Login</ion-button>
+  <ion-button [routerLink]="['/register']">Register</ion-button>
+  <ion-button [routerLink]="['/shop']">Go to Shop</ion-button>
+
+  <div id="loginbox" class="loginbox">
+    <label for="username">Username </label>
+			<input type="text" [(ngModel)]="username" size="16" required maxlength="32" />
+
+			<label for="password">Password </label>
+			<input type="password" [(ngModel)]="password" size="16" required maxlength="32" />
+
+			<input type="reset" value="Clear" />
+
+			<input type="button" (click)="userLogin()" value="Login" />
+  </div>
+</ion-content>
