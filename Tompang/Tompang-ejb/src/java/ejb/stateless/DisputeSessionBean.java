@@ -43,7 +43,9 @@ public class DisputeSessionBean implements DisputeSessionBeanLocal {
             
             Transaction transaction = transactionSessionBean.getTransactionByTransactionId(transactionId);
             transaction.setDispute(dispute);
+            transaction.setHasDispute(true);
             dispute.setTransaction(transaction);
+            
             
         } catch(EntityNotFoundException ex){
             throw new CreateNewDisputeException();

@@ -61,6 +61,7 @@ public class Transaction implements Serializable {
     @JoinColumn(nullable = false)
     private CreditCard creditCard;
     
+    
     public Transaction() {
         this.isCompleted = false;
         this.hasDispute = false;
@@ -75,7 +76,21 @@ public class Transaction implements Serializable {
         this.listing = listing;
         this.creditCard = buyerCard;
     }
-
+    
+    public String disputeStatus(){
+        if(dispute != null){
+            if(dispute.isIsResolved()){
+                return "Resolved";
+            } else {
+                return "Ongoing";
+            }
+            
+        } else {
+            return "None";
+        }
+        
+    }
+    
     public Long getTransactionId() {
         return transactionId;
     }

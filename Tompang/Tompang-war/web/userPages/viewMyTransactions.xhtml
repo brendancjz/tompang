@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template/sidebarTemplate.xhtml"
+                xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
+                xmlns:p="http://primefaces.org/ui">
+                    
+    <ui:define name="content">
+           <h1> My Transactions </h1>
+        <br></br>
+        <h:form id="formViewMyTransactions">
+            <p:growl id="messages" redisplay="false"  />
+            <p:dataTable id="transactionsTable" widgetVar="transactionsTable" value="#{viewMyTransactionsManagedBean.transactions}" var="transaction" rowKey="#{transaction.transactionId}" rowIndexVar="row"
+                         filteredValue="#{viewMyTransactionsManagedBean.filteredTransactions}"
+                         rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
+                
+                <f:facet name="header">
+                        <p:outputPanel style="text-align: right;">
+                            <h:outputText value="Search all fields:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('transactionsTable').filter()" style="width:200px" placeholder="Enter keyword"/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column headerText="ID" width="4%" style="height: 30px" filterBy="#{transaction.transactionId}" sortBy="#{transaction.transactionId}" filterStyle="display:none;">
+                        <h:outputText value="#{transaction.transactionId}" />
+                    </p:column>
+
+                    <p:column headerText="Date" filterBy="#{transaction.createdOn}" sortBy="#{transaction.createdOn}" filterStyle="display:none;">
+                        <h:outputText value="#{transaction.createdOn}" />
+                    </p:column>
+
+                    <p:column headerText="Amount" filterBy="#{transaction.amount}" sortBy="#{transaction.amount}" filterStyle="display:none;">
+                        <h:outputText value="#{transaction.amount}" />
+                    </p:column>
+
+                    <p:column headerText="Listing" filterBy="#{transaction.listing.title}" sortBy="#{transaction.listing.title}" filterStyle="display:none;">
+                        <h:outputText value="#{transaction.listing.title}" />
+                    </p:column>
+
+                    <p:column headerText="Seller" filterBy="#{transaction.seller.firstName} + #{transaction.seller.lastName}" sortBy="#{transaction.seller.firstName} + #{transaction.seller.lastName}" filterStyle="display:none;">
+                        <h:outputText value="#{transaction.seller.firstName} #{transaction.seller.lastName}" />
+                    </p:column>
+
+                    <p:column headerText="Buyer" filterBy="#{transaction.buyer.firstName} + #{transaction.buyer.lastName}" sortBy="#{transaction.buyer.firstName} + #{transaction.buyer.lastName}" filterStyle="display:none;">
+                        <h:outputText value="#{transaction.buyer.firstName} #{transaction.buyer.lastName}" />
+                    </p:column>
+                
+                <p:column headerText="Dispute" filterBy="#{transaction.disputeStatus()}" sortBy="#{transaction.disputeStatus()}" filterStyle="display:none;">
+                        <h:outputText value="#{transaction.disputeStatus()}" />
+                    </p:column>
+
+                    <p:column headerText="Action" width="10%" >
+<!--                        <p:commandButton update="ccViewTransactionDetails:formViewTransactionDetails" oncomplete="PF('dialogViewTransactionDetails').show()" icon="ui-icon-document" title="View">
+                            <f:setPropertyActionListener value="#{transaction}" target="#{viewAllTransactionsManagedBean.viewTransactionDetailsManagedBean.transactionToView}" />
+                        </p:commandButton>-->
+                        <p:commandButton value="Raise dispute" onclick="PF('dialogRaiseDispute').show()" actionListener="#{viewMyTransactionsManagedBean.raiseDispute}"> 
+                            <f:attribute name="transactionId" value="#{transaction.transactionId}" />
+                        </p:commandButton>           
+                    </p:column>                
+                
+            </p:dataTable>
+        </h:form>
+            
+            <h:form id="raiseDispute">
+
+                <p:dialog id="dialogRaiseDispute" widgetVar="dialogRaiseDispute" header="Raise Dispute" closable="true">
+
+                    <p:messages id="messagesRaiseDispute" redisplay="false" />
+
+                    <p:panelGrid>
+
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="disputeDescription" value="Reason for Dispute: " style="font-weight: bold;" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="disputeDescription" value="#{viewMyTransactionsManagedBean.dispute.description}" placeholder="" required="true" requiredMessage="Reason for Dispute is required" />
+                            </p:column>
+                            <p:column>
+                                <p:message for="disputeDescription" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column colspan="3">
+                                <p:commandButton type="reset" value="Clear" />&nbsp;
+                                <p:commandButton  value="Raise Dispute" update="@form formViewMyTransactions:transactionsTable" actionListener="#{viewMyTransactionsManagedBean.doRaiseDispute}" oncomplete="PF('dialogRaiseDispute').hide());" />
+                            </p:column>
+                        </p:row>
+
+                    </p:panelGrid>
+
+                </p:dialog>
+
+            </h:form>
+              
+    </ui:define>
+    
+    
+</ui:composition>
+

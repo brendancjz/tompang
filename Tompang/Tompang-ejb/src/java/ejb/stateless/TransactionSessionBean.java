@@ -107,4 +107,18 @@ public class TransactionSessionBean implements TransactionSessionBeanLocal {
        
     }
     
+    @Override
+    public List<Transaction> retrieveTransactionsByUserId(Long userId){
+        
+        Query query = em.createQuery("SELECT t FROM Transaction t WHERE t.buyer.userId = ?1 OR t.seller.userId = ?2");
+        
+        query.setParameter(1, userId);
+        query.setParameter(2, userId);
+        
+        return query.getResultList();
+    
+    }
+        
+        
+        
 }
