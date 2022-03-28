@@ -97,9 +97,9 @@ public class ConversationManagedBean implements Serializable {
             Message message = new Message();
             User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
             if (isUserTheBuyer()) {
-                message = new Message(newMessage, true, user.getUserId());
+                message = new Message(newMessage, true, user.getUserId(), false);
             } else {
-                message = new Message(newMessage, false, user.getUserId());
+                message = new Message(newMessage, false, user.getUserId(), false);
             }
             Long messageId = getMessageSessionBean().createNewMessage(message);
 
@@ -108,6 +108,15 @@ public class ConversationManagedBean implements Serializable {
             Conversation updatedConvo = getConversationSessionBean().getConversationByConvoId(conversationToView.getConvoId());
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("conversation", updatedConvo);
             this.postConstruct();
+        } catch (EntityNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    public void acceptOffer() {
+        // need to update transaction isAccepted to be true
+        try {
+        conversationSessionBean.updateMessageAndTransaction(conversationToView.getConvoId());
         } catch (EntityNotFoundException ex) {
             System.out.println(ex.getMessage());
         }

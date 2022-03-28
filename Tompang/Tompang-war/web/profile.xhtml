@@ -275,7 +275,8 @@
                                 <p:outputLabel for="ccExpiryDate" value="Credit Card Expiry Date: " style="font-weight: bold;" />
                             </p:column>
                             <p:column>
-                                <p:datePicker id="ccExpiryDate" value="#{profileManagedBean.newCreditCard.expiryDate}" required="true" requiredMessage="Credit Card Expiry Date is required"/>
+<!--                                <p:datePicker id="ccExpiryDate" value="#{profileManagedBean.newCreditCard.expiryDate}" required="true" requiredMessage="Credit Card Expiry Date is required"/>-->
+                                <p:datePicker id="ccExpiryDate" view="month" value="#{profileManagedBean.newCreditCard.expiryDate}" pattern="MM/yyyy" yearNavigator="true" yearRange="2022:2030" required="true" requiredMessage="Credit Card Expiry Date is required"/>
                             </p:column>
                             <p:column>
                                 <p:message for="ccExpiryDate" />

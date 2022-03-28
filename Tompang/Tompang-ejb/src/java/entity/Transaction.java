@@ -33,7 +33,7 @@ public class Transaction implements Serializable {
     private Long transactionId;
     @Column(nullable = false)
     @NotNull
-    @Digits(integer=6, fraction=2)
+    @Digits(integer = 6, fraction = 2)
     @PositiveOrZero
     private Double amount;
     @Column(nullable = false)
@@ -60,11 +60,14 @@ public class Transaction implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false)
     private CreditCard creditCard;
-    
-    
+    @Column(nullable = false)
+    @NotNull
+    private Boolean isAccepted;
+
     public Transaction() {
         this.isCompleted = false;
         this.hasDispute = false;
+        this.isAccepted = false;
     }
 
     public Transaction(Double amount, Date createdOn, User buyer, User seller, Listing listing, CreditCard buyerCard) {
@@ -122,7 +125,7 @@ public class Transaction implements Serializable {
     public Listing getListing() {
         return listing;
     }
-    
+
     public void setTransactionId(Long transactionId) {
         this.transactionId = transactionId;
     }
@@ -168,7 +171,7 @@ public class Transaction implements Serializable {
     public void setDispute(Dispute dispute) {
         this.dispute = dispute;
     }
- 
+
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -194,5 +197,19 @@ public class Transaction implements Serializable {
      */
     public void setCreditCard(CreditCard creditCard) {
         this.creditCard = creditCard;
+    }
+
+    /**
+     * @return the isAccepted
+     */
+    public Boolean getIsAccepted() {
+        return isAccepted;
+    }
+
+    /**
+     * @param isAccepted the isAccepted to set
+     */
+    public void setIsAccepted(Boolean isAccepted) {
+        this.isAccepted = isAccepted;
     }
 }

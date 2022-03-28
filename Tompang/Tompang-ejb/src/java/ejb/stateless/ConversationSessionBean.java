@@ -29,7 +29,12 @@ import javax.persistence.Query;
 public class ConversationSessionBean implements ConversationSessionBeanLocal {
 
     @EJB
+    private MessageSessionBeanLocal messageSessionBean;
+
+    @EJB
     private UserSessionBeanLocal userSessionBeanLocal;
+    
+    
 
     @EJB
     private ListingSessionBeanLocal listingSessionBeanLocal;
@@ -75,6 +80,21 @@ public class ConversationSessionBean implements ConversationSessionBeanLocal {
         }
 
         return convos;
+    }
+
+    @Override
+    public void updateMessageAndTransaction(Long convoId) throws EntityNotFoundException {
+        Conversation convo = em.find(Conversation.class, convoId);
+        Listing listing = em.find(Listing.class, convo.getListing().getListingId());
+        List<Message> messages = convo.getMessages();
+        for (int i = 0; i < messages.size(); i++) {
+            if (messages.get(i).getOfferMessage()) {
+                messages.get(i).setOfferMessage(false);
+            }
+        }
+        Message acceptMessage = new Message("Offer has been accepted.", false, listing.getCreatedBy().getUserId(), false);
+        messageSessionBean.createNewMessage(acceptMessage);
+        addMessage(convoId, acceptMessage);
     }
 
     @Override

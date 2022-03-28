@@ -302,8 +302,8 @@ public class DataInitSessionBean {
             String sellerToBuyer = "Sure!";
             User buyerAdmin = (User) em.find(User.class, 2L);
             User sellerManager = (User) em.find(User.class, 1L);
-            Message initiate = new Message(buyerToSeller, true, buyerAdmin.getUserId());
-            Message response = new Message(sellerToBuyer, false, sellerManager.getUserId());
+            Message initiate = new Message(buyerToSeller, true, buyerAdmin.getUserId(), false);
+            Message response = new Message(sellerToBuyer, false, sellerManager.getUserId(), false);
             em.persist(initiate);
             em.persist(response);
             em.flush();

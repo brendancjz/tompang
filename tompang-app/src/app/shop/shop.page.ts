@@ -10,6 +10,7 @@ import { SessionService } from '../services/session.service';
   styleUrls: ['./shop.page.scss'],
 })
 export class ShopPage implements OnInit {
+  tompangLogo = '../../assets/images/tompang_logo_white.png';
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,

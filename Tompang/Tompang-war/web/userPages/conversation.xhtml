@@ -78,7 +78,8 @@
                 <h:form id="convoBlock">
                     <p:repeat value="#{conversationManagedBean.conversationToView.messages}" var="message">
                         <p:column>
-                            <p:panelGrid rendered="#{message.sentBy == currentUser.userId}">
+
+                            <p:panelGrid rendered="#{message.sentBy == currentUser.userId and message.offerMessage == true}">
                                 <h:outputText style="float: right; font-size: 30px" value="#{message.body}"/>
                                 <br></br>
                                 <br></br>
@@ -89,7 +90,32 @@
                                 <br></br>
                             </p:panelGrid>
 
-                            <p:panelGrid rendered="#{message.sentBy != currentUser.userId}">
+                            <p:panelGrid rendered="#{message.sentBy != currentUser.userId and message.offerMessage == true}">
+                                <h:outputText style="font-size: 30px" value="#{message.body}"/>
+                                <br></br>
+                                <br></br>
+                                <h:outputText style="font-size: 15px" value="#{message.createdOn}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                                </h:outputText>
+                                <p:commandButton value="Accept Offer">
+                                    <f:ajax execute="@form convoBlock" render="@form convoBlock" event="click" listener="#{conversationManagedBean.acceptOffer()}"/>
+                                </p:commandButton>
+                                <br></br>
+                                <br></br>
+                            </p:panelGrid>
+
+                            <p:panelGrid rendered="#{message.sentBy == currentUser.userId and message.offerMessage == false}">
+                                <h:outputText style="float: right; font-size: 30px" value="#{message.body}"/>
+                                <br></br>
+                                <br></br>
+                                <h:outputText style="float: right; font-size: 15px" value="#{message.createdOn}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                                </h:outputText>
+                                <br></br>
+                                <br></br>
+                            </p:panelGrid>
+
+                            <p:panelGrid rendered="#{message.sentBy != currentUser.userId and message.offerMessage == false}">
                                 <h:outputText style="font-size: 30px" value="#{message.body}"/>
                                 <br></br>
                                 <h:outputText style="font-size: 15px" value="#{message.createdOn}">

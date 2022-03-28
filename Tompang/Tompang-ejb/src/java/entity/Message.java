@@ -47,16 +47,20 @@ public class Message implements Serializable, Comparable {
     @Column(nullable = false)
     @NotNull
     private Boolean readBySeller;
+    @Column(nullable = false)
+    @NotNull
+    private Boolean offerMessage;
 
     public Message() {
         this.createdOn = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    public Message(String body, Boolean fromBuyer, Long sentBy) {
+    public Message(String body, Boolean fromBuyer, Long sentBy, Boolean offerMessage) {
         this();
         this.body = body;
         this.fromBuyer = fromBuyer;
         this.sentBy = sentBy;
+        this.offerMessage = offerMessage;
         if (fromBuyer) {
             this.readByBuyer = true;
             this.readBySeller = false;
@@ -157,5 +161,19 @@ public class Message implements Serializable, Comparable {
      */
     public void setSentBy(Long sentBy) {
         this.sentBy = sentBy;
+    }
+
+    /**
+     * @return the offerMessage
+     */
+    public Boolean getOfferMessage() {
+        return offerMessage;
+    }
+
+    /**
+     * @param offerMessage the offerMessage to set
+     */
+    public void setOfferMessage(Boolean offerMessage) {
+        this.offerMessage = offerMessage;
     }
 }

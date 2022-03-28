@@ -1,6 +1,11 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+ion-header {
+  --ion-background-color: var(--ion-color-primary);
+}
+
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/

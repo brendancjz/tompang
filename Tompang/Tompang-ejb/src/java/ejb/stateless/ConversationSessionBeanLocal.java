@@ -36,5 +36,7 @@ public interface ConversationSessionBeanLocal {
     public void setBuyerUnreadToZero(Long convoId);
 
     public void setSellerUnreadToZero(Long convoId);
+
+    public void updateMessageAndTransaction(Long convoId) throws EntityNotFoundException;
     
 }
