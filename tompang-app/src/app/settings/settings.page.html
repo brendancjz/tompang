@@ -9,11 +9,29 @@
       <ion-icon name="chevron-forward-sharp"></ion-icon>
     </div>
   </ion-button>
-  <ion-button class="long-button" style="text-transform:none" color="tertiary" (click)="editProfilePage()">
+  <ion-button class="long-button" style="text-transform:none" color="tertiary" [routerLink]="['/settings/edit-profile']">
     <div class="button-div">
       <div style="display: flex; justify-content: space-between;align-items: center;">
         <ion-icon style="font-size: 24px; margin-right: 10px;" slot="start" [ios]="'create-outline'" [md]="'create-outline'"></ion-icon>
         <ion-text>Edit Profile</ion-text>
+      </div>
+      <ion-icon name="chevron-forward-sharp"></ion-icon>
+    </div>
+  </ion-button>
+  <ion-button class="long-button" style="text-transform:none" color="tertiary" [routerLink]="['/settings/change-password']">
+    <div class="button-div">
+      <div style="display: flex; justify-content: space-between;align-items: center;">
+        <ion-icon style="font-size: 24px; margin-right: 10px;" slot="start" [ios]="'keypad-outline'" [md]="'keypad-outline'"></ion-icon>
+        <ion-text>Change Password</ion-text>
+      </div>
+      <ion-icon name="chevron-forward-sharp"></ion-icon>
+    </div>
+  </ion-button>
+  <ion-button class="long-button" style="text-transform:none" color="tertiary" [routerLink]="['/settings/manage-credit-cards']">
+    <div class="button-div">
+      <div style="display: flex; justify-content: space-between;align-items: center;">
+        <ion-icon style="font-size: 24px; margin-right: 10px;" slot="start" [ios]="'card-outline'" [md]="'card-outline'"></ion-icon>
+        <ion-text>Manage Credit Cards</ion-text>
       </div>
       <ion-icon name="chevron-forward-sharp"></ion-icon>
     </div>
