@@ -1,4 +1,21 @@
 <app-header></app-header>
 <ion-content>
-  <ion-button color="primary" (click)="userLogout()">Logout</ion-button>
+  <ion-button class="long-button" style="text-transform:none" color="tertiary" (click)="userLogout()">
+    <div class="button-div">
+      <div style="display: flex; justify-content: space-between;align-items: center;">
+        <ion-icon style="font-size: 24px; margin-right: 10px;" slot="start" [ios]="'log-out-outline'" [md]="'log-out-outline'"></ion-icon>
+        <ion-text>Log Out</ion-text>
+      </div>
+      <ion-icon name="chevron-forward-sharp"></ion-icon>
+    </div>
+  </ion-button>
+  <ion-button class="long-button" style="text-transform:none" color="tertiary" (click)="editProfilePage()">
+    <div class="button-div">
+      <div style="display: flex; justify-content: space-between;align-items: center;">
+        <ion-icon style="font-size: 24px; margin-right: 10px;" slot="start" [ios]="'create-outline'" [md]="'create-outline'"></ion-icon>
+        <ion-text>Edit Profile</ion-text>
+      </div>
+      <ion-icon name="chevron-forward-sharp"></ion-icon>
+    </div>
+  </ion-button>
 </ion-content>
