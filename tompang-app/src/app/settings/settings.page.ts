@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-settings',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router,
+    private activatedRoute: ActivatedRoute,
+    public sessionService: SessionService) { }
 
   ngOnInit() {
   }
 
+  userLogout(): void {
+    this.sessionService.setIsLogin(false);
+    this.sessionService.setCurrentUser(null);
+
+    this.router.navigate(['/index']);
+  }
 }
