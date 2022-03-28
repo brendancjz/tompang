@@ -25,7 +25,7 @@ ion-content {
   margin-bottom: 20px;
 }
 
-#loginbox {
+#indexFormBox {
   display: flex;
   width: 100vw;
   height: 100vh;
@@ -41,9 +41,14 @@ ion-content {
   margin-top: 10px;
 }
 
-#loginForm {
+#indexForm {
   background-color: white;
   --ion-background-color: white;
   padding: 20px;
   border-radius: 10px;
+  width: 350px;
+}
+
+ion-input {
+  color-scheme: light;
 }
