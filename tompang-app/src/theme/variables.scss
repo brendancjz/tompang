@@ -5,7 +5,7 @@
 :root {
   /** primary **/
   --ion-color-primary: #0090E9;
-  --ion-color-primary-rgb: 56, 128, 255;
+
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
   --ion-color-primary-shade: #007EE9;
@@ -13,11 +13,13 @@
 
   /** secondary **/
   --ion-color-secondary: #86CAFB;
-  --ion-color-secondary-rgb: 61, 194, 255;
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
   --ion-color-secondary-shade: #87BCFB;
   --ion-color-secondary-tint: #87D9FB;
+
+  --ion-color-tertiary: #ffffff;
+  --ion-color-tertiary-contrast: black;
 
   /** success **/
   --ion-color-success: #2dd36f;

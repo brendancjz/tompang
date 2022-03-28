@@ -1,23 +1,28 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Index</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="index-page">
+  <div *ngIf="sessionService.getIsLogin() === false">
+    <ion-button color="tertiary" (click)="displayLoginBox()" >Login</ion-button>
+    <ion-button color="tertiary" [routerLink]="['/register']">Register</ion-button>
 
-<ion-content>
-  <ion-button [routerLink]="['/login']">Login</ion-button>
-  <ion-button [routerLink]="['/register']">Register</ion-button>
-  <ion-button [routerLink]="['/shop']">Go to Shop</ion-button>
+  </div>
+  <div *ngIf="sessionService.getIsLogin() === true">
+    <ion-button color="tertiary" [routerLink]="['/shop']">Go to Shop</ion-button>
+    <ion-button color="tertiary" (click)="userLogout()">Logout</ion-button>
+  </div>
 
-  <div id="loginbox" class="loginbox">
-    <label for="username">Username </label>
-			<input type="text" [(ngModel)]="username" size="16" required maxlength="32" />
 
-			<label for="password">Password </label>
-			<input type="password" [(ngModel)]="password" size="16" required maxlength="32" />
 
-			<input type="reset" value="Clear" />
-
-			<input type="button" (click)="userLogin()" value="Login" />
+  <div id="loginbox" class="loginbox" *ngIf="sessionService.getIsLogin() === false && showLoginBox">
+    <ion-item>
+      <ion-label>Username</ion-label>
+      <ion-input placeholder="username" [(ngModel)]="username" required maxlength="50"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="password" required maxlength="50"></ion-input>
+    </ion-item>
+    <div class="input-button-div">
+      <input class="input-button" type="reset" value="Clear" />
+      <input class="input-button" type="button" (click)="userLogin()" value="Login" />
+    </div>
   </div>
 </ion-content>
