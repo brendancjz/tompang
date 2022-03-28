@@ -32,7 +32,7 @@ export class User {
 
     constructor(userId?: number, firstName?: string, lastName?: string, username?: string,
       password?: string, email?: string, dateOfBirth?: Date, profilePic?: string,
-      contactNumber?: number, joinedOn?: Date)
+      contactNumber?: number)
 	{
 		this.userId = userId;
     this.firstName = firstName;
@@ -43,7 +43,7 @@ export class User {
     this.dateOfBirth = dateOfBirth;
     this.profilePic = profilePic;
     this.contactNumber = contactNumber;
-    this.joinedOn = joinedOn;
+    this.joinedOn = new Date();
     this.isAdmin = false;
     this.isDisabled = false;
 	}
