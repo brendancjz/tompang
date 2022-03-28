@@ -16,6 +16,7 @@ export class IndexPage implements OnInit {
   password: string | undefined;
   loginError: boolean;
   showLoginBox: boolean;
+  tompangLogo = '../../assets/images/tompang_logo_white.png';
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -56,6 +57,10 @@ export class IndexPage implements OnInit {
   displayLoginBox(): void {
     this.showLoginBox = true;
 
+  }
+
+  hideLoginBox(): void {
+    this.showLoginBox = false;
   }
 
 }
