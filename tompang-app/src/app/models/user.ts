@@ -11,6 +11,7 @@ export class User {
   joinedOn: Date | undefined;
   isAdmin: boolean | undefined;
   isDisabled: boolean | undefined;
+  salt: string | undefined;
 
   //TODO
   // @OneToMany
@@ -46,5 +47,6 @@ export class User {
     this.joinedOn = new Date();
     this.isAdmin = false;
     this.isDisabled = false;
+    this.salt = '';
 	}
 }
