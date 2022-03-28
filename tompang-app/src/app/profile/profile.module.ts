@@ -4,19 +4,20 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ShopPageRoutingModule } from './shop-routing.module';
+import { ProfilePageRoutingModule } from './profile-routing.module';
 
-import { ShopPage } from './shop.page';
+import { ProfilePage } from './profile.page';
 import { HeaderComponentModule } from '../header/header.module';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ShopPageRoutingModule,
+    ProfilePageRoutingModule,
     HeaderComponentModule
   ],
-  declarations: [ShopPage]
+  declarations: [ProfilePage]
 })
-export class ShopPageModule {}
+export class ProfilePageModule {}
