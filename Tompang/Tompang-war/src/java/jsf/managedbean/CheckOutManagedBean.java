@@ -43,7 +43,7 @@ public class CheckOutManagedBean implements Serializable {
     
     @EJB
     private TransactionSessionBeanLocal transactionSessionBean;
-       
+
     private User user;
     private Listing listing;
     private long creditCardId;
@@ -51,7 +51,8 @@ public class CheckOutManagedBean implements Serializable {
     private List<CreditCard> creditCards;
     private List<Long> creditCardNumbers;
     private Transaction transaction;
-    
+
+    private Boolean successfulCheckout;
     /**
      * Creates a new instance of CheckOutManagedBean
      */
@@ -72,14 +73,11 @@ public class CheckOutManagedBean implements Serializable {
             } else {
                 System.out.println(listing.getListingId());
             }
-            
+
             this.setCreditCards(getUser().getCreditCards());
-            
             for(CreditCard cc: this.creditCards){
                 this.creditCardNumbers.add(cc.getCcNumber());
             }
-            
-            
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
@@ -102,6 +100,7 @@ public class CheckOutManagedBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while creating the new product: " + ex.getMessage(), null));
         }
     }
+    
 
     /**
      * @return the user
@@ -130,21 +129,6 @@ public class CheckOutManagedBean implements Serializable {
     public void setListing(Listing listing) {
         this.listing = listing;
     }
-
-    /**
-     * @return the creditCard
-     */
-    public CreditCard getCreditCard() {
-        return creditCard;
-    }
-
-    /**
-     * @param creditCard the creditCard to set
-     */
-    public void setCreditCard(CreditCard creditCard) {
-        this.creditCard = creditCard;
-    }
-
     /**
      * @return the creditCards
      */
@@ -173,31 +157,5 @@ public class CheckOutManagedBean implements Serializable {
         this.transaction = transaction;
     }
 
-    /**
-     * @return the creditCardId
-     */
-    public long getCreditCardId() {
-        return creditCardId;
-    }
 
-    /**
-     * @param creditCardId the creditCardId to set
-     */
-    public void setCreditCardId(long creditCardId) {
-        this.creditCardId = creditCardId;
-    }
-
-    /**
-     * @return the creditCardNumbers
-     */
-    public List<Long> getCreditCardNumbers() {
-        return creditCardNumbers;
-    }
-//
-    /**
-     * @param creditCardNumbers the creditCardNumbers to set
-     */
-    public void setCreditCardNumbers(List<Long> creditCardNumbers) {
-        this.creditCardNumbers = creditCardNumbers;
-    }
 }

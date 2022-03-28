@@ -42,7 +42,7 @@
                         <h:outputText value="#{listing.city}" />
                     </p:column>
 
-                    <p:column headerText="Title" sortBy="#{listing.title}" filterBy="#{listing.title}" filterStyle="display:none;">
+                    <p:column headerText="Title" width="15%" sortBy="#{listing.title}" filterBy="#{listing.title}" filterStyle="display:none;">
                         <h:outputText value="#{listing.title}" />
                     </p:column>
 
@@ -54,8 +54,8 @@
                         <h:outputText value="#{viewAllListingsManagedBean.getArrivalDate(listing)}" />
                     </p:column>
 
-                    <p:column headerText="Description" width="25%" sortBy="#{listing.description}" filterBy="#{listing.description}" filterStyle="display:none;">
-                        <h:outputText value="#{listing.description}" />
+                    <p:column headerText="Created By" sortBy="#{listing.createdBy.username}" filterBy="#{listing.createdBy.username}" filterStyle="display:none;">
+                        <h:outputText value="#{listing.createdBy.username}" />
                     </p:column>
 
                     <p:column headerText="Title" sortBy="#{listing.category}" filterBy="#{listing.category}" filterStyle="display:none;">

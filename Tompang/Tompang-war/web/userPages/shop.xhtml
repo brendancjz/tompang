@@ -37,7 +37,7 @@
                         </div>
                         <div class="listing-grid-item-bottom" style="margin-top: 10px;">
 
-                            <h:commandButton rendered="#{!shopManagedBean.userLikedListings.contains(listing)}" class="blue-button" value="Like!">
+                            <h:commandButton rendered="#{!shopManagedBean.userLikedListings.contains(listing)}" class="blue-button" value="Like">
                                 <f:attribute name="listing" value="#{listing}" />
                                 <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.likeListing}" />
                             </h:commandButton>  
@@ -45,7 +45,7 @@
                                 <f:attribute name="listing" value="#{listing}" />
                                 <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.dislikeListing}" />
                             </h:commandButton>  
-                            <h:commandButton class="blue-button" value="View">
+                            <h:commandButton class="blue-button" value="View Listing">
                                 <f:attribute name="listing" value="#{listing}" />
                                 <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.viewListing}" />
                             </h:commandButton>

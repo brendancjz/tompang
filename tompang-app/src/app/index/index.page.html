@@ -1,0 +1,40 @@
+<ion-content class="index-page">
+
+  <div class="index-content-div" *ngIf="!showLoginBox">
+    <ion-img id="tompang-big-logo" [src]="tompangLogo"></ion-img>
+    <div *ngIf="sessionService.getIsLogin() === false">
+      <ion-button color="tertiary" (click)="displayLoginBox()" >Login</ion-button>
+      <ion-button color="tertiary" [routerLink]="['/register']">Register</ion-button>
+
+    </div>
+    <div *ngIf="sessionService.getIsLogin() === true">
+      <ion-button color="tertiary" [routerLink]="['/shop']">Go to Shop</ion-button>
+      <ion-button color="tertiary" (click)="userLogout()">Logout</ion-button>
+    </div>
+  </div>
+
+
+
+
+  <div id="loginbox" class="loginbox" *ngIf="sessionService.getIsLogin() === false && showLoginBox">
+    <ion-img id="tompang-big-logo" style="width: 200px;" [src]="tompangLogo"></ion-img>
+    <div id="loginForm">
+      <form>
+        <ion-item>
+          <ion-label>Username</ion-label>
+          <ion-input placeholder="username" [(ngModel)]="username" required maxlength="50"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Password</ion-label>
+          <ion-input type="password" [(ngModel)]="password" required maxlength="50"></ion-input>
+        </ion-item>
+        <div class="input-button-div">
+          <ion-button color="primary" (click)="hideLoginBox()">Back</ion-button>
+          <ion-button color="primary"  type="reset">Clear</ion-button>
+          <ion-button color="primary" type="submit" (click)="userLogin()">Login</ion-button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</ion-content>

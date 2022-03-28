@@ -11,7 +11,7 @@
         <h1> Checkout Page </h1>
         <br></br>
         
-        <h:form>
+        <h:form rendered="#{!checkOutManagedBean.successfulCheckout}">
             <p:outputLabel  value="Credit Card: " style="font-weight: bold;" />
             <p:selectOneMenu id="selCreditCard" value="#{checkOutManagedBean.creditCardId}" required="true">
                 <f:selectItem itemValue="" itemLabel="[Select One]" />
@@ -19,9 +19,12 @@
 <!--                <p:ajax event="change" process="@form" update="@form"  />-->
             </p:selectOneMenu>
             <br></br>
-            <h:commandButton type="Submit" value="Checkout" actionListener="#{checkOutManagedBean.checkOut}" styleClass="ui-button-raised"  />
-    
+            <h:commandButton class="blue-button" type="Submit" value="Checkout" actionListener="#{checkOutManagedBean.checkOut}"/>
         </h:form>
+        
+        <h:panelGroup rendered="#{checkOutManagedBean.successfulCheckout}">
+            Successful transaction. Notification sent to seller. Awaiting seller's acceptance...
+        </h:panelGroup>
     </ui:define>
 </ui:composition>
   

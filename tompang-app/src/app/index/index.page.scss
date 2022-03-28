@@ -1,0 +1,49 @@
+ion-content {
+  --ion-background-color: #0090e9;
+}
+.index-content-div {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.input-button {
+  background-color: var(--ion-color-primary);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+}
+.input-button:hover {
+  background-color: var(--ion-color-primary-tint);
+}
+
+#tompang-big-logo {
+  width: 300px;
+  margin-bottom: 20px;
+}
+
+#loginbox {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.input-button-div {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 10px;
+}
+
+#loginForm {
+  background-color: white;
+  --ion-background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}

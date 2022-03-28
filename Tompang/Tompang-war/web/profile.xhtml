@@ -37,16 +37,16 @@
 
     <ui:define name="content">
         <div>
-            <div style="background-color: #0190e9; padding: 0 0 15px 20px; margin-bottom: 10px; width: 100%">
+            <div style="background-color: #0190e9; padding: 0 0 15px 20px; margin-bottom: 10px; width: 100%; ">
                 <h:form id="profileHeader"> <!-- Just to rerender the profile pic-->
-                    <h:graphicImage style="border-radius: 20px;width: 15%;min-width: 185px;margin-top: 20px;" value="#{profileManagedBean.getProfilePic()}"/>
-                    <p style="color: white; font-size: 20px">#{profileManagedBean.getUsername()}</p>
-                    <p style="color: white">Following: #{profileManagedBean.getFollowing().size()}</p>
-                    <p:commandButton update="viewFollowing" oncomplete="PF('dialogViewFollowing').show()" title="View Following" />
-                    <p style="color: white">Followers: #{profileManagedBean.getFollowers().size()}</p>
-                    <p:commandButton update="viewFollowers" oncomplete="PF('dialogViewFollowers').show()" title="View Followers" />
+                    <p style="color: white; font-size: 40px; padding-top: 10px">#{profileManagedBean.getUsername()}</p>
+                    
+                    <h:graphicImage style="border-radius: 70px;width: 140px;height: 120px;margin-top: 20px;" value="#{profileManagedBean.getProfilePic()}"/>
+                    
+                    <p:commandButton class="blue-button" update="viewFollowing" oncomplete="PF('dialogViewFollowing').show()" title="#{profileManagedBean.getFollowing().size()} Following" />
+                    
+                    <p:commandButton class="blue-button" update="viewFollowers" oncomplete="PF('dialogViewFollowers').show()" title="#{profileManagedBean.getFollowers().size()} Followers" />
                 </h:form>
-
             </div>
             <h:panelGroup rendered="#{profileManagedBean.profileContent eq 'EDIT_PROFILE'}">
                 <h2>Edit Profile</h2>
@@ -100,7 +100,7 @@
 
                         <br />
                         <h:commandButton class="blue-button" value="Update" type="submit">
-                            <f:ajax event="click" execute="@form" render="@form @form:profileHeader" listener="#{profileManagedBean.update}" />
+                            <f:ajax event="click" execute="@form" render="@all " listener="#{profileManagedBean.update}" />
                         </h:commandButton>
 
                     </p:panelGrid>
@@ -190,28 +190,34 @@
                 <h2>Credit Cards</h2>
                 <h:form id="formAllCreditCards">
                     <p:menubar>
-
-                        <p:submenu label="File" icon="ui-icon-document">
-                            <p:menuitem value="Add New Credit Card" onclick="PF('dialogAddNewCreditCard').show()" icon="pi pi-plus" />
-                        </p:submenu>                                        
-
+                        <p:menuitem value="Add New Credit Card" onclick="PF('dialogAddNewCreditCard').show()" icon="pi pi-plus" />
                     </p:menubar>
-                    <p:dataTable id="dataTableAllCreditCards" value="#{profileManagedBean.user.creditCards}" var="creditCard">
+                    <p:dataTable id="dataTableAllCreditCards" value="#{profileManagedBean.creditCards}" var="creditCard">
 
                         <p:column headerText="CC Name">
                             <h:outputText value="#{creditCard.ccName}" />
                         </p:column>
                         <p:column headerText="CC Number" >
-                            <h:outputText value="#{creditCard.ccNumber}" />
+                            <h:outputText value="#{profileManagedBean.getFormattedCCNumber(creditCard.ccNumber)}" />
                         </p:column>
                         <p:column headerText="CC Expiry Date" >
-                            <h:outputText value="#{creditCard.expiryDate}" />
+                            <h:outputText value="#{creditCard.expiryDate.toString().substring(4, 10)}
+                                          #{creditCard.expiryDate.toString().substring(24)}" />
                         </p:column>
                         <p:column headerText="Action" >
-                            <p:commandButton icon="ui-icon-trash" actionListener="#{profileManagedBean.deleteCreditCard}" >
-                                <f:attribute name="creditCardToDelete" value="#{creditCard}" />                                
-                                <p:confirm header="Confirmation" message="Are you sure you want to delete #{creditCard.ccNumber}?" icon="ui-icon-alert" />
-                            </p:commandButton>    
+                            <p:commandButton icon="ui-icon-trash" oncomplete="PF('dialogDeleteCreditCard').show();" >
+                                <f:setPropertyActionListener value="#{creditCard}" target="#{profileManagedBean.creditCardToDelete}"/>                          
+                                <p:dialog id="dialogDeleteCreditCard" widgetVar="dialogDeleteCreditCard" header="Delete Credit Card" closable="true">
+                                    <p:row>
+                                        <p:column>
+                                            <p:commandButton value="Confirm Deletion" update="@this dataTableAllCreditCards" action="#{profileManagedBean.deleteCreditCard()}" oncomplete="PF('dialogDeleteCreditCard').hide()"/>
+                                        </p:column>
+                                        <p:column>
+                                            <p:commandButton value="Cancel" oncomplete="PF('dialogDeleteCreditCard').hide()"/>
+                                        </p:column>
+                                    </p:row>
+                                </p:dialog>
+                            </p:commandButton>
                         </p:column>
                     </p:dataTable>                
                 </h:form>
@@ -245,7 +251,7 @@
                                 <p:outputLabel for="ccName" value="Credit Card Name: " style="font-weight: bold;" />
                             </p:column>
                             <p:column>
-                                <p:inputText id="ccName" value="#{profileManagedBean.newCreditCard.ccName}" placeholder="VISA" required="true" requiredMessage="Credit Card Name is required" />
+                                <p:inputText id="ccName" value="#{profileManagedBean.newCreditCard.ccName}" placeholder="JOHN DOE" required="true" requiredMessage="Credit Card Name is required" />
                             </p:column>
                             <p:column>
                                 <p:message for="ccName" />
@@ -279,7 +285,7 @@
                         <p:row>
                             <p:column colspan="3">
                                 <p:commandButton type="reset" value="Clear" />&nbsp;
-                                <p:commandButton  value="Add New Credit Card" update="@form formAllCreditCards:dataTableAllCreditCards" actionListener="#{profileManagedBean.addCreditCard}" oncomplete="PF('dialogAddNewCreditCard').show();" />
+                                <p:commandButton  value="Add New Credit Card" update="@parent" actionListener="#{profileManagedBean.addCreditCard}" oncomplete="PF('dialogAddNewCreditCard').hide());" />
                             </p:column>
                         </p:row>
 

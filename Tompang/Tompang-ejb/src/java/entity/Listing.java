@@ -48,7 +48,7 @@ public class Listing implements Serializable {
     @Column(nullable = false, length = 255)
     @NotNull
     private String description;
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     @NotNull
     private String category;
     @Column(nullable = false)
