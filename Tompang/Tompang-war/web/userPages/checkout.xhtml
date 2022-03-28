@@ -13,9 +13,9 @@
         
         <h:form>
             <p:outputLabel  value="Credit Card: " style="font-weight: bold;" />
-            <p:selectOneMenu id="selCategory" value="#{checkOutManagedBean.creditCard}" required="true">
+            <p:selectOneMenu id="selCreditCard" value="#{checkOutManagedBean.creditCardId}" required="true">
                 <f:selectItem itemValue="" itemLabel="[Select One]" />
-                <f:selectItems value="#{checkOutManagedBean.creditCards}" />
+                <f:selectItems value="#{checkOutManagedBean.creditCardNumbers}" />
 <!--                <p:ajax event="change" process="@form" update="@form"  />-->
             </p:selectOneMenu>
             <br></br>

@@ -5,6 +5,7 @@
  */
 package jsf.managedbean;
 
+import ejb.stateless.CreditCardSessionBeanLocal;
 import ejb.stateless.TransactionSessionBeanLocal;
 import ejb.stateless.UserSessionBeanLocal;
 import entity.CreditCard;
@@ -12,8 +13,10 @@ import entity.Listing;
 import entity.Transaction;
 import entity.User;
 import exception.CreateNewTransactionException;
+import exception.EntityNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -33,15 +36,20 @@ import javax.faces.view.ViewScoped;
 public class CheckOutManagedBean implements Serializable {
 
     @EJB
-    private UserSessionBeanLocal userSessionBean;
+    private CreditCardSessionBeanLocal creditCardSessionBean;
 
+    @EJB
+    private UserSessionBeanLocal userSessionBean;
+    
     @EJB
     private TransactionSessionBeanLocal transactionSessionBean;
        
     private User user;
     private Listing listing;
+    private long creditCardId;
     private CreditCard creditCard;
     private List<CreditCard> creditCards;
+    private List<Long> creditCardNumbers;
     private Transaction transaction;
     
     /**
@@ -50,7 +58,9 @@ public class CheckOutManagedBean implements Serializable {
     public CheckOutManagedBean() {
         this.user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
         this.transaction = new Transaction();
-    }
+        this.creditCards = new ArrayList<CreditCard>();
+        this.creditCardNumbers = new ArrayList<Long>();
+    }    
     
     @PostConstruct
     public void postConstruct() {
@@ -64,6 +74,12 @@ public class CheckOutManagedBean implements Serializable {
             }
             
             this.setCreditCards(getUser().getCreditCards());
+            
+            for(CreditCard cc: this.creditCards){
+                this.creditCardNumbers.add(cc.getCcNumber());
+            }
+            
+            
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
@@ -71,21 +87,19 @@ public class CheckOutManagedBean implements Serializable {
     
     public void checkOut(ActionEvent event){
         
-        System.out.println("checkout");
-        
-        this.getTransaction().setAmount(getListing().getPrice());
-        this.getTransaction().setBuyer(getUser());
-        this.getTransaction().setCreatedOn(new Date());
-        this.getTransaction().setListing(getListing());
-        this.getTransaction().setSeller(getListing().getCreatedBy());
-        this.getTransaction().setCreditCard(getCreditCard());
-        
         try{
+           System.out.println("checkout called");
+           this.getTransaction().setAmount(getListing().getPrice());
+           this.getTransaction().setBuyer(getUser());
+           this.getTransaction().setCreatedOn(new Date());
+           this.getTransaction().setListing(getListing());
+           this.getTransaction().setSeller(getListing().getCreatedBy());
+           this.getTransaction().setCreditCard(creditCardSessionBean.getCreditCardByCCNumber(creditCardId));
            Long transactionId = transactionSessionBean.createNewTransaction(getUser().getUserId(), getListing().getListingId(), getTransaction());
            
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "New transaction created successfully (Transaction ID: " + transactionId + ")", null));
-        }catch(CreateNewTransactionException ex){
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while creating the new product: " + ex.getMessage(), null));
+        }catch(CreateNewTransactionException | EntityNotFoundException ex){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while creating the new product: " + ex.getMessage(), null));
         }
     }
 
@@ -157,5 +171,33 @@ public class CheckOutManagedBean implements Serializable {
      */
     public void setTransaction(Transaction transaction) {
         this.transaction = transaction;
+    }
+
+    /**
+     * @return the creditCardId
+     */
+    public long getCreditCardId() {
+        return creditCardId;
+    }
+
+    /**
+     * @param creditCardId the creditCardId to set
+     */
+    public void setCreditCardId(long creditCardId) {
+        this.creditCardId = creditCardId;
+    }
+
+    /**
+     * @return the creditCardNumbers
+     */
+    public List<Long> getCreditCardNumbers() {
+        return creditCardNumbers;
+    }
+//
+    /**
+     * @param creditCardNumbers the creditCardNumbers to set
+     */
+    public void setCreditCardNumbers(List<Long> creditCardNumbers) {
+        this.creditCardNumbers = creditCardNumbers;
     }
 }

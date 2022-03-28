@@ -68,6 +68,20 @@ public class CreditCardSessionBean implements CreditCardSessionBeanLocal {
 
         return cc;
     }
+    
+     @Override
+    public CreditCard getCreditCardByCCNumber(Long ccNumber) throws EntityNotFoundException {
+        Query query = em.createQuery("SELECT c FROM CreditCard c WHERE c.ccNumber = ?1");
+                
+        query.setParameter(1, ccNumber);
+        CreditCard cc = (CreditCard)query.getSingleResult();
+        
+        if (cc == null) {
+            throw new EntityNotFoundException("CreditCard " + ccNumber + " not found.\n");
+        }
+
+        return cc;
+    }
 
     @Override
     public void deleteCreditCard(Long ccId, Long userId) throws EntityNotFoundException {

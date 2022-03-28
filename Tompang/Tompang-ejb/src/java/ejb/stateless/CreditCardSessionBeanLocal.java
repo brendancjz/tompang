@@ -27,4 +27,6 @@ public interface CreditCardSessionBeanLocal {
 
     public void deleteCreditCard(Long ccId, Long userId) throws EntityNotFoundException;
     
+    public CreditCard getCreditCardByCCNumber(Long ccNumber) throws EntityNotFoundException;
+    
 }
