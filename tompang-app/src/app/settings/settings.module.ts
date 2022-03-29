@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SettingsPageRoutingModule } from './settings-routing.module';
 
 import { SettingsPage } from './settings.page';
-import { HeaderComponentModule } from '../header/header.module';
+import { HeaderPageModule } from '../header/header.module';
 
 
 @NgModule({
@@ -16,7 +16,7 @@ import { HeaderComponentModule } from '../header/header.module';
     FormsModule,
     IonicModule,
     SettingsPageRoutingModule,
-    HeaderComponentModule
+    HeaderPageModule
   ],
   declarations: [SettingsPage]
 })

@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { EditProfilePageRoutingModule } from './edit-profile-routing.module';
 
 import { EditProfilePage } from './edit-profile.page';
-import { HeaderComponentModule } from 'src/app/header/header.module';
+import { HeaderPageModule } from 'src/app/header/header.module';
 
 @NgModule({
   imports: [
@@ -15,7 +15,7 @@ import { HeaderComponentModule } from 'src/app/header/header.module';
     FormsModule,
     IonicModule,
     EditProfilePageRoutingModule,
-    HeaderComponentModule
+    HeaderPageModule
   ],
   declarations: [EditProfilePage]
 })

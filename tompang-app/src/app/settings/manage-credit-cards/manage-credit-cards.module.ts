@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ManageCreditCardsPageRoutingModule } from './manage-credit-cards-routing.module';
 
 import { ManageCreditCardsPage } from './manage-credit-cards.page';
-import { HeaderComponentModule } from 'src/app/header/header.module';
+import { HeaderPageModule } from 'src/app/header/header.module';
 
 @NgModule({
   imports: [
@@ -15,7 +15,7 @@ import { HeaderComponentModule } from 'src/app/header/header.module';
     FormsModule,
     IonicModule,
     ManageCreditCardsPageRoutingModule,
-    HeaderComponentModule
+    HeaderPageModule
   ],
   declarations: [ManageCreditCardsPage]
 })

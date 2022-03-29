@@ -77,7 +77,7 @@ export class IndexPage implements OnInit {
   }
 
   userLogin(): void {
-    const user: User | null = this.userService.userLogin(this.username, this.password);
+    const user: User | null = this.userService.userLogin(this.username.trim(), this.password.trim());
 
     if (user != null)
     {

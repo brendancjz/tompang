@@ -35,6 +35,14 @@ const routes: Routes = [
     path: '**',
     redirectTo: 'index',
     pathMatch: 'full'
+  },
+  {
+    path: 'header',
+    loadChildren: () => import('./header/header.module').then( m => m.HeaderPageModule)
+  },
+  {
+    path: 'header',
+    loadChildren: () => import('./header/header.module').then( m => m.HeaderPageModule)
   }
 ];
 
