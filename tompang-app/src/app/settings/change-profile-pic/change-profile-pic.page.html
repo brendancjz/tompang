@@ -1,0 +1,18 @@
+<app-header></app-header>
+<ion-content>
+  <div id="formBox" class="formBox" *ngIf="sessionService.getIsLogin() !== false">
+    <div id="changeProfilePicForm">
+      <form (ngSubmit)="updateUserProfilePic()">
+
+        <div class="input-button-div">
+          <ion-button color="primary" (click)="back()">Back</ion-button>
+          <ion-button color="primary"  type="reset">Clear</ion-button>
+          <ion-button color="primary" type="submit">Change</ion-button>
+        </div>
+      </form>
+      <div *ngIf="editError === true" style="text-align: center; color: red;width: 300px;">
+        Invalid change: Bad profile picture url!
+      </div>
+    </div>
+  </div>
+</ion-content>

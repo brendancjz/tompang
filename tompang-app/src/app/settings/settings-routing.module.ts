@@ -19,6 +19,10 @@ const routes: Routes = [
   {
     path: 'manage-credit-cards',
     loadChildren: () => import('./manage-credit-cards/manage-credit-cards.module').then( m => m.ManageCreditCardsPageModule)
+  },
+  {
+    path: 'change-profile-pic',
+    loadChildren: () => import('./change-profile-pic/change-profile-pic.module').then( m => m.ChangeProfilePicPageModule)
   }
 ];
 

@@ -38,11 +38,11 @@ export class EditProfilePage implements OnInit {
   updateUser(): void {
     console.log('Updating user...');
     const currentUser = this.sessionService.getCurrentUser();
-    const updatedUser = new User(currentUser.userId, this.firstName, this.lastName,
+    let updatedUser = new User(currentUser.userId, this.firstName, this.lastName,
       currentUser.username, currentUser.password, this.email, this.dateOfBirth, currentUser.profilePic,
       this.contactNumber);
 
-    this.userService.updateUser(updatedUser);
+    updatedUser = this.userService.updateUser(updatedUser);
     //Update sessionServie currentUser
   }
 

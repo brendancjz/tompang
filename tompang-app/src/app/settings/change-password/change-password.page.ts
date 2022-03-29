@@ -38,5 +38,13 @@ export class ChangePasswordPage implements OnInit {
   back()
 	{
 		this.location.back();
-	}
+    this.resetPage();
+  }
+
+  resetPage(): void {
+    this.currentPassword = undefined;
+    this.newPassword = undefined;
+    this.repeatPassword = undefined;
+    this.editError = false;
+  }
 }
