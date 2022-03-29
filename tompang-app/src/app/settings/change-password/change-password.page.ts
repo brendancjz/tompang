@@ -23,6 +23,9 @@ export class ChangePasswordPage implements OnInit {
     private userService: UserService) {}
 
   ngOnInit() {
+    document.getElementById('back-button').addEventListener('click', () => {
+      this.resetPage();
+    }, { once: true});
   }
 
   updateUserPassword(): void {
@@ -34,11 +37,6 @@ export class ChangePasswordPage implements OnInit {
 
         //Update sessionServie currentUser
       }
-  }
-  back()
-	{
-		this.location.back();
-    this.resetPage();
   }
 
   resetPage(): void {

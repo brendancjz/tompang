@@ -21,17 +21,15 @@ export class ChangeProfilePicPage implements OnInit {
     private userService: UserService) { }
 
   ngOnInit() {
+    document.getElementById('back-button').addEventListener('click', () => {
+      this.resetPage();
+    }, { once: true});
   }
 
   updateUserProfilePic(): void {
     console.log('Updating user profile pic...');
 
   }
-  back()
-    {
-      this.location.back();
-      this.resetPage();
-    }
 
   resetPage(): void {
     this.newProfilePic = undefined;

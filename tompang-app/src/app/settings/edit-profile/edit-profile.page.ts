@@ -33,6 +33,9 @@ export class EditProfilePage implements OnInit {
     }
 
   ngOnInit() {
+    document.getElementById('back-button').addEventListener('click', () => {
+      this.resetPage();
+    }, { once: true});
   }
 
   updateUser(): void {
@@ -45,12 +48,6 @@ export class EditProfilePage implements OnInit {
     updatedUser = this.userService.updateUser(updatedUser);
     //Update sessionServie currentUser
   }
-
-  back()
-    {
-      this.location.back();
-      this.resetPage();
-    }
 
   resetPage(): void {
     this.firstName = undefined;

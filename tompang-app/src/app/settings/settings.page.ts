@@ -10,19 +10,23 @@ import { SessionService } from '../services/session.service';
 })
 export class SettingsPage implements OnInit {
 
-  toggleSettingTabs: boolean;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService) { }
 
   ngOnInit() {
-    this.toggleSettingTabs = true;
+
   }
 
   hideSettingTabs() {
     console.log('Hiding Setting Tabs...');
-    this.toggleSettingTabs = false;
+    document.getElementById('transparent-tab').style.display = 'none';
+    document.getElementById('edit-profile-tab').style.display = 'none';
+    document.getElementById('change-profile-pic-tab').style.display = 'none';
+    document.getElementById('change-password-tab').style.display = 'none';
+    document.getElementById('manage-credit-cards-tab').style.display = 'none';
+    document.getElementById('logout-tab').style.display = 'none';
   }
 
   userLogout(): void {
@@ -32,23 +36,32 @@ export class SettingsPage implements OnInit {
     this.router.navigate(['/index']);
   }
 
-	ionViewWillEnter()
-	{
-		console.log('********** SettingsPage.ionViewWillEnter() ');
-	}
+  showSettingTabs() {
+    //This is for Settings Page
+    const transTab = document.getElementById('transparent-tab');
+    const editProfTab = document.getElementById('edit-profile-tab');
+    const changeProfPicTab = document.getElementById('change-profile-pic-tab');
+    const changePassTab = document.getElementById('change-password-tab');
+    const creditCardsTab = document.getElementById('manage-credit-cards-tab');
+    const logoutTab = document.getElementById('logout-tab');
+    const tabs = [transTab, editProfTab, changeProfPicTab, changePassTab, creditCardsTab, logoutTab];
+    for (const elem of tabs) {
+      if (elem !== null) {
+        elem.style.display = 'block';
+      }
+    }
+  }
 
 	ionViewDidEnter()
 	{
-		console.log('********** SettingsPage.ionViewDidEnter() ');
-	}
+    console.log("view did enter");
+		document.getElementById('back-button').addEventListener('click', this.showSettingTabs);
 
-	ionViewWillLeave()
-	{
-		console.log('********** SettingsPage.ionViewWillLeave() ');
 	}
 
 	ionViewDidLeave()
 	{
-		console.log('********** SettingsPage.ionViewDidLeave() ');
+    console.log("view did leave");
+		document.getElementById('back-button').removeEventListener('click', this.showSettingTabs);
 	}
 }

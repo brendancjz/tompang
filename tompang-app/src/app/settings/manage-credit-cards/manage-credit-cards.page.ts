@@ -11,10 +11,11 @@ export class ManageCreditCardsPage implements OnInit {
   constructor(private location: Location) { }
 
   ngOnInit() {
+    document.getElementById('back-button').addEventListener('click', () => {
+      this.resetPage();
+    }, { once: true});
   }
-
-  back()
-	{
-		this.location.back();
-	}
+  resetPage() {
+    return;
+  }
 }

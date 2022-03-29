@@ -50,28 +50,22 @@ const routes: Routes = [
             ]
         },
         {
+          path: 'tabs',
+          children:
+            [
+              {
+                path: '',
+                loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
+              }
+            ]
+        },
+        {
           path: '',
-          redirectTo: '/settings',
+          redirectTo: '/settings/tabs',
           pathMatch: 'full'
         }
       ]
   },
-  {
-    path: 'edit-profile',
-    loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
-  },
-  {
-    path: 'change-password',
-    loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule)
-  },
-  {
-    path: 'manage-credit-cards',
-    loadChildren: () => import('./manage-credit-cards/manage-credit-cards.module').then( m => m.ManageCreditCardsPageModule)
-  },
-  {
-    path: 'change-profile-pic',
-    loadChildren: () => import('./change-profile-pic/change-profile-pic.module').then( m => m.ChangeProfilePicPageModule)
-  }
 ];
 
 @NgModule({

@@ -4,11 +4,11 @@
     Settings
   </ion-title>
   <ion-tabs>
-    <ion-tab-bar slot="top" style="height: 60px;background-color: transparent;">
+    <ion-tab-bar id="transparent-tab" slot="top" style="height: 60px;background-color: transparent;">
 <!-- This is to see the Settings Page -->
     </ion-tab-bar>
-    <ion-tab-bar slot="top">
-      <ion-tab-button tab="edit-profile">
+    <ion-tab-bar id="edit-profile-tab" slot="top">
+      <ion-tab-button tab="edit-profile" (click)="hideSettingTabs()">
         <div class="button-div">
           <div style="display: flex; justify-content: space-between;align-items: center;">
             <ion-icon class="button-icon" slot="start" [ios]="'create-outline'" [md]="'create-outline'"></ion-icon>
@@ -18,8 +18,8 @@
         </div>
       </ion-tab-button>
     </ion-tab-bar>
-    <ion-tab-bar slot="top">
-      <ion-tab-button tab="change-profile-pic">
+    <ion-tab-bar id="change-profile-pic-tab" slot="top">
+      <ion-tab-button tab="change-profile-pic" (click)="hideSettingTabs()">
         <div class="button-div">
           <div style="display: flex; justify-content: space-between;align-items: center;">
             <ion-icon class="button-icon" slot="start" [ios]="'person-outline'" [md]="'person-outline'"></ion-icon>
@@ -29,8 +29,8 @@
         </div>
       </ion-tab-button>
     </ion-tab-bar>
-    <ion-tab-bar slot="top">
-      <ion-tab-button tab="change-password">
+    <ion-tab-bar id="change-password-tab" slot="top">
+      <ion-tab-button tab="change-password" (click)="hideSettingTabs()">
         <div class="button-div">
           <div style="display: flex; justify-content: space-between;align-items: center;">
             <ion-icon class="button-icon" slot="start" [ios]="'keypad-outline'" [md]="'keypad-outline'"></ion-icon>
@@ -40,8 +40,8 @@
         </div>
       </ion-tab-button>
     </ion-tab-bar>
-    <ion-tab-bar slot="top">
-      <ion-tab-button tab="manage-credit-cards">
+    <ion-tab-bar id="manage-credit-cards-tab" slot="top">
+      <ion-tab-button tab="manage-credit-cards" (click)="hideSettingTabs()">
         <div class="button-div">
           <div style="display: flex; justify-content: space-between;align-items: center;">
             <ion-icon class="button-icon" slot="start" [ios]="'card-outline'" [md]="'card-outline'"></ion-icon>
@@ -51,7 +51,7 @@
         </div>
       </ion-tab-button>
     </ion-tab-bar>
-    <ion-tab-bar slot="top">
+    <ion-tab-bar id="logout-tab" slot="top">
       <ion-tab-button (click)="userLogout()">
         <div class="button-div">
           <div style="display: flex; justify-content: space-between;align-items: center;">
