@@ -21,7 +21,7 @@
           <ion-icon style="font-size: 45px;" [ios]="'add-circle-outline'" [md]="'add-circle-sharp'"></ion-icon>
         </ion-tab-button>
 
-        <ion-tab-button (click)="profilePage()">
+        <ion-tab-button [routerLink] = "['/profile']">
           <ion-icon [ios]="'person-outline'" [md]="'person-sharp'"></ion-icon>
           <ion-label>Me</ion-label>
         </ion-tab-button>
