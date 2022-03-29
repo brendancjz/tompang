@@ -21,6 +21,19 @@ export class FooterPage implements OnInit {
 	{
 		this.location.back();
     // this.resetPage();
+    //This is for Settings Page
+    const transTab = document.getElementById('transparent-tab');
+    const editProfTab = document.getElementById('edit-profile-tab');
+    const changeProfPicTab = document.getElementById('change-profile-pic-tab');
+    const changePassTab = document.getElementById('change-password-tab');
+    const creditCardsTab = document.getElementById('manage-credit-cards-tab');
+    const logoutTab = document.getElementById('logout-tab');
+    const tabs = [transTab, editProfTab, changeProfPicTab, changePassTab, creditCardsTab, logoutTab];
+    for (const elem of tabs) {
+      if (elem !== null) {
+        elem.style.display = 'block';
+      }
+    }
   }
 
   createListingPage() {

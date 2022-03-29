@@ -20,10 +20,4 @@ export class NotificationsPage implements OnInit {
     console.log('ngOnInit for Notifications page called.');
   }
 
-  back()
-	{
-		this.location.back();
-    // this.resetPage();
-  }
-
 }

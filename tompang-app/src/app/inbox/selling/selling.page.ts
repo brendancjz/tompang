@@ -18,10 +18,4 @@ export class SellingPage implements OnInit {
 
   ngOnInit() {
   }
-
-  back()
-	{
-		this.location.back();
-    // this.resetPage();
-  }
 }
