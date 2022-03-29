@@ -4,19 +4,21 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ChangePasswordPageRoutingModule } from './change-password-routing.module';
+import { SellingPageRoutingModule } from './selling-routing.module';
 
-import { ChangePasswordPage } from './change-password.page';
+import { SellingPage } from './selling.page';
 import { HeaderPageModule } from 'src/app/header/header.module';
+import { FooterPageModule } from 'src/app/footer/footer.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ChangePasswordPageRoutingModule,
+    SellingPageRoutingModule,
     HeaderPageModule,
+    FooterPageModule
   ],
-  declarations: [ChangePasswordPage]
+  declarations: [SellingPage]
 })
-export class ChangePasswordPageModule {}
+export class SellingPageModule {}

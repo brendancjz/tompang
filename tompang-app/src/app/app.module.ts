@@ -8,6 +8,8 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { HeaderPageModule } from './header/header.module';
+import { FooterPageModule } from './footer/footer.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +18,8 @@ import { AppRoutingModule } from './app-routing.module';
     IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
-    HttpClientModule],
+    HttpClientModule,
+    HeaderPageModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

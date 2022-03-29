@@ -8,6 +8,7 @@ import { SettingsPageRoutingModule } from './settings-routing.module';
 
 import { SettingsPage } from './settings.page';
 import { HeaderPageModule } from '../header/header.module';
+import { FooterPageModule } from '../footer/footer.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { HeaderPageModule } from '../header/header.module';
     FormsModule,
     IonicModule,
     SettingsPageRoutingModule,
-    HeaderPageModule
+    HeaderPageModule,
+    FooterPageModule
   ],
   declarations: [SettingsPage]
 })

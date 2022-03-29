@@ -7,6 +7,18 @@ const routes: Routes = [
   {
     path: '',
     component: InboxPage
+  },
+  {
+    path: 'notifications',
+    loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
+  },
+  {
+    path: 'buying',
+    loadChildren: () => import('./buying/buying.module').then( m => m.BuyingPageModule)
+  },
+  {
+    path: 'selling',
+    loadChildren: () => import('./selling/selling.module').then( m => m.SellingPageModule)
   }
 ];
 
