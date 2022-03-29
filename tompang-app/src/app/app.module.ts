@@ -19,7 +19,8 @@ import { FooterPageModule } from './footer/footer.module';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    HeaderPageModule],
+    HeaderPageModule,
+  FooterPageModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

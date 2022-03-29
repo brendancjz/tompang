@@ -17,6 +17,7 @@ export class NotificationsPage implements OnInit {
     private userService: UserService) {}
 
   ngOnInit() {
+    console.log('ngOnInit for Notifications page called.');
   }
 
   back()

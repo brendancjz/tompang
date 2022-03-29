@@ -1,13 +1,13 @@
 <app-header></app-header>
-<ion-content>
+<!-- <ion-content>
   <ion-title style="font-size: 30px;margin-top: 10px;margin-bottom: 10px;">
     Inbox
   </ion-title>
   <ion-button class="long-button" style="text-transform:none" color="tertiary" [routerLink]="['/inbox/notifications']">
     <div class="button-div">
       <div style="display: flex; justify-content: space-between;align-items: center;">
-        <ion-icon style="font-size: 24px; margin-right: 10px;" slot="start" [ios]="'alert-circle-outline'" [md]="'alert-circle-outline'"></ion-icon>
-        <ion-text>Notifications</ion-text>
+        <ion-icon class="button-icon" slot="start" [ios]="'alert-circle-outline'" [md]="'alert-circle-outline'"></ion-icon>
+        <ion-text class="button-text">Notifications</ion-text>
       </div>
       <ion-icon name="chevron-forward-sharp"></ion-icon>
     </div>
@@ -15,8 +15,8 @@
   <ion-button class="long-button" style="text-transform:none" color="tertiary" [routerLink]="['/inbox/buying']">
     <div class="button-div">
       <div style="display: flex; justify-content: space-between;align-items: center;">
-        <ion-icon style="font-size: 24px; margin-right: 10px;" slot="start" [ios]="'chatbubble-ellipses-outline'" [md]="'chatbubble-ellipses-outline'"></ion-icon>
-        <ion-text>Buying Chats</ion-text>
+        <ion-icon class="button-icon" slot="start" [ios]="'chatbubble-ellipses-outline'" [md]="'chatbubble-ellipses-outline'"></ion-icon>
+        <ion-text class="button-text">Buying Chats</ion-text>
       </div>
       <ion-icon name="chevron-forward-sharp"></ion-icon>
     </div>
@@ -24,12 +24,32 @@
   <ion-button class="long-button" style="text-transform:none" color="tertiary" [routerLink]="['/inbox/selling']">
     <div class="button-div">
       <div style="display: flex; justify-content: space-between;align-items: center;">
-        <ion-icon style="font-size: 24px; margin-right: 10px;" slot="start" [ios]="'chatbubbles-outline'" [md]="'chatbubbles-outline'"></ion-icon>
-        <ion-text>Selling Chats</ion-text>
+        <ion-icon class="button-icon" slot="start" [ios]="'chatbubbles-outline'" [md]="'chatbubbles-outline'"></ion-icon>
+        <ion-text class="button-text">Selling Chats</ion-text>
       </div>
       <ion-icon name="chevron-forward-sharp"></ion-icon>
     </div>
   </ion-button>
+
+</ion-content> -->
+
+<ion-content>
+  <ion-tabs>
+    <ion-tab-bar slot="top">
+      <ion-tab-button tab="notifications">
+        <ion-icon class="button-icon" name="alert-circle-outline"></ion-icon>
+        <ion-label>Notifications</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="buying">
+        <ion-icon class="button-icon" name="chatbubble-ellipses-outline"></ion-icon>
+        <ion-label>Buying</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="selling">
+        <ion-icon class="button-icon" name="chatbubbles-outline"></ion-icon>
+        <ion-label>Selling</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
 
 </ion-content>
 <app-footer></app-footer>
