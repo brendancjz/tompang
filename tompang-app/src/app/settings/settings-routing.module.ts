@@ -6,7 +6,55 @@ import { SettingsPage } from './settings.page';
 const routes: Routes = [
   {
     path: '',
-    component: SettingsPage
+    component: SettingsPage,
+    children:
+      [
+        {
+          path: 'edit-profile',
+          children:
+            [
+              {
+                path: '',
+                loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+              }
+            ]
+        },
+        {
+          path: 'change-profile-pic',
+          children:
+            [
+              {
+                path: '',
+                loadChildren: () => import('./change-profile-pic/change-profile-pic.module').then( m => m.ChangeProfilePicPageModule)
+              }
+            ]
+        },
+        {
+          path: 'change-password',
+          children:
+            [
+              {
+                path: '',
+                loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule)
+              }
+            ]
+        },
+        {
+          path: 'manage-credit-cards',
+          children:
+            [
+              {
+                path: '',
+                loadChildren: () => import('./manage-credit-cards/manage-credit-cards.module').then( m => m.ManageCreditCardsPageModule)
+              }
+            ]
+        },
+        {
+          path: '',
+          redirectTo: '/settings',
+          pathMatch: 'full'
+        }
+      ]
   },
   {
     path: 'edit-profile',

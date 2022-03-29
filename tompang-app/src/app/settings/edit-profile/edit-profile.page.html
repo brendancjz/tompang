@@ -1,5 +1,10 @@
-<app-header></app-header>
 <ion-content>
+  <ion-title style="font-size: 30px;margin-top: 10px;margin-bottom: 10px;">
+    Settings
+  </ion-title>
+  <ion-title style="font-size: 24px;margin-top: 20px;margin-bottom: 10px;">
+    Edit Profile
+  </ion-title>
   <div id="formBox" class="formBox" *ngIf="sessionService.getIsLogin() !== false">
     <div id="editProfileForm">
       <form (ngSubmit)="updateUser()">
