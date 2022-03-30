@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from '../services/session.service';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
+import { ListingService } from '../services/listing.service';
+import { Listing } from '../models/listing';
 
 @Component({
   selector: 'app-index',
@@ -20,10 +22,10 @@ export class IndexPage implements OnInit {
 
   //Register Box
   firstName: string | undefined;
-	lastName: string | undefined;
-	registerUsername: string | undefined;
-	registerPassword: string | undefined;
-  registerRepeatPassword: string |undefined;
+  lastName: string | undefined;
+  registerUsername: string | undefined;
+  registerPassword: string | undefined;
+  registerRepeatPassword: string | undefined;
   email: string | undefined;
   dateOfBirth: Date | undefined;
   contactNumber: number | undefined;
@@ -34,28 +36,42 @@ export class IndexPage implements OnInit {
   possibleViews = ['DEFAULT', 'LOGIN', 'REGISTER'];
   currentView: string;
 
-
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private listingService: ListingService
+  ) {}
 
   ngOnInit() {
     this.currentView = this.possibleViews[0];
   }
 
   userRegistration(): void {
-    if (this.firstName === undefined || this.lastName === undefined || this.registerUsername === undefined ||
-      this.registerPassword === undefined || this.registerRepeatPassword === undefined ||
-      this.email === undefined || this.dateOfBirth === undefined || this.contactNumber === undefined) {
-        this.registrationError = true;
-        this.registrationErrorMsg = 'Invalid registration: Incomplete registration!';
-        return;
-      }
-    if (this.registerPassword !== undefined && this.registerRepeatPassword !== undefined
-      && this.registerPassword !== this.registerRepeatPassword) {
+    if (
+      this.firstName === undefined ||
+      this.lastName === undefined ||
+      this.registerUsername === undefined ||
+      this.registerPassword === undefined ||
+      this.registerRepeatPassword === undefined ||
+      this.email === undefined ||
+      this.dateOfBirth === undefined ||
+      this.contactNumber === undefined
+    ) {
       this.registrationError = true;
-      this.registrationErrorMsg = 'Invalid registration: Passwords do not match!';
+      this.registrationErrorMsg =
+        'Invalid registration: Incomplete registration!';
+      return;
+    }
+    if (
+      this.registerPassword !== undefined &&
+      this.registerRepeatPassword !== undefined &&
+      this.registerPassword !== this.registerRepeatPassword
+    ) {
+      this.registrationError = true;
+      this.registrationErrorMsg =
+        'Invalid registration: Passwords do not match!';
       return;
     }
 
@@ -77,19 +93,22 @@ export class IndexPage implements OnInit {
   }
 
   userLogin(): void {
-    const user: User | null = this.userService.userLogin(this.username.trim(), this.password.trim());
+    const user: User | null = this.userService.userLogin(
+      this.username.trim(),
+      this.password.trim()
+    );
 
-    if (user != null)
-    {
+    const listing: Listing | null = this.listingService.createListing();
+
+    if (user != null) {
       this.sessionService.setIsLogin(true);
       this.sessionService.setCurrentUser(user);
+      this.sessionService.setListing(listing);
       this.loginError = false;
       this.resetPage();
 
       this.router.navigate(['/shop']); //After successful login, direct to Shop
-    }
-    else
-    {
+    } else {
       this.loginError = true;
     }
   }
@@ -139,5 +158,4 @@ export class IndexPage implements OnInit {
     this.currentView = this.possibleViews[0];
     this.resetPage();
   }
-
 }

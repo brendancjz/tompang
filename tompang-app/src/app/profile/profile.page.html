@@ -1,7 +1,64 @@
 <app-header></app-header>
 <ion-content>
-  <ion-title style="font-size: 30px;margin-top: 10px;margin-bottom: 10px;">
+  <ion-title style="font-size: 30px; margin-top: 10px; margin-bottom: 10px">
     Profile
   </ion-title>
+  <ion-img></ion-img>
+  <ion-button>
+    Followers:
+    <!--  {{serviceSession.getCurrentUser().followers}} -->
+  </ion-button>
+  <ion-button>
+    Following:
+    <!-- Following: {{serviceSession.getCurrentUser().following}} -->
+  </ion-button>
+  <ion-title style="font-size: 30px; margin-top: 10px; margin-bottom: 10px">
+    My Listings
+  </ion-title>
+
+  <ion-list>
+    <ion-item>
+      <ion-img>listing picture</ion-img>
+    </ion-item>
+
+    <ion-item>
+      <ion-label><b>Title</b></ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label><b>Country</b></ion-label>
+      <!-- {{listing.country}} -->
+    </ion-item>
+
+    <ion-item>
+      <ion-label><b>City</b></ion-label>
+      <!-- {{listing.city}} -->
+    </ion-item>
+
+    <ion-item>
+      <ion-label><b>Description </b></ion-label>
+      <!-- {{listing.description}} -->
+    </ion-item>
+
+    <ion-item>
+      <ion-label><b>Category </b></ion-label>
+      <!-- {{listing.category}} -->
+    </ion-item>
+
+    <ion-item>
+      <ion-label><b>Price</b></ion-label>
+      <!-- {{listing.price}} -->
+    </ion-item>
+
+    <ion-item>
+      <ion-label><b>Quantity</b></ion-label>
+      <!-- {{listing.quantity}} -->
+    </ion-item>
+
+    <ion-item>
+      <ion-label><b>Likes</b></ion-label>
+      <!-- {{listing.likes}} -->
+    </ion-item>
+  </ion-list>
 </ion-content>
 <app-footer></app-footer>

@@ -1,9 +1,9 @@
 export class User {
   userId: number | undefined;
-	firstName: string | undefined;
-	lastName: string | undefined;
-	username: string | undefined;
-	password: string | undefined;
+  firstName: string | undefined;
+  lastName: string | undefined;
+  username: string | undefined;
+  password: string | undefined;
   email: string | undefined;
   dateOfBirth: Date | undefined;
   profilePic: string | undefined;
@@ -31,11 +31,18 @@ export class User {
   // @OneToMany
   // private List<Listing> likedListings;
 
-    constructor(userId?: number, firstName?: string, lastName?: string, username?: string,
-      password?: string, email?: string, dateOfBirth?: Date, profilePic?: string,
-      contactNumber?: number)
-	{
-		this.userId = userId;
+  constructor(
+    userId?: number,
+    firstName?: string,
+    lastName?: string,
+    username?: string,
+    password?: string,
+    email?: string,
+    dateOfBirth?: Date,
+    profilePic?: string,
+    contactNumber?: number
+  ) {
+    this.userId = userId;
     this.firstName = firstName;
     this.lastName = lastName;
     this.username = username;
@@ -48,5 +55,5 @@ export class User {
     this.isAdmin = false;
     this.isDisabled = false;
     this.salt = '';
-	}
+  }
 }

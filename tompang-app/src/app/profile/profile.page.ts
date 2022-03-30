@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ListingService } from '../services/listing.service';
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-profile',
@@ -6,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+  title: string | undefined;
 
-  constructor() { }
+  constructor(
+    public sessionService: SessionService,
+    private listingService: ListingService
+  ) {
+    const listing = sessionService.getListing();
 
-  ngOnInit() {
+    this.title = listing.title;
   }
 
+  ngOnInit() {}
 }
