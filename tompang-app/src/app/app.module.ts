@@ -10,12 +10,15 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderPageModule } from './header/header.module';
 import { FooterPageModule } from './footer/footer.module';
+import { enterAnimation } from './animations/nav-animation';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      navAnimation: enterAnimation
+    }),
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
