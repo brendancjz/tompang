@@ -7,7 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { ShopPageRoutingModule } from './shop-routing.module';
 
 import { ShopPage } from './shop.page';
-import { HeaderComponentModule } from '../header/header.module';
+import { HeaderPageModule } from '../header/header.module';
+import { FooterPageModule } from '../footer/footer.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { HeaderComponentModule } from '../header/header.module';
     FormsModule,
     IonicModule,
     ShopPageRoutingModule,
-    HeaderComponentModule
+    HeaderPageModule,
+    FooterPageModule
   ],
   declarations: [ShopPage]
 })

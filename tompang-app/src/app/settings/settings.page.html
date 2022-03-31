@@ -1,4 +1,112 @@
 <app-header></app-header>
 <ion-content>
-  This is the settings page
+  <ion-title style="font-size: 30px;margin-top: 10px;margin-bottom: 10px;">
+    Settings
+  </ion-title>
+  <ion-tabs>
+    <ion-tab-bar id="transparent-tab" slot="top" style="height: 60px;background-color: transparent;">
+<!-- This is to see the Settings Page -->
+    </ion-tab-bar>
+    <ion-tab-bar id="edit-profile-tab" slot="top">
+      <ion-tab-button tab="edit-profile" (click)="hideSettingTabs()">
+        <div class="button-div">
+          <div style="display: flex; justify-content: space-between;align-items: center;">
+            <ion-icon class="button-icon" slot="start" [ios]="'create-outline'" [md]="'create-outline'"></ion-icon>
+            <ion-text class="button-text">Edit Profile</ion-text>
+          </div>
+          <ion-icon name="chevron-forward-sharp"></ion-icon>
+        </div>
+      </ion-tab-button>
+    </ion-tab-bar>
+    <ion-tab-bar id="change-profile-pic-tab" slot="top">
+      <ion-tab-button tab="change-profile-pic" (click)="hideSettingTabs()">
+        <div class="button-div">
+          <div style="display: flex; justify-content: space-between;align-items: center;">
+            <ion-icon class="button-icon" slot="start" [ios]="'person-outline'" [md]="'person-outline'"></ion-icon>
+            <ion-text class="button-text">Change Profile Picture</ion-text>
+          </div>
+          <ion-icon name="chevron-forward-sharp"></ion-icon>
+        </div>
+      </ion-tab-button>
+    </ion-tab-bar>
+    <ion-tab-bar id="change-password-tab" slot="top">
+      <ion-tab-button tab="change-password" (click)="hideSettingTabs()">
+        <div class="button-div">
+          <div style="display: flex; justify-content: space-between;align-items: center;">
+            <ion-icon class="button-icon" slot="start" [ios]="'keypad-outline'" [md]="'keypad-outline'"></ion-icon>
+            <ion-text class="button-text">Change Password</ion-text>
+          </div>
+          <ion-icon name="chevron-forward-sharp"></ion-icon>
+        </div>
+      </ion-tab-button>
+    </ion-tab-bar>
+    <ion-tab-bar id="manage-credit-cards-tab" slot="top">
+      <ion-tab-button tab="manage-credit-cards" (click)="hideSettingTabs()">
+        <div class="button-div">
+          <div style="display: flex; justify-content: space-between;align-items: center;">
+            <ion-icon class="button-icon" slot="start" [ios]="'card-outline'" [md]="'card-outline'"></ion-icon>
+            <ion-text class="button-text">Manage Credit Cards</ion-text>
+          </div>
+          <ion-icon name="chevron-forward-sharp"></ion-icon>
+        </div>
+      </ion-tab-button>
+    </ion-tab-bar>
+    <ion-tab-bar id="logout-tab" slot="top">
+      <ion-tab-button (click)="userLogout()">
+        <div class="button-div">
+          <div style="display: flex; justify-content: space-between;align-items: center;">
+            <ion-icon class="button-icon" slot="start" [ios]="'log-out-outline'" [md]="'log-out-outline'"></ion-icon>
+            <ion-text class="button-text">Log Out</ion-text>
+          </div>
+          <ion-icon name="chevron-forward-sharp"></ion-icon>
+        </div>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+  <!-- <ion-button class="long-button" style="text-transform:none" color="tertiary" [routerLink]="['/settings/edit-profile']">
+    <div class="button-div">
+      <div style="display: flex; justify-content: space-between;align-items: center;">
+        <ion-icon class="button-icon" slot="start" [ios]="'create-outline'" [md]="'create-outline'"></ion-icon>
+        <ion-text class="button-text">Edit Profile</ion-text>
+      </div>
+      <ion-icon name="chevron-forward-sharp"></ion-icon>
+    </div>
+  </ion-button>
+  <ion-button class="long-button" style="text-transform:none" color="tertiary" [routerLink]="['/settings/change-profile-pic']">
+    <div class="button-div">
+      <div style="display: flex; justify-content: space-between;align-items: center;">
+        <ion-icon class="button-icon" slot="start" [ios]="'person-outline'" [md]="'person-outline'"></ion-icon>
+        <ion-text class="button-text">Change Profile Picture</ion-text>
+      </div>
+      <ion-icon name="chevron-forward-sharp"></ion-icon>
+    </div>
+  </ion-button>
+  <ion-button class="long-button" style="text-transform:none" color="tertiary" [routerLink]="['/settings/change-password']">
+    <div class="button-div">
+      <div style="display: flex; justify-content: space-between;align-items: center;">
+        <ion-icon class="button-icon" slot="start" [ios]="'keypad-outline'" [md]="'keypad-outline'"></ion-icon>
+        <ion-text class="button-text">Change Password</ion-text>
+      </div>
+      <ion-icon name="chevron-forward-sharp"></ion-icon>
+    </div>
+  </ion-button>
+  <ion-button class="long-button" style="text-transform:none" color="tertiary" [routerLink]="['/settings/manage-credit-cards']">
+    <div class="button-div">
+      <div style="display: flex; justify-content: space-between;align-items: center;">
+        <ion-icon class="button-icon" slot="start" [ios]="'card-outline'" [md]="'card-outline'"></ion-icon>
+        <ion-text class="button-text">Manage Credit Cards</ion-text>
+      </div>
+      <ion-icon name="chevron-forward-sharp"></ion-icon>
+    </div>
+  </ion-button>
+  <ion-button class="long-button" style="text-transform:none" color="tertiary" (click)="userLogout()">
+    <div class="button-div">
+      <div style="display: flex; justify-content: space-between;align-items: center;">
+        <ion-icon class="button-icon" slot="start" [ios]="'log-out-outline'" [md]="'log-out-outline'"></ion-icon>
+        <ion-text class="button-text">Log Out</ion-text>
+      </div>
+      <ion-icon name="chevron-forward-sharp"></ion-icon>
+    </div>
+  </ion-button> -->
 </ion-content>
+<app-footer></app-footer>

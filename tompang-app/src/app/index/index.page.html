@@ -23,11 +23,11 @@
       <form (ngSubmit)="userLogin()">
         <ion-item>
           <ion-label>Username</ion-label>
-          <ion-input placeholder="username" [(ngModel)]="username" name="username" required maxlength="50"></ion-input>
+          <ion-input placeholder="username" [(ngModel)]="username" name="username" required minlength="5" maxlength="50"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Password</ion-label>
-          <ion-input type="password" [(ngModel)]="password" name="username" required maxlength="50"></ion-input>
+          <ion-input type="password" [(ngModel)]="password" name="password" required minlength="8" maxlength="50"></ion-input>
         </ion-item>
         <div class="input-button-div">
           <ion-button color="primary" (click)="hideLoginBox()">Back</ion-button>
@@ -47,36 +47,36 @@
     <div id="indexForm">
       <form (ngSubmit)="userRegistration()">
         <ion-item>
-          <ion-label>First Name</ion-label>
+          <ion-label>First Name: </ion-label>
           <ion-input placeholder="John" [(ngModel)]="firstName" name="firstName" required maxlength="50"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Last Name</ion-label>
+          <ion-label>Last Name: </ion-label>
           <ion-input placeholder="Doe" [(ngModel)]="lastName" name="lastName" required maxlength="50"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Username</ion-label>
+          <ion-label>Username: </ion-label>
           <ion-input placeholder="johndoe" [(ngModel)]="registerUsername" name="username" required minlength="5" maxlength="50"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Password</ion-label>
+          <ion-label>Password: </ion-label>
           <ion-input type="password" [(ngModel)]="registerPassword" name="password" required minlength="8" maxlength="50"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Repeat Password</ion-label>
+          <ion-label>Repeat Password: </ion-label>
           <ion-input type="password" [(ngModel)]="registerRepeatPassword" name="repeatPassword" required minlength="8" maxlength="50"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Email</ion-label>
+          <ion-label>Email: </ion-label>
           <ion-input type="email" placeholder="john.doe@gmail.com" [(ngModel)]="email" name="email" required maxlength="50" clearInput></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label>Contact No.</ion-label>
+          <ion-label>Contact No.: </ion-label>
           <ion-input type="tel" [(ngModel)]="contactNumber" name="contactNumber" required minlength="8"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Date of Birth</ion-label>
+          <ion-label>Date of Birth: </ion-label>
           <ion-input type="date" [(ngModel)]="dateOfBirth" name="dateOfBirth" required></ion-input>
         </ion-item>
         <div class="input-button-div">

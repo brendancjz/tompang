@@ -1,0 +1,43 @@
+<ion-content>
+  <ion-title style="font-size: 30px;margin-top: 10px;margin-bottom: 10px;">
+    Settings
+  </ion-title>
+  <ion-title style="font-size: 24px;margin-top: 20px;margin-bottom: 10px;">
+    Edit Profile
+  </ion-title>
+  <div id="formBox" class="formBox" *ngIf="sessionService.getIsLogin() !== false">
+    <div id="editProfileForm">
+      <form (ngSubmit)="updateUser()">
+        <ion-item>
+          <ion-label>First Name: </ion-label>
+          <ion-input placeholder="John" [(ngModel)]="firstName" name="firstName" required maxlength="50"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Last Name: </ion-label>
+          <ion-input placeholder="Doe" [(ngModel)]="lastName" name="lastName" required maxlength="50"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Email: </ion-label>
+          <ion-input type="email" placeholder="john.doe@gmail.com" [(ngModel)]="email" name="email" required maxlength="50" clearInput></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Contact No.: </ion-label>
+          <ion-input type="tel" [(ngModel)]="contactNumber" name="contactNumber" required minlength="8"></ion-input>
+        </ion-item>
+        <ion-item>
+          <!-- Need to fix this. It does not show the date in UI -->
+          <ion-label>D.O.B: </ion-label>
+          <ion-input type="date" [(ngModel)]="dateOfBirth" name="dateOfBirth" required></ion-input>
+        </ion-item>
+        <div class="input-button-div">
+          <ion-button color="primary"  type="reset">Clear</ion-button>
+          <ion-button color="primary" type="submit">Update</ion-button>
+        </div>
+      </form>
+      <div *ngIf="editError === true" style="text-align: center; color: red;width: 300px;">
+        Invalid edit: Inputted fields are incorrectly formatted!
+      </div>
+    </div>
+
+  </div>
+</ion-content>

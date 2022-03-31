@@ -7,7 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { HistoryPageRoutingModule } from './history-routing.module';
 
 import { HistoryPage } from './history.page';
-import { HeaderComponentModule } from '../header/header.module';
+import { HeaderPageModule } from '../header/header.module';
+import { FooterPageModule } from '../footer/footer.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { HeaderComponentModule } from '../header/header.module';
     FormsModule,
     IonicModule,
     HistoryPageRoutingModule,
-    HeaderComponentModule
+    HeaderPageModule,
+    FooterPageModule
   ],
   declarations: [HistoryPage]
 })

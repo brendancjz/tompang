@@ -1,0 +1,22 @@
+<ion-content>
+  <ion-title style="font-size: 30px;margin-top: 10px;margin-bottom: 10px;">
+    Settings
+  </ion-title>
+  <ion-title style="font-size: 24px;margin-top: 20px;margin-bottom: 10px;">
+    Change Profile Picture
+  </ion-title>
+  <div id="formBox" class="formBox" *ngIf="sessionService.getIsLogin() !== false">
+    <div id="changeProfilePicForm">
+      <form (ngSubmit)="updateUserProfilePic()">
+
+        <div class="input-button-div">
+          <ion-button color="primary"  type="reset">Clear</ion-button>
+          <ion-button color="primary" type="submit">Change</ion-button>
+        </div>
+      </form>
+      <div *ngIf="editError === true" style="text-align: center; color: red;width: 300px;">
+        Invalid change: Bad profile picture url!
+      </div>
+    </div>
+  </div>
+</ion-content>

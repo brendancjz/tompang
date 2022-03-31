@@ -7,7 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { InboxPageRoutingModule } from './inbox-routing.module';
 
 import { InboxPage } from './inbox.page';
-import { HeaderComponentModule } from '../header/header.module';
+import { HeaderPageModule } from '../header/header.module';
+import { FooterPageModule } from '../footer/footer.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { HeaderComponentModule } from '../header/header.module';
     FormsModule,
     IonicModule,
     InboxPageRoutingModule,
-    HeaderComponentModule
+    HeaderPageModule,
+    FooterPageModule
   ],
   declarations: [InboxPage]
 })
