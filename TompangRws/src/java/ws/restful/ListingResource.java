@@ -7,6 +7,7 @@ package ws.restful;
 
 import ejb.stateless.ListingSessionBeanLocal;
 import ejb.stateless.UserSessionBeanLocal;
+import entity.Conversation;
 import entity.Listing;
 import entity.User;
 import exception.InvalidLoginCredentialsException;
@@ -60,6 +61,40 @@ public class ListingResource {
             System.out.println("********** ListingResource.retrieveAllProducts(): User " + user.getUsername() + " login remotely via web service");
 
             List<Listing> listings = listingSessionBean.retrieveAllListings();
+            
+            for (Listing listing : listings) {
+                User createdBy = listing.getCreatedBy();
+                
+                if (createdBy.getConversations() != null) {
+                    for (Conversation conversation : createdBy.getConversations()) {
+                        conversation.setCreatedBy(null);
+                    }
+                    createdBy.getConversations().clear();
+                
+                }
+                
+                if (createdBy.getCreatedListings() != null) {
+                    for (Listing createdListing : createdBy.getCreatedListings()) {
+                        createdListing.setCreatedBy(null);
+                    }
+                    createdBy.getCreatedListings().clear();
+
+                }
+                
+                if (listing.getConversations() != null) {
+                    for (Conversation conversation : listing.getConversations()) {
+                        conversation.getMessages().clear();
+                    }
+                    listing.getConversations().clear();
+                }
+                
+                if (listing.getTransactions() != null) {
+                    listing.getTransactions().clear();
+                }
+            }
+            
+            System.out.println(listings);
+
             GenericEntity<List<Listing>> genericEntity = new GenericEntity<List<Listing>>(listings) {
             };
 
