@@ -41,6 +41,7 @@ public class ListingResource {
     private final SessionBeanLookup sessionBeanLookup;
     private final ListingSessionBeanLocal listingSessionBean;
     private final UserSessionBeanLocal userSessionBean;
+    
 
     public ListingResource() {
         sessionBeanLookup = new SessionBeanLookup();
