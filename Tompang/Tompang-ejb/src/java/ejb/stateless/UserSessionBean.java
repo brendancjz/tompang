@@ -37,6 +37,12 @@ public class UserSessionBean implements UserSessionBeanLocal {
 
     @Override
     public Long createNewUser(User user) {
+//        String password = user.getPassword();
+//        String passwordHash = CryptographicHelper.getInstance().byteArrayToHexString(CryptographicHelper.getInstance().doMD5Hashing(password + user.getSalt())).toString();
+//        System.out.println(passwordHash);
+//        user.setPassword(passwordHash);
+//        System.out.println("*****************************" + user.getPassword());
+
         em.persist(user);
         em.flush();
 
@@ -209,9 +215,9 @@ public class UserSessionBean implements UserSessionBeanLocal {
     public User userLogin(String username, String password) throws InvalidLoginCredentialsException {
         try {
             User user = retrieveUserByUsername(username);
-            String passwordHash = CryptographicHelper.getInstance().byteArrayToHexString(CryptographicHelper.getInstance().doMD5Hashing(password + user.getSalt()));
+            // String passwordHash = CryptographicHelper.getInstance().byteArrayToHexString(CryptographicHelper.getInstance().doMD5Hashing(password + user.getSalt()));
 
-            if (user.getPassword().equals(passwordHash)) {
+            if (user.getPassword().equals(password)) {
                 user.getBuyerTransactions().size();
                 user.getSellerTransactions().size();
                 user.getConversations().size();

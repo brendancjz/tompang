@@ -43,6 +43,7 @@ public class DataInitSessionBean {
 
     @EJB
     private UserSessionBeanLocal userSessionBean;
+    
 
     @PersistenceContext(unitName = "Tompang-ejbPU")
     private EntityManager em;
@@ -57,10 +58,10 @@ public class DataInitSessionBean {
             //Create Manager
             Date dob = Date.from(LocalDate.of(1999, 12, 25).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
             String managerProfilePic = "/uploadedFiles/manager_picture.jpg";
+            
             User manager = new User("Brendan", "Chia", "bchia@gmail.com", "manager", "password", dob, managerProfilePic, 98769876L, true);
 
-            em.persist(manager);
-            em.flush();
+            userSessionBean.createNewUser(manager);
 
             String userProfilePic = "/uploadedFiles/default_picture.jpg";
 
