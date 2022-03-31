@@ -43,6 +43,7 @@ public class UserResource {
     public Response userLogin(@QueryParam("username") String username, 
                                 @QueryParam("password") String password) {
         try {
+            System.out.println("*********** " + username + " " + password);
             User user = userSessionBean.userLogin(username, password);
             System.out.println("********** UserResource.userLogin(): User " + user.getUsername() + " login remotely via web service");
             
