@@ -63,6 +63,7 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
         for (Listing listing : listings) {
             listing.getConversations().size();
             listing.getPhotos().size();
+            listing.getCreatedBy();
         }
 
         return listings;
