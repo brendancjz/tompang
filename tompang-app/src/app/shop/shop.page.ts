@@ -23,12 +23,37 @@ export class ShopPage implements OnInit {
     public sessionService: SessionService,
     public listingService: ListingService) {
 
-      this.mostLikedListings = listingService.getMostLikedListings();
-      this.allAvailableListings = listingService.getAllAvailableListings();
+    this.mostLikedListings = new Array();
+    this.allAvailableListings = new Array();
+  }
 
-     }
-
-  ngOnInit() {
+  ngOnInit(): void {
+    this.listingService.getAllAvailableListings().subscribe({
+      next: (response) => {
+        this.allAvailableListings = response;
+      },
+      error: (error) => {
+        console.log('getAllAvailableListings.ts:' + error);
+      }
+    });
+    this.listingService.getAllAvailableListings().subscribe({
+      next: (response) => {
+        this.mostLikedListings = response;
+      },
+      error: (error) => {
+        console.log('getAllAvailableListings.ts:' + error);
+      }
+    });
+    // not sure why its not getting sorted....
+    this.mostLikedListings.sort((l1, l2) => {
+      if (l1.numOfLikes < l2.numOfLikes) {
+        return -1
+      } else if(l1.numOfLikes > l2.numOfLikes) {
+        return 1
+      } else {
+        return 0
+      }
+    });
   }
 
   //Need to repeat this method in the Footer page as well.
