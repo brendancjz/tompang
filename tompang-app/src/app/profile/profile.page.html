@@ -44,6 +44,7 @@
     <ion-title class="sub-heading grey-color">
       my listings
     </ion-title>
+    <hr class="horizontal-rule" />
     <div class="search">
       <ion-item>
         <ion-input placeholder="Search Your Product"></ion-input>
@@ -65,8 +66,12 @@
                   <ion-card-subtitle>${{listing.price}}</ion-card-subtitle>
                   <ion-card-subtitle>@manager</ion-card-subtitle>
                 </div>
-                <ion-button color="tertiary" class="small-button-icon" icon-only slot="end">
+                <!-- Need to handle logic if listing is liked or not. Update accordingly -->
+                <ion-button color="tertiary" class="small-button-icon" (click)="likeListing(listing)" icon-only slot="end">
                   <ion-icon name="heart-outline"></ion-icon>
+                </ion-button>
+                <ion-button *ngIf="false" color="tertiary" class="small-button-icon" (click)="unlikeListing(listing)" icon-only slot="end">
+                  <ion-icon color="primary" name="heart"></ion-icon>
                 </ion-button>
               </div>
 

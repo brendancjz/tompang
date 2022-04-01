@@ -45,4 +45,12 @@ export class ProfilePage implements OnInit {
   viewListingDetails(listingToView: Listing) {
     console.log('View listing details for listingId: ' + listingToView.listingId);
   }
+
+  likeListing(listing: Listing) {
+    console.log('Liking listing..');
+  }
+
+  unlikeListing(listing: Listing) {
+    console.log('unliking listing..');
+  }
 }
