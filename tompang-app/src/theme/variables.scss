@@ -1,5 +1,8 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
+.horizontal-rule {
+  background-color: var(--grey-color);
+}
 
 .hide-scroll-bar {
   --offset-bottom: auto !important;

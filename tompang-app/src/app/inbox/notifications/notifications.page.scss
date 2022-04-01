@@ -1,0 +1,22 @@
+ion-title.page-name {
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+ion-title.sub-page-name {
+  font-size: 24px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.notification-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+ion-button.button-icon {
+  --box-shadow: none;
+}
