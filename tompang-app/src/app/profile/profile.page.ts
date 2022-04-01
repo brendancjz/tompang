@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Listing } from '../models/listing';
 import { User } from '../models/user';
 import { ListingService } from '../services/listing.service';
 import { SessionService } from '../services/session.service';
@@ -9,10 +10,15 @@ import { SessionService } from '../services/session.service';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-
+  samplePic = '../../assets/images/tompang_icon_logo_blue.png';
   title: string | undefined;
   currentUser: User;
   username: string | undefined;
+
+
+  sampleListing: Listing;
+
+  myListings: Listing[];
 
   constructor(
     public sessionService: SessionService,
@@ -23,6 +29,15 @@ export class ProfilePage implements OnInit {
     this.title = listing.title;
     this.currentUser = sessionService.getCurrentUser();
     this.username = this.currentUser.username;
+
+    this.sampleListing = new Listing(1, 'Singapore', 'Singapore', 'Bape T-Shirt',
+  'Get yo bape t-shirts today!', 'APPAREL', 100, new Date(), 5);
+
+    this.myListings = [this.sampleListing, this.sampleListing, this.sampleListing,
+      this.sampleListing, this.sampleListing, this.sampleListing,
+      this.sampleListing, this.sampleListing, this.sampleListing,
+      this.sampleListing, this.sampleListing, this.sampleListing, this.sampleListing];
+
   }
 
   ngOnInit() {}

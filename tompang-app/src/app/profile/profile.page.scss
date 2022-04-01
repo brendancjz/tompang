@@ -42,9 +42,35 @@ ion-button.follow-button {
 
 #username-tag {
   font-size: 20px;
+  margin-top: 5px;
   padding: 0;
 }
 
 .horizontal-rule {
   background-color: var(--grey-color);
+}
+
+.sub-heading {
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.search {
+  margin-bottom: 20px;
+  padding: 0 20px;
+
+  ion-item {
+      border-radius: 10px;
+      padding: 8px;
+
+      ion-icon {
+          margin-right: 16px;
+      }
+
+      ion-input {
+          padding-left: 10px !important;
+          border-left: 1px solid #F4F4F4;
+      }
+  }
 }

@@ -40,53 +40,82 @@
     </div>
   </div>
   <hr class="horizontal-rule" />
-  <ion-title style="font-size: 30px; margin-top: 10px; margin-bottom: 10px">
-    My Listings
-  </ion-title>
+  <div>
+    <ion-title class="sub-heading grey-color">
+      my listings
+    </ion-title>
+    <div class="search">
+      <ion-item>
+        <ion-input placeholder="Search Your Product"></ion-input>
+        <ion-icon name="search-outline" slot="start"></ion-icon>
+      </ion-item>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let listing of myListings">
+          <ion-card>
+            <ion-card-header>
+              <ion-img src={{samplePic}}></ion-img>
+            </ion-card-header>
 
-  <ion-list>
-    <ion-item>
-      <ion-img>listing picture</ion-img>
-    </ion-item>
+            <ion-card-content>
+              <ion-card-title>{{ listing.title }}</ion-card-title>
+              <ion-card-subtitle>${{listing.price}}</ion-card-subtitle>
+              <ion-card-subtitle>@manager</ion-card-subtitle>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-    <ion-item>
-      <ion-label><b>Title</b></ion-label>
-    </ion-item>
+    <div style="height: 500px;">
 
-    <ion-item>
-      <ion-label><b>Country</b></ion-label>
-      <!-- {{listing.country}} -->
-    </ion-item>
+    </div>
+    <ion-list>
+      <ion-item>
+        <ion-img>listing picture</ion-img>
+      </ion-item>
 
-    <ion-item>
-      <ion-label><b>City</b></ion-label>
-      <!-- {{listing.city}} -->
-    </ion-item>
+      <ion-item>
+        <ion-label><b>Title</b></ion-label>
+      </ion-item>
 
-    <ion-item>
-      <ion-label><b>Description </b></ion-label>
-      <!-- {{listing.description}} -->
-    </ion-item>
+      <ion-item>
+        <ion-label><b>Country</b></ion-label>
+        <!-- {{listing.country}} -->
+      </ion-item>
 
-    <ion-item>
-      <ion-label><b>Category </b></ion-label>
-      <!-- {{listing.category}} -->
-    </ion-item>
+      <ion-item>
+        <ion-label><b>City</b></ion-label>
+        <!-- {{listing.city}} -->
+      </ion-item>
 
-    <ion-item>
-      <ion-label><b>Price</b></ion-label>
-      <!-- {{listing.price}} -->
-    </ion-item>
+      <ion-item>
+        <ion-label><b>Description </b></ion-label>
+        <!-- {{listing.description}} -->
+      </ion-item>
 
-    <ion-item>
-      <ion-label><b>Quantity</b></ion-label>
-      <!-- {{listing.quantity}} -->
-    </ion-item>
+      <ion-item>
+        <ion-label><b>Category </b></ion-label>
+        <!-- {{listing.category}} -->
+      </ion-item>
 
-    <ion-item>
-      <ion-label><b>Likes</b></ion-label>
-      <!-- {{listing.likes}} -->
-    </ion-item>
-  </ion-list>
+      <ion-item>
+        <ion-label><b>Price</b></ion-label>
+        <!-- {{listing.price}} -->
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Quantity</b></ion-label>
+        <!-- {{listing.quantity}} -->
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Likes</b></ion-label>
+        <!-- {{listing.likes}} -->
+      </ion-item>
+    </ion-list>
+  </div>
+
 </ion-content>
 <app-footer></app-footer>
