@@ -18,6 +18,9 @@ public class ApplicationConfig extends javax.ws.rs.core.Application {
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new java.util.HashSet<>();
         addRestResourceClasses(resources);
+        
+        // not sure where prof got this import from..
+       // resources.add(MultiPartFeature.class);
         return resources;
     }
 
