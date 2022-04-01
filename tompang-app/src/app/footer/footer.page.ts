@@ -36,10 +36,12 @@ export class FooterPage implements OnInit {
     }
   }
 
+  //Need to repeat this method in the Shop page as well.
   createListingPage() {
     console.log('Going to create listing page');
   }
 
+  //Need to repeat this method in the Shop page as well.
   profilePage() {
     this.router.navigate(['/profile']);
   }

@@ -1,64 +1,135 @@
-<app-header></app-header>
-<ion-content>
-  <ion-title style="font-size: 30px; margin-top: 10px; margin-bottom: 10px">
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button color="tertiary"></ion-menu-button>
+    </ion-buttons>
+    <ion-button class="button-icon" icon-only slot="end" id="liked-listings-button" [routerLink] = "['/liked-listings']">
+      <ion-icon name="heart-outline"></ion-icon>
+    </ion-button>
+    <ion-button class="button-icon" icon-only slot="end" id="inbox-button" [routerLink] = "['/inbox']">
+      <ion-icon name="chatbubble-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="hide-scroll-bar">
+  <ion-title class="page-name grey-color">
     Profile
   </ion-title>
-  <ion-img></ion-img>
-  <ion-button>
-    Followers:
-    <!--  {{serviceSession.getCurrentUser().followers}} -->
-  </ion-button>
-  <ion-button>
-    Following:
-    <!-- Following: {{serviceSession.getCurrentUser().following}} -->
-  </ion-button>
-  <ion-title style="font-size: 30px; margin-top: 10px; margin-bottom: 10px">
-    My Listings
-  </ion-title>
 
-  <ion-list>
-    <ion-item>
-      <ion-img>listing picture</ion-img>
-    </ion-item>
+  <div id="profile-info">
+    <ion-img style="background-color: red;height: 75px;width: 75px;border-radius: 100%;"></ion-img>
+    <ion-title id="username-tag" class="grey-color">
+      @{{username}}
+    </ion-title>
+    <div id="profile-info-buttons">
+      <div>
+        <ion-button color="tertiary" class="follow-button">
+          10 followers
+          <!--  {{serviceSession.getCurrentUser().followers}} -->
+        </ion-button>
+        <ion-button color="tertiary" class="follow-button">
+          1 following
+          <!-- Following: {{serviceSession.getCurrentUser().following}} -->
+        </ion-button>
+      </div>
 
-    <ion-item>
-      <ion-label><b>Title</b></ion-label>
-    </ion-item>
+      <ion-button color="tertiary" class="button-icon" icon-only slot="end" id="settings-button" [routerLink] = "['/settings']">
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+  <hr class="horizontal-rule" />
+  <div>
+    <ion-title class="sub-heading grey-color">
+      my listings
+    </ion-title>
+    <hr class="horizontal-rule" />
+    <div class="search">
+      <ion-item>
+        <ion-input placeholder="Search Your Product"></ion-input>
+        <ion-icon name="search-outline" slot="start"></ion-icon>
+      </ion-item>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let listing of myListings">
+          <ion-card>
+            <ion-card-header (click)="viewListingDetails(listing)">
+              <ion-img src={{samplePic}}></ion-img>
+            </ion-card-header>
 
-    <ion-item>
-      <ion-label><b>Country</b></ion-label>
-      <!-- {{listing.country}} -->
-    </ion-item>
+            <ion-card-content>
+              <ion-card-title (click)="viewListingDetails(listing)">{{ listing.title }}</ion-card-title>
+              <div class="listing-card-info">
+                <div (click)="viewListingDetails(listing)">
+                  <ion-card-subtitle>${{listing.price}}</ion-card-subtitle>
+                  <ion-card-subtitle>@manager</ion-card-subtitle>
+                </div>
+                <!-- Need to handle logic if listing is liked or not. Update accordingly -->
+                <ion-button color="tertiary" class="small-button-icon" (click)="likeListing(listing)" icon-only slot="end">
+                  <ion-icon name="heart-outline"></ion-icon>
+                </ion-button>
+                <ion-button *ngIf="false" color="tertiary" class="small-button-icon" (click)="unlikeListing(listing)" icon-only slot="end">
+                  <ion-icon color="primary" name="heart"></ion-icon>
+                </ion-button>
+              </div>
 
-    <ion-item>
-      <ion-label><b>City</b></ion-label>
-      <!-- {{listing.city}} -->
-    </ion-item>
 
-    <ion-item>
-      <ion-label><b>Description </b></ion-label>
-      <!-- {{listing.description}} -->
-    </ion-item>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-    <ion-item>
-      <ion-label><b>Category </b></ion-label>
-      <!-- {{listing.category}} -->
-    </ion-item>
+    <div style="height: 500px;">
 
-    <ion-item>
-      <ion-label><b>Price</b></ion-label>
-      <!-- {{listing.price}} -->
-    </ion-item>
+    </div>
+    <ion-list>
+      <ion-item>
+        <ion-img>listing picture</ion-img>
+      </ion-item>
 
-    <ion-item>
-      <ion-label><b>Quantity</b></ion-label>
-      <!-- {{listing.quantity}} -->
-    </ion-item>
+      <ion-item>
+        <ion-label><b>Title</b></ion-label>
+      </ion-item>
 
-    <ion-item>
-      <ion-label><b>Likes</b></ion-label>
-      <!-- {{listing.likes}} -->
-    </ion-item>
-  </ion-list>
+      <ion-item>
+        <ion-label><b>Country</b></ion-label>
+        <!-- {{listing.country}} -->
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>City</b></ion-label>
+        <!-- {{listing.city}} -->
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Description </b></ion-label>
+        <!-- {{listing.description}} -->
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Category </b></ion-label>
+        <!-- {{listing.category}} -->
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Price</b></ion-label>
+        <!-- {{listing.price}} -->
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Quantity</b></ion-label>
+        <!-- {{listing.quantity}} -->
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Likes</b></ion-label>
+        <!-- {{listing.likes}} -->
+      </ion-item>
+    </ion-list>
+  </div>
+
 </ion-content>
 <app-footer></app-footer>

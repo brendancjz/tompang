@@ -4,3 +4,14 @@
   background-color: transparent;
   font-size: 20px;
 }
+
+ion-button.button-icon {
+  --box-shadow: none;
+  --padding-end: 7px;
+  --padding-start: 7px;
+  font-size: 20px;
+}
+
+#profile-button {
+  margin-right: 15px;
+}

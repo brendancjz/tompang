@@ -40,6 +40,9 @@ const routes: Routes = [
     loadChildren: () => import('./footer/footer.module').then( m => m.FooterPageModule)
   },
   {
+    path: 'liked-listings',
+    loadChildren: () => import('./liked-listings/liked-listings.module').then( m => m.LikedListingsPageModule)
+  },{
     path: '**',
     redirectTo: 'index',
     pathMatch: 'full'

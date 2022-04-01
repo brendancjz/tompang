@@ -56,8 +56,7 @@ public class DataInitSessionBean {
         System.out.println("=== DataInit postConstruct() called ====");
 
         if (em.find(User.class, 1L) == null) {
-            
-            //Create Manager
+           
             try {
                 Date dob = Date.from(LocalDate.of(1999, 12, 25).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
                 String managerProfilePic = "/uploadedFiles/manager_picture.jpg";

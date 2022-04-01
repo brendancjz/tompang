@@ -3,8 +3,8 @@
     <ion-buttons slot="start">
       <ion-menu-button color="tertiary"></ion-menu-button>
     </ion-buttons>
-    <button id="username-header" [routerLink] = "['/profile']">
-      {{username}}
-    </button>
+    <ion-button class="button-icon" icon-only slot="end" id="profile-button" [routerLink] = "['/profile']">
+      <ion-icon name="person-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
