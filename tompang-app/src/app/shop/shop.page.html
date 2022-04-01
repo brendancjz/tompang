@@ -1,8 +1,94 @@
 <app-header></app-header>
-<ion-content>
-  <ion-title class="page-name grey-color">
-    Shop
-  </ion-title>
+<ion-content class="hide-scroll-bar">
+  <div>
+    <ion-title class="page-name grey-color">
+      Shop
+    </ion-title>
+  </div>
+  <hr class="horizontal-rule" />
+  <div>
+    <ion-title class="sub-page-name grey-color">
+      Most Liked Listings
+    </ion-title>
+    <hr class="horizontal-rule" />
+    <div class="listing-slider ion-padding-start">
+      <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+        <ion-slide *ngFor="let listing of mostLikedListings">
+          <ion-col class="ion-text-left">
+            <ion-card style="width: 163px;">
+              <ion-card-header (click)="this.listingService.viewListingDetails(listing)">
+                <ion-img src={{samplePic}}></ion-img>
+              </ion-card-header>
+
+              <ion-card-content>
+                <ion-card-title (click)="this.listingService.viewListingDetails(listing)">{{ listing.title }}</ion-card-title>
+                <div class="listing-card-info">
+                  <div (click)="this.listingService.viewListingDetails(listing)">
+                    <ion-card-subtitle>${{listing.price}}</ion-card-subtitle>
+                    <ion-card-subtitle>@manager</ion-card-subtitle>
+                  </div>
+                  <!-- Need to handle logic if listing is liked or not. Update accordingly -->
+                  <ion-button color="tertiary" class="small-button-icon" (click)="this.listingService.likeListing(listing)" icon-only slot="end">
+                    <ion-icon name="heart-outline"></ion-icon>
+                  </ion-button>
+                  <ion-button *ngIf="false" color="tertiary" class="small-button-icon" (click)="this.listingService.unlikeListing(listing)" icon-only slot="end">
+                    <ion-icon color="primary" name="heart"></ion-icon>
+                  </ion-button>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-slide>
+      </ion-slides>
+    </div>
+    <hr class="horizontal-rule" />
+    <div>
+      <ion-title class="sub-page-name grey-color">
+        All Listings
+      </ion-title>
+      <hr class="horizontal-rule" />
+      <div>
+        <div class="search">
+          <ion-item>
+            <ion-input placeholder="Search for products"></ion-input>
+            <ion-icon name="search-outline" slot="start"></ion-icon>
+          </ion-item>
+        </div>
+        <ion-grid>
+          <ion-row>
+            <ion-col *ngFor="let listing of allAvailableListings">
+              <ion-card>
+                <ion-card-header (click)="this.listingService.viewListingDetails(listing)">
+                  <ion-img src={{samplePic}}></ion-img>
+                </ion-card-header>
+
+                <ion-card-content>
+                  <ion-card-title (click)="this.listingService.viewListingDetails(listing)">{{ listing.title }}</ion-card-title>
+                  <div class="listing-card-info">
+                    <div (click)="this.listingService.viewListingDetails(listing)">
+                      <ion-card-subtitle>${{listing.price}}</ion-card-subtitle>
+                      <ion-card-subtitle>@manager</ion-card-subtitle>
+                    </div>
+                    <!-- Need to handle logic if listing is liked or not. Update accordingly -->
+                    <ion-button color="tertiary" class="small-button-icon" (click)="this.listingService.likeListing(listing)" icon-only slot="end">
+                      <ion-icon name="heart-outline"></ion-icon>
+                    </ion-button>
+                    <ion-button *ngIf="false" color="tertiary" class="small-button-icon" (click)="this.listingService.unlikeListing(listing)" icon-only slot="end">
+                      <ion-icon color="primary" name="heart"></ion-icon>
+                    </ion-button>
+                  </div>
+
+
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+
+  </div>
+
 
 </ion-content>
 <ion-footer class="ion-no-border">

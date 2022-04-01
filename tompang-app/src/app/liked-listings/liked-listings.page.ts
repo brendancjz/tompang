@@ -11,36 +11,19 @@ import { SessionService } from '../services/session.service';
 })
 export class LikedListingsPage implements OnInit {
   samplePic = '../../assets/images/tompang_icon_logo_blue.png';
-  sampleListing: Listing;
 
+  currentUser: User;
   myLikedListings: Listing[];
 
   constructor(public sessionService: SessionService,
-    private listingService: ListingService
+    public listingService: ListingService
   ) {
 
-      this.sampleListing = new Listing(1, 'Singapore', 'Singapore', 'Bape T-Shirt',
-  'Get yo bape t-shirts today!', 'APPAREL', 100, new Date(), 5);
-
-      this.myLikedListings = [this.sampleListing, this.sampleListing, this.sampleListing,
-      this.sampleListing, this.sampleListing, this.sampleListing,
-      this.sampleListing, this.sampleListing, this.sampleListing,
-      this.sampleListing, this.sampleListing, this.sampleListing, this.sampleListing];
+    this.currentUser = sessionService.getCurrentUser();
+    this.myLikedListings = listingService.getUserLikedListings(this.currentUser);
 
    }
 
   ngOnInit() {
-  }
-
-  viewListingDetails(listingToView: Listing) {
-    console.log('View listing details for listingId: ' + listingToView.listingId);
-  }
-
-  likeListing(listing: Listing) {
-    console.log('Liking listing..');
-  }
-
-  unlikeListing(listing: Listing) {
-    console.log('unliking listing..');
   }
 }

@@ -1,7 +1,7 @@
-import { Conversation } from "./conversation";
-import { CreditCard } from "./creditCard";
-import { Listing } from "./listing";
-import { Transaction } from "./transaction";
+import { Conversation } from './conversation';
+import { CreditCard } from './creditCard';
+import { Listing } from './listing';
+import { Transaction } from './transaction';
 
 export class User {
   userId: number | undefined;
