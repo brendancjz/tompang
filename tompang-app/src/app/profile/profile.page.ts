@@ -11,6 +11,7 @@ import { SessionService } from '../services/session.service';
 })
 export class ProfilePage implements OnInit {
   samplePic = '../../assets/images/tompang_icon_logo_blue.png';
+  defaultProfilePic = '../../assets/images/uploadedFiles/default_picture.jpg';
   title: string | undefined;
   currentUser: User;
   username: string | undefined;
