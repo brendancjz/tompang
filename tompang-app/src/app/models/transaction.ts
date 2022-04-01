@@ -1,3 +1,8 @@
+import { CreditCard } from './creditCard';
+import { Dispute } from './dispute';
+import { Listing } from './listing';
+import { User } from './user';
+
 export class Transaction {
 
   transactionId: number | undefined;
@@ -7,21 +12,17 @@ export class Transaction {
   hasDispute: boolean | undefined;
   isAccepted: boolean | undefined;
 
+  // @ManyToOne(optional = false)
+  buyer: User | undefined;
+  // @ManyToOne(optional = false)
+  seller: User | undefined;
+  // @ManyToOne(optional = false)
+  listing: Listing | undefined;
+  // @OneToOne
+  dispute: Dispute | undefined;
+  // @ManyToOne(optional = false)
+  creditCard: CreditCard | undefined;
 
-    // @ManyToOne(optional = false)
-    // @JoinColumn(nullable = false)
-    // private User buyer;
-    // @ManyToOne(optional = false)
-    // @JoinColumn(nullable = false)
-    // private User seller;
-    // @ManyToOne(optional = false)
-    // @JoinColumn(nullable = false)
-    // private Listing listing;
-    // @OneToOne
-    // private Dispute dispute;
-    // @ManyToOne(optional = false)
-    // @JoinColumn(nullable = false)
-    // private CreditCard creditCard;
     constructor(transactionId?: number, amount?: number) {
       this.transactionId = transactionId;
       this.amount = amount;

@@ -1,3 +1,7 @@
+import { Conversation } from './conversation';
+import { Transaction } from './transaction';
+import { User } from './user';
+
 export class Listing {
   listingId: number | undefined;
   country: string | undefined;
@@ -15,14 +19,15 @@ export class Listing {
 
     // @Column(nullable = false)
     // @NotNull
+    photos: string[] | undefined;
     // private List<String> photos;
 
     // @ManyToOne
-    // private User createdBy;
+    createdBy: User | undefined;
     // @OneToMany(mappedBy = "listing")
+    conversations: Conversation[] | undefined;
     // private List<Conversation> conversations;
-    // @OneToMany(mappedBy = "listing")
-    // private List<Transaction> transactions;
+    transactions: Transaction[] | undefined;
 
     constructor(listingId?: number, country?: string, city?: string, title?: string, description?: string,
       category?: string, price?: number, expectedArrivalDate?: Date, quantity?: number) {
