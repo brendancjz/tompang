@@ -14,6 +14,7 @@ import entity.Listing;
 import entity.Message;
 import entity.Transaction;
 import entity.User;
+import exception.CreateNewUserException;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import java.time.LocalDate;
@@ -55,52 +56,57 @@ public class DataInitSessionBean {
         System.out.println("=== DataInit postConstruct() called ====");
 
         if (em.find(User.class, 1L) == null) {
-            //Create Manager
-            Date dob = Date.from(LocalDate.of(1999, 12, 25).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            String managerProfilePic = "/uploadedFiles/manager_picture.jpg";
-            
-            User manager = new User("Brendan", "Chia", "bchia@gmail.com", "manager", "password", dob, managerProfilePic, 98769876L, true);
-
-            userSessionBean.createNewUser(manager);
-
-            String userProfilePic = "/uploadedFiles/default_picture.jpg";
-
-            //Create Admin
-            dob = Date.from(LocalDate.of(1999, 12, 24).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-
-            User admin = new User("Sean", "Ang", "sean.ang@gmail.com", "admin", "password", dob, userProfilePic, 98769871L, true);
-
-            em.persist(admin);
-            em.flush();
-
-            //Create User1
-            dob = Date.from(LocalDate.of(1999, 1, 1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            User iggy = new User("Ignitius", "Goh", "ig.goh@gmail.com", "iggy", "password", dob, userProfilePic, 12341234L, false);
-            em.persist(iggy);
-            em.flush();
-
-            //Create User2
-            dob = Date.from(LocalDate.of(1999, 1, 1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            User alice = new User("Alice", "Tan", "alice.tan@gmail.com", "alice", "password", dob, userProfilePic, 12341235L, false);
-            em.persist(alice);
-            em.flush();
-
-            //Create User3 for following
-            String guojunPic = "/uploadedFiles/guojun.jpg";
-            dob = Date.from(LocalDate.of(1999, 12, 24).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            User guojun = new User("Guo Jun", "Heng", "gwajoon@gmail.com", "guojun", "password", dob, guojunPic, 98769872L, true);
-            em.persist(guojun);
-            em.flush();
-
-            User user = (User) em.find(User.class, 5L);
-            // manager has 1 follower :guojun
-            // iggy has 2 followers : guojun and manager
-            // guojun has 1 follower: manager
+           
             try {
-                userSessionBean.follow(manager.getUserId(), iggy.getUserId());
-                userSessionBean.follow(guojun.getUserId(), iggy.getUserId());
-                userSessionBean.follow(guojun.getUserId(), manager.getUserId());
-            } catch (EntityNotFoundException ex) {
+                Date dob = Date.from(LocalDate.of(1999, 12, 25).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+                String managerProfilePic = "/uploadedFiles/manager_picture.jpg";
+
+                User manager = new User("Brendan", "Chia", "bchia@gmail.com", "manager", "password", dob, managerProfilePic, 98769876L, true);
+
+                userSessionBean.createNewUser(manager);
+
+                String userProfilePic = "/uploadedFiles/default_picture.jpg";
+
+                //Create Admin
+                dob = Date.from(LocalDate.of(1999, 12, 24).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+
+                User admin = new User("Sean", "Ang", "sean.ang@gmail.com", "admin", "password", dob, userProfilePic, 98769871L, true);
+
+                em.persist(admin);
+                em.flush();
+
+                //Create User1
+                dob = Date.from(LocalDate.of(1999, 1, 1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+                User iggy = new User("Ignitius", "Goh", "ig.goh@gmail.com", "iggy", "password", dob, userProfilePic, 12341234L, false);
+                em.persist(iggy);
+                em.flush();
+
+                //Create User2
+                dob = Date.from(LocalDate.of(1999, 1, 1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+                User alice = new User("Alice", "Tan", "alice.tan@gmail.com", "alice", "password", dob, userProfilePic, 12341235L, false);
+                em.persist(alice);
+                em.flush();
+
+                //Create User3 for following
+                String guojunPic = "/uploadedFiles/guojun.jpg";
+                dob = Date.from(LocalDate.of(1999, 12, 24).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+                User guojun = new User("Guo Jun", "Heng", "gwajoon@gmail.com", "guojun", "password", dob, guojunPic, 98769872L, true);
+                em.persist(guojun);
+                em.flush();
+
+                User user = (User) em.find(User.class, 5L);
+                // manager has 1 follower :guojun
+                // iggy has 2 followers : guojun and manager
+                // guojun has 1 follower: manager
+                try {
+                    userSessionBean.follow(manager.getUserId(), iggy.getUserId());
+                    userSessionBean.follow(guojun.getUserId(), iggy.getUserId());
+                    userSessionBean.follow(guojun.getUserId(), manager.getUserId());
+                } catch (EntityNotFoundException ex) {
+                    System.out.print(ex.getMessage());
+                }
+            }
+            catch(CreateNewUserException ex){
                 System.out.print(ex.getMessage());
             }
         }

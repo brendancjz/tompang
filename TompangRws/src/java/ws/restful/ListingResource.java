@@ -10,6 +10,8 @@ import ejb.stateless.UserSessionBeanLocal;
 import entity.Conversation;
 import entity.Listing;
 import entity.User;
+import exception.CreateNewListingException;
+import exception.EntityNotFoundException;
 import exception.InvalidLoginCredentialsException;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,6 +22,8 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -27,6 +31,8 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import ws.datamodel.CreateListingReq;
+import ws.datamodel.UpdateListingReq;
 
 /**
  * REST Web Service
@@ -105,6 +111,73 @@ public class ListingResource {
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
         }
 
+    }
+    
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createListing(CreateListingReq createListingReq)
+    {
+        if(createListingReq != null)
+        {
+            try
+            {
+                User user = userSessionBean.userLogin(createListingReq.getUsername(),createListingReq.getPassword() );
+                
+                Long listingId  = listingSessionBean.createNewListing(createListingReq.getListing(), user.getUserId());
+                
+                return Response.status(Response.Status.OK).entity(listingId).build();
+            }
+            catch(InvalidLoginCredentialsException ex)
+            {
+                return Response.status(Status.UNAUTHORIZED).entity(ex.getMessage()).build();
+            }
+            catch(CreateNewListingException ex)
+            {
+                return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+            }
+            catch(Exception ex)
+            {
+                return Response.status(Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+            }
+        }
+        else
+        {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid create new listing request").build();
+        }
+    }
+    
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateListing(UpdateListingReq updateListingReq)
+    {
+        if(updateListingReq != null)
+        {
+            try
+            {                
+                User user = userSessionBean.userLogin(updateListingReq.getUsername(), updateListingReq.getPassword());
+                listingSessionBean.updateListingDetails(updateListingReq.getListing());
+                
+                return Response.status(Response.Status.OK).build();
+            }
+            catch(InvalidLoginCredentialsException ex)
+            {
+                return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
+            }
+            catch(EntityNotFoundException ex)
+            {
+                return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+            }
+            catch(Exception ex)
+            {
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+            }
+        }
+        else
+        {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid update listing request").build();
+        }
     }
 
     private ListingSessionBeanLocal lookupListingSessionBeanLocal() {
