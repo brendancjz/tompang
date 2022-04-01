@@ -1,3 +1,4 @@
+<app-header></app-header>
 <ion-content>
   <div>
     <ion-title class="page-name grey-color">
@@ -9,7 +10,7 @@
     </ion-title>
   </div>
   <hr class="horizontal-rule" />
-  <div id="formBox" class="formBox" *ngIf="sessionService.getIsLogin() !== false">
+  <div id="formBox" class="formBox">
     <div id="editProfileForm">
       <form (ngSubmit)="updateUser()">
         <ion-item>
@@ -45,3 +46,4 @@
 
   </div>
 </ion-content>
+<app-footer></app-footer>
