@@ -11,15 +11,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class HeaderPage implements OnInit {
 
-  currentUser: User;
-  username: string | undefined;
-
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService) {
     this.checkUserLogin();
-    this.currentUser = sessionService.getCurrentUser();
-    this.username = this.currentUser.username;
    }
 
    ngOnInit() {

@@ -1,17 +1,45 @@
-<app-header></app-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button color="tertiary"></ion-menu-button>
+    </ion-buttons>
+    <ion-button class="button-icon" icon-only slot="end" id="liked-listings-button" [routerLink] = "['/liked-listings']">
+      <ion-icon name="heart-outline"></ion-icon>
+    </ion-button>
+    <ion-button class="button-icon" icon-only slot="end" id="inbox-button" [routerLink] = "['/inbox']">
+      <ion-icon name="chatbubble-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-  <ion-title style="font-size: 30px; margin-top: 10px; margin-bottom: 10px">
+  <ion-title class="page-name grey-color">
     Profile
   </ion-title>
-  <ion-img></ion-img>
-  <ion-button>
-    Followers:
-    <!--  {{serviceSession.getCurrentUser().followers}} -->
-  </ion-button>
-  <ion-button>
-    Following:
-    <!-- Following: {{serviceSession.getCurrentUser().following}} -->
-  </ion-button>
+
+  <div id="profile-info">
+    <ion-img style="background-color: red;height: 75px;width: 75px;border-radius: 100%;"></ion-img>
+    <ion-title id="username-tag" class="grey-color">
+      @{{username}}
+    </ion-title>
+    <div id="profile-info-buttons">
+      <div>
+        <ion-button color="tertiary" class="follow-button">
+          10 followers
+          <!--  {{serviceSession.getCurrentUser().followers}} -->
+        </ion-button>
+        <ion-button color="tertiary" class="follow-button">
+          1 following
+          <!-- Following: {{serviceSession.getCurrentUser().following}} -->
+        </ion-button>
+      </div>
+
+      <ion-button color="tertiary" class="button-icon" icon-only slot="end" id="settings-button" [routerLink] = "['/settings']">
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+  <hr class="horizontal-rule" />
   <ion-title style="font-size: 30px; margin-top: 10px; margin-bottom: 10px">
     My Listings
   </ion-title>

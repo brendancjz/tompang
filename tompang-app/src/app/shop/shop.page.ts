@@ -17,4 +17,14 @@ export class ShopPage implements OnInit {
 
   ngOnInit() {
   }
+
+  //Need to repeat this method in the Footer page as well.
+  createListingPage() {
+    console.log('Going to create listing page');
+  }
+
+  //Need to repeat this method in the Footer page as well.
+  profilePage() {
+    this.router.navigate(['/profile']);
+  }
 }

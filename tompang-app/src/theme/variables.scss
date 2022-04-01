@@ -1,6 +1,10 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+.grey-color {
+  color: var(--grey-color);
+}
+
 ion-header {
   --ion-background-color: var(--ion-color-primary);
 }
@@ -8,6 +12,9 @@ ion-header {
 
 /** Ionic CSS Variables **/
 :root {
+
+  --grey-color: rgb(71,71,71);
+
   /** primary **/
   --ion-color-primary: #0090E9;
 
@@ -24,7 +31,7 @@ ion-header {
   --ion-color-secondary-tint: #87D9FB;
 
   --ion-color-tertiary: #ffffff;
-  --ion-color-tertiary-contrast: black;
+  --ion-color-tertiary-contrast: rgb(71, 71, 71);
 
   --ion-color-fourth: #F1F2F2;
 
