@@ -2,6 +2,7 @@ package ejb.stateless;
 
 import entity.Listing;
 import entity.User;
+import exception.CreateNewUserException;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import exception.InvalidLoginCredentialsException;
@@ -16,7 +17,7 @@ import javax.ejb.Local;
 @Local
 public interface UserSessionBeanLocal {
 
-    public Long createNewUser(User user);
+    public Long createNewUser(User user) throws CreateNewUserException;
 
     public List<User> retrieveAllUsers() throws EmptyListException;
 

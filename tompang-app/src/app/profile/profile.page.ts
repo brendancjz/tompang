@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Listing } from '../models/listing';
+import { User } from '../models/user';
 import { ListingService } from '../services/listing.service';
 import { SessionService } from '../services/session.service';
 
@@ -8,16 +10,27 @@ import { SessionService } from '../services/session.service';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+  samplePic = '../../assets/images/tompang_icon_logo_blue.png';
+  defaultProfilePic = '../../assets/images/uploadedFiles/default_picture.jpg';
+
   title: string | undefined;
+  currentUser: User;
+  username: string | undefined;
+
+  myListings: Listing[];
 
   constructor(
     public sessionService: SessionService,
-    private listingService: ListingService
+    public listingService: ListingService
   ) {
-    const listing = sessionService.getListing();
 
-    this.title = listing.title;
+    this.currentUser = sessionService.getCurrentUser();
+    this.username = this.currentUser.username;
+
+    this.myListings = listingService.getUserListings(this.currentUser);
+
   }
 
   ngOnInit() {}
+
 }

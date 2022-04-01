@@ -1,7 +1,16 @@
 <app-header></app-header>
 <ion-content>
-  <ion-title style="font-size: 30px;margin-top: 10px;margin-bottom: 10px;">
-    History
-  </ion-title>
+  <ion-tabs>
+    <ion-tab-bar slot="top">
+      <ion-tab-button tab="my-purchases">
+        <ion-icon class="button-icon" name="bag-handle-outline"></ion-icon>
+        <ion-label>My Purchases</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="disputes">
+        <ion-icon class="button-icon" name="hand-right-outline"></ion-icon>
+        <ion-label>Disputes</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
 </ion-content>
 <app-footer></app-footer>

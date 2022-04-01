@@ -1,3 +1,8 @@
+import { Conversation } from './conversation';
+import { CreditCard } from './creditCard';
+import { Listing } from './listing';
+import { Transaction } from './transaction';
+
 export class User {
   userId: number | undefined;
   firstName: string | undefined;
@@ -13,23 +18,22 @@ export class User {
   isDisabled: boolean | undefined;
   salt: string | undefined;
 
-  //TODO
   // @OneToMany
-  // private List<CreditCard> creditCards;
+  creditCard: CreditCard[] | undefined;
   // @OneToMany(mappedBy = "createdBy")
-  // private List<Conversation> conversations;
+  conversations: Conversation[] | undefined;
   // @OneToMany(mappedBy = "createdBy")
-  // private List<Listing> createdListings;
+  createdListings: Listing[] | undefined;
   // @OneToMany(mappedBy = "buyer")
-  // private List<Transaction> buyerTransactions;
+  buyerTransactions: Transaction[] | undefined;
   // @OneToMany(mappedBy = "seller")
-  // private List<Transaction> sellerTransactions;
+  sellerTransactions: Transaction[] | undefined;
   // @ManyToMany
-  // private List<User> followers;
+  follwers: User[] | undefined;
   // @ManyToMany(mappedBy = "followers")
-  // private List<User> following;
+  following: User[] | undefined;
   // @OneToMany
-  // private List<Listing> likedListings;
+  likedListings: Listing[] | undefined;
 
   constructor(
     userId?: number,

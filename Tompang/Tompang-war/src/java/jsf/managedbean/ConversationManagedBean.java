@@ -112,11 +112,16 @@ public class ConversationManagedBean implements Serializable {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     public void acceptOffer() {
         // need to update transaction isAccepted to be true
         try {
-        conversationSessionBean.updateMessageAndTransaction(conversationToView.getConvoId());
+            conversationSessionBean.updateMessageAndTransaction(conversationToView.getConvoId());
+            conversationToView = conversationSessionBean.getConversationByConvoId(conversationToView.getConvoId());
+            System.out.println("ACCEPTED");
+            for(int i=0; i<conversationToView.getMessages().size(); i++) {
+                System.out.println(conversationToView.getMessages().get(i));
+            }
         } catch (EntityNotFoundException ex) {
             System.out.println(ex.getMessage());
         }

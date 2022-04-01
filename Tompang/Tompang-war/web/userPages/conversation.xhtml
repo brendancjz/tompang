@@ -98,7 +98,7 @@
                                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                                 </h:outputText>
                                 <p:commandButton value="Accept Offer">
-                                    <f:ajax execute="@form convoBlock" render="@form convoBlock" event="click" listener="#{conversationManagedBean.acceptOffer()}"/>
+                                    <f:ajax execute="@form" render="@form" event="click" listener="#{conversationManagedBean.acceptOffer()}"/>
                                 </p:commandButton>
                                 <br></br>
                                 <br></br>
