@@ -19,7 +19,7 @@ export class SellingPage implements OnInit {
     public sessionService: SessionService,
     private userService: UserService) {
 
-      const sampleConvo = new Conversation(1,true,0,0);
+      const sampleConvo = new Conversation(1);
 
       this.sellingConvos = [sampleConvo, sampleConvo, sampleConvo];
     }

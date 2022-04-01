@@ -1,10 +1,14 @@
 <ion-content>
-  <ion-title style="font-size: 30px;margin-top: 10px;margin-bottom: 10px;">
-    Settings
-  </ion-title>
-  <ion-title style="font-size: 24px;margin-top: 20px;margin-bottom: 10px;">
-    Change Profile Picture
-  </ion-title>
+  <div>
+    <ion-title class="page-name grey-color">
+      Settings
+    </ion-title>
+    <hr class="horizontal-rule" />
+    <ion-title class="sub-page-name grey-color">
+      Change Profile Picture
+    </ion-title>
+  </div>
+  <hr class="horizontal-rule" />
   <div id="formBox" class="formBox" *ngIf="sessionService.getIsLogin() !== false">
     <div id="changeProfilePicForm">
       <form (ngSubmit)="updateUserProfilePic()">

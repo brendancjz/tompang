@@ -18,7 +18,7 @@ export class BuyingPage implements OnInit {
   constructor(private location: Location,
     public sessionService: SessionService,
     private userService: UserService) {
-      const sampleConvo = new Conversation(1,true,0,0);
+      const sampleConvo = new Conversation(1);
 
       this.buyingConvos = [sampleConvo, sampleConvo, sampleConvo];
 
