@@ -7,6 +7,7 @@ package ejb.stateless;
 
 import entity.Listing;
 import entity.User;
+import exception.CreateNewUserException;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
 import exception.InvalidLoginCredentialsException;
@@ -19,7 +20,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import security.CryptographicHelper;
 
 
 /**
@@ -36,11 +36,28 @@ public class UserSessionBean implements UserSessionBeanLocal {
     private EntityManager em;
 
     @Override
-    public Long createNewUser(User user) {
-        em.persist(user);
-        em.flush();
+    public Long createNewUser(User user) throws CreateNewUserException {
 
-        return user.getUserId();
+        String username = user.getUsername();
+        String email = user.getEmail();
+        
+        Query query1 = em.createQuery("SELECT u FROM User u WHERE u.email = ?1");
+        Query query2 = em.createQuery("SELECT u FROM User u WHERE u.username = ?1");
+        
+        query1.setParameter(1, email);
+        query2.setParameter(1, username);
+        
+        List<User> list1 = query1.getResultList();
+        List<User> list2 = query2.getResultList();
+        
+        if (list1.isEmpty() && list2.isEmpty()){
+            em.persist(user);
+            em.flush();
+            return user.getUserId();
+        } else {
+            throw new CreateNewUserException("Username or email exists!");
+        }
+           
     }
 
     @Override
@@ -209,9 +226,9 @@ public class UserSessionBean implements UserSessionBeanLocal {
     public User userLogin(String username, String password) throws InvalidLoginCredentialsException {
         try {
             User user = retrieveUserByUsername(username);
-            String passwordHash = CryptographicHelper.getInstance().byteArrayToHexString(CryptographicHelper.getInstance().doMD5Hashing(password + user.getSalt()));
+            // String passwordHash = CryptographicHelper.getInstance().byteArrayToHexString(CryptographicHelper.getInstance().doMD5Hashing(password + user.getSalt()));
 
-            if (user.getPassword().equals(passwordHash)) {
+            if (user.getPassword().equals(password)) {
                 user.getBuyerTransactions().size();
                 user.getSellerTransactions().size();
                 user.getConversations().size();
