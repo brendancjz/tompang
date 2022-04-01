@@ -41,4 +41,8 @@ export class ProfilePage implements OnInit {
   }
 
   ngOnInit() {}
+
+  viewListingDetails(listingToView: Listing) {
+    console.log('View listing details for listingId: ' + listingToView.listingId);
+  }
 }

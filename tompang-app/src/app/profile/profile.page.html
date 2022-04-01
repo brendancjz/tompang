@@ -12,7 +12,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="hide-scroll-bar">
   <ion-title class="page-name grey-color">
     Profile
   </ion-title>
@@ -54,14 +54,23 @@
       <ion-row>
         <ion-col *ngFor="let listing of myListings">
           <ion-card>
-            <ion-card-header>
+            <ion-card-header (click)="viewListingDetails(listing)">
               <ion-img src={{samplePic}}></ion-img>
             </ion-card-header>
 
             <ion-card-content>
-              <ion-card-title>{{ listing.title }}</ion-card-title>
-              <ion-card-subtitle>${{listing.price}}</ion-card-subtitle>
-              <ion-card-subtitle>@manager</ion-card-subtitle>
+              <ion-card-title (click)="viewListingDetails(listing)">{{ listing.title }}</ion-card-title>
+              <div class="listing-card-info">
+                <div (click)="viewListingDetails(listing)">
+                  <ion-card-subtitle>${{listing.price}}</ion-card-subtitle>
+                  <ion-card-subtitle>@manager</ion-card-subtitle>
+                </div>
+                <ion-button color="tertiary" class="small-button-icon" icon-only slot="end">
+                  <ion-icon name="heart-outline"></ion-icon>
+                </ion-button>
+              </div>
+
+
             </ion-card-content>
           </ion-card>
         </ion-col>
