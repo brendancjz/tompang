@@ -12,13 +12,16 @@
   <div>
     <ion-list *ngFor="let convo of buyingConvos">
         <ion-item class="grey-color">
-          <div class="notification-block">
+          <div style="display: flex;align-items: center;justify-content: space-between;width: 100%;">
             <div style="display: flex;align-items: center;">
-              <ion-icon name="alert-circle-outline" style="font-size: 30px;margin-right: 20px;"></ion-icon>
+              <img src="{{getUserProfilePic(convo)}}" style="width: 45px;border-radius: 100%;margin-right: 16px;">
               <ion-item-group style="display:flex;flex-direction:column;justify-content:center;height: 65px;">
-                <ion-label style="font-size: 18px;">Hi, you have a new order!</ion-label>
                 <ion-text style="font-size: 12px;">
-                  Accept or Reject order?
+                  @{{convo.createdBy.username}}
+                </ion-text>
+                <ion-label style="font-size: 16px; margin-bottom: 5px;">{{convo.listing.title}}</ion-label>
+                <ion-text style="font-size: 12px;">
+                  {{getLatestMessageDateOfConvo(convo)}}
                 </ion-text>
               </ion-item-group>
             </div>

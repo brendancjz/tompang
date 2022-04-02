@@ -35,10 +35,10 @@ export class CreateListingPage implements OnInit {
       'ELECTRONICS',
     ];
     this.countries = [
-      'JAPAN',
-      'KOREA',
-      'MALAYSIA',
-      'SINGAPORE',
+      'Japan',
+      'Korea',
+      'Malaysia',
+      'Singapore',
       'USA'
     ];
 
