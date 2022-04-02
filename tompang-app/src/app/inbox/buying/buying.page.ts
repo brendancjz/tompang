@@ -32,19 +32,4 @@ export class BuyingPage implements OnInit {
 
   ngOnInit() {
   }
-
-  getUserProfilePic(convo: Conversation): string {
-    const baseUrl = '../../assets/images';
-    return baseUrl + convo.createdBy.profilePic;
-  }
-
-  getLatestMessageDateOfConvo(convo: Conversation): string {
-    //Code to get the latest message
-
-    return '12/03/2022';
-  }
-
-  viewConversation(convo: Conversation) {
-    console.log('Viewing buying conversation...');
-  }
 }

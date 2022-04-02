@@ -11,22 +11,7 @@
   <hr class="horizontal-rule" />
   <div>
     <ion-list *ngFor="let convo of sellingConvos">
-        <ion-item class="grey-color">
-          <div class="notification-block">
-            <div style="display: flex;align-items: center;">
-              <ion-icon name="alert-circle-outline" style="font-size: 30px;margin-right: 20px;"></ion-icon>
-              <ion-item-group style="display:flex;flex-direction:column;justify-content:center;height: 65px;">
-                <ion-label style="font-size: 18px;">Hi, you have a new order!</ion-label>
-                <ion-text style="font-size: 12px;">
-                  Accept or Reject order?
-                </ion-text>
-              </ion-item-group>
-            </div>
-            <ion-button color="tertiary" class="button-icon" icon-only (click)="viewConversation(convo)">
-              <ion-icon name="chevron-forward-outline"></ion-icon>
-            </ion-button>
-          </div>
-        </ion-item>
+        <app-conversation-item [convo]="convo"></app-conversation-item>
     </ion-list>
   </div>
 </ion-content>

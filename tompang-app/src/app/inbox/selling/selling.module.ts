@@ -9,6 +9,7 @@ import { SellingPageRoutingModule } from './selling-routing.module';
 import { SellingPage } from './selling.page';
 import { HeaderPageModule } from 'src/app/header/header.module';
 import { FooterPageModule } from 'src/app/footer/footer.module';
+import { ConversationItemPageModule } from 'src/app/components/conversation-item/conversation-item.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { FooterPageModule } from 'src/app/footer/footer.module';
     IonicModule,
     SellingPageRoutingModule,
     HeaderPageModule,
-    FooterPageModule
+    FooterPageModule,
+    ConversationItemPageModule
   ],
   declarations: [SellingPage]
 })

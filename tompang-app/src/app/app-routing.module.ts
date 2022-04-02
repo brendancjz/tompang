@@ -97,21 +97,17 @@ const routes: Routes = [
       ),
   },
   {
-    path: '**',
-    redirectTo: 'index',
-    pathMatch: 'full',
-  },
-  {
     path: 'transaction-confirmation',
     loadChildren: () =>
       import('./transaction-confirmation/transaction-confirmation.module').then(
         (m) => m.TransactionConfirmationPageModule
       ),
+  },{
+    path: '**',
+    redirectTo: 'index',
+    pathMatch: 'full',
   },
-  {
-    path: 'listing-card',
-    loadChildren: () => import('./components/listing-card/listing-card.module').then( m => m.ListingCardPageModule)
-  },
+
 ];
 
 @NgModule({

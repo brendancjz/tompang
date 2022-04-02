@@ -1,0 +1,19 @@
+<ion-item class="grey-color">
+  <div style="display: flex;align-items: center;justify-content: space-between;width: 100%;">
+    <div style="display: flex;align-items: center;">
+      <img src="{{getUserProfilePic(convo)}}" style="width: 45px;border-radius: 100%;margin-right: 16px;">
+      <ion-item-group style="display:flex;flex-direction:column;justify-content:center;height: 65px;">
+        <ion-text style="font-size: 12px;">
+          @{{convo.createdBy.username}}
+        </ion-text>
+        <ion-label style="font-size: 16px; margin-bottom: 5px;">{{getListingTitleOfConvo(convo)}}</ion-label>
+        <ion-text style="font-size: 12px;">
+          {{getLatestMessageDateOfConvo(convo)}}
+        </ion-text>
+      </ion-item-group>
+    </div>
+    <ion-button color="tertiary" class="button-icon" icon-only (click)="viewConversation(convo)">
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-button>
+  </div>
+</ion-item>
