@@ -49,6 +49,7 @@ export class IndexPage implements OnInit {
   }
 
   userRegistration(): void {
+    console.log('Registering user...');
     if (
       this.firstName === undefined ||
       this.lastName === undefined ||

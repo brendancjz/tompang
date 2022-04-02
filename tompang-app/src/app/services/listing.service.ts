@@ -58,6 +58,8 @@ export class ListingService {
       5
     );
 
+    sampleListing.photos.push('/tompang_icon_logo_blue.png');
+
     const sampleListings = [
       sampleListing,
       sampleListing,

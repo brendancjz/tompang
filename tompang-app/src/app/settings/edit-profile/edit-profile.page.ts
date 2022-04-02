@@ -20,8 +20,7 @@ export class EditProfilePage implements OnInit {
 
   editError: boolean;
 
-  constructor(private location: Location,
-    public sessionService: SessionService,
+  constructor(public sessionService: SessionService,
     private userService: UserService) {
       const currentUser = sessionService.getCurrentUser();
 
