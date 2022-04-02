@@ -8,7 +8,7 @@
 <!-- This is to see the Settings Page -->
     </ion-tab-bar>
     <ion-tab-bar id="edit-profile-tab" slot="top">
-      <ion-tab-button tab="edit-profile" (click)="hideSettingTabs()">
+      <ion-tab-button routerLink="/edit-profile">
         <div class="button-div">
           <div style="display: flex; justify-content: space-between;align-items: center;">
             <ion-icon class="button-icon" slot="start" [ios]="'create-outline'" [md]="'create-outline'"></ion-icon>
@@ -19,7 +19,7 @@
       </ion-tab-button>
     </ion-tab-bar>
     <ion-tab-bar id="change-profile-pic-tab" slot="top">
-      <ion-tab-button tab="change-profile-pic" (click)="hideSettingTabs()">
+      <ion-tab-button routerLink="/change-profile-pic">
         <div class="button-div">
           <div style="display: flex; justify-content: space-between;align-items: center;">
             <ion-icon class="button-icon" slot="start" [ios]="'person-outline'" [md]="'person-outline'"></ion-icon>
@@ -30,7 +30,7 @@
       </ion-tab-button>
     </ion-tab-bar>
     <ion-tab-bar id="change-password-tab" slot="top">
-      <ion-tab-button tab="change-password" (click)="hideSettingTabs()">
+      <ion-tab-button routerLink="/change-password">
         <div class="button-div">
           <div style="display: flex; justify-content: space-between;align-items: center;">
             <ion-icon class="button-icon" slot="start" [ios]="'keypad-outline'" [md]="'keypad-outline'"></ion-icon>
@@ -41,7 +41,7 @@
       </ion-tab-button>
     </ion-tab-bar>
     <ion-tab-bar id="manage-credit-cards-tab" slot="top">
-      <ion-tab-button tab="manage-credit-cards" (click)="hideSettingTabs()">
+      <ion-tab-button routerLink="/manage-credit-cards">
         <div class="button-div">
           <div style="display: flex; justify-content: space-between;align-items: center;">
             <ion-icon class="button-icon" slot="start" [ios]="'card-outline'" [md]="'card-outline'"></ion-icon>

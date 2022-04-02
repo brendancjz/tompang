@@ -42,6 +42,26 @@ const routes: Routes = [
   {
     path: 'liked-listings',
     loadChildren: () => import('./liked-listings/liked-listings.module').then( m => m.LikedListingsPageModule)
+  },
+  {
+    path: 'create-listing',
+    loadChildren: () => import('./create-listing/create-listing.module').then( m => m.CreateListingPageModule)
+  },
+  {
+    path: 'edit-profile',
+    loadChildren: () => import('./settings/edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+  },
+  {
+    path: 'change-profile-pic',
+    loadChildren: () => import('./settings/change-profile-pic/change-profile-pic.module').then( m => m.ChangeProfilePicPageModule)
+  },
+  {
+    path: 'change-password',
+    loadChildren: () => import('./settings/change-password/change-password.module').then( m => m.ChangePasswordPageModule)
+  },
+  {
+    path: 'manage-credit-cards',
+    loadChildren: () => import('./settings/manage-credit-cards/manage-credit-cards.module').then( m => m.ManageCreditCardsPageModule)
   },{
     path: '**',
     redirectTo: 'index',

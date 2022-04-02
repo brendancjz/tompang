@@ -8,6 +8,7 @@ import { ChangeProfilePicPageRoutingModule } from './change-profile-pic-routing.
 
 import { ChangeProfilePicPage } from './change-profile-pic.page';
 import { HeaderPageModule } from 'src/app/header/header.module';
+import { FooterPageModule } from 'src/app/footer/footer.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { HeaderPageModule } from 'src/app/header/header.module';
     FormsModule,
     IonicModule,
     ChangeProfilePicPageRoutingModule,
-    HeaderPageModule
+    HeaderPageModule,
+    FooterPageModule
   ],
   declarations: [ChangeProfilePicPage]
 })

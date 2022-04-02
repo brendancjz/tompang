@@ -37,6 +37,7 @@ export class ChangePasswordPage implements OnInit {
 
         //Update sessionServie currentUser
       }
+    this.editError = true;
   }
 
   resetPage(): void {

@@ -50,6 +50,7 @@ export class ListingService {
   }
 
   getMostLikedListings(): Listing[] {
+    //Code that talks to the webservice
     return this.getSampleListings();
   }
 
