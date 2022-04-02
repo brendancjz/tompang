@@ -71,6 +71,8 @@ public class ListingResource {
             for (Listing listing : listings) {
                 User createdBy = listing.getCreatedBy();
                 
+                //createdBy.getCreatedListings().clear();
+                
                 listing.setCreatedBy(null);
                 
 //                if (createdBy == null)

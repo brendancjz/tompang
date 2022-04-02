@@ -158,6 +158,10 @@ public class DataInitSessionBean {
             em.persist(listing);
             em.flush();
             
+            manager.getCreatedListings().add(listing);
+            em.persist(manager);
+            em.flush();
+            
             List<String> photosKeyboard = new ArrayList<>();
             photosKeyboard.add("/uploadedFiles/keyboard_1.jpg");
             photosKeyboard.add("/uploadedFiles/keyboard_2.jpg");
@@ -166,6 +170,10 @@ public class DataInitSessionBean {
                     "The minimalist form factor aligns your shoulders and allows you to place your mouse closer to your keyboard for less hand reaching.", 
                     "ELECTRONICS", 65.00, expectedArrivalDate, manager, 3, photosKeyboard);
             em.persist(listing);
+            em.flush();
+            
+            manager.getCreatedListings().add(listing);
+            em.persist(manager);
             em.flush();
 
             List<String> photosHeadphone = new ArrayList<>();
@@ -179,11 +187,19 @@ public class DataInitSessionBean {
             em.persist(listing);
             em.flush();
             
+            manager.getCreatedListings().add(listing);
+            em.persist(manager);
+            em.flush();
+            
             User admin = (User) em.find(User.class, 2L);
             List<String> photos2 = new ArrayList<>();
             photos2.add("/uploadedFiles/tteokbokki.jpg");
             listing = new Listing("Korea", "Seoul", "Tteokbokki", "Authentic spicy rice cakes!", "FOOD", 15.00, expectedArrivalDate, admin, 5, photos2);
             em.persist(listing);
+            em.flush();
+            
+            admin.getCreatedListings().add(listing);
+            em.persist(admin);
             em.flush();
             
             List<String> photosShoes = new ArrayList<>();
@@ -196,11 +212,19 @@ public class DataInitSessionBean {
             em.persist(listing);
             em.flush();
 
+            admin.getCreatedListings().add(listing);
+            em.persist(admin);
+            em.flush();
+            
             User iggy = (User) em.find(User.class, 3L);
             List<String> photos3 = new ArrayList<>();
             photos3.add("/uploadedFiles/gummy.jpg");
             listing = new Listing("Japan", "Chiba", "Gummy Candy", "Gluten Tag!", "FOOD", 7.00, expectedArrivalDate, iggy, 10, photos3);
             em.persist(listing);
+            em.flush();
+            
+            iggy.getCreatedListings().add(listing);
+            em.persist(iggy);
             em.flush();
             
             List<String> photosSunblock = new ArrayList<>();
@@ -210,18 +234,29 @@ public class DataInitSessionBean {
             em.persist(listing);
             em.flush();
             
+            iggy.getCreatedListings().add(listing);
+            em.persist(iggy);
+            em.flush();
+            
             List<String> photosBagpack = new ArrayList<>();
             photosBagpack.add("/uploadedFiles/bagpack_1.jpg");
             photosBagpack.add("/uploadedFiles/bagpack_2.jpg");
             listing = new Listing("USA", "Colorado", "Wandrd Prvke Bagpack", "Two options, 21L or 31L. Let me know ASAP and I can only buy back 2 due to limited luggage space.", "GIFTS", 250.00, expectedArrivalDate, iggy, 2, photosBagpack);
             em.persist(listing);
             em.flush();
+            
+            iggy.getCreatedListings().add(listing);
+            em.persist(iggy);
+            em.flush();
 
-            User alice = (User) em.find(User.class, 4L);
             List<String> photosChain = new ArrayList<>();
             photosChain.add("/uploadedFiles/chain_1.jpg");
             listing = new Listing("Korea", "Busan", "Stainless Steel Bracelet", "There are these cool bracelet nearby my area in Korea right now. Anybody wants one?", "ACCESSORIES", 25.00, expectedArrivalDate, iggy, 12, photosChain);
             em.persist(listing);
+            em.flush();
+            
+            iggy.getCreatedListings().add(listing);
+            em.persist(iggy);
             em.flush();
             
             User guojun = (User) em.find(User.class, 5L);
@@ -230,6 +265,10 @@ public class DataInitSessionBean {
             photos.add("/uploadedFiles/bathing_ape_bape_sizing_chart.jpg");
             listing = new Listing("Korea", "Seoul", "Black Bape T-Shirt", "Going to Korea for a business trip. Will pass by their local Bathing Ape store. Let's chat if you're keen to buy!", "APPAREL", 100.00, expectedArrivalDate, guojun, 3, photos);
             em.persist(listing);
+            em.flush();
+            
+            guojun.getCreatedListings().add(listing);
+            em.persist(guojun);
             em.flush();
             
             
