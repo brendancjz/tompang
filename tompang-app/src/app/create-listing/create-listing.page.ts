@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryEnum } from '../models/CategoryEnum';
 import { Listing } from '../models/listing';
 import { ListingService } from '../services/listing.service';
 
@@ -10,15 +9,16 @@ import { ListingService } from '../services/listing.service';
 })
 export class CreateListingPage implements OnInit {
   title: string | undefined;
-  // should countries and cities be a selected option
   country: string | undefined;
   city: string | undefined;
   description: string | undefined;
   category: string | undefined;
   price: number | undefined;
   quantity: number | undefined;
+
   creationError: boolean;
   creationErrorMessage: string | undefined;
+  creationSuccessful: boolean;
 
   categories: string[];
   countries: string[];
@@ -48,6 +48,38 @@ export class CreateListingPage implements OnInit {
   ngOnInit() {}
 
   createListing(): void {
+    this.doValidation();
+    if (this.creationError) {
+      return;
+    }
+
+    console.log('Passed validations. Creating listing...');
+    const listing: Listing = new Listing();
+    listing.title = this.title;
+    listing.country = this.country;
+    listing.city = this.city;
+    listing.description = this.description;
+    listing.category = this.category;
+    listing.price = this.price;
+    listing.quantity = this.quantity;
+
+    this.listingService.createListing(listing);
+
+    this.resetInputs();
+    console.log(listing);
+  }
+
+  resetInputs(): void {
+    this.title = undefined;
+    this.country = undefined;
+    this.city = undefined;
+    this.description = undefined;
+    this.category = undefined;
+    this.price = undefined;
+    this.quantity = undefined;
+  }
+
+  doValidation(): void {
     if (
       this.title === undefined || this.country === undefined ||
       this.city === undefined || this.description === undefined ||
@@ -59,16 +91,41 @@ export class CreateListingPage implements OnInit {
       return;
     }
 
-    const listing: Listing = new Listing();
-    listing.title = this.title;
-    listing.country = this.country;
-    listing.city = this.city;
-    listing.description = this.description;
-    listing.category = this.category;
-    listing.price = this.price;
-    listing.quantity = this.quantity;
+    if (this.price <= 0) {
+      this.creationError = true;
+      this.creationErrorMessage = 'Sorry, Price cannot be negative or zero.';
+      return;
+    }
 
-    console.log(listing);
+    if (this.quantity <= 0) {
+      this.creationError = true;
+      this.creationErrorMessage = 'Sorry, Quantity cannot be negative or zero';
+      return;
+    }
+
+    if (this.description.length <= 20) {
+      this.creationError = true;
+      this.creationErrorMessage = 'Sorry, please add more description.';
+      return;
+    }
+
+    if (this.description.length >= 500) {
+      this.creationError = true;
+      this.creationErrorMessage = 'Sorry, Description has exceeded word limit.';
+      return;
+    }
+
+    if (this.title.length <= 5) {
+      this.creationError = true;
+      this.creationErrorMessage = 'Sorry, please add more to your title.';
+      return;
+    }
+
+    if (this.title.length >= 50) {
+      this.creationError = true;
+      this.creationErrorMessage = 'Sorry, Title has exceeded word limit.';
+      return;
+    }
   }
 
   selectCitiesFromCountry(country: string) {
