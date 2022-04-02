@@ -57,6 +57,7 @@ public class UserResource {
         try {
             User user = userSessionBean.retrieveUserByUsername(username);
             
+            // not supposed to be setting null, same problem as ListingResource
             user.setFollowers(null);
             user.setFollowing(null);
             user.setCreatedListings(null);
