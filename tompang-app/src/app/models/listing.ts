@@ -17,17 +17,17 @@ export class Listing {
   isOpen: boolean | undefined;
   isDisabled: boolean | undefined;
 
-    // @Column(nullable = false)
-    // @NotNull
-    photos: string[] | undefined;
-    // private List<String> photos;
+  // @Column(nullable = false)
+  // @NotNull
+  photos: string[] | undefined;
+  // private List<String> photos;
 
-    // @ManyToOne
-    createdBy: User | undefined;
-    // @OneToMany(mappedBy = "listing")
-    conversations: Conversation[] | undefined;
-    // private List<Conversation> conversations;
-    transactions: Transaction[] | undefined;
+  // @ManyToOne
+  createdBy: User | undefined;
+  // @OneToMany(mappedBy = "listing")
+  conversations: Conversation[] | undefined;
+  // private List<Conversation> conversations;
+  transactions: Transaction[] | undefined;
 
     constructor(listingId?: number, country?: string, city?: string, title?: string, description?: string,
       category?: string, price?: number, expectedArrivalDate?: Date, quantity?: number) {
@@ -44,5 +44,7 @@ export class Listing {
         this.quantity = quantity;
         this.isOpen = true;
         this.isDisabled = false;
+
+        this.photos = [];
     }
 }

@@ -1,18 +1,11 @@
 ion-footer {
   --ion-background-color: var(--ion-color-primary);
-
 }
 
 ion-title.page-name {
   font-size: 30px;
   margin-top: 10px;
   margin-bottom: 10px;
-}
-
-ion-button.small-button-icon {
-  --box-shadow: none;
-  --padding-end: 7px;
-  --padding-start: 7px;
 }
 
 .search {
@@ -34,16 +27,6 @@ ion-button.small-button-icon {
   }
 }
 
-.listing-card-info {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-ion-card:hover {
-  cursor: pointer;
-}
-
 #create-listing-button {
   height: 70px;
   width: 70px;
@@ -54,6 +37,7 @@ ion-card:hover {
 button {
   background-color: var(--ion-color-primary);
 }
+
 
 .listing-slider {
   margin-bottom: 30px;

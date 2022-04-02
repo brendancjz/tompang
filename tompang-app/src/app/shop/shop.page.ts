@@ -14,7 +14,8 @@ import { SessionService } from '../services/session.service';
 export class ShopPage implements OnInit {
 
   mostLikedListings: Listing[];
-  samplePic = '../../assets/images/tompang_icon_logo_blue.png';
+  samplePic = '../../assets/images/uploadedFiles/japanese_biscuits.jpeg';
+  basePictureUrl = '../../assets/images';
 
   allAvailableListings: Listing[];
 
@@ -36,25 +37,32 @@ export class ShopPage implements OnInit {
         console.log('getAllAvailableListings.ts:' + error);
       }
     });
-    this.listingService.getAllAvailableListings().subscribe({
+
+    this.listingService.getMostLikedListings().subscribe({
       next: (response) => {
-        this.mostLikedListings = response;
+        this.mostLikedListings = response.slice(0,5); //Top 5 listings
       },
       error: (error) => {
         console.log('getAllAvailableListings.ts:' + error);
       }
     });
-    // not sure why its not getting sorted....
+
     this.mostLikedListings.sort((l1, l2) => {
       if (l1.numOfLikes < l2.numOfLikes) {
-        return -1
+        return -1;
       } else if(l1.numOfLikes > l2.numOfLikes) {
-        return 1
+        return 1;
       } else {
-        return 0
+        return 0;
       }
     });
+
   }
+
+  ionViewDidEnter()
+	{
+		console.log('********** Shop Page.ionViewDidEnter() ');
+	}
 
   //Need to repeat this method in the Footer page as well.
   createListingPage() {

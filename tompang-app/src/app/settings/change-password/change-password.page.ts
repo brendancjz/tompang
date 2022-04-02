@@ -30,12 +30,16 @@ export class ChangePasswordPage implements OnInit {
 
   updateUserPassword(): void {
     console.log('Changing password...');
+    console.log('Current Password: ' + this.currentPassword);
+    console.log('New Password: ' + this.newPassword);
+    console.log('Repeat Password: ' + this.repeatPassword);
+
     const currentUser: User = this.sessionService.getCurrentUser();
     if (this.currentPassword === currentUser.password && this.newPassword === this.repeatPassword
       && this.newPassword !== this.currentPassword) {
         console.log('Good to change password');
 
-        //Update sessionServie currentUser
+        //Update sessionService currentUser
       }
     this.editError = true;
   }
