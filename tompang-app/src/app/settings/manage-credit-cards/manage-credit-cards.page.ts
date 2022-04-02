@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { SessionService } from 'src/app/services/session.service';
 import { User } from 'src/app/models/user';
+import { CreditCard } from 'src/app/models/creditCard';
+
 
 @Component({
   selector: 'app-manage-credit-cards',
@@ -24,5 +26,13 @@ export class ManageCreditCardsPage implements OnInit {
   }
   resetPage() {
     return;
+  }
+
+  viewCreditCard(creditcard: CreditCard) {
+    console.log('Viewing credit card..');
+  }
+
+  addCreditCard() {
+    console.log('Adding credit card..');
   }
 }

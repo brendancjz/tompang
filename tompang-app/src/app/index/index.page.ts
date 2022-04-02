@@ -103,17 +103,20 @@ export class IndexPage implements OnInit {
   }
 
   userLogin(): void {
+    console.log('User logging in...');
+    if (this.username === null || this.password === null) {
+      console.log('User login credentials are null');
+      return;
+    }
+
     const user: User | null = this.userService.userLogin(
       this.username.trim(),
       this.password.trim()
     );
 
-    const listing: Listing | null = this.listingService.createListing();
-
     if (user != null) {
       this.sessionService.setIsLogin(true);
       this.sessionService.setCurrentUser(user);
-      this.sessionService.setListing(listing);
       this.loginError = false;
       this.resetPage();
 

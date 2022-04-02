@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CreditCard } from '../models/creditCard';
 
 import { User } from '../models/user';
 
@@ -29,7 +30,11 @@ export class UserService
 	{
     //incomplete implementation.
     const manager = new User(1, 'Brendan', 'Chia', 'manager', 'password', 'brendan.chia@gmail.com', new Date(), '', 84822514);
-		if (manager.username === username && manager.password === password) {
+
+    manager.creditCards.push(new CreditCard(1, 'BRENDAN CHIA', 4635123412341234,123, new Date()));
+    manager.creditCards.push(new CreditCard(2, 'CHIA JUN ZHE', 9876546723171247,125, new Date()));
+
+    if (manager.username === username && manager.password === password) {
       return manager;
     } else {
       return null;

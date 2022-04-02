@@ -16,10 +16,9 @@ export class User {
   joinedOn: Date | undefined;
   isAdmin: boolean | undefined;
   isDisabled: boolean | undefined;
-  salt: string | undefined;
 
   // @OneToMany
-  creditCard: CreditCard[] | undefined;
+  creditCards: CreditCard[] | undefined;
   // @OneToMany(mappedBy = "createdBy")
   conversations: Conversation[] | undefined;
   // @OneToMany(mappedBy = "createdBy")
@@ -58,6 +57,7 @@ export class User {
     this.joinedOn = new Date();
     this.isAdmin = false;
     this.isDisabled = false;
-    this.salt = '';
+
+    this.creditCards = [];
   }
 }
