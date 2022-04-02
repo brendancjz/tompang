@@ -71,6 +71,8 @@ public class ListingResource {
             for (Listing listing : listings) {
                 User createdBy = listing.getCreatedBy();
                 
+                listing.setCreatedBy(null);
+                
 //                if (createdBy == null)
 //                    System.out.println("********** createdBy IS NULL");
 //                
@@ -90,7 +92,6 @@ public class ListingResource {
 //
 //                }
 
-                listing.setCreatedBy(null);
                 
                 if (listing.getConversations() != null) {
                     for (Conversation conversation : listing.getConversations()) {
