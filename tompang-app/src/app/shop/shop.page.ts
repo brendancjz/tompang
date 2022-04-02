@@ -15,6 +15,7 @@ export class ShopPage implements OnInit {
   samplePic = '../../assets/images/uploadedFiles/japanese_biscuits.jpeg';
   basePictureUrl = '../../assets/images';
 
+  searchTerm: string;
   allAvailableListings: Listing[];
   mostLikedListings: Listing[];
 

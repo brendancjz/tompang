@@ -6,15 +6,10 @@
     </ion-title>
   </div>
   <div>
-    <div class="search">
-      <ion-item>
-        <ion-input placeholder="Search Tompang"></ion-input>
-        <ion-icon name="search-outline" slot="start"></ion-icon>
-      </ion-item>
-    </div>
+    <ion-searchbar class="grey-color" placeholder="Search Tompang" [(ngModel)]="searchTerm" showCancelButton="focus" animated></ion-searchbar>
     <ion-grid>
       <ion-row>
-        <ion-col *ngFor="let listing of myLikedListings">
+        <ion-col *ngFor="let listing of myLikedListings | filter:searchTerm">
           <app-listing-card [listing]="listing"></app-listing-card>
         </ion-col>
       </ion-row>

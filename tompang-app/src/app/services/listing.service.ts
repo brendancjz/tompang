@@ -51,17 +51,31 @@ export class ListingService {
       5
     );
 
+    const sampleListing2 = new Listing(
+      2,
+      'Malaysia',
+      'Johor Bahru',
+      'Skateboard',
+      'Hello everyone, I am going to malaysia this weekend.' +
+      'Heard there are some skateboards there. Lmk if you want one.',
+      'GIFTS',
+      75,
+      new Date(),
+      5
+    );
+
     sampleListing.photos.push('/tompang_icon_logo_blue.png');
+    sampleListing2.photos.push('/uploadedFiles/default_picture.jpg');
 
     const sampleListings = [
       sampleListing,
+      sampleListing2,
       sampleListing,
+      sampleListing2,
+      sampleListing2,
+      sampleListing2,
       sampleListing,
-      sampleListing,
-      sampleListing,
-      sampleListing,
-      sampleListing,
-      sampleListing,
+      sampleListing2,
       sampleListing,
     ];
 

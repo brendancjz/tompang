@@ -18,6 +18,7 @@ export class ProfilePage implements OnInit {
   username: string | undefined;
 
   myListings: Listing[];
+  searchTerm: string;
 
   constructor(
     public sessionService: SessionService,

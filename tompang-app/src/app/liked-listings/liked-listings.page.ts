@@ -11,6 +11,7 @@ import { SessionService } from '../services/session.service';
 })
 export class LikedListingsPage implements OnInit {
   samplePic = '../../assets/images/tompang_icon_logo_blue.png';
+  searchTerm: string;
 
   currentUser: User;
   myLikedListings: Listing[];

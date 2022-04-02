@@ -10,6 +10,7 @@ import { ProfilePage } from './profile.page';
 import { HeaderPageModule } from '../header/header.module';
 import { FooterPageModule } from '../footer/footer.module';
 import { ListingCardPageModule } from '../components/listing-card/listing-card.module';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ListingCardPageModule } from '../components/listing-card/listing-card.m
     ProfilePageRoutingModule,
     HeaderPageModule,
     FooterPageModule,
-    ListingCardPageModule
+    ListingCardPageModule,
+    Ng2SearchPipeModule
   ],
   declarations: [ProfilePage]
 })
