@@ -89,6 +89,8 @@ public class Listing implements Serializable {
     private List<Conversation> conversations;
     @OneToMany(mappedBy = "listing")
     private List<Transaction> transactions;
+    @OneToMany
+    private List<User> likedByUsers;
 
     
     public Listing() {
@@ -248,6 +250,14 @@ public class Listing implements Serializable {
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    public List<User> getLikedByUsers() {
+        return likedByUsers;
+    }
+
+    public void setLikedByUsers(List<User> likedByUsers) {
+        this.likedByUsers = likedByUsers;
     }
     
     @Override

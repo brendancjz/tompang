@@ -74,6 +74,7 @@ public class ListingResource {
                 //createdBy.getCreatedListings().clear();
                 
                 listing.setCreatedBy(null);
+                listing.setLikedByUsers(null);
                 
 //                if (createdBy == null)
 //                    System.out.println("********** createdBy IS NULL");

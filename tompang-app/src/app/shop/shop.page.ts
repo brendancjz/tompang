@@ -5,7 +5,6 @@ import { ListingService } from '../services/listing.service';
 
 import { SessionService } from '../services/session.service';
 
-
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.page.html',
@@ -13,29 +12,32 @@ import { SessionService } from '../services/session.service';
 })
 export class ShopPage implements OnInit {
 
-  mostLikedListings: Listing[];
   samplePic = '../../assets/images/uploadedFiles/japanese_biscuits.jpeg';
   basePictureUrl = '../../assets/images';
 
   allAvailableListings: Listing[];
+  mostLikedListings: Listing[];
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
-    public listingService: ListingService) {
-
+    public listingService: ListingService
+  ) {
     this.mostLikedListings = new Array();
     this.allAvailableListings = new Array();
   }
 
   ngOnInit(): void {
+    console.log('********* ngOnInit in shop **********');
+
     this.listingService.getAllAvailableListings().subscribe({
       next: (response) => {
         this.allAvailableListings = response;
       },
       error: (error) => {
         console.log('getAllAvailableListings.ts:' + error);
-      }
+      },
     });
 
     this.listingService.getMostLikedListings().subscribe({

@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse,
+} from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 
 import { Listing } from '../models/listing';
@@ -19,7 +23,10 @@ export class ListingService {
   baseUrl = '/api/Listing';
   listings: Listing[];
 
-  constructor(private httpClient: HttpClient, private sessionService: SessionService) {
+  constructor(
+    private httpClient: HttpClient,
+    private sessionService: SessionService
+  ) {
     this.listings = new Array();
   }
 
@@ -39,14 +46,28 @@ export class ListingService {
   }
 
   getSampleListings() {
-    const sampleListing = new Listing(1, 'Singapore', 'Singapore', 'Bape T-Shirt',
-      'Get yo bape t-shirts today!', 'APPAREL', 100, new Date(), 5);
-      sampleListing.photos.push('/tompang_icon_logo_blue.png');
+    const sampleListing = new Listing(
+      1,
+      'Singapore',
+      'Singapore',
+      'Bape T-Shirt',
+      'Get yo bape t-shirts today!',
+      'APPAREL',
+      100,
+      new Date(),
+      5
+    );
 
     const sampleListings = [
-      sampleListing, sampleListing, sampleListing,
-      sampleListing, sampleListing, sampleListing,
-      sampleListing, sampleListing, sampleListing,
+      sampleListing,
+      sampleListing,
+      sampleListing,
+      sampleListing,
+      sampleListing,
+      sampleListing,
+      sampleListing,
+      sampleListing,
+      sampleListing,
     ];
 
     return sampleListings;
@@ -75,7 +96,9 @@ export class ListingService {
   }
 
   viewListingDetails(listingToView: Listing) {
-    console.log('View listing details for listingId: ' + listingToView.listingId);
+    console.log(
+      'View listing details for listingId: ' + listingToView.listingId
+    );
   }
 
   likeListing(listing: Listing) {

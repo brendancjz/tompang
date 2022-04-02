@@ -1,9 +1,7 @@
 <app-header></app-header>
 <ion-content class="hide-scroll-bar">
   <div>
-    <ion-title class="page-name grey-color">
-      Shop
-    </ion-title>
+    <ion-title class="page-name grey-color"> Shop </ion-title>
   </div>
   <hr class="horizontal-rule" />
   <div>
@@ -12,7 +10,9 @@
     </ion-title>
     <hr class="horizontal-rule" />
     <div class="listing-slider ion-padding-start">
-      <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+      <ion-slides
+        [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }"
+      >
         <ion-slide *ngFor="let listing of mostLikedListings">
           <ion-col class="ion-text-left">
             <app-listing-card [listing]="listing"></app-listing-card>
@@ -22,9 +22,7 @@
     </div>
     <hr class="horizontal-rule" />
     <div>
-      <ion-title class="sub-page-name grey-color">
-        All Listings
-      </ion-title>
+      <ion-title class="sub-page-name grey-color"> All Listings </ion-title>
       <hr class="horizontal-rule" />
       <div>
         <div class="search">
@@ -46,7 +44,7 @@
 </ion-content>
 <ion-footer class="ion-no-border">
   <ion-toolbar>
-    <div style="display: flex; justify-content: space-around;">
+    <div style="display: flex; justify-content: space-around">
       <button id="shop-button" routerLink="/shop">
         <ion-icon
           style="font-size: 35px"
@@ -64,8 +62,12 @@
       </button>
 
       <button [routerLink]="['/profile']">
-        <div style="display: flex; flex-direction: column;align-items: center;">
-          <ion-icon style="font-size: 24px;margin-bottom: 3px;" [ios]="'person-outline'" [md]="'person-sharp'"></ion-icon>
+        <div style="display: flex; flex-direction: column; align-items: center">
+          <ion-icon
+            style="font-size: 24px; margin-bottom: 3px"
+            [ios]="'person-outline'"
+            [md]="'person-sharp'"
+          ></ion-icon>
           <ion-label>Me</ion-label>
         </div>
       </button>
