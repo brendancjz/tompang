@@ -17,4 +17,10 @@
         <local>ejb.stateless.UserSessionBeanLocal</local>
         <ejb-link>Tompang-ejb.jar#UserSessionBean</ejb-link>
     </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>UserSessionBean</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>ejb.stateless.UserSessionBeanLocal</local>
+        <ejb-link>Tompang-ejb.jar#UserSessionBean</ejb-link>
+    </ejb-local-ref>
 </web-app>

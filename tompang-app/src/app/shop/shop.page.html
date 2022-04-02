@@ -1,9 +1,7 @@
 <app-header></app-header>
 <ion-content class="hide-scroll-bar">
   <div>
-    <ion-title class="page-name grey-color">
-      Shop
-    </ion-title>
+    <ion-title class="page-name grey-color"> Shop </ion-title>
   </div>
   <hr class="horizontal-rule" />
   <div>
@@ -12,26 +10,51 @@
     </ion-title>
     <hr class="horizontal-rule" />
     <div class="listing-slider ion-padding-start">
-      <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+      <ion-slides
+        [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }"
+      >
         <ion-slide *ngFor="let listing of mostLikedListings">
           <ion-col class="ion-text-left">
-            <ion-card style="width: 163px;">
-              <ion-card-header (click)="this.listingService.viewListingDetails(listing)">
-                <ion-img src={{samplePic}}></ion-img>
+            <ion-card style="width: 163px">
+              <ion-card-header
+                (click)="this.listingService.viewListingDetails(listing)"
+              >
+                <ion-img src="{{samplePic}}"></ion-img>
               </ion-card-header>
 
-              <ion-card-content>
-                <ion-card-title (click)="this.listingService.viewListingDetails(listing)">{{ listing.title }}</ion-card-title>
+              <ion-card-content class="listing-card">
+                <ion-card-title
+                  (click)="this.listingService.viewListingDetails(listing)"
+                  >{{ listing.title }}</ion-card-title
+                >
                 <div class="listing-card-info">
-                  <div (click)="this.listingService.viewListingDetails(listing)">
+                  <div
+                    (click)="this.listingService.viewListingDetails(listing)"
+                  >
                     <ion-card-subtitle>${{listing.price}}</ion-card-subtitle>
-                    <ion-card-subtitle>@manager</ion-card-subtitle>
+                    <ion-card-subtitle>created by user</ion-card-subtitle>
                   </div>
                   <!-- Need to handle logic if listing is liked or not. Update accordingly -->
-                  <ion-button color="tertiary" class="small-button-icon" (click)="this.listingService.likeListing(listing)" icon-only slot="end">
+                  <ion-button
+                    color="tertiary"
+                    class="small-button-icon"
+                    (click)="this.listingService.likeListing(listing)"
+                    icon-only
+                    slot="end"
+                  >
+                    <ion-card-subtitle
+                      >{{listing.numOfLikes}}</ion-card-subtitle
+                    >
                     <ion-icon name="heart-outline"></ion-icon>
                   </ion-button>
-                  <ion-button *ngIf="false" color="tertiary" class="small-button-icon" (click)="this.listingService.unlikeListing(listing)" icon-only slot="end">
+                  <ion-button
+                    *ngIf="false"
+                    color="tertiary"
+                    class="small-button-icon"
+                    (click)="this.listingService.unlikeListing(listing)"
+                    icon-only
+                    slot="end"
+                  >
                     <ion-icon color="primary" name="heart"></ion-icon>
                   </ion-button>
                 </div>
@@ -43,9 +66,7 @@
     </div>
     <hr class="horizontal-rule" />
     <div>
-      <ion-title class="sub-page-name grey-color">
-        All Listings
-      </ion-title>
+      <ion-title class="sub-page-name grey-color"> All Listings </ion-title>
       <hr class="horizontal-rule" />
       <div>
         <div class="search">
@@ -58,27 +79,48 @@
           <ion-row>
             <ion-col *ngFor="let listing of allAvailableListings">
               <ion-card>
-                <ion-card-header (click)="this.listingService.viewListingDetails(listing)">
-                  <ion-img src={{samplePic}}></ion-img>
+                <ion-card-header
+                  (click)="this.listingService.viewListingDetails(listing)"
+                >
+                  <ion-img src="{{samplePic}}"></ion-img>
                 </ion-card-header>
 
                 <ion-card-content>
-                  <ion-card-title (click)="this.listingService.viewListingDetails(listing)">{{ listing.title }}</ion-card-title>
+                  <ion-card-title
+                    (click)="this.listingService.viewListingDetails(listing)"
+                    >{{ listing.title }}</ion-card-title
+                  >
                   <div class="listing-card-info">
-                    <div (click)="this.listingService.viewListingDetails(listing)">
+                    <div
+                      (click)="this.listingService.viewListingDetails(listing)"
+                    >
                       <ion-card-subtitle>${{listing.price}}</ion-card-subtitle>
-                      <ion-card-subtitle>CreatedBy cannot be parsed bc stackoverflow</ion-card-subtitle>
+                      <ion-card-subtitle
+                        >CreatedBy cannot be parsed bc
+                        stackoverflow</ion-card-subtitle
+                      >
                     </div>
                     <!-- Need to handle logic if listing is liked or not. Update accordingly -->
-                    <ion-button color="tertiary" class="small-button-icon" (click)="this.listingService.likeListing(listing)" icon-only slot="end">
+                    <ion-button
+                      color="tertiary"
+                      class="small-button-icon"
+                      (click)="this.listingService.likeListing(listing)"
+                      icon-only
+                      slot="end"
+                    >
                       <ion-icon name="heart-outline"></ion-icon>
                     </ion-button>
-                    <ion-button *ngIf="false" color="tertiary" class="small-button-icon" (click)="this.listingService.unlikeListing(listing)" icon-only slot="end">
+                    <ion-button
+                      *ngIf="false"
+                      color="tertiary"
+                      class="small-button-icon"
+                      (click)="this.listingService.unlikeListing(listing)"
+                      icon-only
+                      slot="end"
+                    >
                       <ion-icon color="primary" name="heart"></ion-icon>
                     </ion-button>
                   </div>
-
-
                 </ion-card-content>
               </ion-card>
             </ion-col>
@@ -86,14 +128,11 @@
         </ion-grid>
       </div>
     </div>
-
   </div>
-
-
 </ion-content>
 <ion-footer class="ion-no-border">
   <ion-toolbar>
-    <div style="display: flex; justify-content: space-around;">
+    <div style="display: flex; justify-content: space-around">
       <button id="shop-button" routerLink="/shop">
         <ion-icon
           style="font-size: 35px"
@@ -111,8 +150,12 @@
       </button>
 
       <button [routerLink]="['/profile']">
-        <div style="display: flex; flex-direction: column;align-items: center;">
-          <ion-icon style="font-size: 24px;margin-bottom: 3px;" [ios]="'person-outline'" [md]="'person-sharp'"></ion-icon>
+        <div style="display: flex; flex-direction: column; align-items: center">
+          <ion-icon
+            style="font-size: 24px; margin-bottom: 3px"
+            [ios]="'person-outline'"
+            [md]="'person-sharp'"
+          ></ion-icon>
           <ion-label>Me</ion-label>
         </div>
       </button>

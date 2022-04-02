@@ -1,16 +1,100 @@
 <app-header></app-header>
 <ion-content>
   <div>
-    <ion-title class="page-name grey-color">
-      Create Listing
-    </ion-title>
+    <ion-title class="page-name grey-color"> Create Listing </ion-title>
     <hr class="horizontal-rule" />
     <div class="create-listing-block">
-      <ion-title class="sub-page-name grey-color">
-        Category
-      </ion-title>
-      <div class="create-listing-inputs">
+      <div id="createListingForm" class="createListingForm">
+        <form (ngSubmit)="createListing()">
+          <ion-item>
+            <ion-img>listing picture</ion-img>
+          </ion-item>
 
+          <ion-item>
+            <ion-label><b>Title</b></ion-label>
+            <ion-input
+              placeholder="Banana Cake"
+              [(ngModel)]="title"
+              name="title"
+              required
+              maxLength="50"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label><b>Country</b></ion-label>
+            <ion-input
+              placeholder="Malaysia"
+              [(ngModel)]="country"
+              name="country"
+              required
+              maxLength="50"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label><b>City</b></ion-label>
+            <ion-input
+              placeholder="Johor Bahru"
+              [(ngModel)]="city"
+              name="city"
+              required
+              maxLength="50"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label><b>Description </b></ion-label>
+            <ion-input
+              placeholder="Tell other Tompang users about your item!"
+              [(ngModel)]="description"
+              name="description"
+              required
+              maxLength="150"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label><b>Category </b></ion-label>
+            <ion-select [(ngModel)]="category" name="category" required>
+              <ion-select-option
+                *ngFor="let category of categories"
+                [value]="category"
+                >{{category}}</ion-select-option
+              ></ion-select
+            >
+          </ion-item>
+
+          <ion-item>
+            <ion-label><b>Price</b></ion-label>
+            <ion-input
+              placeholder="10 (in SGD)"
+              [(ngModel)]="price"
+              name="price"
+              required
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label><b>Quantity</b></ion-label>
+            <ion-input
+              placeholder="The quantity that you can bring back"
+              [(ngModel)]="quantity"
+              name="quantity"
+              required
+            ></ion-input>
+          </ion-item>
+          <div class="input-button-div">
+            <ion-button color="primary" type="reset">Clear</ion-button>
+            <ion-button color="primary" type="submit">Add Listing</ion-button>
+          </div>
+        </form>
+        <div
+          *ngIf="creationError === true"
+          style="text-align: center; color: red; width: 300px"
+        >
+          {{creationErrorMessage}}
+        </div>
       </div>
     </div>
   </div>
