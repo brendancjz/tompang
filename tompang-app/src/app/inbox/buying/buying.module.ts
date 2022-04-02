@@ -10,6 +10,7 @@ import { BuyingPage } from './buying.page';
 import { HeaderPageModule } from 'src/app/header/header.module';
 import { FooterPageModule } from 'src/app/footer/footer.module';
 import { ConversationItemPageModule } from 'src/app/components/conversation-item/conversation-item.module';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { ConversationItemPageModule } from 'src/app/components/conversation-item
     BuyingPageRoutingModule,
     HeaderPageModule,
     FooterPageModule,
-    ConversationItemPageModule
+    ConversationItemPageModule,
+    Ng2SearchPipeModule
   ],
   declarations: [BuyingPage]
 })

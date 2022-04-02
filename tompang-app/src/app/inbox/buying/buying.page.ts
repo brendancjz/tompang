@@ -14,6 +14,7 @@ import { Listing } from 'src/app/models/listing';
 })
 export class BuyingPage implements OnInit {
   buyingConvos: Conversation[];
+  searchTerm: string;
 
   constructor(private location: Location,
     public sessionService: SessionService,

@@ -13,7 +13,7 @@ import { Listing } from 'src/app/models/listing';
   styleUrls: ['./selling.page.scss'],
 })
 export class SellingPage implements OnInit {
-
+  searchTerm: string;
   sellingConvos: Conversation[];
 
   constructor(private location: Location,
