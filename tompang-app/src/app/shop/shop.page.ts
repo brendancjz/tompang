@@ -11,7 +11,9 @@ import { SessionService } from '../services/session.service';
   styleUrls: ['./shop.page.scss'],
 })
 export class ShopPage implements OnInit {
-  samplePic = '../../assets/images/tompang_icon_logo_blue.png';
+
+  samplePic = '../../assets/images/uploadedFiles/japanese_biscuits.jpeg';
+  basePictureUrl = '../../assets/images';
 
   allAvailableListings: Listing[];
   mostLikedListings: Listing[];
@@ -38,34 +40,31 @@ export class ShopPage implements OnInit {
       },
     });
 
-    this.listingService.getAllAvailableListings().subscribe({
+    this.listingService.getMostLikedListings().subscribe({
       next: (response) => {
-        this.mostLikedListings = response;
-
-        // sorting the listings and assigning it to mostLikedListings
-        this.mostLikedListings.sort((l1, l2) => {
-          console.log('**** getting sorted *****');
-
-          if (l1.numOfLikes > l2.numOfLikes) {
-            return -1;
-          } else if (l1.numOfLikes < l2.numOfLikes) {
-            return 1;
-          } else {
-            return 0;
-          }
-        });
-
-        this.mostLikedListings.map((listing) => {
-          console.log(
-            listing.title + ', number of likes: ' + listing.numOfLikes
-          );
-        });
+        this.mostLikedListings = response.slice(0,5); //Top 5 listings
       },
       error: (error) => {
-        console.log('getMostLikedListings.ts:' + error);
-      },
+        console.log('getAllAvailableListings.ts:' + error);
+      }
     });
+
+    this.mostLikedListings.sort((l1, l2) => {
+      if (l1.numOfLikes < l2.numOfLikes) {
+        return -1;
+      } else if(l1.numOfLikes > l2.numOfLikes) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
   }
+
+  ionViewDidEnter()
+	{
+		console.log('********** Shop Page.ionViewDidEnter() ');
+	}
 
   //Need to repeat this method in the Footer page as well.
   createListingPage() {

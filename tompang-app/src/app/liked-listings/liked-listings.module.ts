@@ -9,6 +9,7 @@ import { LikedListingsPageRoutingModule } from './liked-listings-routing.module'
 import { LikedListingsPage } from './liked-listings.page';
 import { HeaderPageModule } from '../header/header.module';
 import { FooterPageModule } from '../footer/footer.module';
+import { ListingCardPageModule } from '../components/listing-card/listing-card.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { FooterPageModule } from '../footer/footer.module';
     IonicModule,
     LikedListingsPageRoutingModule,
     HeaderPageModule,
-    FooterPageModule
+    FooterPageModule,
+    ListingCardPageModule
   ],
   declarations: [LikedListingsPage]
 })

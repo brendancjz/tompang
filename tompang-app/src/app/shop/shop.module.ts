@@ -9,6 +9,7 @@ import { ShopPageRoutingModule } from './shop-routing.module';
 import { ShopPage } from './shop.page';
 import { HeaderPageModule } from '../header/header.module';
 import { FooterPageModule } from '../footer/footer.module';
+import { ListingCardPageModule } from '../components/listing-card/listing-card.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { FooterPageModule } from '../footer/footer.module';
     IonicModule,
     ShopPageRoutingModule,
     HeaderPageModule,
-    FooterPageModule
+    FooterPageModule,
+    ListingCardPageModule
   ],
   declarations: [ShopPage]
 })

@@ -1,4 +1,4 @@
-<ion-content class="index-page">
+<ion-content>
 
   <div class="index-content-div" *ngIf="currentView === possibleViews[0]">
     <ion-img id="tompang-big-logo" [src]="tompangLogo"></ion-img>
@@ -13,26 +13,27 @@
     </div>
   </div>
 
-
-
-
   <div id="indexFormBox" class="indexFormBox" *ngIf="sessionService.getIsLogin() === false && currentView === possibleViews[1]">
     <ion-img id="tompang-big-logo" style="width: 200px;" [src]="tompangLogo"></ion-img>
 
     <div id="indexForm">
       <form (ngSubmit)="userLogin()">
-        <ion-item>
-          <ion-label>Username</ion-label>
-          <ion-input placeholder="username" [(ngModel)]="username" name="username" required minlength="5" maxlength="50"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Password</ion-label>
-          <ion-input type="password" [(ngModel)]="password" name="password" required minlength="8" maxlength="50"></ion-input>
-        </ion-item>
-        <div class="input-button-div">
-          <ion-button color="primary" (click)="hideLoginBox()">Back</ion-button>
-          <ion-button color="primary"  type="reset">Clear</ion-button>
-          <ion-button color="primary" type="submit">Login</ion-button>
+        <div class="form-input">
+          <ion-item lines="none">
+            <ion-text class="grey-color" style="width:90px;margin-right:16px;">Username</ion-text>
+            <ion-input class="grey-color" placeholder="@username" [(ngModel)]="username" name="username" required minlength="5" maxlength="50"></ion-input>
+          </ion-item>
+        </div>
+        <div class="form-input">
+          <ion-item lines="none">
+            <ion-text class="grey-color" style="width:90px;margin-right:16px;">Password</ion-text>
+            <ion-input class="grey-color" type="password" placeholder="Password" [(ngModel)]="password" name="password" required minlength="8" maxlength="50"></ion-input>
+          </ion-item>
+        </div>
+        <div class="form-input input-button-div">
+          <ion-button (click)="hideLoginBox()" style="text-transform: initial;font-size: 16px;" color="tertiary"  type="reset">Back</ion-button>
+          <ion-button style="text-transform: initial;font-size: 16px;" color="tertiary"  type="reset">Clear</ion-button>
+          <ion-button style="text-transform: initial;font-size: 16px;" color="tertiary" type="submit">Login</ion-button>
         </div>
       </form>
       <div *ngIf="loginError === true" style="text-align: center; color: red;width: 300px;">
@@ -46,49 +47,65 @@
     <ion-img id="tompang-big-logo" style="width: 200px;" [src]="tompangLogo"></ion-img>
     <div id="indexForm">
       <form (ngSubmit)="userRegistration()">
-        <ion-item>
-          <ion-label>First Name: </ion-label>
-          <ion-input placeholder="John" [(ngModel)]="firstName" name="firstName" required maxlength="50"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Last Name: </ion-label>
-          <ion-input placeholder="Doe" [(ngModel)]="lastName" name="lastName" required maxlength="50"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Username: </ion-label>
-          <ion-input placeholder="johndoe" [(ngModel)]="registerUsername" name="username" required minlength="5" maxlength="50"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Password: </ion-label>
-          <ion-input type="password" [(ngModel)]="registerPassword" name="password" required minlength="8" maxlength="50"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Repeat Password: </ion-label>
-          <ion-input type="password" [(ngModel)]="registerRepeatPassword" name="repeatPassword" required minlength="8" maxlength="50"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Email: </ion-label>
-          <ion-input type="email" placeholder="john.doe@gmail.com" [(ngModel)]="email" name="email" required maxlength="50" clearInput></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>Contact No.: </ion-label>
-          <ion-input type="tel" [(ngModel)]="contactNumber" name="contactNumber" required minlength="8"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Date of Birth: </ion-label>
-          <ion-input type="date" [(ngModel)]="dateOfBirth" name="dateOfBirth" required></ion-input>
-        </ion-item>
-        <div class="input-button-div">
-          <ion-button color="primary" (click)="hideRegisterBox()">Back</ion-button>
-          <ion-button color="primary"  type="reset">Clear</ion-button>
-          <ion-button color="primary" type="submit">Register</ion-button>
+        <div class="form-input">
+          <ion-item lines="none">
+            <ion-text class="grey-color" style="width:90px;margin-right:16px;">First Name</ion-text>
+            <ion-input class="grey-color" placeholder="First Name" [(ngModel)]="firstName" name="firstName" required maxlength="50"></ion-input>
+          </ion-item>
+        </div>
+        <div class="form-input">
+          <ion-item lines="none">
+            <ion-text class="grey-color" style="width:90px;margin-right:16px;">Last Name</ion-text>
+            <ion-input class="grey-color" placeholder="Last Name" [(ngModel)]="lastName" name="lastName" required maxlength="50"></ion-input>
+          </ion-item>
+        </div>
+        <div class="form-input">
+          <ion-item>
+            <ion-text class="grey-color" style="width:90px;margin-right:16px;">Username</ion-text>
+            <ion-input class="grey-color" placeholder="@username" [(ngModel)]="registerUsername" name="registerUsername" required minlength="5" maxlength="50"></ion-input>
+          </ion-item>
+        </div>
+        <div class="form-input">
+          <ion-item>
+            <ion-text class="grey-color" style="width:90px;margin-right:16px;">Password</ion-text>
+            <ion-input class="grey-color" type="password" placeholder="Password" [(ngModel)]="registerPassword" name="registerPassword" required minlength="8" maxlength="50"></ion-input>
+          </ion-item>
+        </div>
+        <div class="form-input">
+          <ion-item>
+            <ion-text class="grey-color" style="width:90px;margin-right:16px;">Repeat Password</ion-text>
+            <ion-input class="grey-color" type="password" placeholder="Repeat Password" [(ngModel)]="registerRepeatPassword" name="registerRepeatPassword" required minlength="8" maxlength="50"></ion-input>
+          </ion-item>
+        </div>
+        <div class="form-input">
+          <ion-item lines="none">
+            <ion-text class="grey-color" style="width:90px;margin-right:16px;">Email</ion-text>
+            <ion-input class="grey-color" placeholder="Email" type="email" [(ngModel)]="email" name="email" required maxlength="50" clearInput></ion-input>
+          </ion-item>
+        </div>
+        <div class="form-input">
+          <ion-item>
+            <ion-text class="grey-color" style="width:90px;margin-right:16px;">Contact No.</ion-text>
+            <ion-input class="grey-color" placeholder="Contact Number" type="tel" [(ngModel)]="contactNumber" name="contactNumber" required minlength="8"></ion-input>
+          </ion-item>
+        </div>
+        <div class="form-input">
+          <ion-item lines="none">
+            <div style="display: flex;flex-direction: column;width: 100%;">
+              <ion-text class="grey-color" style="width:90px;margin-right:16px;">Date of Birth</ion-text>
+              <ion-datetime [(ngModel)]="dateOfBirth" name="dateOfBirth" ></ion-datetime>
+            </div>
+          </ion-item>
+        </div>
+        <div class="form-input input-button-div">
+          <ion-button (click)="hideRegisterBox()" style="text-transform: initial;font-size: 16px;" color="tertiary"  type="reset">Back</ion-button>
+          <ion-button style="text-transform: initial;font-size: 16px;" color="tertiary"  type="reset">Clear</ion-button>
+          <ion-button style="text-transform: initial;font-size: 16px;" color="tertiary" type="submit">Save</ion-button>
         </div>
       </form>
-      <div *ngIf="registrationError === true" style="text-align: center; color: red;width: 300px;">
+      <div *ngIf="registrationError === true" style="text-align: center; color: red;margin-bottom: 20px;">
         {{registrationErrorMsg}}
       </div>
     </div>
-
   </div>
 </ion-content>

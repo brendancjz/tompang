@@ -108,6 +108,10 @@ const routes: Routes = [
         (m) => m.TransactionConfirmationPageModule
       ),
   },
+  {
+    path: 'listing-card',
+    loadChildren: () => import('./components/listing-card/listing-card.module').then( m => m.ListingCardPageModule)
+  },
 ];
 
 @NgModule({

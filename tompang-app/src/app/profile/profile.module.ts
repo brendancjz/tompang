@@ -9,6 +9,7 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 import { ProfilePage } from './profile.page';
 import { HeaderPageModule } from '../header/header.module';
 import { FooterPageModule } from '../footer/footer.module';
+import { ListingCardPageModule } from '../components/listing-card/listing-card.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { FooterPageModule } from '../footer/footer.module';
     IonicModule,
     ProfilePageRoutingModule,
     HeaderPageModule,
-    FooterPageModule
+    FooterPageModule,
+    ListingCardPageModule
   ],
   declarations: [ProfilePage]
 })

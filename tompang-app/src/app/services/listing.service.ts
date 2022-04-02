@@ -12,14 +12,15 @@ import { SessionService } from './session.service';
 import { Observable, throwError } from 'rxjs';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable({
   providedIn: 'root',
 })
 export class ListingService {
-  baseUrl: string = '/api/Listing';
+  baseUrl = '/api/Listing';
   listings: Listing[];
 
   constructor(
@@ -57,6 +58,8 @@ export class ListingService {
       5
     );
 
+    sampleListing.photos.push('/tompang_icon_logo_blue.png');
+
     const sampleListings = [
       sampleListing,
       sampleListing,
@@ -80,12 +83,18 @@ export class ListingService {
     return this.getSampleListings();
   }
 
+  getMostLikedListings(): Observable<Listing[]> {
+    return this.httpClient.get<Listing[]>(this.baseUrl + '/retrieveAllListings?username=manager&password=password').pipe
+      (
+        catchError(this.handleError)
+      );
+  }
+
   getAllAvailableListings(): Observable<Listing[]> {
-    return this.httpClient
-      .get<Listing[]>(
-        this.baseUrl + '/retrieveAllListings?username=manager&password=password'
-      )
-      .pipe(catchError(this.handleError));
+    return this.httpClient.get<Listing[]>(this.baseUrl + '/retrieveAllListings?username=manager&password=password').pipe
+      (
+        catchError(this.handleError)
+      );
   }
 
   viewListingDetails(listingToView: Listing) {
@@ -103,12 +112,11 @@ export class ListingService {
   }
 
   private handleError(error: HttpErrorResponse) {
-    let errorMessage: string = '';
+    let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       errorMessage = 'An Unknown error has occured: ' + error.error;
     } else {
-      errorMessage =
-        'A HTTP error has occured: ' + `HTTP ${error.status}: ${error.error}`;
+      errorMessage = 'A HTTP error has occured: ' + `HTTP ${error.status}: ${error.error}`;
     }
     console.error(errorMessage);
     return throwError(() => new Error(errorMessage));

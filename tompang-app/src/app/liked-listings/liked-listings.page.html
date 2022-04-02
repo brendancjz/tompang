@@ -15,30 +15,7 @@
     <ion-grid>
       <ion-row>
         <ion-col *ngFor="let listing of myLikedListings">
-          <ion-card>
-            <ion-card-header (click)="this.listingService.viewListingDetails(listing)">
-              <ion-img src={{samplePic}}></ion-img>
-            </ion-card-header>
-
-            <ion-card-content>
-              <ion-card-title (click)="this.listingService.viewListingDetails(listing)">{{ listing.title }}</ion-card-title>
-              <div class="listing-card-info">
-                <div (click)="this.listingService.viewListingDetails(listing)">
-                  <ion-card-subtitle>${{listing.price}}</ion-card-subtitle>
-                  <ion-card-subtitle>@manager</ion-card-subtitle>
-                </div>
-                <!-- Need to handle logic if listing is liked or not. Update accordingly -->
-                <ion-button color="tertiary" class="small-button-icon" (click)="this.listingService.likeListing(listing)" icon-only slot="end">
-                  <ion-icon name="heart-outline"></ion-icon>
-                </ion-button>
-                <ion-button *ngIf="false" color="tertiary" class="small-button-icon" (click)="this.listingService.unlikeListing(listing)" icon-only slot="end">
-                  <ion-icon color="primary" name="heart"></ion-icon>
-                </ion-button>
-              </div>
-
-
-            </ion-card-content>
-          </ion-card>
+          <app-listing-card [listing]="listing"></app-listing-card>
         </ion-col>
       </ion-row>
     </ion-grid>
