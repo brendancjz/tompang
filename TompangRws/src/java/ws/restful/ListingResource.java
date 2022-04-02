@@ -67,7 +67,7 @@ public class ListingResource {
             System.out.println("********** ListingResource.retrieveAllProducts(): User " + user.getUsername() + " login remotely via web service");
 
             List<Listing> listings = listingSessionBean.retrieveAllListings();
-            
+            System.out.println(listings.size());
             for (Listing listing : listings) {
                 User createdBy = listing.getCreatedBy();
                 
@@ -101,12 +101,12 @@ public class ListingResource {
                     }
                     listing.getConversations().clear();
                 }
-                
+
                 if (listing.getTransactions() != null) {
                     listing.getTransactions().clear();
                 }
             }
-            
+
             System.out.println(listings);
 
             GenericEntity<List<Listing>> genericEntity = new GenericEntity<List<Listing>>(listings) {
@@ -122,70 +122,48 @@ public class ListingResource {
         }
 
     }
-    
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createListing(CreateListingReq createListingReq)
-    {
-        if(createListingReq != null)
-        {
-            try
-            {
-                User user = userSessionBean.userLogin(createListingReq.getUsername(),createListingReq.getPassword() );
-                
-                Long listingId  = listingSessionBean.createNewListing(createListingReq.getListing(), user.getUserId());
-                
+    public Response createListing(CreateListingReq createListingReq) {
+        if (createListingReq != null) {
+            try {
+                User user = userSessionBean.userLogin(createListingReq.getUsername(), createListingReq.getPassword());
+
+                Long listingId = listingSessionBean.createNewListing(createListingReq.getListing(), user.getUserId());
+
                 return Response.status(Response.Status.OK).entity(listingId).build();
-            }
-            catch(InvalidLoginCredentialsException ex)
-            {
+            } catch (InvalidLoginCredentialsException ex) {
                 return Response.status(Status.UNAUTHORIZED).entity(ex.getMessage()).build();
-            }
-            catch(CreateNewListingException ex)
-            {
+            } catch (CreateNewListingException ex) {
                 return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
-            }
-            catch(Exception ex)
-            {
+            } catch (Exception ex) {
                 return Response.status(Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
             }
-        }
-        else
-        {
+        } else {
             return Response.status(Response.Status.BAD_REQUEST).entity("Invalid create new listing request").build();
         }
     }
-    
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateListing(UpdateListingReq updateListingReq)
-    {
-        if(updateListingReq != null)
-        {
-            try
-            {                
+    public Response updateListing(UpdateListingReq updateListingReq) {
+        if (updateListingReq != null) {
+            try {
                 User user = userSessionBean.userLogin(updateListingReq.getUsername(), updateListingReq.getPassword());
                 listingSessionBean.updateListingDetails(updateListingReq.getListing());
-                
+
                 return Response.status(Response.Status.OK).build();
-            }
-            catch(InvalidLoginCredentialsException ex)
-            {
+            } catch (InvalidLoginCredentialsException ex) {
                 return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
-            }
-            catch(EntityNotFoundException ex)
-            {
+            } catch (EntityNotFoundException ex) {
                 return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
-            }
-            catch(Exception ex)
-            {
+            } catch (Exception ex) {
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
             }
-        }
-        else
-        {
+        } else {
             return Response.status(Response.Status.BAD_REQUEST).entity("Invalid update listing request").build();
         }
     }
