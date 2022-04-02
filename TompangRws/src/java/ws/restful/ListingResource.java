@@ -69,23 +69,30 @@ public class ListingResource {
             List<Listing> listings = listingSessionBean.retrieveAllListings();
             System.out.println(listings.size());
             for (Listing listing : listings) {
-//                User createdBy = listing.getCreatedBy();
+                User createdBy = listing.getCreatedBy();
+                
+                listing.setCreatedBy(null);
+                
+//                if (createdBy == null)
+//                    System.out.println("********** createdBy IS NULL");
 //                
 //                if (createdBy.getConversations() != null) {
 //                    for (Conversation conversation : createdBy.getConversations()) {
 //                        conversation.setCreatedBy(null);
 //                    }
 //                    createdBy.getConversations().clear();
-//
+//                
 //                }
-////
+//                
 //                if (createdBy.getCreatedListings() != null) {
 //                    for (Listing createdListing : createdBy.getCreatedListings()) {
 //                        createdListing.setCreatedBy(null);
 //                    }
 //                    createdBy.getCreatedListings().clear();
+//
 //                }
-                listing.setCreatedBy(null);
+
+                
                 if (listing.getConversations() != null) {
                     for (Conversation conversation : listing.getConversations()) {
                         conversation.getMessages().clear();
@@ -105,8 +112,10 @@ public class ListingResource {
 
             return Response.status(Status.OK).entity(genericEntity).build();
         } catch (InvalidLoginCredentialsException ex) {
+            ex.printStackTrace();
             return Response.status(Status.UNAUTHORIZED).entity(ex.getMessage()).build();
         } catch (Exception ex) {
+            ex.printStackTrace();
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
         }
 

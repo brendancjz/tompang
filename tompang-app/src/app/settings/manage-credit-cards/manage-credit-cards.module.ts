@@ -8,6 +8,7 @@ import { ManageCreditCardsPageRoutingModule } from './manage-credit-cards-routin
 
 import { ManageCreditCardsPage } from './manage-credit-cards.page';
 import { HeaderPageModule } from 'src/app/header/header.module';
+import { FooterPageModule } from 'src/app/footer/footer.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { HeaderPageModule } from 'src/app/header/header.module';
     FormsModule,
     IonicModule,
     ManageCreditCardsPageRoutingModule,
-    HeaderPageModule
+    HeaderPageModule,
+    FooterPageModule
   ],
   declarations: [ManageCreditCardsPage]
 })
