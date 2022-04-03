@@ -15,7 +15,6 @@ import exception.CreateNewCreditCardException;
 import exception.CreateNewUserException;
 import exception.EntityNotFoundException;
 import exception.InvalidLoginCredentialsException;
-import java.awt.PageAttributes.MediaType;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
