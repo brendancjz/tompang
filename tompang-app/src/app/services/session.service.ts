@@ -29,20 +29,4 @@ export class SessionService {
   setCurrentUser(currentUser: User | null): void {
     sessionStorage.currentUser = JSON.stringify(currentUser);
   }
-
-  getUsername(): string {
-    return sessionStorage['username'];
-  }
-
-  setUsername(username: string | undefined): void {
-    sessionStorage['username'] = username;
-  }
-
-  getListing(): Listing {
-    return sessionStorage['listing1'];
-  }
-
-  setListing(listing: Listing | undefined): void {
-    sessionStorage['listing1'] = listing;
-  }
 }

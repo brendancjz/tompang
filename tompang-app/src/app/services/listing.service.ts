@@ -21,13 +21,17 @@ const httpOptions = {
 })
 export class ListingService {
   baseUrl = '/api/Listing';
-  listings: Listing[];
+
+  username: string;
+  password: string;
 
   constructor(
     private httpClient: HttpClient,
-    private sessionService: SessionService
-  ) {
-    this.listings = new Array();
+    private sessionService: SessionService) {
+
+    const currentUser = sessionService.getCurrentUser();
+    this.username = currentUser.username;
+    this.password = currentUser.password;
   }
 
   createListing(newListing: Listing): number {
@@ -90,15 +94,21 @@ export class ListingService {
     return this.getSampleListings();
   }
 
+  getListingByListingId(listingId: number): Observable<Listing> {
+    return this.httpClient.get<Listing>(this.baseUrl + '/retrieveListing?username='
+    + this.username + '&password=' + this.password + '&listingId=' + listingId).pipe
+    (
+      catchError(this.handleError)
+    );
+  }
+
   getMostLikedListings(): Observable<Listing[]> {
-    return this.httpClient.get<Listing[]>(this.baseUrl + '/retrieveAllListings?username=manager&password=password').pipe
-      (
-        catchError(this.handleError)
-      );
+    return this.getAllAvailableListings();
   }
 
   getAllAvailableListings(): Observable<Listing[]> {
-    return this.httpClient.get<Listing[]>(this.baseUrl + '/retrieveAllListings?username=manager&password=password').pipe
+    return this.httpClient.get<Listing[]>(this.baseUrl + '/retrieveAllListings?username=' +
+    this.username + '&password=' + this.password).pipe
       (
         catchError(this.handleError)
       );
