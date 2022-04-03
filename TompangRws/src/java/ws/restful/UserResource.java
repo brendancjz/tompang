@@ -5,23 +5,28 @@
  */
 package ws.restful;
 
+import ejb.stateless.CreditCardSessionBeanLocal;
 import ejb.stateless.UserSessionBeanLocal;
+import entity.CreditCard;
 import entity.User;
+import exception.CreateNewCreditCardException;
 import exception.CreateNewUserException;
 import exception.EntityNotFoundException;
 import exception.InvalidLoginCredentialsException;
+import java.util.List;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import ws.datamodel.CreateUserReq;
 import ws.datamodel.UpdateUserReq;
 
 /**
@@ -37,9 +42,12 @@ public class UserResource {
     
     private final UserSessionBeanLocal userSessionBean;
     
+    private final CreditCardSessionBeanLocal creditCardSessionBean;
+    
     public UserResource() {
         sessionBeanLookup = new SessionBeanLookup();
         userSessionBean = sessionBeanLookup.lookupUserSessionBeanLocal();
+        creditCardSessionBean = sessionBeanLookup.lookupCreditCardSessionBeanLocal();
     }
     
     @Path("userLogin")
@@ -121,5 +129,76 @@ public class UserResource {
             return Response.status(Response.Status.BAD_REQUEST).entity("Invalid update product request").build();
         }
     }
+    
+    @Path("creditCards")
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response retrieveCreditCards(@QueryParam("username") String username, 
+                                @QueryParam("password") String password) {
+        try {
+            System.out.println("*********** " + username + " " + password);
+            User user = userSessionBean.userLogin(username, password);
+            System.out.println("********** UserResource.userLogin(): User " + user.getUsername() + " login remotely via web service");
+            
+            List<CreditCard> creditCards = user.getCreditCards();
+          
+            return Response.status(Response.Status.OK).entity(user).build();
+        } catch (InvalidLoginCredentialsException ex) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
+        }
+    }
+    
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createCreditCard(@QueryParam("username") String username, 
+                                @QueryParam("password") String password, CreditCard card)
+    {
+       try {
+            System.out.println("*********** " + username + " " + password);
+            User user = userSessionBean.userLogin(username, password);
+            System.out.println("********** UserResource.userLogin(): User " + user.getUsername() + " login remotely via web service");
+            
+            Long ccId = creditCardSessionBean.createNewCreditCard(card, user.getUserId());
+            
+            
+            return Response.status(Response.Status.OK).entity(user).build();
+        } catch (InvalidLoginCredentialsException ex) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
+        } catch(CreateNewCreditCardException ex){
+            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+        }
+     
+   }
+    
+    @Path("creditCards/{ccId}")
+    @DELETE
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteCreditCard(@QueryParam("username") String username, 
+                                        @QueryParam("password") String password,
+                                        @PathParam("ccId") Long ccId)
+    {
+        try {
+            System.out.println("*********** " + username + " " + password);
+            User user = userSessionBean.userLogin(username, password);
+            System.out.println("********** UserResource.userLogin(): User " + user.getUsername() + " login remotely via web service");
+            
+            creditCardSessionBean.deleteCreditCard(ccId, user.getUserId());
+            
+            
+            return Response.status(Response.Status.OK).entity(user).build();
+        } catch (InvalidLoginCredentialsException ex) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
+        } catch(EntityNotFoundException ex){
+            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+        }
+        
+    }
+    
+    
+    
+    
 
 }
