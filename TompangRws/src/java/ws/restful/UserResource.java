@@ -5,7 +5,6 @@
  */
 package ws.restful;
 
-import static com.sun.xml.internal.ws.api.message.Packet.Status.Response;
 import ejb.stateless.CreditCardSessionBeanLocal;
 import ejb.stateless.UserSessionBeanLocal;
 import entity.CreditCard;
