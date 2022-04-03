@@ -1,0 +1,15 @@
+.listing-card-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+ion-card:hover {
+  cursor: pointer;
+}
+
+ion-button.small-button-icon {
+  --box-shadow: none;
+  --padding-end: 7px;
+  --padding-start: 7px;
+}

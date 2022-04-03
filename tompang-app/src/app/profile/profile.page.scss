@@ -4,14 +4,11 @@ ion-button.button-icon {
   --padding-start: 7px;
   font-size: 20px;
 }
+
 ion-button.small-button-icon {
   --box-shadow: none;
   --padding-end: 7px;
   --padding-start: 7px;
-}
-
-#inbox-button {
-  margin-right: 15px;
 }
 
 ion-button.follow-button {
@@ -74,14 +71,4 @@ ion-button.follow-button {
           border-left: 1px solid #F4F4F4;
       }
   }
-}
-
-.listing-card-info {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-ion-card:hover {
-  cursor: pointer;
 }

@@ -1,8 +1,39 @@
+<app-header></app-header>
 <ion-content>
-  <ion-title style="font-size: 30px;margin-top: 10px;margin-bottom: 10px;">
-    Settings
-  </ion-title>
-  <ion-title style="font-size: 24px;margin-top: 20px;margin-bottom: 10px;">
-    Manage Credit Cards
-  </ion-title>
+  <div>
+    <ion-title class="page-name grey-color">
+      Settings
+    </ion-title>
+    <hr class="horizontal-rule" />
+    <ion-title class="sub-page-name grey-color">
+      <div style="display: flex; align-items: center; justify-content: space-between;">
+        Manage Credit Cards
+        <ion-button color="tertiary" icon-only (click)="addCreditCard()">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-button>
+      </div>
+
+    </ion-title>
+  </div>
+  <hr class="horizontal-rule" />
+  <div>
+    <div *ngFor="let creditCard of currentUser.creditCards">
+      <ion-item>
+        <div style="display: flex;justify-content: space-between;width: 100%;padding: 10px 0;">
+          <ion-icon style="font-size: 24px;" name="card-outline"></ion-icon>
+          <div>
+            <ion-label>{{creditCard.ccName}}</ion-label>
+            <ion-label>{{creditCard.ccNumber}}</ion-label>
+            <ion-label>{{creditCard.ccCIV}}</ion-label>
+            <ion-label>{{creditCard.expiryDate}}</ion-label>
+          </div>
+          <ion-button color="tertiary" class="button-icon" icon-only (click)="viewCreditCard(creditCard)">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-button>
+        </div>
+
+      </ion-item>
+    </div>
+  </div>
 </ion-content>
+<app-footer></app-footer>

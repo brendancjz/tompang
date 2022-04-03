@@ -20,8 +20,7 @@ export class EditProfilePage implements OnInit {
 
   editError: boolean;
 
-  constructor(private location: Location,
-    public sessionService: SessionService,
+  constructor(public sessionService: SessionService,
     private userService: UserService) {
       const currentUser = sessionService.getCurrentUser();
 
@@ -40,6 +39,12 @@ export class EditProfilePage implements OnInit {
 
   updateUser(): void {
     console.log('Updating user...');
+    console.log('First Name: ' + this.firstName);
+    console.log('Last Name: ' + this.lastName);
+    console.log('Email: ' + this.email);
+    console.log('Contact No.: ' + this.contactNumber);
+    console.log('DoB: ' + this.dateOfBirth);
+
     const currentUser = this.sessionService.getCurrentUser();
     let updatedUser = new User(currentUser.userId, this.firstName, this.lastName,
       currentUser.username, currentUser.password, this.email, this.dateOfBirth, currentUser.profilePic,

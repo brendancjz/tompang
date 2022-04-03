@@ -11,6 +11,7 @@ export class AppComponent {
     { title: 'Inbox', url: '/inbox', icon: 'chatbubbles' },
     { title: 'History', url: '/history', icon: 'receipt' },
     { title: 'Settings', url: '/settings', icon: 'settings' },
+    { title: 'Orders', url: '/orders', icon: 'orders' },
   ];
 
   constructor() {}

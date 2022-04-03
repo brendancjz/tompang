@@ -59,10 +59,11 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
         if (listings.isEmpty()) {
             throw new EmptyListException("List of listings is empty.\n");
         }
-
+        System.out.println(listings.size());
         for (Listing listing : listings) {
             listing.getConversations().size();
             listing.getPhotos().size();
+            listing.getCreatedBy();
         }
 
         return listings;

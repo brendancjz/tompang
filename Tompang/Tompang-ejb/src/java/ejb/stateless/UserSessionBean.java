@@ -104,6 +104,7 @@ public class UserSessionBean implements UserSessionBeanLocal {
         User user = this.getUserByUserId(userId);
         Listing listing = listingSessionBean.getListingByListingId(listingId);
         user.getLikedListings().add(listing);
+        listing.getLikedByUsers().add(user);
     }
 
     @Override

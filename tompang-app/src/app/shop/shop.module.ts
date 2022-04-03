@@ -9,6 +9,8 @@ import { ShopPageRoutingModule } from './shop-routing.module';
 import { ShopPage } from './shop.page';
 import { HeaderPageModule } from '../header/header.module';
 import { FooterPageModule } from '../footer/footer.module';
+import { ListingCardPageModule } from '../components/listing-card/listing-card.module';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   imports: [
@@ -17,7 +19,9 @@ import { FooterPageModule } from '../footer/footer.module';
     IonicModule,
     ShopPageRoutingModule,
     HeaderPageModule,
-    FooterPageModule
+    FooterPageModule,
+    ListingCardPageModule,
+    Ng2SearchPipeModule
   ],
   declarations: [ShopPage]
 })

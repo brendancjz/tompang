@@ -8,6 +8,7 @@ import { ChangePasswordPageRoutingModule } from './change-password-routing.modul
 
 import { ChangePasswordPage } from './change-password.page';
 import { HeaderPageModule } from 'src/app/header/header.module';
+import { FooterPageModule } from 'src/app/footer/footer.module';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { HeaderPageModule } from 'src/app/header/header.module';
     IonicModule,
     ChangePasswordPageRoutingModule,
     HeaderPageModule,
+    FooterPageModule
   ],
   declarations: [ChangePasswordPage]
 })

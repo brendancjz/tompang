@@ -1,9 +1,19 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>LikedListings</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+<app-header></app-header>
+<ion-content class="hide-scroll-bar">
+  <div>
+    <ion-title class="page-name grey-color">
+      Liked Listings
+    </ion-title>
+  </div>
+  <div>
+    <ion-searchbar class="grey-color" placeholder="Search Tompang" [(ngModel)]="searchTerm" showCancelButton="focus" animated></ion-searchbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let listing of myLikedListings | filter:searchTerm">
+          <app-listing-card [listing]="listing"></app-listing-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
+<app-footer></app-footer>

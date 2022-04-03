@@ -5,54 +5,115 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'index',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'index',
-    loadChildren: () => import('./index/index.module').then( m => m.IndexPageModule)
+    loadChildren: () =>
+      import('./index/index.module').then((m) => m.IndexPageModule),
   },
   {
     path: 'shop',
-    loadChildren: () => import('./shop/shop.module').then( m => m.ShopPageModule)
+    loadChildren: () =>
+      import('./shop/shop.module').then((m) => m.ShopPageModule),
   },
   {
     path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () =>
+      import('./profile/profile.module').then((m) => m.ProfilePageModule),
   },
   {
     path: 'settings',
-    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
+    loadChildren: () =>
+      import('./settings/settings.module').then((m) => m.SettingsPageModule),
   },
   {
     path: 'inbox',
-    loadChildren: () => import('./inbox/inbox.module').then( m => m.InboxPageModule)
+    loadChildren: () =>
+      import('./inbox/inbox.module').then((m) => m.InboxPageModule),
   },
   {
     path: 'history',
-    loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule)
+    loadChildren: () =>
+      import('./history/history.module').then((m) => m.HistoryPageModule),
+  },
+  {
+    path: 'orders',
+    loadChildren: () =>
+      import('./transaction-confirmation/transaction-confirmation.module').then(
+        (m) => m.TransactionConfirmationPageModule
+      ),
   },
   {
     path: 'header',
-    loadChildren: () => import('./header/header.module').then( m => m.HeaderPageModule)
+    loadChildren: () =>
+      import('./header/header.module').then((m) => m.HeaderPageModule),
   },
   {
     path: 'footer',
-    loadChildren: () => import('./footer/footer.module').then( m => m.FooterPageModule)
+    loadChildren: () =>
+      import('./footer/footer.module').then((m) => m.FooterPageModule),
   },
   {
     path: 'liked-listings',
-    loadChildren: () => import('./liked-listings/liked-listings.module').then( m => m.LikedListingsPageModule)
+    loadChildren: () =>
+      import('./liked-listings/liked-listings.module').then(
+        (m) => m.LikedListingsPageModule
+      ),
+  },
+  {
+    path: 'create-listing',
+    loadChildren: () =>
+      import('./create-listing/create-listing.module').then(
+        (m) => m.CreateListingPageModule
+      ),
+  },
+  {
+    path: 'edit-profile',
+    loadChildren: () =>
+      import('./settings/edit-profile/edit-profile.module').then(
+        (m) => m.EditProfilePageModule
+      ),
+  },
+  {
+    path: 'change-profile-pic',
+    loadChildren: () =>
+      import('./settings/change-profile-pic/change-profile-pic.module').then(
+        (m) => m.ChangeProfilePicPageModule
+      ),
+  },
+  {
+    path: 'change-password',
+    loadChildren: () =>
+      import('./settings/change-password/change-password.module').then(
+        (m) => m.ChangePasswordPageModule
+      ),
+  },
+  {
+    path: 'manage-credit-cards',
+    loadChildren: () =>
+      import('./settings/manage-credit-cards/manage-credit-cards.module').then(
+        (m) => m.ManageCreditCardsPageModule
+      ),
+  },
+  {
+    path: 'transaction-confirmation',
+    loadChildren: () =>
+      import('./transaction-confirmation/transaction-confirmation.module').then(
+        (m) => m.TransactionConfirmationPageModule
+      ),
   },{
     path: '**',
     redirectTo: 'index',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
+
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

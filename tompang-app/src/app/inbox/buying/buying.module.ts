@@ -9,6 +9,8 @@ import { BuyingPageRoutingModule } from './buying-routing.module';
 import { BuyingPage } from './buying.page';
 import { HeaderPageModule } from 'src/app/header/header.module';
 import { FooterPageModule } from 'src/app/footer/footer.module';
+import { ConversationItemPageModule } from 'src/app/components/conversation-item/conversation-item.module';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   imports: [
@@ -17,7 +19,9 @@ import { FooterPageModule } from 'src/app/footer/footer.module';
     IonicModule,
     BuyingPageRoutingModule,
     HeaderPageModule,
-    FooterPageModule
+    FooterPageModule,
+    ConversationItemPageModule,
+    Ng2SearchPipeModule
   ],
   declarations: [BuyingPage]
 })

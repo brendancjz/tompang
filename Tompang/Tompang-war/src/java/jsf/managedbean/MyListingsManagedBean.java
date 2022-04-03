@@ -85,7 +85,7 @@ public class MyListingsManagedBean {
     public void viewListing(AjaxBehaviorEvent event) throws IOException {
         Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listingToView", listing);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("viewListingDetails.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("userPages/viewListingDetails.xhtml");
     }
     
     public List<Listing> getMyListings() {

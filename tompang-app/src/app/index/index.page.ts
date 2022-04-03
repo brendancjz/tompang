@@ -49,6 +49,16 @@ export class IndexPage implements OnInit {
   }
 
   userRegistration(): void {
+    console.log('Registering user...');
+    console.log('First Name: ' + this.firstName);
+    console.log('Last Name: ' + this.lastName);
+    console.log('Username: ' + this.registerUsername);
+    console.log('Password: ' + this.registerPassword);
+    console.log('Repeat Password: ' + this.registerRepeatPassword);
+    console.log('Email: ' + this.email);
+    console.log('Contact Num: ' + this.contactNumber);
+    console.log('DOB: ' + this.dateOfBirth);
+
     if (
       this.firstName === undefined ||
       this.lastName === undefined ||
@@ -93,17 +103,20 @@ export class IndexPage implements OnInit {
   }
 
   userLogin(): void {
+    console.log('User logging in...');
+    if (this.username === null || this.password === null) {
+      console.log('User login credentials are null');
+      return;
+    }
+
     const user: User | null = this.userService.userLogin(
       this.username.trim(),
       this.password.trim()
     );
 
-    const listing: Listing | null = this.listingService.createListing();
-
     if (user != null) {
       this.sessionService.setIsLogin(true);
       this.sessionService.setCurrentUser(user);
-      this.sessionService.setListing(listing);
       this.loginError = false;
       this.resetPage();
 

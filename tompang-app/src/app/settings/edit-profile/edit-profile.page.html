@@ -1,11 +1,61 @@
+<app-header></app-header>
 <ion-content>
-  <ion-title style="font-size: 30px;margin-top: 10px;margin-bottom: 10px;">
-    Settings
-  </ion-title>
-  <ion-title style="font-size: 24px;margin-top: 20px;margin-bottom: 10px;">
-    Edit Profile
-  </ion-title>
-  <div id="formBox" class="formBox" *ngIf="sessionService.getIsLogin() !== false">
+  <div>
+    <ion-title class="page-name grey-color">
+      Settings
+    </ion-title>
+    <hr class="horizontal-rule" />
+    <ion-title class="sub-page-name grey-color">
+      Edit Profile
+    </ion-title>
+  </div>
+  <hr class="horizontal-rule" />
+  <div style="margin-top: 15px;">
+    <form (ngSubmit)="updateUser()">
+      <div class="form-input">
+        <ion-item lines="none">
+          <ion-text class="grey-color" style="width:90px;margin-right:16px;">First Name</ion-text>
+          <ion-input class="grey-color" placeholder="First Name" [(ngModel)]="firstName" name="firstName" required maxlength="50"></ion-input>
+        </ion-item>
+      </div>
+      <div class="form-input">
+        <ion-item lines="none">
+          <ion-text class="grey-color" style="width:90px;margin-right:16px;">Last Name</ion-text>
+          <ion-input class="grey-color" placeholder="Last Name" [(ngModel)]="lastName" name="lastName" required maxlength="50"></ion-input>
+        </ion-item>
+      </div>
+      <div class="form-input">
+        <ion-item lines="none">
+          <ion-text class="grey-color" style="width:90px;margin-right:16px;">Email</ion-text>
+          <ion-input class="grey-color" placeholder="Email" type="email" [(ngModel)]="email" name="email" required maxlength="50" clearInput></ion-input>
+        </ion-item>
+      </div>
+      <div class="form-input">
+        <ion-item lines="none">
+          <ion-text class="grey-color" style="width:90px;margin-right:16px;">Contact No.</ion-text>
+          <ion-input class="grey-color" placeholder="Contact Number" type="tel" [(ngModel)]="contactNumber" name="contactNumber" required minlength="8"></ion-input>
+        </ion-item>
+      </div>
+      <div class="form-input">
+        <ion-item lines="none">
+          <div style="display: flex;flex-direction: column;width: 100%;">
+            <ion-text class="grey-color" style="width:90px;margin-right:16px;">Date of Birth</ion-text>
+            <ion-datetime [(ngModel)]="dateOfBirth" name="dateOfBirth" ></ion-datetime>
+          </div>
+        </ion-item>
+      </div>
+      <div class="form-input input-button-div">
+        <ion-button style="text-transform: initial;font-size: 16px;" color="tertiary"  type="reset">Clear</ion-button>
+        <ion-button style="text-transform: initial;font-size: 16px;" color="tertiary" type="submit">Save</ion-button>
+      </div>
+
+    </form>
+    <div *ngIf="editError === true" style="text-align: center; color: red;">
+      Invalid edit: Inputted fields are incorrectly formatted!
+    </div>
+  </div>
+  <!-- <hr class="horizontal-rule" />
+  <div id="formBox" class="formBox">
     <div id="editProfileForm">
       <form (ngSubmit)="updateUser()">
         <ion-item>
@@ -25,7 +75,6 @@
           <ion-input type="tel" [(ngModel)]="contactNumber" name="contactNumber" required minlength="8"></ion-input>
         </ion-item>
         <ion-item>
-          <!-- Need to fix this. It does not show the date in UI -->
           <ion-label>D.O.B: </ion-label>
           <ion-input type="date" [(ngModel)]="dateOfBirth" name="dateOfBirth" required></ion-input>
         </ion-item>
@@ -39,5 +88,6 @@
       </div>
     </div>
 
-  </div>
+  </div> -->
 </ion-content>
+<app-footer></app-footer>

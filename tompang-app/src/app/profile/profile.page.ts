@@ -11,46 +11,27 @@ import { SessionService } from '../services/session.service';
 })
 export class ProfilePage implements OnInit {
   samplePic = '../../assets/images/tompang_icon_logo_blue.png';
+  defaultProfilePic = '../../assets/images/uploadedFiles/default_picture.jpg';
+
   title: string | undefined;
   currentUser: User;
   username: string | undefined;
 
-
-  sampleListing: Listing;
-
   myListings: Listing[];
+  searchTerm: string;
 
   constructor(
     public sessionService: SessionService,
-    private listingService: ListingService
+    public listingService: ListingService
   ) {
-    const listing = sessionService.getListing();
 
-    this.title = listing.title;
     this.currentUser = sessionService.getCurrentUser();
     this.username = this.currentUser.username;
 
-    this.sampleListing = new Listing(1, 'Singapore', 'Singapore', 'Bape T-Shirt',
-  'Get yo bape t-shirts today!', 'APPAREL', 100, new Date(), 5);
-
-    this.myListings = [this.sampleListing, this.sampleListing, this.sampleListing,
-      this.sampleListing, this.sampleListing, this.sampleListing,
-      this.sampleListing, this.sampleListing, this.sampleListing,
-      this.sampleListing, this.sampleListing, this.sampleListing, this.sampleListing];
+    this.myListings = listingService.getUserListings(this.currentUser);
 
   }
 
   ngOnInit() {}
 
-  viewListingDetails(listingToView: Listing) {
-    console.log('View listing details for listingId: ' + listingToView.listingId);
-  }
-
-  likeListing(listing: Listing) {
-    console.log('Liking listing..');
-  }
-
-  unlikeListing(listing: Listing) {
-    console.log('unliking listing..');
-  }
 }

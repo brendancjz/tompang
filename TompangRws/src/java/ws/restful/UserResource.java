@@ -5,15 +5,22 @@
  */
 package ws.restful;
 
+import static com.sun.xml.internal.ws.api.message.Packet.Status.Response;
 import ejb.stateless.CreditCardSessionBeanLocal;
 import ejb.stateless.UserSessionBeanLocal;
 import entity.CreditCard;
+import entity.Listing;
 import entity.User;
 import exception.CreateNewCreditCardException;
 import exception.CreateNewUserException;
 import exception.EntityNotFoundException;
 import exception.InvalidLoginCredentialsException;
+import java.awt.PageAttributes.MediaType;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -40,6 +47,7 @@ public class UserResource {
     
     private final SessionBeanLookup sessionBeanLookup;
     
+    
     private final UserSessionBeanLocal userSessionBean;
     
     private final CreditCardSessionBeanLocal creditCardSessionBean;
@@ -49,6 +57,54 @@ public class UserResource {
         userSessionBean = sessionBeanLookup.lookupUserSessionBeanLocal();
         creditCardSessionBean = sessionBeanLookup.lookupCreditCardSessionBeanLocal();
     }
+    
+    
+    @Path("retrieveUser/{username}")
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response retrieveUser(@PathParam("username") String username) {
+        try {
+            User user = userSessionBean.retrieveUserByUsername(username);
+            
+            // not supposed to be setting null, same problem as ListingResource
+            user.setFollowers(null);
+            user.setFollowing(null);
+            user.setCreatedListings(null);
+            user.setLikedListings(null);
+
+
+            if (user.getFollowers() != null) {
+                for (User follower : user.getFollowers()) {
+                    follower.getFollowing().clear();
+                }
+            }
+            
+            if (user.getFollowing() != null) {
+                for (User following : user.getFollowing()) {
+                    following.getFollowers().clear();
+                }
+            }
+            
+            if (user.getCreatedListings() != null) {
+                for (Listing createdListing : user.getCreatedListings()) {
+                    createdListing.setCreatedBy(null);
+                }
+            }
+            
+            if (user.getLikedListings() != null) {
+                for (Listing likedListing : user.getLikedListings()) {
+                    likedListing.setLikedByUsers(null);
+                }
+            }
+            
+            return Response.status(Response.Status.OK).entity(user).build();
+        } catch (EntityNotFoundException ex) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+            
+        }
+    }
+    
     
     @Path("userLogin")
     @GET
@@ -198,6 +254,18 @@ public class UserResource {
     }
     
     
+    
+    
+
+    private UserSessionBeanLocal lookupUserSessionBeanLocal() {
+        try {
+            javax.naming.Context c = new InitialContext();
+            return (UserSessionBeanLocal) c.lookup("java:global/Tompang/Tompang-ejb/UserSessionBean!ejb.stateless.UserSessionBeanLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
     
     
 
