@@ -32,6 +32,9 @@ public class CreditCard implements Serializable {
     @Column(nullable = false, length = 100)
     @NotNull
     private String ccName;
+    @Column(nullable = false, length = 50)
+    @NotNull
+    private String ccBrand;
     @Column(nullable = false, length = 16)
     @NotNull
     @Digits(integer=16, fraction=0)
@@ -51,12 +54,21 @@ public class CreditCard implements Serializable {
     public CreditCard() {
     }
 
-    public CreditCard(String ccName, Long ccNumber, Integer ccCIV, Date expiryDate) {
+    public CreditCard(String ccBrand, String ccName, Long ccNumber, Integer ccCIV, Date expiryDate) {
         this();
+        this.ccBrand = ccBrand;
         this.ccName = ccName;
         this.ccNumber = ccNumber;
         this.ccCIV = ccCIV;
         this.expiryDate = expiryDate;
+    }
+
+    public String getCcBrand() {
+        return ccBrand;
+    }
+
+    public void setCcBrand(String ccBrand) {
+        this.ccBrand = ccBrand;
     }
 
     public Long getCcId() {

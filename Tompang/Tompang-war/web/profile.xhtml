@@ -194,6 +194,10 @@
                     </p:menubar>
                     <p:dataTable id="dataTableAllCreditCards" value="#{profileManagedBean.creditCards}" var="creditCard">
 
+                        <p:column headerText="CC Brand">
+                            <h:outputText value="#{creditCard.ccBrand}" />
+                        </p:column>
+                        
                         <p:column headerText="CC Name">
                             <h:outputText value="#{creditCard.ccName}" />
                         </p:column>
@@ -234,6 +238,18 @@
 
                     <p:panelGrid>
 
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="ccBrand" value="Credit Card Brand " style="font-weight: bold;" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="ccBrand" value="#{profileManagedBean.newCreditCard.ccBrand}" placeholder="DBS, AMEX, SC, MasterCard" required="true" requiredMessage="Credit Card Brand is required" />
+                            </p:column>
+                            <p:column>
+                                <p:message for="ccNumber" />
+                            </p:column>
+                        </p:row>
+                        
                         <p:row>
                             <p:column>
                                 <p:outputLabel for="ccNumber" value="Credit Card Number " style="font-weight: bold;" />

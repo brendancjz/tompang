@@ -38,6 +38,9 @@ export class ProfilePage implements OnInit {
     this.currentUser = this.sessionService.getCurrentUser();
 
     this.userId = this.activatedRoute.snapshot.paramMap.get('userId');
+    if (this.userId === '#') { //This is to handle the missing userId at the beginning
+      this.userId = this.currentUser.userId.toString();
+    }
 
     // eslint-disable-next-line radix
     this.userToView = this.userService.getUserByUserId(parseInt(this.userId));

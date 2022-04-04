@@ -9,9 +9,9 @@ export class AppComponent {
   public appPages = [];
 
   constructor(private sessionService: SessionService) {
-    const currentUser = sessionService.getCurrentUser();
+    //const currentUser = sessionService.getCurrentUser();
     this.appPages = [
-      { title: 'Profile', url: '/profile/' + currentUser.userId, icon: 'person' },
+      { title: 'Profile', url: '/profile/#', icon: 'person' },
       { title: 'Marketplace', url: '/shop', icon: 'earth' },
       { title: 'Inbox', url: '/inbox', icon: 'chatbubbles' },
       { title: 'History', url: '/history', icon: 'receipt' },
