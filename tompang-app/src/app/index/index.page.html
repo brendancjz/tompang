@@ -8,7 +8,7 @@
 
     </div>
     <div *ngIf="sessionService.getIsLogin() === true">
-      <ion-button color="tertiary" [routerLink]="['/shop']">Go to Shop</ion-button>
+      <ion-button color="tertiary" [routerLink]="['/shop']">Marketplace</ion-button>
       <ion-button color="tertiary" (click)="userLogout()">Logout</ion-button>
     </div>
   </div>

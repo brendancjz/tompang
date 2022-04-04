@@ -8,7 +8,7 @@
     </div>
     <div style="display: flex;align-items: center;margin-bottom: 10px;" (click)="viewListing()">
       <ion-item lines="none">
-        <img style="width: 50px;border-radius: 5px;margin-right: 10px;" src="{{getConversationListingUrl()}}">
+        <img style="width: 70px;border-radius: 5px;margin-right: 10px;" src={{getConversationListingUrl()}}>
         <div style="display: flex;flex-direction: column;">
           <ion-label class="grey-color" style="margin-bottom: 5px;" >{{convoToView.listing.title}}</ion-label>
           <ion-label class="grey-color">S${{convoToView.listing.price}}</ion-label>

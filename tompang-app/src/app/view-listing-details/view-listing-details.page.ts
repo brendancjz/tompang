@@ -104,5 +104,6 @@ export class ViewListingDetailsPage implements OnInit {
 
   makeTransaction(): void {
     console.log('Make transaction..');
+    this.router.navigate(['/create-transaction/' + this.listingId]);
   }
 }
