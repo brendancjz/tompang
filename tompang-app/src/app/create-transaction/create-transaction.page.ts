@@ -17,12 +17,14 @@ export class CreateTransactionPage implements OnInit {
   listingId: string | null;
   listingToView: Listing | null;
   retrieveListingError: boolean;
+  eta: string | null;
 
   hasLoaded: boolean;
 
   currentUser: User | null;
 
   buyerCreditCard: CreditCard;
+  transactionSuccessful: boolean;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -39,6 +41,7 @@ export class CreateTransactionPage implements OnInit {
     this.listingService.getAllAvailableListings().subscribe({
       next:(response)=> {
         this.listingToView = response[9];
+        this.eta = this.listingToView.expectedArrivalDate.toString().split('T')[0];
         this.hasLoaded = true;
       },
       error:(error)=>{
@@ -60,6 +63,14 @@ export class CreateTransactionPage implements OnInit {
 
   createTransaction() {
     console.log('Creating transaction..');
+    console.log(this.buyerCreditCard);
+    //To implement
+    if (this.buyerCreditCard !== undefined) {
+      this.transactionSuccessful = true;
+    } else {
+      this.transactionSuccessful = false;
+    }
+
   }
 
 }

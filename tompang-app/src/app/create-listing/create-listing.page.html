@@ -7,7 +7,7 @@
     <hr class="horizontal-rule" />
     <div class="create-listing-block">
       <div id="createListingForm" class="createListingForm">
-        <form (ngSubmit)="createListing()">
+        <form>
           <!--Add images upload here-->
           <div class="form-input">
             <ion-item lines="none">
@@ -69,13 +69,21 @@
             </ion-item>
           </div>
           <div class="form-input input-button-div">
-            <ion-button style="text-transform: initial;font-size: 16px;height: 50px;" color="tertiary"  type="reset">Clear</ion-button>
-            <ion-button style="text-transform: initial;font-size: 16px;height: 50px;" color="tertiary" type="submit">Create</ion-button>
+            <ion-button style="text-transform: initial;font-size: 16px;height: 50px;" color="tertiary"  type="reset" >Clear</ion-button>
+            <ion-button style="text-transform: initial;font-size: 16px;height: 50px;" color="tertiary" type="submit" (click)="createListing()">Create</ion-button>
           </div>
         </form>
+        <div *ngIf="listingCreationSuccessful" style="margin-bottom: 40px;display: flex;flex-direction: column;justify-content: center;">
+          <ion-label class="grey-color" style="text-align: center;">
+            Successfully created a listing.
+          </ion-label>
+          <ion-label class="grey-color" style="text-align: center;">
+            View it under Profile.
+          </ion-label>
+        </div>
         <div
           *ngIf="creationError === true"
-          style="text-align: center; color: red;margin-bottom: 20px;"
+          style="text-align: center; color: red;margin-bottom: 40px;"
         >
           {{creationErrorMessage}}
         </div>
