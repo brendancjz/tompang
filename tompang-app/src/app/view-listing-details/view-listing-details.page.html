@@ -15,10 +15,15 @@
           </ion-col>
         </ion-slide>
       </ion-slides>
-      <!--Need to handle when the button is liked-->
-      <div style="position:absolute;right:10px;">
+
+      <div *ngIf="!listingIsLiked"  style="position:absolute;right:10px;" (click)="likeListing()">
         <ion-button color="tertiary">
           <ion-icon style="font-size:26px;" name="heart-outline"></ion-icon>
+        </ion-button>
+      </div>
+      <div *ngIf="listingIsLiked" style="position:absolute;right:10px;" (click)="unlikeListing()">
+        <ion-button color="tertiary">
+          <ion-icon color="primary" style="font-size:26px;" name="heart"></ion-icon>
         </ion-button>
       </div>
       <div class="details-info">

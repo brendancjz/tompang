@@ -110,11 +110,16 @@ const routes: Routes = [
   {
     path: 'view-conversation/:convoId',
     loadChildren: () => import('./view-conversation/view-conversation.module').then( m => m.ViewConversationPageModule)
+  },
+  {
+    path: 'create-transaction/:listingId',
+    loadChildren: () => import('./create-transaction/create-transaction.module').then( m => m.CreateTransactionPageModule)
   },{
     path: '**',
     redirectTo: 'index',
     pathMatch: 'full',
   },
+
 ];
 
 @NgModule({

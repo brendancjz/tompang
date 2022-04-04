@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Conversation } from '../models/conversation';
 import { Listing } from '../models/listing';
+import { User } from '../models/user';
 import { ConversationService } from '../services/conversation.service';
 import { ListingService } from '../services/listing.service';
 import { SessionService } from '../services/session.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-view-listing-details',
@@ -19,14 +21,21 @@ export class ViewListingDetailsPage implements OnInit {
 
   hasLoaded: boolean;
 
+  currentUser: User;
+
+  listingIsLiked: boolean;
+
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
     private listingService: ListingService,
-    private conversationService: ConversationService) { }
+    private conversationService: ConversationService,
+    private userService: UserService) { }
 
   ngOnInit() {
     this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
+    this.currentUser = this.sessionService.getCurrentUser();
+    this.listingIsLiked = this.doesCurrentUserLikeThisListing();
 
     if(this.listingId != null)
     {
@@ -104,5 +113,23 @@ export class ViewListingDetailsPage implements OnInit {
 
   makeTransaction(): void {
     console.log('Make transaction..');
+    this.router.navigate(['/create-transaction/' + this.listingId]);
+  }
+
+  likeListing(): void {
+    this.listingService.likeListing(this.listingToView);
+
+    this.listingIsLiked = true;
+  }
+
+  unlikeListing(): void {
+    this.listingService.unlikeListing(this.listingToView);
+
+    this.listingIsLiked = false;
+  }
+
+  doesCurrentUserLikeThisListing(): boolean {
+    // eslint-disable-next-line radix
+    return this.userService.isListingLikedByUser(this.currentUser.userId, parseInt(this.listingId));
   }
 }

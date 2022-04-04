@@ -13,10 +13,10 @@
         <ion-card-subtitle>{{formatListingCreatedBy(listing)}}</ion-card-subtitle>
       </div>
       <!-- Need to handle logic if listing is liked or not. Update accordingly -->
-      <ion-button color="tertiary" class="small-button-icon" (click)="this.listingService.likeListing(listing)" icon-only slot="end">
+      <ion-button *ngIf="!listingIsLiked" color="tertiary" class="small-button-icon" (click)="likeListing(listing)" icon-only slot="end">
         <ion-icon name="heart-outline"></ion-icon>
       </ion-button>
-      <ion-button *ngIf="false" color="tertiary" class="small-button-icon" (click)="this.listingService.unlikeListing(listing)" icon-only slot="end">
+      <ion-button *ngIf="listingIsLiked" color="tertiary" class="small-button-icon" (click)="unlikeListing(listing)" icon-only slot="end">
         <ion-icon color="primary" name="heart"></ion-icon>
       </ion-button>
     </div>

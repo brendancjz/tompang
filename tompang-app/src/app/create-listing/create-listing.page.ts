@@ -25,6 +25,8 @@ export class CreateListingPage implements OnInit {
   cities: string[];
   countryCityMap = {};
 
+  listingCreationSuccessful: boolean;
+
   constructor(private listingService: ListingService) {
   }
 
@@ -49,8 +51,10 @@ export class CreateListingPage implements OnInit {
   }
 
   createListing(): void {
+    console.log('Creating listing..');
     this.doValidation();
     if (this.creationError) {
+      this.resetInputs();
       return;
     }
 
@@ -65,7 +69,7 @@ export class CreateListingPage implements OnInit {
     listing.quantity = this.quantity;
 
     this.listingService.createListing(listing);
-
+    this.listingCreationSuccessful = true;
     this.resetInputs();
     console.log(listing);
   }
@@ -81,6 +85,8 @@ export class CreateListingPage implements OnInit {
   }
 
   doValidation(): void {
+    this.creationError = false;
+
     if (
       this.title === undefined || this.country === undefined ||
       this.city === undefined || this.description === undefined ||
