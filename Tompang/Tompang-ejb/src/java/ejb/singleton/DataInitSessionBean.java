@@ -113,7 +113,7 @@ public class DataInitSessionBean {
 
         if (em.find(CreditCard.class, 1L) == null) {
             Date expiryDate = Date.from(LocalDate.of(2025, 05, 01).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            CreditCard cc = new CreditCard("BRENDAN CHIA", 4605123456781010L, 123, expiryDate);
+            CreditCard cc = new CreditCard("DBS","BRENDAN CHIA", 4605123456781010L, 123, expiryDate);
             em.persist(cc);
             em.flush();
 
@@ -122,7 +122,7 @@ public class DataInitSessionBean {
             manager.getCreditCards().add(cc);
 
             expiryDate = Date.from(LocalDate.of(2025, 05, 02).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            cc = new CreditCard("SEAN ANG", 4605123456781020L, 123, expiryDate);
+            cc = new CreditCard("AMEX","SEAN ANG", 4605123456781020L, 123, expiryDate);
             em.persist(cc);
             em.flush();
 
@@ -131,7 +131,7 @@ public class DataInitSessionBean {
             admin.getCreditCards().add(cc);
 
             expiryDate = Date.from(LocalDate.of(2025, 05, 02).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            cc = new CreditCard("Ignitius Goh", 4605123456781030L, 123, expiryDate);
+            cc = new CreditCard("SC","Ignitius Goh", 4605123456781030L, 123, expiryDate);
             em.persist(cc);
             em.flush();
 
@@ -140,7 +140,7 @@ public class DataInitSessionBean {
             iggy.getCreditCards().add(cc);
             
             expiryDate = Date.from(LocalDate.of(2025, 07, 22).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            cc = new CreditCard("Guo Jun Heng", 4605123456781133L, 125, expiryDate);
+            cc = new CreditCard("DBS","Guo Jun Heng", 4605123456781133L, 125, expiryDate);
             em.persist(cc);
             em.flush();
 

@@ -11,8 +11,12 @@ import { CreditCard } from 'src/app/models/creditCard';
   styleUrls: ['./manage-credit-cards.page.scss'],
 })
 export class ManageCreditCardsPage implements OnInit {
-
   currentUser: User;
+
+  crediCardToDelete: CreditCard;
+  isDisplayingCCList: boolean;
+
+  newCreditCard: CreditCard | null;
 
   constructor(private location: Location,
     public sessionService: SessionService) { }
@@ -23,6 +27,8 @@ export class ManageCreditCardsPage implements OnInit {
     }, { once: true});
 
     this.currentUser = this.sessionService.getCurrentUser();
+    this.isDisplayingCCList = true;
+    this.newCreditCard = new CreditCard();
   }
   resetPage() {
     return;
@@ -33,6 +39,20 @@ export class ManageCreditCardsPage implements OnInit {
   }
 
   addCreditCard() {
-    console.log('Adding credit card..');
+    console.log('Creating new credit card..');
+    //TODO
+
+    this.newCreditCard = null;
+  }
+
+  toggleAddCreditCardPage() {
+    console.log('Adding credit card page..');
+    this.isDisplayingCCList = !this.isDisplayingCCList;
+  }
+
+  formatCreditCardNumber(ccNum: number) {
+    const stringNum = ccNum.toString();
+    return stringNum.substring(0,4) + ' ' + stringNum.substring(4,8) +
+    ' ' + stringNum.substring(8,12) + ' ' + stringNum.substring(12,16);
   }
 }
