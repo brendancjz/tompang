@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Listing } from '../models/listing';
 import { User } from '../models/user';
 import { ListingService } from '../services/listing.service';
 import { SessionService } from '../services/session.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,25 +15,40 @@ export class ProfilePage implements OnInit {
   samplePic = '../../assets/images/tompang_icon_logo_blue.png';
   defaultProfilePic = '../../assets/images/uploadedFiles/default_picture.jpg';
 
-  title: string | undefined;
-  currentUser: User;
-  username: string | undefined;
+  currentUser: User | null;
 
-  myListings: Listing[];
+  title: string | undefined;
+  userId: string | null;
+  userToView: User | null;
+  userToViewUsername: string | undefined;
+
+  listings: Listing[];
   searchTerm: string;
 
   constructor(
+    private router: Router,
     public sessionService: SessionService,
-    public listingService: ListingService
-  ) {
+    public listingService: ListingService,
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService
+  ) {}
 
-    this.currentUser = sessionService.getCurrentUser();
-    this.username = this.currentUser.username;
+  ngOnInit() {
 
-    this.myListings = listingService.getUserListings(this.currentUser);
+    this.currentUser = this.sessionService.getCurrentUser();
+
+    this.userId = this.activatedRoute.snapshot.paramMap.get('userId');
+
+    // eslint-disable-next-line radix
+    this.userToView = this.userService.getUserByUserId(parseInt(this.userId));
+    this.userToViewUsername = this.userToView.username;
+    this.listings = this.listingService.getUserListings(this.userToView);
+
 
   }
 
-  ngOnInit() {}
+  isProfileTheCurrentUser(): boolean {
+    return this.userToView.username === this.currentUser.username;
+  }
 
 }

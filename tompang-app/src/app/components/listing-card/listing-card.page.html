@@ -1,14 +1,14 @@
 <ion-card style="width: 160px;height: 250px;">
-  <ion-card-header (click)="this.listingService.viewListingDetails(listing)">
+  <ion-card-header (click)="viewListingDetails(listing)">
     <ion-img src={{getListingFirstPhoto(listing)}}></ion-img>
   </ion-card-header>
 
   <ion-card-content>
-    <ion-card-title style="font-size: 16px;" (click)="this.listingService.viewListingDetails(listing)">
+    <ion-card-title style="font-size: 16px;" (click)="viewListingDetails(listing)">
       {{formatListingTitle(listing)}}
     </ion-card-title>
     <div class="listing-card-info">
-      <div (click)="this.listingService.viewListingDetails(listing)">
+      <div (click)="viewListingDetails(listing)">
         <ion-card-subtitle>${{listing.price}}</ion-card-subtitle>
         <ion-card-subtitle>{{formatListingCreatedBy(listing)}}</ion-card-subtitle>
       </div>

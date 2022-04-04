@@ -21,13 +21,10 @@ const httpOptions = {
 })
 export class ListingService {
   baseUrl = '/api/Listing';
-  listings: Listing[];
 
   constructor(
     private httpClient: HttpClient,
-    private sessionService: SessionService
-  ) {
-    this.listings = new Array();
+    private sessionService: SessionService) {
   }
 
   createListing(newListing: Listing): number {
@@ -36,6 +33,27 @@ export class ListingService {
     //Code here
 
     return newListingId;
+  }
+
+  getSampleListing() {
+    const sampleListing = new Listing(
+      1,
+      'Singapore',
+      'Singapore',
+      'Bape T-Shirt',
+      'Get yo bape t-shirts today!',
+      'APPAREL',
+      100,
+      new Date(),
+      5
+    );
+    sampleListing.photos.push('/tompang_icon_logo_blue.png');
+
+    const samepleUser = new User(23, 'Keng','Yong','kengyong','password',
+    'keng.yong@gmail.com',new Date(),'/uploadedFiles/default_picture.jpg',87695478);
+    sampleListing.createdBy = samepleUser;
+
+    return sampleListing;
   }
 
   getSampleListings() {
@@ -90,15 +108,29 @@ export class ListingService {
     return this.getSampleListings();
   }
 
+  getListingByListingId(listingId: number): Observable<Listing> {
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
+
+    return this.httpClient.get<Listing>(this.baseUrl + '/retrieveListing?username='
+    + username + '&password=' + password + '&listingId=' + listingId).pipe
+    (
+      catchError(this.handleError)
+    );
+  }
+
   getMostLikedListings(): Observable<Listing[]> {
-    return this.httpClient.get<Listing[]>(this.baseUrl + '/retrieveAllListings?username=manager&password=password').pipe
-      (
-        catchError(this.handleError)
-      );
+    return this.getAllAvailableListings();
   }
 
   getAllAvailableListings(): Observable<Listing[]> {
-    return this.httpClient.get<Listing[]>(this.baseUrl + '/retrieveAllListings?username=manager&password=password').pipe
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
+
+    return this.httpClient.get<Listing[]>(this.baseUrl + '/retrieveAllListings?username=' +
+    username + '&password=' + password).pipe
       (
         catchError(this.handleError)
       );

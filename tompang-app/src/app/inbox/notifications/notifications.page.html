@@ -22,9 +22,15 @@
                 </ion-text>
               </ion-item-group>
             </div>
-            <ion-button color="tertiary" class="button-icon" icon-only (click)="viewNotification(notification)">
-              <ion-icon name="chevron-forward-outline"></ion-icon>
-            </ion-button>
+            <div>
+              <ion-button color="tertiary" class="button-icon" icon-only (click)="viewConversation(notification)">
+                <ion-icon name="eye-outline"></ion-icon>
+              </ion-button>
+              <ion-button color="tertiary" class="button-icon" icon-only (click)="viewNotification(notification)">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+              </ion-button>
+            </div>
+
           </div>
         </ion-item>
     </ion-list>

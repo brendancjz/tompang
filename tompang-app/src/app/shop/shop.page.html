@@ -1,7 +1,7 @@
 <app-header></app-header>
 <ion-content class="hide-scroll-bar">
   <div>
-    <ion-title class="page-name grey-color"> Shop </ion-title>
+    <ion-title class="page-name grey-color"> Marketplace </ion-title>
   </div>
   <hr class="horizontal-rule" />
   <div>
@@ -43,8 +43,8 @@
       <button id="shop-button" routerLink="/shop">
         <ion-icon
           style="font-size: 35px"
-          [ios]="'gift-outline'"
-          [md]="'gift-sharp'"
+          [ios]="'earth-outline'"
+          [md]="'earth-sharp'"
         ></ion-icon>
       </button>
 
@@ -56,7 +56,7 @@
         ></ion-icon>
       </button>
 
-      <button [routerLink]="['/profile']">
+      <button (click)="profilePage()">
         <div style="display: flex; flex-direction: column; align-items: center">
           <ion-icon
             style="font-size: 24px; margin-bottom: 3px"

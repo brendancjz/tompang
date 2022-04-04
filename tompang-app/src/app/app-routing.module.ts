@@ -18,7 +18,7 @@ const routes: Routes = [
       import('./shop/shop.module').then((m) => m.ShopPageModule),
   },
   {
-    path: 'profile',
+    path: 'profile/:userId',
     loadChildren: () =>
       import('./profile/profile.module').then((m) => m.ProfilePageModule),
   },
@@ -102,12 +102,19 @@ const routes: Routes = [
       import('./transaction-confirmation/transaction-confirmation.module').then(
         (m) => m.TransactionConfirmationPageModule
       ),
+  },
+  {
+    path: 'view-listing-details/:listingId',
+    loadChildren: () => import('./view-listing-details/view-listing-details.module').then( m => m.ViewListingDetailsPageModule)
+  },
+  {
+    path: 'view-conversation/:convoId',
+    loadChildren: () => import('./view-conversation/view-conversation.module').then( m => m.ViewConversationPageModule)
   },{
     path: '**',
     redirectTo: 'index',
     pathMatch: 'full',
   },
-
 ];
 
 @NgModule({

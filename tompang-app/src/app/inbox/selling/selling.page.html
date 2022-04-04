@@ -10,7 +10,7 @@
   </div>
   <hr class="horizontal-rule" />
   <div>
-    <ion-searchbar class="grey-color" placeholder="Search Tompang" [(ngModel)]="searchTerm" showCancelButton="focus" animated></ion-searchbar>
+    <ion-searchbar class="grey-color" placeholder="Search Conversation" [(ngModel)]="searchTerm" showCancelButton="focus" animated></ion-searchbar>
     <ion-list *ngFor="let convo of sellingConvos | filter:searchTerm">
         <app-conversation-item [convo]="convo"></app-conversation-item>
     </ion-list>

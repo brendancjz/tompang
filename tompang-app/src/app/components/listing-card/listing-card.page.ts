@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Listing } from 'src/app/models/listing';
 import { ListingService } from 'src/app/services/listing.service';
 
@@ -13,9 +14,13 @@ export class ListingCardPage implements OnInit {
   // eslint-disable-next-line @typescript-eslint/member-ordering
   @Input() listing: Listing;
 
-  constructor(public listingService: ListingService) { }
+  constructor(private router: Router, public listingService: ListingService) { }
 
   ngOnInit() {
+  }
+
+  viewListingDetails(listing: Listing): void {
+    this.router.navigate(['/view-listing-details/' + listing.listingId]);
   }
 
   //Methods for Listings list

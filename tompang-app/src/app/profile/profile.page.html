@@ -7,7 +7,7 @@
   <div id="profile-info">
     <img src="{{defaultProfilePic}}" style="width: 75px;border-radius: 100%;">
     <ion-title id="username-tag" class="grey-color">
-      @{{username}}
+      @{{userToViewUsername}}
     </ion-title>
     <div id="profile-info-buttons">
       <div>
@@ -28,14 +28,17 @@
   </div>
   <hr class="horizontal-rule" />
   <div>
-    <ion-title class="sub-heading grey-color">
+    <ion-title class="sub-heading grey-color" *ngIf="isProfileTheCurrentUser()">
       My Listings
+    </ion-title>
+    <ion-title class="sub-heading grey-color" *ngIf="!isProfileTheCurrentUser()">
+      Their Listings
     </ion-title>
     <hr class="horizontal-rule" />
     <ion-searchbar class="grey-color" placeholder="Search Tompang" [(ngModel)]="searchTerm" showCancelButton="focus" animated></ion-searchbar>
     <ion-grid>
       <ion-row>
-        <ion-col *ngFor="let listing of myListings | filter:searchTerm">
+        <ion-col *ngFor="let listing of listings | filter:searchTerm">
           <app-listing-card [listing]="listing"></app-listing-card>
         </ion-col>
       </ion-row>

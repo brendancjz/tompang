@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Conversation } from 'src/app/models/conversation';
 
 @Component({
@@ -10,7 +11,7 @@ export class ConversationItemPage implements OnInit {
 
   @Input() convo: Conversation;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -38,5 +39,6 @@ export class ConversationItemPage implements OnInit {
 
   viewConversation(convo: Conversation) {
     console.log('Viewing buying conversation...');
+    this.router.navigate(['/view-conversation/' + convo.convoId]);
   }
 }
