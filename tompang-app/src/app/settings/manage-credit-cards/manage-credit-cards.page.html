@@ -42,32 +42,48 @@
     <form (ngSubmit)="addCreditCard()">
       <div class="form-input">
         <ion-item lines="none">
-          <ion-input class="grey-color" placeholder="Credit Card Brand" type="text" [(ngModel)]="newCreditCard.ccBrand" name="ccBrand" required maxlength="50"></ion-input>
+          <ion-input class="grey-color" placeholder="Credit Card Brand" type="text" [(ngModel)]="ccBrand" name="ccBrand" required maxlength="50"></ion-input>
           <ion-icon name="business-outline" slot="start"></ion-icon>
         </ion-item>
       </div>
       <div class="form-input">
         <ion-item lines="none">
-          <ion-input class="grey-color" placeholder="XXXXXXXXXXXXXXXX" type="number" [(ngModel)]="newCreditCard.ccNumber" name="ccNumber" required minlength="16" maxlength="16"></ion-input>
+          <ion-input class="grey-color" placeholder="XXXXXXXXXXXXXXXX" type="number" [(ngModel)]="ccNumber" name="ccNumber" required minlength="16" maxlength="16"></ion-input>
           <ion-icon name="wallet-outline" slot="start"></ion-icon>
         </ion-item>
       </div>
       <div class="form-input">
         <ion-item lines="none">
-          <ion-input class="grey-color" placeholder="Name on Credit Card" type="text" [(ngModel)]="newCreditCard.ccName" name="ccName" required maxlength="50"></ion-input>
+          <ion-input class="grey-color" placeholder="Name on Credit Card" type="text" [(ngModel)]="ccName" name="ccName" required maxlength="50"></ion-input>
           <ion-icon name="wallet-outline" slot="start"></ion-icon>
         </ion-item>
       </div>
       <div class="form-input">
         <ion-item lines="none">
-          <ion-input class="grey-color" placeholder="CIV" type="number" [(ngModel)]="newCreditCard.ccCIV" name="ccName" required minlength="3" maxlength="3"></ion-input>
+          <ion-input class="grey-color" placeholder="CIV" type="number" [(ngModel)]="ccCIV" name="ccName" required minlength="3" maxlength="3"></ion-input>
           <ion-icon name="wallet-outline" slot="start"></ion-icon>
         </ion-item>
       </div>
       <div class="form-input">
-        <ion-item lines="none">
-          <ion-input class="grey-color" placeholder="CIV" type="number" [(ngModel)]="newCreditCard.ccCIV" name="ccName" required minlength="3" maxlength="3"></ion-input>
-          <ion-icon name="wallet-outline" slot="start"></ion-icon>
+        <ion-item lines="none" class="grey-color" >
+          <ion-label >Expiry Month</ion-label>
+          <ion-select class="grey-color" slot="end" [(ngModel)]="expiryMonth" name="year" required>
+            <ion-select-option class="grey-color"
+              *ngFor="let month of months"
+              [value]="month"
+              >{{month}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+      </div>
+      <div class="form-input">
+        <ion-item lines="none" class="grey-color" >
+          <ion-label >Expiry Year</ion-label>
+          <ion-select class="grey-color" slot="end" [(ngModel)]="expiryYear" name="year" required>
+            <ion-select-option class="grey-color"
+            *ngFor="let year of years"
+            [value]="year"
+            >{{year}}</ion-select-option
+          ></ion-select>
         </ion-item>
       </div>
       <div class="form-input input-button-div">
@@ -75,6 +91,14 @@
         <ion-button style="text-transform: initial;font-size: 16px;" color="tertiary" type="submit">Create</ion-button>
       </div>
     </form>
+    <div *ngIf="hasCreationCCError" style="display: flex;justify-content: center;margin-bottom: 20px;">
+      <ion-label class="grey-color" style="text-align:center;color:red;">{{errorMsg}}</ion-label>
+    </div>
+    <div *ngIf="successfulCreation" style="display: flex;justify-content: center;margin-bottom: 20px;">
+      <ion-label class="grey-color" style="text-align:center;">
+        Successfully added a new Credit Card!
+      </ion-label>
+    </div>
   </div>
 </ion-content>
 <app-footer></app-footer>
