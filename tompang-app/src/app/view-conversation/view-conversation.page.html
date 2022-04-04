@@ -1,10 +1,26 @@
 <app-header></app-header>
 <ion-content class="hide-scroll-bar">
   <div *ngIf="hasLoaded">
-    <div>
-      <ion-label>{{convoToView.listing.createdBy.username}}</ion-label>
+    <div style="display: flex;align-items:center;justify-content: center;height: 40px;">
+      <ion-item>
+        <ion-label style="font-size: 18px;">@{{currentUserIsTalkingTo.username}}</ion-label>
+      </ion-item>
     </div>
-    {{convoId}}
+    <div style="display: flex;align-items: center;margin-bottom: 10px;" (click)="viewListing()">
+      <ion-item lines="none">
+        <img style="width: 50px;border-radius: 5px;margin-right: 10px;" src="{{getConversationListingUrl()}}">
+        <div style="display: flex;flex-direction: column;">
+          <ion-label style="margin-bottom: 5px;" >{{convoToView.listing.title}}</ion-label>
+          <ion-label >S${{convoToView.listing.price}}</ion-label>
+        </div>
+      </ion-item>
+    </div>
+    <div>
+      <ion-item>
+        <ion-button style="width: 85px;height:35px;font-size:14px;text-transform: capitalize;" color="primary">Buy Now</ion-button>
+      </ion-item>
+
+    </div>
 
   </div>
 </ion-content>
