@@ -74,6 +74,10 @@ export class ViewListingDetailsPage implements OnInit {
   }
   viewUserProfile(): void {
     console.log('Viewing user profile');
+    const userToView = this.listingToView.createdBy;
+    this.router.navigate(['/profile/' + userToView.userId]);
+
+    //Currently not working because of the user unmarshalling error
   }
 
   viewListingConversation(): void {

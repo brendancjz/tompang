@@ -26,6 +26,9 @@ export class CreateListingPage implements OnInit {
   countryCityMap = {};
 
   constructor(private listingService: ListingService) {
+  }
+
+  ngOnInit() {
     this.categories = [
       'FOOD',
       'APPAREL',
@@ -44,8 +47,6 @@ export class CreateListingPage implements OnInit {
 
     this.countryCityMap = this.initialiseCountriesCities();
   }
-
-  ngOnInit() {}
 
   createListing(): void {
     this.doValidation();
@@ -129,6 +130,7 @@ export class CreateListingPage implements OnInit {
   }
 
   selectCitiesFromCountry(country: string) {
+    console.log('Changing cities');
     this.cities = this.countryCityMap[country];
   }
 
@@ -152,7 +154,7 @@ export class CreateListingPage implements OnInit {
       'Singapore'
     );
     // eslint-disable-next-line @typescript-eslint/dot-notation
-    map['SINGAPORE'] = countryCities;
+    map['Singapore'] = countryCities;
 
     countryCities = [];
     countryCities.push(
@@ -160,7 +162,7 @@ export class CreateListingPage implements OnInit {
     'Yongin','Goyang','Changwon','Seongnam','Hwaseong','Cheongju',
     );
     // eslint-disable-next-line @typescript-eslint/dot-notation
-    map['KOREA'] = countryCities;
+    map['Korea'] = countryCities;
 
     countryCities = [];
     countryCities.push(
@@ -168,7 +170,7 @@ export class CreateListingPage implements OnInit {
     'Kobe','Kawasaki','Kyoto','Saitama','Hiroshima','Sendai','Chiba','Kitakyushu'
     );
     // eslint-disable-next-line @typescript-eslint/dot-notation
-    map['JAPAN'] = countryCities;
+    map['Japan'] = countryCities;
 
     countryCities = [];
     countryCities.push(
@@ -177,7 +179,7 @@ export class CreateListingPage implements OnInit {
       'Miri','Petaling Jaya','Iskandar Puteri','Seberang Perai','Seremban',
     );
     // eslint-disable-next-line @typescript-eslint/dot-notation
-    map['MALAYSIA'] = countryCities;
+    map['Malaysia'] = countryCities;
 
 
     return map;

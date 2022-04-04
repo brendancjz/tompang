@@ -74,6 +74,7 @@ export class ShopPage implements OnInit {
 
   //Need to repeat this method in the Footer page as well.
   profilePage() {
-    this.router.navigate(['/profile']);
+    const currentUser = this.sessionService.getCurrentUser();
+    this.router.navigate(['/profile/' + currentUser.userId]);
   }
 }

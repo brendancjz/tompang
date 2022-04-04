@@ -65,4 +65,9 @@ export class ViewConversationPage implements OnInit {
   isCurrentUserTheBuyer(): boolean {
     return this.currentUser.username === this.convoToView.createdBy.username;
   }
+
+  makeTransaction(): void {
+    console.log('Make transaction');
+    //Implement
+  }
 }

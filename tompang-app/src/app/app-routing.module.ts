@@ -18,7 +18,7 @@ const routes: Routes = [
       import('./shop/shop.module').then((m) => m.ShopPageModule),
   },
   {
-    path: 'profile',
+    path: 'profile/:userId',
     loadChildren: () =>
       import('./profile/profile.module').then((m) => m.ProfilePageModule),
   },

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { ActivatedRoute, Router } from '@angular/router';
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-footer',
@@ -12,7 +13,8 @@ export class FooterPage implements OnInit {
 
   constructor(private location: Location,
     private router: Router,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private sessionService: SessionService) { }
 
   ngOnInit() {
   }
@@ -43,7 +45,8 @@ export class FooterPage implements OnInit {
 
   //Need to repeat this method in the Shop page as well.
   profilePage() {
-    this.router.navigate(['/profile']);
+    const currentUser = this.sessionService.getCurrentUser();
+    this.router.navigate(['/profile/' + currentUser.userId]);
   }
 
 }
