@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Listing } from 'src/app/models/listing';
+import { User } from 'src/app/models/user';
 import { ListingService } from 'src/app/services/listing.service';
+import { SessionService } from 'src/app/services/session.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-listing-card',
@@ -11,12 +14,17 @@ import { ListingService } from 'src/app/services/listing.service';
 export class ListingCardPage implements OnInit {
 
   basePictureUrl = '../../assets/images';
+  currentUser: User;
+
   // eslint-disable-next-line @typescript-eslint/member-ordering
   @Input() listing: Listing;
 
-  constructor(private router: Router, public listingService: ListingService) { }
+  constructor(private router: Router, public listingService: ListingService,
+    private sessionSerivce: SessionService,
+    private userService: UserService) { }
 
   ngOnInit() {
+    this.currentUser = this.sessionSerivce.getCurrentUser();
   }
 
   viewListingDetails(listing: Listing): void {
@@ -47,5 +55,17 @@ export class ListingCardPage implements OnInit {
 
     // return '@' + listing.createdBy;
     return '@stackoverflow';
+  }
+
+  likeListing(listing: Listing): void {
+    this.listingService.likeListing(listing);
+  }
+
+  unlikeListing(listing: Listing): void {
+    this.listingService.unlikeListing(listing);
+  }
+
+  doesCurrentUserLikeThisListing(listing: Listing): boolean {
+    return this.userService.isListingLikedByUser(this.currentUser.userId, listing.listingId);
   }
 }

@@ -51,4 +51,9 @@ export class UserService
     return this.getSampleUser();
 
   }
+
+  isListingLikedByUser(userId: number, listingId: number) {
+    //To implement
+    return true;
+  }
 }
