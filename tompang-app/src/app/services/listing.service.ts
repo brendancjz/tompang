@@ -22,16 +22,9 @@ const httpOptions = {
 export class ListingService {
   baseUrl = '/api/Listing';
 
-  username: string;
-  password: string;
-
   constructor(
     private httpClient: HttpClient,
     private sessionService: SessionService) {
-
-    const currentUser = sessionService.getCurrentUser();
-    this.username = currentUser.username;
-    this.password = currentUser.password;
   }
 
   createListing(newListing: Listing): number {
@@ -40,6 +33,27 @@ export class ListingService {
     //Code here
 
     return newListingId;
+  }
+
+  getSampleListing() {
+    const sampleListing = new Listing(
+      1,
+      'Singapore',
+      'Singapore',
+      'Bape T-Shirt',
+      'Get yo bape t-shirts today!',
+      'APPAREL',
+      100,
+      new Date(),
+      5
+    );
+    sampleListing.photos.push('/tompang_icon_logo_blue.png');
+
+    const samepleUser = new User(23, 'Keng','Yong','kengyong','password',
+    'keng.yong@gmail.com',new Date(),'/uploadedFiles/default_picture.jpg',87695478);
+    sampleListing.createdBy = samepleUser;
+
+    return sampleListing;
   }
 
   getSampleListings() {
@@ -95,8 +109,12 @@ export class ListingService {
   }
 
   getListingByListingId(listingId: number): Observable<Listing> {
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
+
     return this.httpClient.get<Listing>(this.baseUrl + '/retrieveListing?username='
-    + this.username + '&password=' + this.password + '&listingId=' + listingId).pipe
+    + username + '&password=' + password + '&listingId=' + listingId).pipe
     (
       catchError(this.handleError)
     );
@@ -107,8 +125,12 @@ export class ListingService {
   }
 
   getAllAvailableListings(): Observable<Listing[]> {
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
+
     return this.httpClient.get<Listing[]>(this.baseUrl + '/retrieveAllListings?username=' +
-    this.username + '&password=' + this.password).pipe
+    username + '&password=' + password).pipe
       (
         catchError(this.handleError)
       );

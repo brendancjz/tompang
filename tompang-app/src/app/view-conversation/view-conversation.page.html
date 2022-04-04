@@ -1,0 +1,11 @@
+<app-header></app-header>
+<ion-content class="hide-scroll-bar">
+  <div *ngIf="hasLoaded">
+    <div>
+      <ion-label>{{convoToView.listing.createdBy.username}}</ion-label>
+    </div>
+    {{convoId}}
+
+  </div>
+</ion-content>
+<app-footer></app-footer>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Conversation } from '../models/conversation';
 import { Listing } from '../models/listing';
+import { ConversationService } from '../services/conversation.service';
 import { ListingService } from '../services/listing.service';
 import { SessionService } from '../services/session.service';
 
@@ -20,7 +22,8 @@ export class ViewListingDetailsPage implements OnInit {
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
-    private listingService: ListingService) { }
+    private listingService: ListingService,
+    private conversationService: ConversationService) { }
 
   ngOnInit() {
     this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
@@ -75,6 +78,24 @@ export class ViewListingDetailsPage implements OnInit {
 
   viewListingConversation(): void {
     console.log('View Listing Conversation..');
+
+    const currentUser = this.sessionService.getCurrentUser();
+
+    let convo: Conversation;
+
+    try {
+      //Have a current convo
+      // eslint-disable-next-line radix
+      convo = this.conversationService.getUserConversationWithListing(currentUser.userId, parseInt(this.listingId));
+
+    } catch (ex) {
+      //Need to create a new convo
+      // System.out.println(ex.getMessage());
+      // convo = new Conversation(user, listing);
+      // conversationSessionBean.createNewConversation(convo, listing.getListingId(), user.getUserId());
+    }
+
+    this.router.navigate(['/view-conversation/' + convo.convoId]);
   }
 
   makeTransaction(): void {

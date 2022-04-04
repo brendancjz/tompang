@@ -106,6 +106,10 @@ const routes: Routes = [
   {
     path: 'view-listing-details/:listingId',
     loadChildren: () => import('./view-listing-details/view-listing-details.module').then( m => m.ViewListingDetailsPageModule)
+  },
+  {
+    path: 'view-conversation/:convoId',
+    loadChildren: () => import('./view-conversation/view-conversation.module').then( m => m.ViewConversationPageModule)
   },{
     path: '**',
     redirectTo: 'index',
