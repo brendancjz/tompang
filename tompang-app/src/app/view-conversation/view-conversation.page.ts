@@ -41,7 +41,7 @@ export class ViewConversationPage implements OnInit {
       // eslint-disable-next-line radix
       this.convoToView = this.conversationService.getConversationById(parseInt(this.convoId));
 
-      if (this.convoToView.createdBy === this.currentUser) {
+      if (this.convoToView.createdBy.username === this.currentUser.username) {
         console.log('Current user created this convo');
         this.currentUserIsTalkingTo = this.convoToView.listing.createdBy;
       } else {
@@ -60,5 +60,9 @@ export class ViewConversationPage implements OnInit {
   viewListing(): void {
     console.log('View listing details from convo page');
     this.router.navigate(['/view-listing-details/' + this.convoToView.listing.listingId]);
+  }
+
+  isCurrentUserTheBuyer(): boolean {
+    return this.currentUser.username === this.convoToView.createdBy.username;
   }
 }

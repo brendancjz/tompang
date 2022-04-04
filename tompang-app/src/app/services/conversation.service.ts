@@ -30,7 +30,7 @@ export class ConversationService {
     private listingService: ListingService) {
   }
 
-  getUserConversationWithListing(userId: number, listingId: number): Conversation {
+  getBuyerConversationWithListing(userId: number, listingId: number): Conversation {
     //Implement bridge
 
     const sampleConversation = new Conversation(10);

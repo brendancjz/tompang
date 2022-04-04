@@ -86,7 +86,7 @@ export class ViewListingDetailsPage implements OnInit {
     try {
       //Have a current convo
       // eslint-disable-next-line radix
-      convo = this.conversationService.getUserConversationWithListing(currentUser.userId, parseInt(this.listingId));
+      convo = this.conversationService.getBuyerConversationWithListing(currentUser.userId, parseInt(this.listingId));
 
     } catch (ex) {
       //Need to create a new convo

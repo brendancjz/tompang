@@ -15,7 +15,7 @@
         </div>
       </ion-item>
     </div>
-    <div>
+    <div *ngIf="isCurrentUserTheBuyer()">
       <ion-item>
         <ion-button style="width: 85px;height:35px;font-size:14px;text-transform: capitalize;" color="primary">Buy Now</ion-button>
       </ion-item>
