@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Future;
@@ -50,6 +51,8 @@ public class CreditCard implements Serializable {
     @Future
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date expiryDate;
+    @ManyToOne
+    private User user;
 
     public CreditCard() {
     }
@@ -109,6 +112,14 @@ public class CreditCard implements Serializable {
 
     public void setExpiryDate(Date expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     
     @Override

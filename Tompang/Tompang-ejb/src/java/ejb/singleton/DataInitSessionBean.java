@@ -182,9 +182,12 @@ public class DataInitSessionBean {
             photosHeadphone.add("/uploadedFiles/headphone_3.jpg");
             photosHeadphone.add("/uploadedFiles/headphone_4.jpg");
             
-            listing = new Listing("USA", "Michigan", "Noise Cancelling Wireless Bluetooth Headphones", "I'm heading over to Michigan for business. Office is near the official Bose store. Reach out if you would like to buy a pair!", 
+            System.out.println("test");
+
+            Listing listing2 = new Listing("USA", "Michigan", "Noise Cancelling Wireless Bluetooth Headphones", "I'm heading over to Michigan for business. Office is near the official Bose store. Reach out if you would like to buy a pair!", 
                     "ELECTRONICS", 600.00, expectedArrivalDate, manager, 2, photosHeadphone);
-            em.persist(listing);
+            System.out.println("========" + listing2.getCreatedBy());
+            em.persist(listing2);
             em.flush();
             
             manager.getCreatedListings().add(listing);
