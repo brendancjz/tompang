@@ -16,6 +16,8 @@ export class ListingCardPage implements OnInit {
   basePictureUrl = '../../assets/images';
   currentUser: User;
 
+  listingIsLiked: boolean;
+
   // eslint-disable-next-line @typescript-eslint/member-ordering
   @Input() listing: Listing;
 
@@ -25,6 +27,7 @@ export class ListingCardPage implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.sessionSerivce.getCurrentUser();
+    this.listingIsLiked = this.doesCurrentUserLikeThisListing();
   }
 
   viewListingDetails(listing: Listing): void {
@@ -59,13 +62,15 @@ export class ListingCardPage implements OnInit {
 
   likeListing(listing: Listing): void {
     this.listingService.likeListing(listing);
+    this.listingIsLiked = true;
   }
 
   unlikeListing(listing: Listing): void {
     this.listingService.unlikeListing(listing);
+    this.listingIsLiked = false;
   }
 
-  doesCurrentUserLikeThisListing(listing: Listing): boolean {
-    return this.userService.isListingLikedByUser(this.currentUser.userId, listing.listingId);
+  doesCurrentUserLikeThisListing(): boolean {
+    return this.userService.isListingLikedByUser(this.currentUser.userId, this.listing.listingId);
   }
 }
