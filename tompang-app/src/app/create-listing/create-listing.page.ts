@@ -64,7 +64,7 @@ export class CreateListingPage implements OnInit {
     listing.country = this.country;
     listing.city = this.city;
     listing.description = this.description;
-    listing.category = this.category;
+    listing.category = this.category.toUpperCase();
     listing.price = this.price;
     listing.quantity = this.quantity;
 
