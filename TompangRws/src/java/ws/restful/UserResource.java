@@ -7,8 +7,10 @@ package ws.restful;
 
 import ejb.stateless.CreditCardSessionBeanLocal;
 import ejb.stateless.UserSessionBeanLocal;
+import entity.Conversation;
 import entity.CreditCard;
 import entity.Listing;
+import entity.Transaction;
 import entity.User;
 import exception.CreateNewCreditCardException;
 import exception.CreateNewUserException;
@@ -31,7 +33,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 import ws.datamodel.UpdateUserReq;
 
@@ -41,23 +42,22 @@ import ws.datamodel.UpdateUserReq;
  */
 @Path("User")
 public class UserResource {
+
     @Context
     private UriInfo context;
-    
+
     private final SessionBeanLookup sessionBeanLookup;
-    
-    
+
     private final UserSessionBeanLocal userSessionBean;
-    
+
     private final CreditCardSessionBeanLocal creditCardSessionBean;
-    
+
     public UserResource() {
         sessionBeanLookup = new SessionBeanLookup();
-        userSessionBean = sessionBeanLookup.lookupUserSessionBeanLocal();
-        creditCardSessionBean = sessionBeanLookup.lookupCreditCardSessionBeanLocal();
+        userSessionBean = lookupUserSessionBeanLocal();
+        creditCardSessionBean = lookupCreditCardSessionBeanLocal();
     }
-    
-    
+
     @Path("retrieveUser/{username}")
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
@@ -65,139 +65,169 @@ public class UserResource {
     public Response retrieveUser(@PathParam("username") String username) {
         try {
             User user = userSessionBean.retrieveUserByUsername(username);
-            
+
             // not supposed to be setting null, same problem as ListingResource
-            user.setFollowers(null);
-            user.setFollowing(null);
-            user.setCreatedListings(null);
-            user.setLikedListings(null);
 
-
-            if (user.getFollowers() != null) {
-                for (User follower : user.getFollowers()) {
-                    follower.getFollowing().clear();
+            if (user.getCreditCards() != null) {
+                for (CreditCard creditCard : user.getCreditCards()) {
+                    creditCard.setUser(null);
                 }
             }
-            
-            if (user.getFollowing() != null) {
-                for (User following : user.getFollowing()) {
-                    following.getFollowers().clear();
+
+            if (user.getConversations() != null) {
+                for (Conversation conversation : user.getConversations()) {
+                    conversation.setListing(null);
+                    conversation.setCreatedBy(null);
+                    conversation.getMessages().clear();
                 }
             }
-            
+
             if (user.getCreatedListings() != null) {
                 for (Listing createdListing : user.getCreatedListings()) {
                     createdListing.setCreatedBy(null);
+                    createdListing.getLikedByUsers().clear();
+                    createdListing.getTransactions().clear();
+                    createdListing.getConversations().clear();
                 }
             }
-            
+
+            if (user.getBuyerTransactions() != null) {
+                for (Transaction buyerTransaction : user.getBuyerTransactions()) {
+                    buyerTransaction.setListing(null);
+                    buyerTransaction.setBuyer(null);
+                    buyerTransaction.setSeller(null);
+                    buyerTransaction.setDispute(null);
+                    buyerTransaction.setCreditCard(null);
+                }
+            }
+
+            if (user.getSellerTransactions() != null) {
+                for (Transaction sellerTransaction : user.getSellerTransactions()) {
+                    sellerTransaction.setListing(null);
+                    sellerTransaction.setBuyer(null);
+                    sellerTransaction.setSeller(null);
+                    sellerTransaction.setDispute(null);
+                    sellerTransaction.setCreditCard(null);
+                }
+            }
+
+            if (user.getFollowers() != null) {
+                for (User follower : user.getFollowers()) {
+                    follower.getCreatedListings().clear();
+                    follower.setConversations(null);
+                    follower.setCreditCards(null);
+                    follower.setBuyerTransactions(null);
+                    follower.setSellerTransactions(null);
+                    follower.getFollowers().clear();
+                    follower.getFollowing().clear();
+                    follower.setLikedListings(null);
+                }
+            }
+
+            if (user.getFollowing() != null) {
+                for (User following : user.getFollowing()) {
+                    following.getCreatedListings().clear();
+                    following.setConversations(null);
+                    following.setCreditCards(null);
+                    following.setBuyerTransactions(null);
+                    following.setSellerTransactions(null);
+                    following.getFollowers().clear();
+                    following.getFollowing().clear();
+                    following.setLikedListings(null);
+                }
+            }
+
             if (user.getLikedListings() != null) {
                 for (Listing likedListing : user.getLikedListings()) {
-                    likedListing.setLikedByUsers(null);
+                    likedListing.setCreatedBy(null);
+                    likedListing.getLikedByUsers().clear();
+                    likedListing.getTransactions().clear();
+                    likedListing.getConversations().clear();
                 }
             }
-            
+
             return Response.status(Response.Status.OK).entity(user).build();
         } catch (EntityNotFoundException ex) {
             return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
-            
+
         }
     }
-    
-    
+
     @Path("userLogin")
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response userLogin(@QueryParam("username") String username, 
-                                @QueryParam("password") String password) {
+    public Response userLogin(@QueryParam("username") String username,
+            @QueryParam("password") String password) {
         try {
             System.out.println("*********** " + username + " " + password);
             User user = userSessionBean.userLogin(username, password);
             System.out.println("********** UserResource.userLogin(): User " + user.getUsername() + " login remotely via web service");
-            
+
             user.setPassword(null);
             user.setSalt(null);
-            
+
             return Response.status(Response.Status.OK).entity(user).build();
         } catch (InvalidLoginCredentialsException ex) {
             return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
         }
     }
-    
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createUser(User user)
-    {
-       if(user != null){
-            try
-            {
-                
+    public Response createUser(User user) {
+        if (user != null) {
+            try {
+
                 Long userId = userSessionBean.createNewUser(user);
                 return Response.status(Response.Status.OK).entity(userId).build();
-            }
-            catch(CreateNewUserException ex)
-            {
+            } catch (CreateNewUserException ex) {
                 return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
-            }
-            catch(Exception ex)
-            {
+            } catch (Exception ex) {
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
             }
-        }  else
-        {
+        } else {
             return Response.status(Response.Status.BAD_REQUEST).entity("Invalid update product request").build();
         }
-     
-   }
-    
+
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateUser(UpdateUserReq updateUserReq)
-    {
-        if(updateUserReq != null)
-        {
-            try
-            {                
+    public Response updateUser(UpdateUserReq updateUserReq) {
+        if (updateUserReq != null) {
+            try {
                 User user = userSessionBean.userLogin(updateUserReq.getUsername(), updateUserReq.getPassword());
                 userSessionBean.updateUserDetails(updateUserReq.getUser());
-                
+
                 return Response.status(Response.Status.OK).build();
-            }
-            catch(InvalidLoginCredentialsException ex)
-            {
+            } catch (InvalidLoginCredentialsException ex) {
                 return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
-            }
-            catch(EntityNotFoundException ex)
-            {
+            } catch (EntityNotFoundException ex) {
                 return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
-            }
-            catch(Exception ex)
-            {
+            } catch (Exception ex) {
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
             }
-        }
-        else
-        {
+        } else {
             return Response.status(Response.Status.BAD_REQUEST).entity("Invalid update product request").build();
         }
     }
-    
+
     @Path("creditCards")
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response retrieveCreditCards(@QueryParam("username") String username, 
-                                @QueryParam("password") String password) {
+    public Response retrieveCreditCards(@QueryParam("username") String username,
+            @QueryParam("password") String password) {
         try {
             System.out.println("*********** " + username + " " + password);
             User user = userSessionBean.userLogin(username, password);
             System.out.println("********** UserResource.userLogin(): User " + user.getUsername() + " login remotely via web service");
-            
+
             List<CreditCard> creditCards = user.getCreditCards();
-          
+
             return Response.status(Response.Status.OK).entity(user).build();
         } catch (InvalidLoginCredentialsException ex) {
             return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
@@ -222,9 +252,9 @@ public class UserResource {
             return Response.status(Response.Status.OK).entity(user).build();
         } catch (InvalidLoginCredentialsException ex) {
             return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
-        } catch(CreateNewCreditCardException ex){
+        } catch (CreateNewCreditCardException ex) {
             return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
-        }
+        } 
      
    }
     
@@ -232,30 +262,24 @@ public class UserResource {
     @DELETE
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteCreditCard(@QueryParam("username") String username, 
-                                        @QueryParam("password") String password,
-                                        @PathParam("ccId") Long ccId)
-    {
+    public Response deleteCreditCard(@QueryParam("username") String username,
+            @QueryParam("password") String password,
+            @PathParam("ccId") Long ccId) {
         try {
             System.out.println("*********** " + username + " " + password);
             User user = userSessionBean.userLogin(username, password);
             System.out.println("********** UserResource.userLogin(): User " + user.getUsername() + " login remotely via web service");
-            
+
             creditCardSessionBean.deleteCreditCard(ccId, user.getUserId());
-            
-            
+
             return Response.status(Response.Status.OK).entity(user).build();
         } catch (InvalidLoginCredentialsException ex) {
             return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
-        } catch(EntityNotFoundException ex){
+        } catch (EntityNotFoundException ex) {
             return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
         }
-        
+
     }
-    
-    
-    
-    
 
     private UserSessionBeanLocal lookupUserSessionBeanLocal() {
         try {
@@ -266,7 +290,15 @@ public class UserResource {
             throw new RuntimeException(ne);
         }
     }
-    
-    
+
+    private CreditCardSessionBeanLocal lookupCreditCardSessionBeanLocal() {
+        try {
+            javax.naming.Context c = new InitialContext();
+            return (CreditCardSessionBeanLocal) c.lookup("java:global/Tompang/Tompang-ejb/CreditCardSessionBean!ejb.stateless.CreditCardSessionBeanLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
 
 }

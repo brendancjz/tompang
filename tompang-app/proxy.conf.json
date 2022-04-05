@@ -5,5 +5,5 @@
     "pathRewrite": {
       "^/api": ""
     }
-  }
+  } 
 }

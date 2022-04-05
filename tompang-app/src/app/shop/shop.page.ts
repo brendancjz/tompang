@@ -11,7 +11,6 @@ import { SessionService } from '../services/session.service';
   styleUrls: ['./shop.page.scss'],
 })
 export class ShopPage implements OnInit {
-
   samplePic = '../../assets/images/uploadedFiles/japanese_biscuits.jpeg';
   basePictureUrl = '../../assets/images';
 
@@ -26,11 +25,12 @@ export class ShopPage implements OnInit {
     public listingService: ListingService
   ) {
     this.mostLikedListings = new Array();
-    this.allAvailableListings = new Array();
   }
 
   ngOnInit(): void {
     console.log('********* ngOnInit in shop **********');
+
+    this.refreshListings();
 
     this.listingService.getAllAvailableListings().subscribe({
       next: (response) => {
@@ -43,29 +43,31 @@ export class ShopPage implements OnInit {
 
     this.listingService.getMostLikedListings().subscribe({
       next: (response) => {
-        this.mostLikedListings = response.slice(0,5); //Top 5 listings
+        this.mostLikedListings = response.slice(0, 5); //Top 5 listings
       },
       error: (error) => {
         console.log('getAllAvailableListings.ts:' + error);
-      }
+      },
     });
 
     this.mostLikedListings.sort((l1, l2) => {
       if (l1.numOfLikes < l2.numOfLikes) {
         return -1;
-      } else if(l1.numOfLikes > l2.numOfLikes) {
+      } else if (l1.numOfLikes > l2.numOfLikes) {
         return 1;
       } else {
         return 0;
       }
     });
-
   }
 
-  ionViewDidEnter()
-	{
-		console.log('********** Shop Page.ionViewDidEnter() ');
-	}
+  ionViewWillEnter() {
+    this.refreshListings();
+  }
+
+  ionViewDidEnter() {
+    console.log('********** Shop Page.ionViewDidEnter() ');
+  }
 
   //Need to repeat this method in the Footer page as well.
   createListingPage() {
@@ -76,5 +78,16 @@ export class ShopPage implements OnInit {
   profilePage() {
     const currentUser = this.sessionService.getCurrentUser();
     this.router.navigate(['/profile/' + currentUser.userId]);
+  }
+
+  refreshListings() {
+    this.listingService.getAllAvailableListings().subscribe({
+      next: (response) => {
+        this.allAvailableListings = response;
+      },
+      error: (error) => {
+        console.log('******* Shops Page: ' + error);
+      },
+    });
   }
 }

@@ -6,6 +6,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 import { ListingService } from '../services/listing.service';
 import { Listing } from '../models/listing';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-index',
@@ -124,6 +125,23 @@ export class IndexPage implements OnInit {
     } else {
       this.loginError = true;
     }
+
+    // this.userService.userLogin(this.username, this.password).subscribe({
+    //   next: (response) => {
+    //     let user: User = response;
+
+    //     if (user != null) {
+    //       this.sessionService.setIsLogin(true);
+    //       this.sessionService.setCurrentUser(user);
+    //       this.loginError = false;
+    //       this.resetPage();
+
+    //       this.router.navigate(['/shop']); //After successful login, direct to Shop
+    //     } else {
+    //       this.loginError = true;
+    //     }
+    //   },
+    // });
   }
 
   userLogout(): void {
