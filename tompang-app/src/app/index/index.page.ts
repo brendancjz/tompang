@@ -121,14 +121,14 @@ export class IndexPage implements OnInit {
       this.loginError = false;
       this.resetPage();
 
-      this.router.navigate(['/shop']); //After successful login, direct to Shop
+      this.router.navigate(['/shop']); //After successful login, direct to Marketplace
     } else {
       this.loginError = true;
     }
 
     // this.userService.userLogin(this.username, this.password).subscribe({
     //   next: (response) => {
-    //     let user: User = response;
+    //     const user: User = response;
 
     //     if (user != null) {
     //       this.sessionService.setIsLogin(true);
@@ -136,7 +136,7 @@ export class IndexPage implements OnInit {
     //       this.loginError = false;
     //       this.resetPage();
 
-    //       this.router.navigate(['/shop']); //After successful login, direct to Shop
+    //       this.router.navigate(['/shop']); //After successful login, direct to Marketplace
     //     } else {
     //       this.loginError = true;
     //     }

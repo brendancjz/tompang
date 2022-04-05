@@ -115,6 +115,9 @@ const routes: Routes = [
     path: 'create-transaction/:listingId',
     loadChildren: () => import('./create-transaction/create-transaction.module').then( m => m.CreateTransactionPageModule)
   },{
+    path: 'view-credit-card-details/:ccId',
+    loadChildren: () => import('./view-credit-card-details/view-credit-card-details.module').then( m => m.ViewCreditCardDetailsPageModule)
+  },{
     path: '**',
     redirectTo: 'index',
     pathMatch: 'full',

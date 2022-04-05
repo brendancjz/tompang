@@ -13,6 +13,7 @@ import { SessionService } from './session.service';
 import { catchError } from 'rxjs/operators';
 
 const httpOptions = {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
 
@@ -21,7 +22,7 @@ const httpOptions = {
 })
 export class UserService {
   users: User[];
-  baseUrl: string = '/api/User';
+  baseUrl = '/api/User';
 
   constructor(
     private httpClient: HttpClient,
@@ -38,8 +39,7 @@ export class UserService {
 
   // userLogin(
   //   username: string | undefined,
-  //   password: string | undefined
-  // ): Observable<User> {
+  //   password: string | undefined): Observable<User> {
   //   return this.httpClient
   //     .get<User>(
   //       this.baseUrl +
@@ -118,7 +118,7 @@ export class UserService {
   }
 
   private handleError(error: HttpErrorResponse) {
-    let errorMessage: string = '';
+    let errorMessage = '';
 
     if (error.error instanceof ErrorEvent) {
       errorMessage = 'An unknown error has occurred: ' + error.error;

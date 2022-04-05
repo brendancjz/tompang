@@ -1,0 +1,88 @@
+.card {
+  height: 210px;
+  width: 340px;
+  background-image:linear-gradient(rgb(214, 214, 214),rgba(186, 186, 186, 0.8));
+  border-radius: 20px;
+  margin:20px;
+  font-size: 16px;
+  box-shadow: 2px 2px 20px #707070;
+  position: relative;
+}
+
+.top-block {
+  display: inline-block;
+  width:500px;
+  height:155px;
+}
+ .bottom-block {
+  display: inline-block;
+  width:500px;
+  height:155px;
+}
+
+.ccBrand {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 26px;
+}
+
+.ccName {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.ccNumber {
+  position: absolute;
+  bottom: 100px;
+  left: 20px;
+  font-size: 24px;
+}
+
+.ccExpiryDate {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 60px;
+  left: 20px;
+  font-size: 12px;
+}
+
+.ccCIV {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 60px;
+  left: 120px;
+  font-size: 12px;
+}
+
+.input-button-div {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.form-input {
+  margin-bottom: 20px;
+  padding: 0 20px;
+
+  ion-item {
+    border-radius: 10px;
+    padding: 8px;
+    box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px,
+      rgb(0 0 0 / 14%) 0px 2px 2px 0px,
+      rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+
+    ion-icon {
+      margin-right: 16px;
+    }
+
+    ion-input {
+      padding-left: 10px !important;
+      border-left: 1px solid #f4f4f4;
+    }
+  }
+}
