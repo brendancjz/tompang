@@ -1,27 +1,30 @@
 <app-header></app-header>
 <ion-content class="hide-scroll-bar">
-  <ion-title class="page-name grey-color">
-    Profile
-  </ion-title>
+  <ion-title class="page-name grey-color"> Profile </ion-title>
 
   <div id="profile-info">
-    <img src="{{defaultProfilePic}}" style="width: 75px;border-radius: 100%;">
+    <img src="{{defaultProfilePic}}" style="width: 75px; border-radius: 100%" />
     <ion-title id="username-tag" class="grey-color">
       @{{userToViewUsername}}
     </ion-title>
     <div id="profile-info-buttons">
       <div>
         <ion-button color="tertiary" class="follow-button">
-          10 followers
-          <!--  {{serviceSession.getCurrentUser().followers}} -->
+          10 followers {{userToViewFollowers}}
         </ion-button>
         <ion-button color="tertiary" class="follow-button">
-          1 following
-          <!-- Following: {{serviceSession.getCurrentUser().following}} -->
+          1 following Following: {{userToViewFollowing}}
         </ion-button>
       </div>
 
-      <ion-button color="tertiary" class="button-icon" icon-only slot="end" id="settings-button" [routerLink] = "['/settings']">
+      <ion-button
+        color="tertiary"
+        class="button-icon"
+        icon-only
+        slot="end"
+        id="settings-button"
+        [routerLink]="['/settings']"
+      >
         <ion-icon name="settings-outline"></ion-icon>
       </ion-button>
     </div>
@@ -31,11 +34,20 @@
     <ion-title class="sub-heading grey-color" *ngIf="isProfileTheCurrentUser()">
       My Listings
     </ion-title>
-    <ion-title class="sub-heading grey-color" *ngIf="!isProfileTheCurrentUser()">
+    <ion-title
+      class="sub-heading grey-color"
+      *ngIf="!isProfileTheCurrentUser()"
+    >
       Their Listings
     </ion-title>
     <hr class="horizontal-rule" />
-    <ion-searchbar class="grey-color" placeholder="Search Tompang" [(ngModel)]="searchTerm" showCancelButton="focus" animated></ion-searchbar>
+    <ion-searchbar
+      class="grey-color"
+      placeholder="Search Tompang"
+      [(ngModel)]="searchTerm"
+      showCancelButton="focus"
+      animated
+    ></ion-searchbar>
     <ion-grid>
       <ion-row>
         <ion-col *ngFor="let listing of listings | filter:searchTerm">
@@ -44,9 +56,7 @@
       </ion-row>
     </ion-grid>
 
-    <div style="height: 500px;">
-
-    </div>
+    <div style="height: 500px"></div>
     <ion-list>
       <ion-item>
         <ion-img>listing picture</ion-img>
@@ -92,6 +102,5 @@
       </ion-item>
     </ion-list>
   </div>
-
 </ion-content>
 <app-footer></app-footer>
