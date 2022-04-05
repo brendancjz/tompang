@@ -29,4 +29,10 @@
         <local>ejb.stateless.CreditCardSessionBeanLocal</local>
         <ejb-link>Tompang-ejb.jar#CreditCardSessionBean</ejb-link>
     </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>TransactionSessionBean</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>ejb.stateless.TransactionSessionBeanLocal</local>
+        <ejb-link>Tompang-ejb.jar#TransactionSessionBean</ejb-link>
+    </ejb-local-ref>
 </web-app>

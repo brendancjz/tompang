@@ -32,6 +32,7 @@ public class ApplicationConfig extends javax.ws.rs.core.Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(ws.restful.ListingResource.class);
+        resources.add(ws.restful.TransactionResource.class);
         resources.add(ws.restful.UserResource.class);
     }
     

@@ -12,6 +12,7 @@ import entity.CreditCard;
 import entity.Listing;
 import entity.Transaction;
 import entity.User;
+import exception.CreateNewCreditCardException;
 import exception.CreateNewUserException;
 import exception.EntityNotFoundException;
 import exception.InvalidLoginCredentialsException;
@@ -316,29 +317,31 @@ public class UserResource {
             return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
         }
     }
-
-//    @PUT
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response createCreditCard(@QueryParam("username") String username, 
-//                                @QueryParam("password") String password, CreditCard card)
-//    {
-//       try {
-//            System.out.println("*********** " + username + " " + password);
-//            User user = userSessionBean.userLogin(username, password);
-//            System.out.println("********** UserResource.userLogin(): User " + user.getUsername() + " login remotely via web service");
-//            
-//            Long ccId = creditCardSessionBean.createNewCreditCard(card, user.getUserId());
-//            
-//            
-//            return Response.status(Response.Status.OK).entity(user).build();
-//        } catch (InvalidLoginCredentialsException ex) {
-//            return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
-//        } catch(CreateNewCreditCardException ex){
-//            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
-//        }
-//     
-//   }
+    
+    @Path("createCreditCard")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createCreditCard(@QueryParam("username") String username, 
+                                @QueryParam("password") String password, CreditCard card)
+    {
+       try {
+            System.out.println("*********** " + username + " " + password);
+            User user = userSessionBean.userLogin(username, password);
+            System.out.println("********** UserResource.userLogin(): User " + user.getUsername() + " login remotely via web service");
+            
+            Long ccId = creditCardSessionBean.createNewCreditCard(card, user.getUserId());
+            
+            
+            return Response.status(Response.Status.OK).entity(user).build();
+        } catch (InvalidLoginCredentialsException ex) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
+        } catch (CreateNewCreditCardException ex) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+        } 
+     
+   }
+    
     @Path("creditCards/{ccId}")
     @DELETE
     @Consumes(MediaType.TEXT_PLAIN)
