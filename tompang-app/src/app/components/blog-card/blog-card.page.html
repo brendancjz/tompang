@@ -1,0 +1,15 @@
+<ion-card >
+  <ion-card-header>
+    <img style="border-radius: 10px;margin-bottom: 10px;" src={{getBlogPicture()}}>
+    <ion-title>{{blog.title}}</ion-title>
+    <div style="display: flex;align-items: center;margin-left: 20px;">
+      <ion-icon name="compass-outline" style="margin-right: 5px;"></ion-icon>
+      <ion-label>{{blog.city}}</ion-label>
+    </div>
+
+  </ion-card-header>
+
+  <ion-card-content style="height: 250px; overflow-y: scroll;">
+    <ion-text>{{blog.description}}</ion-text>
+  </ion-card-content>
+</ion-card>

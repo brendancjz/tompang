@@ -16,10 +16,11 @@
           <ion-item lines="none">
             <ion-icon style="font-size:35px;" name="card-outline" slot="start"></ion-icon>
             <ion-select class="grey-color" slot="end" [(ngModel)]="buyerCreditCard" name="country" required>
+              <ion-label class="grey-color" style="font-size:12px;">Select Credit Card</ion-label>
               <ion-select-option class="grey-color"
                 *ngFor="let card of currentUser.creditCards"
                 [value]="card"
-                >{{card.ccNumber}}</ion-select-option
+                >{{formatCreditCardInfo(card)}}</ion-select-option
               ></ion-select
             ></ion-item>
         </div>

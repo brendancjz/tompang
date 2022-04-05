@@ -21,17 +21,22 @@ export class EditProfilePage implements OnInit {
   editError: boolean;
 
   constructor(public sessionService: SessionService,
-    private userService: UserService) {
-      const currentUser = sessionService.getCurrentUser();
-
-      this.firstName = currentUser.firstName;
-      this.lastName = currentUser.lastName;
-      this.email = currentUser.email;
-      this.contactNumber = currentUser.contactNumber;
-      this.dateOfBirth = currentUser.dateOfBirth;
-    }
+    private userService: UserService) {}
 
   ngOnInit() {
+    const currentUser = this.sessionService.getCurrentUser();
+
+    this.firstName = currentUser.firstName;
+    this.lastName = currentUser.lastName;
+    this.email = currentUser.email;
+    this.contactNumber = currentUser.contactNumber;
+    const dobString = currentUser.dateOfBirth.toString().split('T')[0];
+    this.dateOfBirth = new Date(dobString);
+
+    console.log(new Date(dobString));
+    console.log(this.dateOfBirth);
+
+
     document.getElementById('back-button').addEventListener('click', () => {
       this.resetPage();
     }, { once: true});

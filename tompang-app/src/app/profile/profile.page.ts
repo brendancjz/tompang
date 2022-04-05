@@ -21,6 +21,8 @@ export class ProfilePage implements OnInit {
   userId: string | null;
   userToView: User | null;
   userToViewUsername: string | undefined;
+  userToViewFollowers: number | undefined;
+  userToViewFollowing: number | undefined;
 
   listings: Listing[];
   searchTerm: string;
@@ -34,24 +36,25 @@ export class ProfilePage implements OnInit {
   ) {}
 
   ngOnInit() {
-
     this.currentUser = this.sessionService.getCurrentUser();
 
     this.userId = this.activatedRoute.snapshot.paramMap.get('userId');
-    if (this.userId === '#') { //This is to handle the missing userId at the beginning
+    if (this.userId === '#') {
+      //This is to handle the missing userId at the beginning
       this.userId = this.currentUser.userId.toString();
     }
 
     // eslint-disable-next-line radix
     this.userToView = this.userService.getUserByUserId(parseInt(this.userId));
-    this.userToViewUsername = this.userToView.username;
+    this.userToViewUsername = this.currentUser.username;
+    // this.userToViewFollowers = this.currentUs  er.follwers.length;
+    // this.userToViewFollowing = this.currentUser.following.length;
     this.listings = this.listingService.getUserListings(this.userToView);
 
-
+    console.log(this.userToView);
   }
 
   isProfileTheCurrentUser(): boolean {
     return this.userToView.username === this.currentUser.username;
   }
-
 }

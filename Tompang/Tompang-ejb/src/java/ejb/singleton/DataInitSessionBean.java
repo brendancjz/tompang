@@ -391,7 +391,7 @@ public class DataInitSessionBean {
 
             List<String> photosHeadphone = new ArrayList<>();
             photosHeadphone.add("/uploadedFiles/headphone_1.jpg");
-            photosHeadphone.add("/uploadedFiles/headphone_2.jpg");
+            photosHeadphone.add("/uploadedFiles/headphone_2.jpg"); 
             photosHeadphone.add("/uploadedFiles/headphone_3.jpg");
             photosHeadphone.add("/uploadedFiles/headphone_4.jpg");
 
@@ -403,7 +403,7 @@ public class DataInitSessionBean {
             photosChampionTee.add("/uploadedFiles/champion_tee_1.jpg");
             photosChampionTee.add("/uploadedFiles/champion_tee_2.jpg");
             listing = new Listing("Korea", "Tokyo", "Soft Champion T-Shirt", "I'm heading over to Michigan for business. Office is near the official Champion store. Reach out if you would like to buy a piece or two!",
-                    "APPAREL", 600.00, expectedArrivalDate5, manager, 5, photosChampionTee);
+                    "APPAREL", 45.00, expectedArrivalDate5, manager, 5, photosChampionTee);
             this.listingSessionBean.createNewListing(listing, 1L);
 
             List<String> photosChampionShorts = new ArrayList<>();
@@ -411,7 +411,7 @@ public class DataInitSessionBean {
             photosChampionShorts.add("/uploadedFiles/champion_shorts_2.jpg");
             photosChampionShorts.add("/uploadedFiles/champion_shorts_3.jpg");
             listing = new Listing("Korea", "Tokyo", "Soft Champion Shorts", "I'm heading over to Michigan for business. Office is near the official Champion store. Reach out if you would like to buy a pair or two!",
-                    "APPAREL", 600.00, expectedArrivalDate5, manager, 4, photosChampionShorts);
+                    "APPAREL", 35.00, expectedArrivalDate5, manager, 4, photosChampionShorts);
             this.listingSessionBean.createNewListing(listing, 1L);
 
             User admin = (User) em.find(User.class, 2L);

@@ -33,6 +33,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 import ws.datamodel.UpdateUserReq;
 
@@ -164,12 +165,95 @@ public class UserResource {
             User user = userSessionBean.userLogin(username, password);
             System.out.println("********** UserResource.userLogin(): User " + user.getUsername() + " login remotely via web service");
 
-            user.setPassword(null);
+            //user.setPassword(null);
             user.setSalt(null);
+            
+            if (user.getCreditCards() != null) {
+                for (CreditCard creditCard : user.getCreditCards()) {
+                    creditCard.setUser(null);
+                }
+            }
 
-            return Response.status(Response.Status.OK).entity(user).build();
+            if (user.getConversations() != null) {
+                for (Conversation conversation : user.getConversations()) {
+                    conversation.setListing(null);
+                    conversation.setCreatedBy(null);
+                    conversation.getMessages().clear();
+                }
+            }
+
+            if (user.getCreatedListings() != null) {
+                for (Listing createdListing : user.getCreatedListings()) {
+                    createdListing.setCreatedBy(null);
+                    createdListing.getLikedByUsers().clear();
+                    createdListing.getTransactions().clear();
+                    createdListing.getConversations().clear();
+                }
+            }
+
+            if (user.getBuyerTransactions() != null) {
+                for (Transaction buyerTransaction : user.getBuyerTransactions()) {
+                    buyerTransaction.setListing(null);
+                    buyerTransaction.setBuyer(null);
+                    buyerTransaction.setSeller(null);
+                    buyerTransaction.setDispute(null);
+                    buyerTransaction.setCreditCard(null);
+                }
+            }
+
+            if (user.getSellerTransactions() != null) {
+                for (Transaction sellerTransaction : user.getSellerTransactions()) {
+                    sellerTransaction.setListing(null);
+                    sellerTransaction.setBuyer(null);
+                    sellerTransaction.setSeller(null);
+                    sellerTransaction.setDispute(null);
+                    sellerTransaction.setCreditCard(null);
+                }
+            }
+
+            if (user.getFollowers() != null) {
+                for (User follower : user.getFollowers()) {
+                    follower.getCreatedListings().clear();
+                    follower.setConversations(null);
+                    follower.setCreditCards(null);
+                    follower.setBuyerTransactions(null);
+                    follower.setSellerTransactions(null);
+                    follower.getFollowers().clear();
+                    follower.getFollowing().clear();
+                    follower.setLikedListings(null);
+                }
+            }
+
+            if (user.getFollowing() != null) {
+                for (User following : user.getFollowing()) {
+                    following.getCreatedListings().clear();
+                    following.setConversations(null);
+                    following.setCreditCards(null);
+                    following.setBuyerTransactions(null);
+                    following.setSellerTransactions(null);
+                    following.getFollowers().clear();
+                    following.getFollowing().clear();
+                    following.setLikedListings(null);
+                }
+            }
+
+            if (user.getLikedListings() != null) {
+                for (Listing likedListing : user.getLikedListings()) {
+                    likedListing.setCreatedBy(null);
+                    likedListing.getLikedByUsers().clear();
+                    likedListing.getTransactions().clear();
+                    likedListing.getConversations().clear();
+                }
+            }
+            
+            
+
+            return Response.status(Status.OK).entity(user).build();
         } catch (InvalidLoginCredentialsException ex) {
-            return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
+            return Response.status(Status.UNAUTHORIZED).entity(ex.getMessage()).build();
+        } catch(Exception ex)
+        {
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
         }
     }
 

@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { SessionService } from 'src/app/services/session.service';
 import { User } from 'src/app/models/user';
 import { CreditCard } from 'src/app/models/creditCard';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -29,7 +30,8 @@ export class ManageCreditCardsPage implements OnInit {
   errorMsg: string;
   successfulCreation: boolean;
 
-  constructor(private location: Location,
+  constructor(private router: Router,
+    private location: Location,
     public sessionService: SessionService) { }
 
   ngOnInit() {
@@ -49,11 +51,16 @@ export class ManageCreditCardsPage implements OnInit {
 
   viewCreditCard(creditcard: CreditCard) {
     console.log('Viewing credit card..');
+    this.router.navigate(['/view-credit-card-details/' + creditcard.ccId]);
   }
 
   addCreditCard() {
     console.log('Creating new credit card..');
     this.doValidation();
+    if (this.hasCreationCCError) {
+      console.log('has creation of credit card error');
+      return;
+    }
     //TODO
     const newCC = new CreditCard(2, this.ccBrand, this.ccName, this.ccNumber, this.ccCIV, new Date());
     console.log(newCC);

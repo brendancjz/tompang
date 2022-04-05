@@ -73,4 +73,14 @@ export class CreateTransactionPage implements OnInit {
 
   }
 
+  formatCreditCardNumber(ccNum: number) {
+    const stringNum = ccNum.toString();
+    return stringNum.substring(0,4) + ' ' + stringNum.substring(4,8) +
+    ' ' + stringNum.substring(8,12) + ' ' + stringNum.substring(12,16);
+  }
+
+  formatCreditCardInfo(card: CreditCard): string {
+    return card.ccBrand + ' - ' + this.formatCreditCardNumber(card.ccNumber);
+  }
+
 }
