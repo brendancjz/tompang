@@ -4,7 +4,7 @@ import { SessionService } from 'src/app/services/session.service';
 import { User } from 'src/app/models/user';
 import { CreditCard } from 'src/app/models/creditCard';
 import { Router } from '@angular/router';
-
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-manage-credit-cards',
@@ -16,6 +16,7 @@ export class ManageCreditCardsPage implements OnInit {
 
   crediCardToDelete: CreditCard;
   isDisplayingCCList: boolean;
+  creditCards: CreditCard[];
 
   ccBrand: string | null;
   ccNumber: number | null;
@@ -26,24 +27,44 @@ export class ManageCreditCardsPage implements OnInit {
   years: number[];
   months: number[];
 
+  resultSuccess: boolean;
+  resultError: boolean;
+  message: string;
+
   hasCreationCCError: boolean;
   errorMsg: string;
   successfulCreation: boolean;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private location: Location,
-    public sessionService: SessionService) { }
+    public sessionService: SessionService,
+    public userService: UserService
+  ) {}
 
   ngOnInit() {
-    document.getElementById('back-button').addEventListener('click', () => {
-      this.resetPage();
-    }, { once: true});
+    document.getElementById('back-button').addEventListener(
+      'click',
+      () => {
+        this.resetPage();
+      },
+      { once: true }
+    );
 
     this.currentUser = this.sessionService.getCurrentUser();
     this.isDisplayingCCList = true;
     this.years = this.initialiseYears();
     this.months = this.initialiseMonths();
     this.hasCreationCCError = false;
+
+    this.userService.getUserCreditCards().subscribe({
+      next: (response) => {
+        this.creditCards = response;
+      },
+      error: (error) => {
+        console.log('getAllAvailableListings.ts:' + error);
+      },
+    });
   }
   resetPage() {
     return;
@@ -62,8 +83,35 @@ export class ManageCreditCardsPage implements OnInit {
       return;
     }
     //TODO
-    const newCC = new CreditCard(2, this.ccBrand, this.ccName, this.ccNumber, this.ccCIV, new Date());
-    console.log(newCC);
+    let creditCard: CreditCard = new CreditCard();
+    creditCard.ccBrand = this.ccBrand;
+    console.log(this.ccBrand);
+    creditCard.ccName = this.ccName;
+    console.log(this.ccName);
+    creditCard.ccNumber = this.ccNumber;
+    console.log(this.ccNumber);
+    creditCard.ccCIV =  this.ccCIV;
+    console.log(this.ccCIV);
+    creditCard.expiryDate = new Date(this.expiryYear, this.expiryMonth)
+    console.log(this.expiryYear);
+    console.log(this.expiryMonth);
+    
+
+    this.userService.createCreditCard(creditCard).subscribe({
+      next:(response)=>{
+        let newCreditCardId: number = response;
+        this.resultSuccess = true;
+        this.resultError = false;
+        this.message = "New Credit Card " + newCreditCardId + " created successfully";
+      },
+      error:(error)=>{
+        this.resultError = true;
+        this.resultSuccess = false;
+        this.message = "An error has occurred while creating the new credit card: " + error;
+
+        console.log('********** CreateNewCreditCardPage: ' + error);
+      }
+    });
 
     this.ccBrand = null;
     this.ccName = null;
@@ -77,24 +125,32 @@ export class ManageCreditCardsPage implements OnInit {
   doValidation() {
     this.hasCreationCCError = false;
 
-    if (this.ccBrand === undefined ||
+    if (
+      this.ccBrand === undefined ||
       this.ccName === undefined ||
       this.ccNumber === undefined ||
       this.ccCIV === undefined ||
       this.expiryMonth === undefined ||
-      this.expiryYear === undefined) {
-        this.hasCreationCCError = true;
-        this.errorMsg = 'Sorry, Missing and invalid inputs.';
-        return;
-      }
+      this.expiryYear === undefined
+    ) {
+      this.hasCreationCCError = true;
+      this.errorMsg = 'Sorry, Missing and invalid inputs.';
+      return;
+    }
 
     if (this.ccNumber.toString().length !== 16) {
       this.hasCreationCCError = true;
       this.errorMsg = 'Sorry, Credit Card Number is not correctly formatted.';
     }
 
-    if (this.ccBrand !== 'DBS' && this.ccBrand !== 'AMEX' && this.ccBrand !== 'SC' &&
-    this.ccBrand !== 'MasterCard' && this.ccBrand !== 'OCBC' && this.ccBrand !== 'UOB') {
+    if (
+      this.ccBrand !== 'DBS' &&
+      this.ccBrand !== 'AMEX' &&
+      this.ccBrand !== 'SC' &&
+      this.ccBrand !== 'MasterCard' &&
+      this.ccBrand !== 'OCBC' &&
+      this.ccBrand !== 'UOB'
+    ) {
       this.hasCreationCCError = true;
       this.errorMsg = 'Sorry, invalid Bank input.';
     }
@@ -112,26 +168,26 @@ export class ManageCreditCardsPage implements OnInit {
 
   formatCreditCardNumber(ccNum: number) {
     const stringNum = ccNum.toString();
-    return stringNum.substring(0,4) + ' ' + stringNum.substring(4,8) +
-    ' ' + stringNum.substring(8,12) + ' ' + stringNum.substring(12,16);
+    return (
+      stringNum.substring(0, 4) +
+      ' ' +
+      stringNum.substring(4, 8) +
+      ' ' +
+      stringNum.substring(8, 12) +
+      ' ' +
+      stringNum.substring(12, 16)
+    );
   }
 
   initialiseYears() {
-    return [1,2,3,4,5,6,7,8,9,10,
-            11,12,13,14,15,16,17,18,19,20,
-            21,22,23,24,25,26,27,28,29,30,
-            31,32,33,34,35,36,37,38,39,40,
-            41,42,43,44,45,46,47,48,49,50,
-            51,52,53,54,55,56,57,58,59,60,
-            61,62,63,64,65,66,67,68,69,70,
-            71,72,73,74,75,76,77,78,79,80,
-            81,82,83,84,85,86,87,88,89,90,
-            91,92,93,94,95,96,97,98,99,];
+    return [
+      2022, 2023, 2024, 2025, 2026, 2027, 2028,2029,2030
+    ];
   }
 
   initialiseMonths() {
-    return [1,2,3,4,5,6,7,8,9,10,
-      11,12,13,14,15,16,17,18,19,20,
-      21,22,23,24,25,26,27,28,29,30,31];
+    return [
+      0,1,2,3,4,5,6,7,8,9,10,11
+    ];
   }
 }

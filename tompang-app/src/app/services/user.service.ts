@@ -11,6 +11,7 @@ import { CreditCard } from '../models/creditCard';
 import { User } from '../models/user';
 import { SessionService } from './session.service';
 import { catchError } from 'rxjs/operators';
+import { CreateCreditCardReq } from '../models/create-creditcard-req';
 
 const httpOptions = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -56,6 +57,41 @@ export class UserService {
     //Call web service
     console.log('Updating user in UserService');
     return updatedUser;
+  }
+
+  getUserCreditCards() :Observable<CreditCard[]>{
+
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
+
+    return this.httpClient
+      .get<CreditCard[]>(
+        this.baseUrl +
+          '/retrieveUserCreditCards?username=' +
+          username +
+          '&password=' +
+          password
+      )
+      .pipe(catchError(this.handleError));
+
+  }
+
+  createCreditCard(creditCard: CreditCard): Observable<any>{
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
+    const userId = currentUser.userId;
+
+    let createCreditCardReq: CreateCreditCardReq = new CreateCreditCardReq(
+      username,
+      password,
+      creditCard
+    );
+
+    return this.httpClient
+      .put<number>(this.baseUrl + '/createCreditCard', createCreditCardReq, httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   getSampleUser() {

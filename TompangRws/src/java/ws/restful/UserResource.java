@@ -36,6 +36,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
+import ws.datamodel.CreateCreditCardReq;
 import ws.datamodel.UpdateUserReq;
 
 /**
@@ -329,18 +330,17 @@ public class UserResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createCreditCard(@QueryParam("username") String username, 
-                                @QueryParam("password") String password, CreditCard card)
+    public Response createCreditCard(CreateCreditCardReq createCreditCardReq)
     {
        try {
-            System.out.println("*********** " + username + " " + password);
-            User user = userSessionBean.userLogin(username, password);
+     
+            User user = userSessionBean.userLogin(createCreditCardReq.getUsername(), createCreditCardReq.getPassword());
             System.out.println("********** UserResource.userLogin(): User " + user.getUsername() + " login remotely via web service");
             
-            Long ccId = creditCardSessionBean.createNewCreditCard(card, user.getUserId());
+            Long ccId = creditCardSessionBean.createNewCreditCard(createCreditCardReq.getCreditCard(), user.getUserId());
             
             
-            return Response.status(Response.Status.OK).entity(user).build();
+            return Response.status(Response.Status.OK).entity(ccId).build();
         } catch (InvalidLoginCredentialsException ex) {
             return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
         } catch (CreateNewCreditCardException ex) {
