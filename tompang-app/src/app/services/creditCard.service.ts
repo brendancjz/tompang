@@ -39,4 +39,15 @@ export class CreditCardService {
 
     return sampleCreditCard;
   }
+
+  deleteCreditCard(ccId: number): boolean {
+
+    const currentUser = this.sessionService.getCurrentUser();
+
+    //Implement
+
+    //set currentUser with updated user
+
+    return true;
+  }
 }

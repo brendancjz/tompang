@@ -59,7 +59,9 @@ export class ViewCreditCardDetailsPage implements OnInit {
 
   deleteCreditCard() {
     console.log('Deleting credit card..');
-    this.successfulDeletion = true;
+
+    // eslint-disable-next-line radix
+    this.successfulDeletion = this.creditCardService.deleteCreditCard(parseInt(this.ccId));
   }
 
   toggleConfirmDeleteButton() {

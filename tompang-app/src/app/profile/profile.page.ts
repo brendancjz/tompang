@@ -50,6 +50,8 @@ export class ProfilePage implements OnInit {
     // this.userToViewFollowers = this.currentUs  er.follwers.length;
     // this.userToViewFollowing = this.currentUser.following.length;
     this.listings = this.listingService.getUserListings(this.userToView);
+
+    console.log(this.userToView);
   }
 
   isProfileTheCurrentUser(): boolean {
