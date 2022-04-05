@@ -1,0 +1,105 @@
+<app-header></app-header>
+<ion-content>
+  <div>
+    <ion-title class="page-name grey-color">
+      Blog
+    </ion-title>
+    <hr class="horizontal-rule" />
+    <ion-item lines="none" style="text-align: center;">
+      <ion-text class="sub-page-name grey-color">
+        Welcome to Tompang's Blog! Here, you can browse through to see what some interesting products
+        you can buy back home.
+      </ion-text>
+    </ion-item>
+    <hr class="horizontal-rule" />
+  </div>
+  <div>
+    <ion-title class="sub-page-name grey-color">
+      USA
+    </ion-title>
+    <hr class="horizontal-rule" />
+    <div>
+      <div class="listing-slider ion-padding-start">
+        <ion-slides
+          [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+          <ion-slide *ngFor="let blog of usaBlogs">
+            <ion-col class="ion-text-left">
+              <app-blog-card [blog]="blog"></app-blog-card>
+            </ion-col>
+          </ion-slide>
+        </ion-slides>
+      </div>
+    </div>
+  </div>
+  <hr class="horizontal-rule" />
+  <div>
+    <ion-title class="sub-page-name grey-color">
+      Singapore
+    </ion-title>
+    <hr class="horizontal-rule" />
+    <div>
+      <div class="listing-slider ion-padding-start">
+        <ion-slides
+          [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+          <ion-slide *ngFor="let blog of sgBlogs">
+            <ion-col class="ion-text-left">
+              <app-blog-card [blog]="blog"></app-blog-card>
+            </ion-col>
+          </ion-slide>
+        </ion-slides>
+      </div>
+    </div>
+  </div>
+  <hr class="horizontal-rule" />
+  <div>
+    <ion-title class="sub-page-name grey-color">
+      Malaysia
+    </ion-title>
+    <hr class="horizontal-rule" />
+    <div class="listing-slider ion-padding-start">
+      <ion-slides
+        [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+        <ion-slide *ngFor="let blog of myBlogs">
+          <ion-col class="ion-text-left">
+            <app-blog-card [blog]="blog"></app-blog-card>
+          </ion-col>
+        </ion-slide>
+      </ion-slides>
+    </div>
+  </div>
+  <hr class="horizontal-rule" />
+  <div>
+    <ion-title class="sub-page-name grey-color">
+      Korea
+    </ion-title>
+    <hr class="horizontal-rule" />
+    <div class="listing-slider ion-padding-start">
+      <ion-slides
+        [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+        <ion-slide *ngFor="let blog of krBlogs">
+          <ion-col class="ion-text-left">
+            <app-blog-card [blog]="blog"></app-blog-card>
+          </ion-col>
+        </ion-slide>
+      </ion-slides>
+    </div>
+  </div>
+  <hr class="horizontal-rule" />
+  <div>
+    <ion-title class="sub-page-name grey-color">
+      Japan
+    </ion-title>
+    <hr class="horizontal-rule" />
+    <div class="listing-slider ion-padding-start">
+      <ion-slides
+        [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+        <ion-slide *ngFor="let blog of japanBlogs">
+          <ion-col class="ion-text-left">
+            <app-blog-card [blog]="blog"></app-blog-card>
+          </ion-col>
+        </ion-slide>
+      </ion-slides>
+    </div>
+  </div>
+</ion-content>
+<app-footer></app-footer>

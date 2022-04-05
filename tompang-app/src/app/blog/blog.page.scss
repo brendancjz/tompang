@@ -1,0 +1,29 @@
+ion-title.page-name {
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+ion-title.sub-page-name {
+  font-size: 20px;
+}
+
+.listing-slider {
+  margin-bottom: 30px;
+
+  ion-slide {
+    width: 400px;
+    height: auto;
+    margin-left: 20px;
+    margin-right: 10px;
+  }
+}
+
+// Removing highlight when focused/clicked on product
+ion-slide:focus {
+  outline: none !important;
+}
+
+ion-col:focus {
+  outline: none !important;
+}

@@ -114,14 +114,24 @@ const routes: Routes = [
   {
     path: 'create-transaction/:listingId',
     loadChildren: () => import('./create-transaction/create-transaction.module').then( m => m.CreateTransactionPageModule)
-  },{
+  },
+  {
     path: 'view-credit-card-details/:ccId',
     loadChildren: () => import('./view-credit-card-details/view-credit-card-details.module').then( m => m.ViewCreditCardDetailsPageModule)
-  },{
-    path: '**',
-    redirectTo: 'index',
-    pathMatch: 'full',
   },
+  {
+    path: 'blog',
+    loadChildren: () => import('./blog/blog.module').then( m => m.BlogPageModule)
+  },
+  {
+      path: '**',
+      redirectTo: 'index',
+      pathMatch: 'full',
+    },  {
+    path: 'blog-card',
+    loadChildren: () => import('./components/blog-card/blog-card.module').then( m => m.BlogCardPageModule)
+  },
+
 
 ];
 
