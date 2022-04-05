@@ -17,7 +17,7 @@ import { FooterPageModule } from 'src/app/footer/footer.module';
     IonicModule,
     EditProfilePageRoutingModule,
     HeaderPageModule,
-    FooterPageModule
+    FooterPageModule,
   ],
   declarations: [EditProfilePage]
 })
