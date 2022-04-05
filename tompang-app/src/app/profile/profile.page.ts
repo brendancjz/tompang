@@ -49,7 +49,14 @@ export class ProfilePage implements OnInit {
     this.userToViewUsername = this.currentUser.username;
     // this.userToViewFollowers = this.currentUs  er.follwers.length;
     // this.userToViewFollowing = this.currentUser.following.length;
-    this.listings = this.listingService.getUserListings(this.userToView);
+    this.listingService.getUserListings(this.currentUser).subscribe({
+      next: (response) => {
+        this.listings = response;
+      },
+      error: (error) => {
+        console.log('getAllAvailableListings.ts:' + error);
+      },
+    });
 
     console.log(this.userToView);
   }

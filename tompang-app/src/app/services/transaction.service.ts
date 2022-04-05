@@ -14,6 +14,7 @@ import { Dispute } from '../models/dispute';
 import { ListingService } from './listing.service';
 import { Transaction } from '../models/transaction';
 import { CreateTransactionReq } from '../models/create-transaction-req';
+import { UpdateTransactionReq } from '../models/update-transaction-req';
 
 const httpOptions = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -65,7 +66,7 @@ export class TransactionService {
       .pipe(catchError(this.handleError));
   }
 
-  createTransaction(listingId: number, newTransaction: Transaction) {
+  createTransaction(listingId: number, newTransaction: Transaction) : Observable<number>{
     const currentUser = this.sessionService.getCurrentUser();
     const username = currentUser.username;
     const password = currentUser.password;
@@ -80,6 +81,22 @@ export class TransactionService {
 
     return this.httpClient
       .put<number>(this.baseUrl, createTransactionReq, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  completeTransaction(transactionId: number) {
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
+
+    let updateTransactionReq: UpdateTransactionReq = new UpdateTransactionReq(
+      username,
+      password,
+      transactionId
+    );
+
+    return this.httpClient
+      .post<any>(this.baseUrl, updateTransactionReq, httpOptions)
       .pipe(catchError(this.handleError));
   }
 

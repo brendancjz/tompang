@@ -126,13 +126,82 @@ public class ListingResource {
         }
 
     }
+    
+    @Path("retrieveAllUserListings")
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response retrieveAllUserListings(@QueryParam("username") String username, @QueryParam("password") String password) {
+        try {
+            System.out.println("*********** " + username + " " + password);
+            User user = userSessionBean.userLogin(username, password);
+           
+
+            List<Listing> listings = listingSessionBean.retrieveUserListings(username);
+
+             for (Listing listing : listings) {
+                System.out.println("&&&& " + listing.getTitle());
+
+
+                if (listing.getCreatedBy() != null) {
+                    listing.getCreatedBy().getCreatedListings().clear();
+                    listing.getCreatedBy().setConversations(null);
+                    listing.getCreatedBy().setCreditCards(null);
+                    listing.getCreatedBy().setBuyerTransactions(null);
+                    listing.getCreatedBy().setSellerTransactions(null);
+                    listing.getCreatedBy().getFollowers().clear();
+                    listing.getCreatedBy().getFollowing().clear();
+                    listing.getCreatedBy().setLikedListings(null);
+                }
+
+                if (listing.getConversations() != null) {
+                    for (Conversation conversation : listing.getConversations()) {
+                        conversation.setListing(null);
+                        conversation.setCreatedBy(null);
+                        conversation.getMessages().clear();
+                    }
+                }
+
+                if (listing.getTransactions() != null) {
+                    for (Transaction transaction : listing.getTransactions()) {
+                        transaction.setListing(null);
+                        transaction.setBuyer(null);
+                        transaction.setSeller(null);
+                        transaction.setDispute(null);
+                        transaction.setCreditCard(null);
+                    }
+                }
+
+                if (listing.getLikedByUsers() != null) {
+                        listing.setLikedByUsers(null);
+//                    for (User likedByUser : listing.getLikedByUsers()) {
+//                        likedByUser.setLikedListings(null);
+//                    }
+                }
+            }
+
+            System.out.println(listings);
+
+            GenericEntity<List<Listing>> genericEntity = new GenericEntity<List<Listing>>(listings) {
+            };
+
+            return Response.status(Status.OK).entity(genericEntity).build();
+        } catch (InvalidLoginCredentialsException ex) {
+            ex.printStackTrace();
+            return Response.status(Status.UNAUTHORIZED).entity(ex.getMessage()).build();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+        }
+
+    }   
 
     
 
-@PUT
-        @Consumes(MediaType.APPLICATION_JSON)
-        @Produces(MediaType.APPLICATION_JSON)
-        public Response createListing(CreateListingReq createListingReq) {
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createListing(CreateListingReq createListingReq) {
         if (createListingReq != null) {
             try {
                 User user = userSessionBean.userLogin(createListingReq.getUsername(), createListingReq.getPassword());
@@ -153,9 +222,9 @@ public class ListingResource {
     }
 
     @POST
-        @Consumes(MediaType.APPLICATION_JSON)
-        @Produces(MediaType.APPLICATION_JSON)
-        public Response updateListing(UpdateListingReq updateListingReq) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateListing(UpdateListingReq updateListingReq) {
         if (updateListingReq != null) {
             try {
                 User user = userSessionBean.userLogin(updateListingReq.getUsername(), updateListingReq.getPassword());
@@ -175,9 +244,9 @@ public class ListingResource {
     }
     
     @Path("retrieveListing/{listingId}")
-        @GET
-        @Consumes(MediaType.TEXT_PLAIN)
-        @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
         public Response retrieveListing(@QueryParam("username") String username, 
                                         @QueryParam("password") String password,
                                         @PathParam("listingId") Long listingId)
@@ -189,40 +258,45 @@ public class ListingResource {
 
             Listing listing = listingSessionBean.getListingByListingId(listingId);
               
-            User createdBy = listing.getCreatedBy();
-                
-            if (createdBy.getConversations() != null) {
-                for (Conversation conversation : createdBy.getConversations()) {
-                        conversation.setCreatedBy(null);
-                    }
-                    createdBy.getConversations().clear();
-                
-                }
-                
-            if (createdBy.getCreatedListings() != null) {
-                for (Listing createdListing : createdBy.getCreatedListings()) {
-                    createdListing.setCreatedBy(null);
-                }
-                createdBy.getCreatedListings().clear();
-
+            if (listing.getCreatedBy() != null) {
+                    listing.getCreatedBy().getCreatedListings().clear();
+                    listing.getCreatedBy().setConversations(null);
+                    listing.getCreatedBy().setCreditCards(null);
+                    listing.getCreatedBy().setBuyerTransactions(null);
+                    listing.getCreatedBy().setSellerTransactions(null);
+                    listing.getCreatedBy().getFollowers().clear();
+                    listing.getCreatedBy().getFollowing().clear();
+                    listing.getCreatedBy().setLikedListings(null);
             }
-                
+
             if (listing.getConversations() != null) {
                 for (Conversation conversation : listing.getConversations()) {
+                    conversation.setListing(null);
+                    conversation.setCreatedBy(null);
                     conversation.getMessages().clear();
                 }
-                listing.getConversations().clear();
             }
-                
+
             if (listing.getTransactions() != null) {
-                listing.getTransactions().clear();
+                for (Transaction transaction : listing.getTransactions()) {
+                    transaction.setListing(null);
+                    transaction.setBuyer(null);
+                    transaction.setSeller(null);
+                    transaction.setDispute(null);
+                    transaction.setCreditCard(null);
+                }
+            }
+
+            if (listing.getLikedByUsers() != null) {
+                    listing.setLikedByUsers(null);
+//                for (User likedByUser : listing.getLikedByUsers()) {
+//                    likedByUser.setLikedListings(null);
+//                }
             }
         
             
             System.out.println(listing);
 
-//            GenericEntity<List<Listing>> genericEntity = new GenericEntity<List<Listing>>(listings) {
-//            };
 
             return Response.status(Status.OK).entity(listing).build();
         } catch (InvalidLoginCredentialsException ex) {
@@ -233,12 +307,12 @@ public class ListingResource {
     }
     
     @Path("{listingId}")
-        @DELETE
-        @Consumes(MediaType.TEXT_PLAIN)
-        @Produces(MediaType.APPLICATION_JSON)
-        public Response deleteListing(@QueryParam("username") String username, 
-                                        @QueryParam("password") String password,
-                                        @PathParam("listingId") Long listingId)
+    @DELETE
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteListing(@QueryParam("username") String username, 
+                                    @QueryParam("password") String password,
+                                    @PathParam("listingId") Long listingId)
     {
         try {
              User user = userSessionBean.userLogin(username, password);

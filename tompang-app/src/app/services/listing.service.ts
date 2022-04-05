@@ -10,6 +10,8 @@ import { Listing } from '../models/listing';
 import { User } from '../models/user';
 import { SessionService } from './session.service';
 import { Observable, throwError } from 'rxjs';
+import { CreateListingPage } from '../create-listing/create-listing.page';
+import { CreateListingReq } from '../models/create-listing-req';
 
 const httpOptions = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -27,12 +29,37 @@ export class ListingService {
     private sessionService: SessionService
   ) {}
 
-  createListing(newListing: Listing): number {
-    const newListingId = 1;
+  createListing(newListing: Listing): Observable<number> {
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
 
-    //Code here
+    let createListingReq: CreateListingReq = new CreateListingReq(
+      username,
+      password,
+      newListing
+    );
 
-    return newListingId;
+    return this.httpClient
+      .put<number>(this.baseUrl, createListingReq, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  updateListing(listing: Listing): Observable<any>
+  {
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
+    let createListingReq: CreateListingReq = new CreateListingReq(
+      username,
+      password,
+      listing
+    );
+    
+    return this.httpClient.post<any>(this.baseUrl, createListingReq, httpOptions).pipe
+    (
+      catchError(this.handleError)
+    );
   }
 
   getSampleListing() {
@@ -109,8 +136,20 @@ export class ListingService {
     return sampleListings;
   }
 
-  getUserListings(user: User): Listing[] {
-    return this.getSampleListings();
+  getUserListings(user: User): Observable<Listing[]> {
+    
+    const username = user.username;
+    const password = user.password;
+
+    return this.httpClient
+      .get<Listing[]>(
+        this.baseUrl +
+          '/retrieveAllUserListings?username=' +
+          username +
+          '&password=' +
+          password
+      )
+      .pipe(catchError(this.handleError));
   }
 
   getUserLikedListings(user: User): Listing[] {
@@ -125,12 +164,12 @@ export class ListingService {
     return this.httpClient
       .get<Listing>(
         this.baseUrl +
-          '/retrieveListing?username=' +
+          '/retrieveListing/' +
+          listingId +
+          '?username=' +
           username +
           '&password=' +
-          password +
-          '&listingId=' +
-          listingId
+          password
       )
       .pipe(catchError(this.handleError));
   }

@@ -31,6 +31,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -299,7 +300,7 @@ public class UserResource {
         }
     }
 
-    @Path("creditCards")
+    @Path("retrieveUserCreditCards")
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
@@ -311,8 +312,14 @@ public class UserResource {
             System.out.println("********** UserResource.userLogin(): User " + user.getUsername() + " login remotely via web service");
 
             List<CreditCard> creditCards = user.getCreditCards();
-
-            return Response.status(Response.Status.OK).entity(user).build();
+            
+            for(CreditCard cc: creditCards)
+            {
+                cc.setUser(null);
+            }
+            GenericEntity<List<CreditCard>> genericEntity = new GenericEntity<List<CreditCard>>(creditCards) {
+            };
+            return Response.status(Status.OK).entity(genericEntity).build();
         } catch (InvalidLoginCredentialsException ex) {
             return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
         }

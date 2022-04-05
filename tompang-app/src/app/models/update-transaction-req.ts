@@ -1,20 +1,17 @@
 import { Transaction } from './transaction';
 
-export class CreateTransactionReq {
+export class UpdateTransactionReq {
   username: string | undefined;
   password: string | undefined;
-  transaction: Transaction | undefined;
-  buyerId: number | undefined | null;
-
+  transactionId: number| undefined;
+ 
   constructor(
     username?: string,
     password?: string,
-    transaction?: Transaction,
-    buyerId?: number | null
+    transactionId?: number | null
   ) {
     this.username = username;
     this.password = password;
-    this.transaction = transaction;
-    this.buyerId = buyerId;
+    this.transactionId = transactionId
   }
 }
