@@ -16,7 +16,7 @@ export class EditProfilePage implements OnInit {
   lastName: string | undefined;
   email: string | undefined;
   contactNumber: number | undefined;
-  dateOfBirth: Date | undefined;
+  dateOfBirth: string | undefined;
 
   editError: boolean;
 
@@ -31,11 +31,7 @@ export class EditProfilePage implements OnInit {
     this.email = currentUser.email;
     this.contactNumber = currentUser.contactNumber;
     const dobString = currentUser.dateOfBirth.toString().split('T')[0];
-    this.dateOfBirth = new Date(dobString);
-
-    console.log(new Date(dobString));
-    console.log(this.dateOfBirth);
-
+    this.dateOfBirth = dobString + 'T00:01:00-04:00';
 
     document.getElementById('back-button').addEventListener('click', () => {
       this.resetPage();
@@ -52,7 +48,7 @@ export class EditProfilePage implements OnInit {
 
     const currentUser = this.sessionService.getCurrentUser();
     let updatedUser = new User(currentUser.userId, this.firstName, this.lastName,
-      currentUser.username, currentUser.password, this.email, this.dateOfBirth, currentUser.profilePic,
+      currentUser.username, currentUser.password, this.email, new Date(this.dateOfBirth), currentUser.profilePic,
       this.contactNumber);
 
     updatedUser = this.userService.updateUser(updatedUser);
@@ -66,6 +62,10 @@ export class EditProfilePage implements OnInit {
     this.contactNumber = undefined;
     this.dateOfBirth = undefined;
     this.editError = false;
+  }
+
+  confirm() {
+    console.log('confirmed');
   }
 }
 

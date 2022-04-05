@@ -15,6 +15,8 @@ export class CreateListingPage implements OnInit {
   category: string | undefined;
   price: number | undefined;
   quantity: number | undefined;
+  expectedArrivalDate: string | undefined;
+
 
   creationError: boolean;
   creationErrorMessage: string | undefined;
@@ -67,6 +69,7 @@ export class CreateListingPage implements OnInit {
     listing.category = this.category.toUpperCase();
     listing.price = this.price;
     listing.quantity = this.quantity;
+    listing.expectedArrivalDate = new Date(this.expectedArrivalDate);
 
     this.listingService.createListing(listing);
     this.listingCreationSuccessful = true;
