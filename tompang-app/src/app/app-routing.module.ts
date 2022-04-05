@@ -124,13 +124,14 @@ const routes: Routes = [
     loadChildren: () => import('./blog/blog.module').then( m => m.BlogPageModule)
   },
   {
+    path: 'help',
+    loadChildren: () => import('./help/help.module').then( m => m.HelpPageModule)
+  },
+  {
       path: '**',
       redirectTo: 'index',
       pathMatch: 'full',
-    },  {
-    path: 'blog-card',
-    loadChildren: () => import('./components/blog-card/blog-card.module').then( m => m.BlogCardPageModule)
-  },
+    },
 
 
 ];
