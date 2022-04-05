@@ -13,7 +13,7 @@ import { Observable, throwError } from 'rxjs';
 
 const httpOptions = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
 
 @Injectable({
@@ -24,8 +24,8 @@ export class ListingService {
 
   constructor(
     private httpClient: HttpClient,
-    private sessionService: SessionService) {
-  }
+    private sessionService: SessionService
+  ) {}
 
   createListing(newListing: Listing): number {
     const newListingId = 1;
@@ -49,8 +49,17 @@ export class ListingService {
     );
     sampleListing.photos.push('/tompang_icon_logo_blue.png');
 
-    const samepleUser = new User(23, 'Keng','Yong','kengyong','password',
-    'keng.yong@gmail.com',new Date(),'/uploadedFiles/default_picture.jpg',87695478);
+    const samepleUser = new User(
+      23,
+      'Keng',
+      'Yong',
+      'kengyong',
+      'password',
+      'keng.yong@gmail.com',
+      new Date(),
+      '/uploadedFiles/default_picture.jpg',
+      87695478
+    );
     sampleListing.createdBy = samepleUser;
 
     return sampleListing;
@@ -75,7 +84,7 @@ export class ListingService {
       'Johor Bahru',
       'Skateboard',
       'Hello everyone, I am going to malaysia this weekend.' +
-      'Heard there are some skateboards there. Lmk if you want one.',
+        'Heard there are some skateboards there. Lmk if you want one.',
       'GIFTS',
       75,
       new Date(),
@@ -113,11 +122,17 @@ export class ListingService {
     const username = currentUser.username;
     const password = currentUser.password;
 
-    return this.httpClient.get<Listing>(this.baseUrl + '/retrieveListing?username='
-    + username + '&password=' + password + '&listingId=' + listingId).pipe
-    (
-      catchError(this.handleError)
-    );
+    return this.httpClient
+      .get<Listing>(
+        this.baseUrl +
+          '/retrieveListing?username=' +
+          username +
+          '&password=' +
+          password +
+          '&listingId=' +
+          listingId
+      )
+      .pipe(catchError(this.handleError));
   }
 
   getMostLikedListings(): Observable<Listing[]> {
@@ -129,11 +144,22 @@ export class ListingService {
     const username = currentUser.username;
     const password = currentUser.password;
 
-    return this.httpClient.get<Listing[]>(this.baseUrl + '/retrieveAllListings?username=' +
-    username + '&password=' + password).pipe
-      (
-        catchError(this.handleError)
-      );
+    console.log(
+      this.baseUrl +
+        '/retrieveAllListings?username=' +
+        username +
+        '&password=' +
+        password
+    );
+    return this.httpClient
+      .get<Listing[]>(
+        this.baseUrl +
+          '/retrieveAllListings?username=' +
+          username +
+          '&password=' +
+          password
+      )
+      .pipe(catchError(this.handleError));
   }
 
   viewListingDetails(listingToView: Listing) {
@@ -155,7 +181,8 @@ export class ListingService {
     if (error.error instanceof ErrorEvent) {
       errorMessage = 'An Unknown error has occured: ' + error.error;
     } else {
-      errorMessage = 'A HTTP error has occured: ' + `HTTP ${error.status}: ${error.error}`;
+      errorMessage =
+        'A HTTP error has occured: ' + `HTTP ${error.status}: ${error.error}`;
     }
     console.error(errorMessage);
     return throwError(() => new Error(errorMessage));

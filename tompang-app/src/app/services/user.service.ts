@@ -37,19 +37,20 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
-  // userLogin(
-  //   username: string | undefined,
-  //   password: string | undefined): Observable<User> {
-  //   return this.httpClient
-  //     .get<User>(
-  //       this.baseUrl +
-  //         '/userLogin?username=' +
-  //         username +
-  //         '&password=' +
-  //         password
-  //     )
-  //     .pipe(catchError(this.handleError));
-  // }
+  userLogin(
+    username: string | undefined,
+    password: string | undefined
+  ): Observable<User> {
+    return this.httpClient
+      .get<User>(
+        this.baseUrl +
+          '/userLogin?username=' +
+          username +
+          '&password=' +
+          password
+      )
+      .pipe(catchError(this.handleError));
+  }
 
   updateUser(updatedUser: User): User | null {
     //Call web service
@@ -94,18 +95,18 @@ export class UserService {
     return manager;
   }
 
-  userLogin(
-    username: string | undefined,
-    password: string | undefined
-  ): User | null {
-    //incomplete implementation.
-    const manager = this.getSampleUser();
-    if (manager.username === username && manager.password === password) {
-      return manager;
-    } else {
-      return null;
-    }
-  }
+  // userLogin(
+  //   username: string | undefined,
+  //   password: string | undefined
+  // ): User | null {
+  //   //incomplete implementation.
+  //   const manager = this.getSampleUser();
+  //   if (manager.username === username && manager.password === password) {
+  //     return manager;
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   getUserByUserId(userId: number) {
     //To implement

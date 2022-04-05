@@ -105,43 +105,43 @@ export class IndexPage implements OnInit {
 
   userLogin(): void {
     console.log('User logging in...');
-    if (this.username === null || this.password === null) {
-      console.log('User login credentials are null');
-      return;
-    }
+    // if (this.username === null || this.password === null) {
+    //   console.log('User login credentials are null');
+    //   return;
+    // }
 
-    const user: User | null = this.userService.userLogin(
-      this.username.trim(),
-      this.password.trim()
-    );
+    // const user: User | null = this.userService.userLogin(
+    //   this.username.trim(),
+    //   this.password.trim()
+    // );
 
-    if (user != null) {
-      this.sessionService.setIsLogin(true);
-      this.sessionService.setCurrentUser(user);
-      this.loginError = false;
-      this.resetPage();
+    // if (user != null) {
+    //   this.sessionService.setIsLogin(true);
+    //   this.sessionService.setCurrentUser(user);
+    //   this.loginError = false;
+    //   this.resetPage();
 
-      this.router.navigate(['/shop']); //After successful login, direct to Marketplace
-    } else {
-      this.loginError = true;
-    }
+    //   this.router.navigate(['/shop']); //After successful login, direct to Shop
+    // } else {
+    //   this.loginError = true;
+    // }
 
-    // this.userService.userLogin(this.username, this.password).subscribe({
-    //   next: (response) => {
-    //     const user: User = response;
+    this.userService.userLogin(this.username, this.password).subscribe({
+      next: (response) => {
+        const user: User = response;
 
-    //     if (user != null) {
-    //       this.sessionService.setIsLogin(true);
-    //       this.sessionService.setCurrentUser(user);
-    //       this.loginError = false;
-    //       this.resetPage();
+        if (user != null) {
+          this.sessionService.setIsLogin(true);
+          this.sessionService.setCurrentUser(user);
+          this.loginError = false;
+          this.resetPage();
 
-    //       this.router.navigate(['/shop']); //After successful login, direct to Marketplace
-    //     } else {
-    //       this.loginError = true;
-    //     }
-    //   },
-    // });
+          this.router.navigate(['/shop']); //After successful login, direct to Shop
+        } else {
+          this.loginError = true;
+        }
+      },
+    });
   }
 
   userLogout(): void {
