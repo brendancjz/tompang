@@ -21,6 +21,7 @@ const httpOptions = {
 })
 export class ListingService {
   baseUrl = '/api/Listing';
+  listingToViewListingId: number | undefined;
 
   constructor(
     private httpClient: HttpClient,
@@ -125,7 +126,9 @@ export class ListingService {
     return this.httpClient
       .get<Listing>(
         this.baseUrl +
-          '/retrieveListing?username=' +
+          '/retrieveListing/' +
+          listingId +
+          '?username=' +
           username +
           '&password=' +
           password +
@@ -144,13 +147,6 @@ export class ListingService {
     const username = currentUser.username;
     const password = currentUser.password;
 
-    console.log(
-      this.baseUrl +
-        '/retrieveAllListings?username=' +
-        username +
-        '&password=' +
-        password
-    );
     return this.httpClient
       .get<Listing[]>(
         this.baseUrl +
@@ -174,6 +170,10 @@ export class ListingService {
 
   unlikeListing(listing: Listing) {
     console.log('unliking listing..');
+  }
+
+  setListingToViewListingId(listingId: number) {
+    this.listingToViewListingId = listingId;
   }
 
   private handleError(error: HttpErrorResponse) {

@@ -28,7 +28,7 @@ export class User {
   // @OneToMany(mappedBy = "seller")
   sellerTransactions: Transaction[] | undefined;
   // @ManyToMany
-  follwers: User[] | undefined;
+  followers: User[] | undefined;
   // @ManyToMany(mappedBy = "followers")
   following: User[] | undefined;
   // @OneToMany
@@ -60,5 +60,4 @@ export class User {
 
     this.creditCards = [];
   }
-
 }

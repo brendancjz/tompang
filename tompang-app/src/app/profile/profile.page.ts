@@ -23,6 +23,7 @@ export class ProfilePage implements OnInit {
   userToViewUsername: string | undefined;
   userToViewFollowers: number | undefined;
   userToViewFollowing: number | undefined;
+  userToViewProfilePic: string | undefined;
 
   listings: Listing[];
   searchTerm: string;
@@ -47,11 +48,13 @@ export class ProfilePage implements OnInit {
     // eslint-disable-next-line radix
     this.userToView = this.userService.getUserByUserId(parseInt(this.userId));
     this.userToViewUsername = this.currentUser.username;
-    // this.userToViewFollowers = this.currentUs  er.follwers.length;
-    // this.userToViewFollowing = this.currentUser.following.length;
-    this.listings = this.listingService.getUserListings(this.userToView);
+    this.userToViewFollowers = this.currentUser.followers.length;
+    this.userToViewFollowing = this.currentUser.following.length;
+    this.userToViewProfilePic = this.currentUser.profilePic;
+    this.listings = this.currentUser.createdListings;
 
     console.log(this.userToView);
+    console.log(this.listings);
   }
 
   isProfileTheCurrentUser(): boolean {

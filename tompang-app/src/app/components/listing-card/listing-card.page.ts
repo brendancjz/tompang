@@ -12,7 +12,6 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./listing-card.page.scss'],
 })
 export class ListingCardPage implements OnInit {
-
   basePictureUrl = '../../assets/images';
   currentUser: User;
 
@@ -21,9 +20,12 @@ export class ListingCardPage implements OnInit {
   // eslint-disable-next-line @typescript-eslint/member-ordering
   @Input() listing: Listing;
 
-  constructor(private router: Router, public listingService: ListingService,
+  constructor(
+    private router: Router,
+    public listingService: ListingService,
     private sessionSerivce: SessionService,
-    private userService: UserService) { }
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     this.currentUser = this.sessionSerivce.getCurrentUser();
@@ -31,6 +33,9 @@ export class ListingCardPage implements OnInit {
   }
 
   viewListingDetails(listing: Listing): void {
+    console.log(listing.title);
+    console.log(listing.listingId);
+    this.listingService.setListingToViewListingId(listing.listingId);
     this.router.navigate(['/view-listing-details/' + listing.listingId]);
   }
 
@@ -43,21 +48,28 @@ export class ListingCardPage implements OnInit {
   formatListingTitle(listing: Listing): string {
     const maxNumberBeforeCutOff = 15;
     if (listing.title.length >= maxNumberBeforeCutOff) {
-      return listing.title.substring(0,maxNumberBeforeCutOff - 3) + '...';
+      return listing.title.substring(0, maxNumberBeforeCutOff - 3) + '...';
     }
 
     return listing.title;
   }
 
   formatListingCreatedBy(listing: Listing): string {
-    //TODO: When User can be parsed through
-    // const maxNumberBeforeCutOff = 12;
-    // if (listing.createdBy.username.length >= maxNumberBeforeCutOff) {
-    //   return '@' + listing.createdBy.username.substring(0,maxNumberBeforeCutOff - 3) + '...';
-    // }
+    const maxNumberBeforeCutOff = 12;
 
-    // return '@' + listing.createdBy;
-    return '@stackoverflow';
+    // to display current user's listing's createdBy name since its unmarshalled on RWS side
+    if (listing.createdBy == null) {
+      return this.currentUser.username;
+    }
+    if (listing.createdBy.username.length >= maxNumberBeforeCutOff) {
+      return (
+        '@' +
+        listing.createdBy.username.substring(0, maxNumberBeforeCutOff - 3) +
+        '...'
+      );
+    }
+
+    return '@' + listing.createdBy.username;
   }
 
   likeListing(listing: Listing): void {
@@ -71,6 +83,9 @@ export class ListingCardPage implements OnInit {
   }
 
   doesCurrentUserLikeThisListing(): boolean {
-    return this.userService.isListingLikedByUser(this.currentUser.userId, this.listing.listingId);
+    return this.userService.isListingLikedByUser(
+      this.currentUser.userId,
+      this.listing.listingId
+    );
   }
 }
