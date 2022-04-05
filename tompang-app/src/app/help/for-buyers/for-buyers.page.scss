@@ -7,3 +7,9 @@ ion-title.page-name {
 ion-title.sub-page-name {
   font-size: 20px;
 }
+
+.listing-card-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
