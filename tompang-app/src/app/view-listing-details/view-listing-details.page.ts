@@ -14,7 +14,6 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./view-listing-details.page.scss'],
 })
 export class ViewListingDetailsPage implements OnInit {
-
   listingId: string | null;
   listingToView: Listing | null;
   retrieveListingError: boolean;
@@ -25,31 +24,33 @@ export class ViewListingDetailsPage implements OnInit {
 
   listingIsLiked: boolean;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
     private listingService: ListingService,
     private conversationService: ConversationService,
-    private userService: UserService) { }
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
     this.currentUser = this.sessionService.getCurrentUser();
     this.listingIsLiked = this.doesCurrentUserLikeThisListing();
 
-    if(this.listingId != null)
-    {
-
-      this.listingService.getAllAvailableListings().subscribe({
-        next:(response)=> {
-          this.listingToView = response[9];
-          this.hasLoaded = true;
-        },
-        error:(error)=>{
-          this.retrieveListingError = true;
-					console.log('********** View Listing Details Page.ts: ' + error);
-        }
-      });
+    if (this.listingId != null) {
+      this.listingService
+        .getListingByListingId(this.listingService.listingToViewListingId)
+        .subscribe({
+          next: (response) => {
+            this.listingToView = response;
+            this.hasLoaded = true;
+          },
+          error: (error) => {
+            this.retrieveListingError = true;
+            console.log('********** View Listing Details Page.ts: ' + error);
+          },
+        });
 
       // eslint-disable-next-line radix
       // this.listingService.getListingByListingId(parseInt(this.listingId)).subscribe({
@@ -58,15 +59,13 @@ export class ViewListingDetailsPage implements OnInit {
       //   },
       //   error:(error)=>{
       //     this.retrieveListingError = true;
-			// 		console.log('********** View Listing Details Page.ts: ' + error);
+      // 		console.log('********** View Listing Details Page.ts: ' + error);
       //   }
       // });
     }
   }
 
-  ionViewDidEnter() {
-
-  }
+  ionViewDidEnter() {}
 
   getPhotoUrl(photo: string) {
     const baseUrl = '../../assets/images';
@@ -74,8 +73,7 @@ export class ViewListingDetailsPage implements OnInit {
   }
 
   formatListingCreatedBy(): string {
-    // return this.listingToView.createdBy.username;
-    return '@stackoverflow';
+    return this.listingToView.createdBy.username;
   }
   formatListingCategory(): string {
     const category = this.listingToView.category;
@@ -99,8 +97,10 @@ export class ViewListingDetailsPage implements OnInit {
     try {
       //Have a current convo
       // eslint-disable-next-line radix
-      convo = this.conversationService.getBuyerConversationWithListing(currentUser.userId, parseInt(this.listingId));
-
+      convo = this.conversationService.getBuyerConversationWithListing(
+        currentUser.userId,
+        parseInt(this.listingId)
+      );
     } catch (ex) {
       //Need to create a new convo
       // System.out.println(ex.getMessage());
@@ -130,6 +130,9 @@ export class ViewListingDetailsPage implements OnInit {
 
   doesCurrentUserLikeThisListing(): boolean {
     // eslint-disable-next-line radix
-    return this.userService.isListingLikedByUser(this.currentUser.userId, parseInt(this.listingId));
+    return this.userService.isListingLikedByUser(
+      this.currentUser.userId,
+      parseInt(this.listingId)
+    );
   }
 }
