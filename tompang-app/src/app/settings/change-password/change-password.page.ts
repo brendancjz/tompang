@@ -18,6 +18,10 @@ export class ChangePasswordPage implements OnInit {
 
   editError: boolean;
 
+  resultSuccess: boolean;
+  resultError: boolean;
+  message: string;
+
   constructor(private location: Location,
     public sessionService: SessionService,
     private userService: UserService) {}
@@ -34,14 +38,32 @@ export class ChangePasswordPage implements OnInit {
     console.log('New Password: ' + this.newPassword);
     console.log('Repeat Password: ' + this.repeatPassword);
 
+    
+
     const currentUser: User = this.sessionService.getCurrentUser();
     if (this.currentPassword === currentUser.password && this.newPassword === this.repeatPassword
       && this.newPassword !== this.currentPassword) {
         console.log('Good to change password');
-
-        //Update sessionService currentUser
-      }
+        
+        this.userService.updateUserPassword(this.newPassword).subscribe({
+          next: (response) => {
+            this.resultSuccess = true;
+            this.resultError = false;
+            this.message = ' User password updated successfully';
+          },
+          error: (error) => {
+            this.resultError = true;
+            this.resultSuccess = false;
+            this.message =
+              'An error has occurred while updating the user password: ' + error;
+    
+            console.log('********** UpdateUserPage: ' + error);
+          },
+        });
+        this.editError = false;
+      } else{
     this.editError = true;
+      }
   }
 
   resetPage(): void {

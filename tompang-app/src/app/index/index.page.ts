@@ -31,6 +31,7 @@ export class IndexPage implements OnInit {
   dateOfBirth: Date | undefined;
   contactNumber: number | undefined;
   registrationError: boolean;
+  registrationSuccess: boolean;
   registrationErrorMsg: string | undefined;
 
   //Views
@@ -100,6 +101,23 @@ export class IndexPage implements OnInit {
     user.isDisabled = false;
 
     console.log(user);
+
+    this.userService.createUser(user).subscribe({
+      next:(response)=>{
+        let newUserId: number = response;
+        this.registrationSuccess = true;
+        this.registrationError = false;
+        this.registrationErrorMsg = "New User " + newUserId + " created successfully";
+      },
+      error:(error)=>{
+        this.registrationError = true;
+        this.registrationSuccess = false;
+        this.registrationErrorMsg = "An error has occurred while creating the new user: " + error;
+
+        console.log(this.registrationErrorMsg);
+        console.log('********** CreateNewUserPage: ' + error);
+      }
+    });
     this.resetPage();
   }
 

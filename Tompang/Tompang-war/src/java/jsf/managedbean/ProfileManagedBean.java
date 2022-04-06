@@ -109,6 +109,7 @@ public class ProfileManagedBean implements Serializable {
         try {
             if (user.getPassword().equals(currPassword)) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "User successfully changed password.", null));
+                
                 userSessionBean.updateUserPassword(user.getUserId(), newPassword);
 
                 User updatedUser = userSessionBean.getUserByUserId(user.getUserId());

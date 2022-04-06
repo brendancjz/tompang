@@ -12,6 +12,8 @@ import { User } from '../models/user';
 import { SessionService } from './session.service';
 import { catchError } from 'rxjs/operators';
 import { CreateCreditCardReq } from '../models/create-creditcard-req';
+import { UpdateUserReq } from '../models/update-user-req';
+import { logging } from 'protractor';
 
 const httpOptions = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -30,6 +32,12 @@ export class UserService {
     private sessionService: SessionService
   ) {
     this.users = new Array();
+  }
+
+  createUser(user: User): Observable<any> {
+    return this.httpClient
+      .put<number>(this.baseUrl, user, httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   getUser(username: string | undefined): Observable<User> {
@@ -53,14 +61,40 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
-  updateUser(updatedUser: User): User | null {
-    //Call web service
-    console.log('Updating user in UserService');
-    return updatedUser;
+  updateUser(updatedUser: User): Observable<any> {
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
+    let updateUserReq: UpdateUserReq = new UpdateUserReq(
+      username,
+      password,
+      updatedUser
+    );
+
+    return this.httpClient
+      .post<any>(this.baseUrl, updateUserReq, httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
-  getUserCreditCards() :Observable<CreditCard[]>{
+  updateUserPassword(newPassword: string): Observable<any> {
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
+ 
 
+    let updateUserReq: UpdateUserReq = new UpdateUserReq(
+      username,
+      password,
+      null,
+      newPassword
+    );
+
+    return this.httpClient
+      .post<any>(this.baseUrl, updateUserReq, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  getUserCreditCards(): Observable<CreditCard[]> {
     const currentUser = this.sessionService.getCurrentUser();
     const username = currentUser.username;
     const password = currentUser.password;
@@ -74,10 +108,9 @@ export class UserService {
           password
       )
       .pipe(catchError(this.handleError));
-
   }
 
-  createCreditCard(creditCard: CreditCard): Observable<any>{
+  createCreditCard(creditCard: CreditCard): Observable<any> {
     const currentUser = this.sessionService.getCurrentUser();
     const username = currentUser.username;
     const password = currentUser.password;
@@ -90,7 +123,11 @@ export class UserService {
     );
 
     return this.httpClient
-      .put<number>(this.baseUrl + '/createCreditCard', createCreditCardReq, httpOptions)
+      .put<number>(
+        this.baseUrl + '/createCreditCard',
+        createCreditCardReq,
+        httpOptions
+      )
       .pipe(catchError(this.handleError));
   }
 

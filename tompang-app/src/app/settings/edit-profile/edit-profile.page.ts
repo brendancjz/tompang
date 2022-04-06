@@ -11,17 +11,22 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./edit-profile.page.scss'],
 })
 export class EditProfilePage implements OnInit {
-
   firstName: string | undefined;
   lastName: string | undefined;
   email: string | undefined;
   contactNumber: number | undefined;
   dateOfBirth: string | undefined;
 
+  resultSuccess: boolean;
+  resultError: boolean;
+  message: string;
+
   editError: boolean;
 
-  constructor(public sessionService: SessionService,
-    private userService: UserService) {}
+  constructor(
+    public sessionService: SessionService,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     const currentUser = this.sessionService.getCurrentUser();
@@ -33,9 +38,13 @@ export class EditProfilePage implements OnInit {
     const dobString = currentUser.dateOfBirth.toString().split('T')[0];
     this.dateOfBirth = dobString + 'T00:01:00-04:00';
 
-    document.getElementById('back-button').addEventListener('click', () => {
-      this.resetPage();
-    }, { once: true});
+    document.getElementById('back-button').addEventListener(
+      'click',
+      () => {
+        this.resetPage();
+      },
+      { once: true }
+    );
   }
 
   updateUser(): void {
@@ -47,12 +56,33 @@ export class EditProfilePage implements OnInit {
     console.log('DoB: ' + this.dateOfBirth);
 
     const currentUser = this.sessionService.getCurrentUser();
-    let updatedUser = new User(currentUser.userId, this.firstName, this.lastName,
-      currentUser.username, currentUser.password, this.email, new Date(this.dateOfBirth), currentUser.profilePic,
-      this.contactNumber);
+    let updatedUser = new User(
+      currentUser.userId,
+      this.firstName,
+      this.lastName,
+      currentUser.username,
+      currentUser.password,
+      this.email,
+      new Date(this.dateOfBirth),
+      currentUser.profilePic,
+      this.contactNumber
+    );
 
-    updatedUser = this.userService.updateUser(updatedUser);
-    //Update sessionServie currentUser
+    this.userService.updateUser(updatedUser).subscribe({
+      next: (response) => {
+        this.resultSuccess = true;
+        this.resultError = false;
+        this.message = ' User updated successfully';
+      },
+      error: (error) => {
+        this.resultError = true;
+        this.resultSuccess = false;
+        this.message =
+          'An error has occurred while updating the user: ' + error;
+
+        console.log('********** UpdateUserPage: ' + error);
+      },
+    });
   }
 
   resetPage(): void {
@@ -68,5 +98,3 @@ export class EditProfilePage implements OnInit {
     console.log('confirmed');
   }
 }
-
-

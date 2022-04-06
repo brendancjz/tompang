@@ -286,7 +286,11 @@ public class UserResource {
         if (updateUserReq != null) {
             try {
                 User user = userSessionBean.userLogin(updateUserReq.getUsername(), updateUserReq.getPassword());
-                userSessionBean.updateUserDetails(updateUserReq.getUser());
+                if(updateUserReq.getUser() != null){
+                    userSessionBean.updateUserDetails(updateUserReq.getUser());
+                } else {
+                    userSessionBean.updateUserPassword(user.getUserId(), updateUserReq.getNewPassword());
+                }
 
                 return Response.status(Response.Status.OK).build();
             } catch (InvalidLoginCredentialsException ex) {
