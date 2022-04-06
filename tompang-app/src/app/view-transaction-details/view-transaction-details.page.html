@@ -1,0 +1,23 @@
+<app-header></app-header>
+<ion-content class="hide-scroll-bar">
+  <div *ngIf="hasLoaded">
+    <ion-title class="page-name grey-color">
+      My Purchases
+    </ion-title>
+    <hr class="horizontal-rule" />
+    <ion-title class="sub-page-name grey-color">
+      Transaction ID: {{transactionId}}
+    </ion-title>
+    <hr class="horizontal-rule" />
+    <div style="margin-left: 16px;">
+      <ion-label>Payment</ion-label>
+      <!--TODO -->
+    </div>
+    <div>
+      <div class="input-button-div">
+        <ion-button style="text-transform: initial;font-size: 16px;width: 160px;" color="tertiary" (click)="raiseDispute()">Raise A Dispute</ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<app-footer></app-footer>

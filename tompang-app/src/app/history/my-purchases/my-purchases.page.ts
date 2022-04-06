@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { sample } from 'rxjs/operators';
 import { Transaction } from 'src/app/models/transaction';
 import { ListingService } from 'src/app/services/listing.service';
@@ -12,7 +13,7 @@ export class MyPurchasesPage implements OnInit {
 
   transactions: Transaction[];
 
-  constructor(private listingService: ListingService) { }
+  constructor(private router: Router, private listingService: ListingService) { }
 
   ngOnInit() {
     this.transactions = [];
@@ -41,6 +42,8 @@ export class MyPurchasesPage implements OnInit {
 
   viewTransaction(transaction: Transaction) {
     console.log('view transaction details');
+
+    this.router.navigate(['/view-transaction-details/' + transaction.transactionId]);
   }
 
   formatListingTitle(transaction: Transaction): string {

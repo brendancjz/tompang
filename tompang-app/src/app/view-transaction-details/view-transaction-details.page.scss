@@ -1,0 +1,20 @@
+ion-title.page-name {
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+ion-title.sub-page-name {
+  font-size: 20px;
+}
+
+ion-button.button-icon {
+  --box-shadow: none;
+}
+
+.input-button-div {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 10px;
+}

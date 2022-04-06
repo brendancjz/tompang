@@ -120,6 +120,10 @@ const routes: Routes = [
     loadChildren: () => import('./view-credit-card-details/view-credit-card-details.module').then( m => m.ViewCreditCardDetailsPageModule)
   },
   {
+    path: 'view-transaction-details/:transactionId',
+    loadChildren: () => import('./view-transaction-details/view-transaction-details.module').then( m => m.ViewTransactionDetailsPageModule)
+  },
+  {
     path: 'blog',
     loadChildren: () => import('./blog/blog.module').then( m => m.BlogPageModule)
   },
@@ -132,6 +136,7 @@ const routes: Routes = [
       redirectTo: 'index',
       pathMatch: 'full',
     },
+
 
 
 ];
