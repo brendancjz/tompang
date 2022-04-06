@@ -28,7 +28,7 @@
       </div>
       <div class="details-info">
         <ion-label style="font-size: 18px;" class="grey-color">
-          {{listingToView.title}}
+          {{formatListingTitle()}}
         </ion-label>
       </div>
       <div class="details-info">
@@ -61,8 +61,8 @@
         </ion-label>
       </div>
       <div style="margin-left: 10px;margin-right: 10px;display: flex;">
-        <ion-icon style="margin-right: 5px;margin-top:-5px;font-size: 33px;" name="pencil-outline"></ion-icon>
-        <div>
+        <ion-icon style="margin-right: 5px;" name="pencil-outline"></ion-icon>
+        <div style="width: 320px;">
           <ion-label style="font-size: 14px;" class="grey-color">
             {{listingToView.description}}
           </ion-label>

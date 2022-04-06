@@ -97,10 +97,7 @@ export class ViewListingDetailsPage implements OnInit {
     try {
       //Have a current convo
       // eslint-disable-next-line radix
-      convo = this.conversationService.getBuyerConversationWithListing(
-        currentUser.userId,
-        parseInt(this.listingId)
-      );
+      convo = this.conversationService.getBuyerConversationWithListing(currentUser.userId,parseInt(this.listingId));
     } catch (ex) {
       //Need to create a new convo
       // System.out.println(ex.getMessage());
@@ -130,9 +127,16 @@ export class ViewListingDetailsPage implements OnInit {
 
   doesCurrentUserLikeThisListing(): boolean {
     // eslint-disable-next-line radix
-    return this.userService.isListingLikedByUser(
-      this.currentUser.userId,
-      parseInt(this.listingId)
-    );
+    return this.userService.isListingLikedByUser(this.currentUser.userId,parseInt(this.listingId));
+  }
+
+
+  formatListingTitle(): string {
+    const maxNumberBeforeCutOff = 30;
+    if (this.listingToView.title.length >= maxNumberBeforeCutOff) {
+      return this.listingToView.title.substring(0, maxNumberBeforeCutOff - 3) + '...';
+    }
+
+    return this.listingToView.title;
   }
 }
