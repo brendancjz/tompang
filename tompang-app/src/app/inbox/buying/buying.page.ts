@@ -6,6 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 import { Conversation } from 'src/app/models/conversation';
 import { Listing } from 'src/app/models/listing';
+import { Message } from 'src/app/models/message';
 
 @Component({
   selector: 'app-buying',
@@ -20,16 +21,15 @@ export class BuyingPage implements OnInit {
     public sessionService: SessionService,
     private userService: UserService) {
 
-      //Creating a sample Conversation;
-      const sampleConvo = new Conversation(1);
-      sampleConvo.createdBy = new User(5, 'Bob','Zimmermann','bobzimmer','password',
-      'bob.zim@gmail.com',new Date(),'/uploadedFiles/default_picture.jpg',54631212);
-      sampleConvo.listing = new Listing(5,'Singapore','Singapore',
-      'Dumbbell Set','Hello there mate. Would you like to buy this dumbbell set from Singapore?',
-      'GIFTS',40.00,new Date(),2);
-      this.buyingConvos = [sampleConvo, sampleConvo, sampleConvo];
+    //Creating a sample Conversation;
+    const sampleConvo1 = new Conversation(60);
+    sampleConvo1.createdBy = sessionService.getCurrentUser();
+    sampleConvo1.listing = new Listing(5, 'Singapore', 'Singapore',
+      'Dumbbell Set', 'Hello there mate. Would you like to buy this dumbbell set from Singapore?',
+      'GIFTS', 40.00, new Date(), 2);
 
-    }
+    this.buyingConvos = [sampleConvo1, sampleConvo1, sampleConvo1];
+  }
 
   ngOnInit() {
   }

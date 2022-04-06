@@ -32,8 +32,7 @@ export class ViewConversationPage implements OnInit {
     this.convoId = this.activatedRoute.snapshot.paramMap.get('convoId');
     this.currentUser = this.sessionService.getCurrentUser();
 
-    if(this.convoId != null)
-    {
+    if (this.convoId != null) {
       this.hasLoaded = true;
       console.log('View conversation: ' + this.convoId);
 
@@ -69,5 +68,11 @@ export class ViewConversationPage implements OnInit {
   makeTransaction(): void {
     console.log('Make transaction..');
     this.router.navigate(['/create-transaction/' + this.convoToView.listing.listingId]);
+  }
+
+  getUserProfilePic(convo: Conversation): string {
+    const baseUrl = '../../assets/images';
+    //Profile pic should be the user of the latest message sent
+    return baseUrl + convo.createdBy.profilePic;
   }
 }
