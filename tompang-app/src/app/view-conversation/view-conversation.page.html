@@ -10,19 +10,29 @@
       <ion-item lines="none">
         <img style="width: 70px;border-radius: 5px;margin-right: 10px;" src={{getConversationListingUrl()}}>
         <div style="display: flex;flex-direction: column;">
-          <ion-label class="grey-color" style="margin-bottom: 5px;" >{{convoToView.listing.title}}</ion-label>
+          <ion-label class="grey-color" style="margin-bottom: 5px;">{{convoToView.listing.title}}</ion-label>
           <ion-label class="grey-color">S${{convoToView.listing.price}}</ion-label>
         </div>
       </ion-item>
     </div>
     <div *ngIf="isCurrentUserTheBuyer()">
       <ion-item>
-        <ion-button style="width: 85px;height:35px;font-size:14px;text-transform: capitalize;" color="primary" (click)="makeTransaction()">Buy Now</ion-button>
+        <ion-button style="width: 85px;height:35px;font-size:14px;text-transform: capitalize;" color="primary"
+          (click)="makeTransaction()">Buy Now</ion-button>
       </ion-item>
 
     </div>
     <div>
-      <!--Implement the conversation messages itself-->
+      <ion-list *ngFor="let message of convoToView.messages">
+        <div *ngIf="!isCurrentUserTheBuyer()">
+          <ion-item *ngIf="message.fromBuyer">{{message.body}}</ion-item>
+          <ion-item *ngIf="!message.fromBuyer" style="float:right">{{message.body}}</ion-item>
+        </div>
+        <div *ngIf="isCurrentUserTheBuyer()">
+          <ion-item *ngIf="message.fromBuyer" style="float:right">{{message.body}}</ion-item>
+          <ion-item *ngIf="!message.fromBuyer">{{message.body}}</ion-item>
+        </div>
+      </ion-list>
     </div>
   </div>
 </ion-content>
