@@ -35,7 +35,7 @@ export class ListingService {
     const username = currentUser.username;
     const password = currentUser.password;
 
-    let createListingReq: CreateListingReq = new CreateListingReq(
+    const createListingReq: CreateListingReq = new CreateListingReq(
       username,
       password,
       newListing
@@ -51,12 +51,12 @@ export class ListingService {
     const currentUser = this.sessionService.getCurrentUser();
     const username = currentUser.username;
     const password = currentUser.password;
-    let createListingReq: CreateListingReq = new CreateListingReq(
+    const createListingReq: CreateListingReq = new CreateListingReq(
       username,
       password,
       listing
     );
-    
+
     return this.httpClient.post<any>(this.baseUrl, createListingReq, httpOptions).pipe
     (
       catchError(this.handleError)
@@ -68,11 +68,11 @@ export class ListingService {
       1,
       'Singapore',
       'Singapore',
-      'Bape T-Shirt',
+      'Bape T-Shirt With Black Stripes super dope',
       'Get yo bape t-shirts today!',
       'APPAREL',
       100,
-      new Date(),
+      new Date('December 17, 1995 03:24:00'),
       5
     );
     sampleListing.photos.push('/tompang_icon_logo_blue.png');
@@ -138,7 +138,7 @@ export class ListingService {
   }
 
   getUserListings(user: User): Observable<Listing[]> {
-    
+
     const username = user.username;
     const password = user.password;
 

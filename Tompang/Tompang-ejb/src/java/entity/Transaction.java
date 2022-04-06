@@ -63,11 +63,15 @@ public class Transaction implements Serializable {
     @Column(nullable = false)
     @NotNull
     private Boolean isAccepted;
+    @Column(nullable = false)
+    @NotNull
+    private Boolean isRejected;
 
     public Transaction() {
         this.isCompleted = false;
         this.hasDispute = false;
         this.isAccepted = false;
+        this.isRejected = false;
     }
 
     public Transaction(Double amount, Date createdOn, User buyer, User seller, Listing listing, CreditCard buyerCard) {
@@ -92,6 +96,14 @@ public class Transaction implements Serializable {
             return "None";
         }
         
+    }
+
+    public Boolean getIsRejected() {
+        return isRejected;
+    }
+
+    public void setIsRejected(Boolean isRejected) {
+        this.isRejected = isRejected;
     }
     
     public Long getTransactionId() {

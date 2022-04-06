@@ -39,10 +39,10 @@ public class Conversation implements Serializable {
     private List<Message> messages;
     @Column(nullable = false)
     @NotNull
-    private int buyerUnread;
+    private Integer buyerUnread;
     @Column(nullable = false)
     @NotNull
-    private int sellerUnread;
+    private Integer sellerUnread;
 
     
     public Conversation() {

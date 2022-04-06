@@ -11,6 +11,7 @@ export class Transaction {
   isCompleted: boolean | undefined;
   hasDispute: boolean | undefined;
   isAccepted: boolean | undefined;
+  isRejected: boolean | undefined;
 
   // @ManyToOne(optional = false)
   buyer: User | undefined;
@@ -30,6 +31,7 @@ export class Transaction {
       this.isCompleted = false;
       this.hasDispute = false;
       this.isAccepted = false;
+      this.isRejected = false;
     }
 
 }
