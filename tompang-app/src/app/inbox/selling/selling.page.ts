@@ -16,12 +16,12 @@ import { ConversationService } from '../../services/conversation.service';
 })
 export class SellingPage implements OnInit {
   searchTerm: string;
-  sellingConvos: Conversation[];
+  sellingConvos: Conversation[] | null;
 
   constructor(private location: Location,
     public sessionService: SessionService,
     private userService: UserService,
-    private conversationService:ConversationService) {
+    private conversationService: ConversationService) {
     this.conversationService.retrieveSellerConversations().subscribe({
       next: (response) => {
         this.sellingConvos = response;
@@ -31,6 +31,7 @@ export class SellingPage implements OnInit {
       },
       error: (error) => {
         console.log('sellingPage : retrieveSellerConversations.ts:' + error);
+        this.sellingConvos = null;
       },
     });
   }
