@@ -40,9 +40,9 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
-  getUser(username: string | undefined): Observable<User> {
+  getUser(userId: number | undefined): Observable<User> {
     return this.httpClient
-      .get<User>(this.baseUrl + '/retrieveUser?username=' + username)
+      .get<User>(this.baseUrl + '/retrieveUser/' + userId)
       .pipe(catchError(this.handleError));
   }
 
@@ -181,10 +181,7 @@ export class UserService {
   //   }
   // }
 
-  getUserByUserId(userId: number) {
-    //To implement
-    return this.getSampleUser();
-  }
+ 
 
   isListingLikedByUser(userId: number, listingId: number) {
     //To implement

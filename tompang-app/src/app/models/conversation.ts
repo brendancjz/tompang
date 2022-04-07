@@ -11,6 +11,8 @@ export class Conversation {
   // @ManyToOne
   createdBy: User | undefined;
   // @ManyToOne
+  seller: User | undefined;
+  // @ManyToOne
   listing: Listing | undefined;
   // @OneToMany
   messages: Message[] | undefined;

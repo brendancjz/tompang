@@ -20,6 +20,7 @@ export class ViewListingDetailsPage implements OnInit {
 
   hasLoaded: boolean;
 
+  
   currentUser: User;
 
   listingIsLiked: boolean;

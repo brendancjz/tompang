@@ -10,9 +10,16 @@
   </div>
   <hr class="horizontal-rule" />
   <div>
-    <ion-searchbar class="grey-color" placeholder="Search Conversation" [(ngModel)]="searchTerm" showCancelButton="focus" animated></ion-searchbar>
-    <ion-list *ngFor="let convo of sellingConvos | filter:searchTerm">
+    <ion-searchbar class="grey-color" placeholder="Search Conversation" [(ngModel)]="searchTerm"
+      showCancelButton="focus" animated></ion-searchbar>
+    <div *ngIf="sellingConvos != null">
+      <ion-list *ngFor="let convo of sellingConvos | filter:searchTerm">
         <app-conversation-item [convo]="convo"></app-conversation-item>
-    </ion-list>
+      </ion-list>
+    </div>
+    <br/>
+    <div *ngIf="sellingConvos == null" style="text-align: center;">
+      <ion-text>List of conversations is empty.</ion-text>
+    </div>
   </div>
 </ion-content>

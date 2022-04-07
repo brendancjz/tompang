@@ -17,7 +17,7 @@
         </ion-button>
       </div>
 
-      <ion-button
+      <ion-button *ngIf="hasLoaded === true && isProfileTheCurrentUser()"
         color="tertiary"
         class="button-icon"
         icon-only
@@ -30,7 +30,7 @@
     </div>
   </div>
   <hr class="horizontal-rule" />
-  <div>
+  <div *ngIf="hasLoaded ===  true">
     <ion-title class="sub-heading grey-color" *ngIf="isProfileTheCurrentUser()">
       My Listings
     </ion-title>

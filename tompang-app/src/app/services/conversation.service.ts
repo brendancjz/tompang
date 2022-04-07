@@ -31,6 +31,22 @@ export class ConversationService {
     private listingService: ListingService) {
   }
 
+  retrieveBuyerConversations(): Observable<Conversation[]>{
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
+    console.log(username);
+    console.log(password);
+    return this.httpClient.get<Conversation[]>(this.baseUrl + '/retrieveBuyerConversations?username=' + username + '&password=' + password).pipe(catchError(this.handleError));
+  }
+
+  retrieveSellerConversations(): Observable<Conversation[]> {
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
+    return this.httpClient.get<Conversation[]>(this.baseUrl + '/retrieveSellerConversations?username=' + username + '&password=' + password).pipe(catchError(this.handleError));
+  }
+
   getBuyerConversationWithListing(userId: number, listingId: number): Conversation {
     //Implement bridge
 
@@ -83,5 +99,17 @@ export class ConversationService {
       return sampleConvo3;
     }
     return sampleConversation;
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = 'An Unknown error has occured: ' + error.error;
+    } else {
+      errorMessage =
+        'A HTTP error has occured: ' + `HTTP ${error.status}: ${error.error}`;
+    }
+    console.error(errorMessage);
+    return throwError(() => new Error(errorMessage));
   }
 }

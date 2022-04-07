@@ -61,13 +61,13 @@ public class UserResource {
         creditCardSessionBean = lookupCreditCardSessionBeanLocal();
     }
 
-    @Path("retrieveUser/{username}")
+    @Path("retrieveUser/{userId}")
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response retrieveUser(@PathParam("username") String username) {
+    public Response retrieveUser(@PathParam("userId") Long userId) {
         try {
-            User user = userSessionBean.retrieveUserByUsername(username);
+            User user = userSessionBean.getUserByUserId(userId);
 
             // not supposed to be setting null, same problem as ListingResource
 

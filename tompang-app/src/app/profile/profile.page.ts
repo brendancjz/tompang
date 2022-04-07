@@ -18,7 +18,7 @@ export class ProfilePage implements OnInit {
   currentUser: User | null;
 
   title: string | undefined;
-  userId: string | null;
+  userIdToView: string | null;
   userToView: User | null;
   userToViewUsername: string | undefined;
   userToViewFollowers: number | undefined;
@@ -27,6 +27,7 @@ export class ProfilePage implements OnInit {
 
   listings: Listing[];
   searchTerm: string;
+  hasLoaded: boolean | undefined;
 
   constructor(
     private router: Router,
@@ -39,34 +40,48 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
     this.currentUser = this.sessionService.getCurrentUser();
 
-    this.userId = this.activatedRoute.snapshot.paramMap.get('userId');
-    if (this.userId === '#') {
+    this.userIdToView = this.activatedRoute.snapshot.paramMap.get('userId');
+    if (this.userIdToView === '#') {
       //This is to handle the missing userId at the beginning
-      this.userId = this.currentUser.userId.toString();
+      this.userIdToView = this.currentUser.userId.toString();
     }
 
     // eslint-disable-next-line radix
-    this.userToView = this.userService.getUserByUserId(parseInt(this.userId));
-    this.userToViewUsername = this.currentUser.username;
-
-    this.listingService.getUserListings(this.currentUser).subscribe({
+    this.userService.getUser(parseInt(this.userIdToView)).subscribe({
       next: (response) => {
-        this.listings = response;
+        this.userToView = response;
+        console.log(this.userToView.userId);
+        console.log(this.currentUser.userId);
+
+        this.userToViewUsername = this.userToView.username;
+        this.userToViewFollowers = this.userToView.followers.length;
+        this.userToViewFollowing = this.userToView.following.length;
+        this.userToViewProfilePic = this.userToView.profilePic;
+
+        this.listingService.getUserListings(this.userToView).subscribe({
+          next: (response) => {
+            this.listings = response;
+            this.hasLoaded = true;
+          },
+          error: (error) => {
+            console.log('getAllAvailableListings.ts:' + error);
+          },
+        });
       },
       error: (error) => {
-        console.log('getAllAvailableListings.ts:' + error);
+        console.log('********** View User Profile.ts: ' + error);
       },
     });
 
-    this.userToViewFollowers = this.currentUser.followers.length;
-    this.userToViewFollowing = this.currentUser.following.length;
-    this.userToViewProfilePic = this.currentUser.profilePic;
+    // this.userToViewFollowers = this.currentUser.followers.length;
+    // this.userToViewFollowing = this.currentUser.following.length;
+    // this.userToViewProfilePic = this.currentUser.profilePic;
 
     console.log(this.userToView);
     console.log(this.listings);
   }
 
   isProfileTheCurrentUser(): boolean {
-    return this.userToView.username === this.currentUser.username;
+    return this.userToView.userId == this.currentUser.userId;
   }
 }
