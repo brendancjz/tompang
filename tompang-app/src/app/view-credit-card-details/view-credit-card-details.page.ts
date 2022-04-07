@@ -4,6 +4,8 @@ import { CreditCard } from '../models/creditCard';
 import { User } from '../models/user';
 import { CreditCardService } from '../services/creditCard.service';
 import { SessionService } from '../services/session.service';
+import { AlertController } from '@ionic/angular';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-view-credit-card-details',
@@ -21,10 +23,16 @@ export class ViewCreditCardDetailsPage implements OnInit {
   displayConfirmDeleteButton: boolean;
   successfulDeletion: boolean;
 
+  error: boolean;
+  errorMessage: string;
+
+
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
     private sessionService: SessionService,
-    private creditCardService: CreditCardService) { }
+    private creditCardService: CreditCardService,
+    public alertController: AlertController,
+    private userService: UserService) { }
 
   ngOnInit() {
 
@@ -57,11 +65,42 @@ export class ViewCreditCardDetailsPage implements OnInit {
     return stringDate;
   }
 
-  deleteCreditCard() {
+  async deleteCreditCard() {
     console.log('Deleting credit card..');
 
+    const alert = await this.alertController.create({
+      header: 'Confirm Delete Credit Card',
+      message: 'Confirm delete Credit Card <strong>' + this.ccToView.ccNumber + '</strong>?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+
+            this.userService.deleteCreditCard(Number(this.ccId)).subscribe({
+              next:(response)=>{
+                this.successfulDeletion = true;
+                // this.ccId = null; Can we redirect back to view all credit cards page?
+              },
+              error:(error)=>{
+                this.error = true;
+                this.errorMessage = error;
+              }
+            });
+          }
+        }
+      ]
+    });
+
+    await alert.present(); 
     // eslint-disable-next-line radix
-    this.successfulDeletion = this.creditCardService.deleteCreditCard(parseInt(this.ccId));
+   
   }
 
   toggleConfirmDeleteButton() {
