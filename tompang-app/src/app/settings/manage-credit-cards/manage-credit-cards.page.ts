@@ -83,7 +83,7 @@ export class ManageCreditCardsPage implements OnInit {
       return;
     }
     //TODO
-    let creditCard: CreditCard = new CreditCard();
+    const creditCard: CreditCard = new CreditCard();
     creditCard.ccBrand = this.ccBrand;
     console.log(this.ccBrand);
     creditCard.ccName = this.ccName;
@@ -92,22 +92,22 @@ export class ManageCreditCardsPage implements OnInit {
     console.log(this.ccNumber);
     creditCard.ccCIV =  this.ccCIV;
     console.log(this.ccCIV);
-    creditCard.expiryDate = new Date(this.expiryYear, this.expiryMonth)
+    creditCard.expiryDate = new Date(this.expiryYear, this.expiryMonth);
     console.log(this.expiryYear);
     console.log(this.expiryMonth);
-    
+
 
     this.userService.createCreditCard(creditCard).subscribe({
       next:(response)=>{
-        let newCreditCardId: number = response;
+        const newCreditCardId: number = response;
         this.resultSuccess = true;
         this.resultError = false;
-        this.message = "New Credit Card " + newCreditCardId + " created successfully";
+        this.message = 'New Credit Card ' + newCreditCardId + ' created successfully';
       },
       error:(error)=>{
         this.resultError = true;
         this.resultSuccess = false;
-        this.message = "An error has occurred while creating the new credit card: " + error;
+        this.message = 'An error has occurred while creating the new credit card: ' + error;
 
         console.log('********** CreateNewCreditCardPage: ' + error);
       }
