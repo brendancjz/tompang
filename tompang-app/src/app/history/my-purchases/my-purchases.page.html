@@ -16,20 +16,22 @@
             <div class="transaction-block">
               <div style="display: flex;align-items: center;">
                 <ion-icon name="document-text-outline" style="font-size: 30px;margin-right: 20px;"></ion-icon>
-                <ion-item-group style="display:flex;flex-direction:column;justify-content:center;height: 65px;">
+                <ion-item-group style="display:flex;flex-direction:column;justify-content:center;">
                   <ion-label style="font-size: 16px;margin-bottom: 5px;">Purchased {{formatListingTitle(transaction)}}</ion-label>
                   <ion-text style="font-size: 14px;margin-bottom: 5px;">S${{transaction.listing.price}}</ion-text>
-                  <ion-text style="font-size: 12px;margin-bottom: 5px;">
+                  <ion-text style="font-size: 12px;margin-bottom: 15px;">
                     ETA: {{formatListingETA(transaction)}}
-                    <span *ngIf="transaction.isAccepted === true"
-                      style="color:var(--ion-color-primary);margin-left: 80px;position: absolute;bottom: 15px;">ACCEPTED</span>
-                    <span *ngIf="transaction.isRejected === true"
-                    style="color:red;margin-left: 80px;position: absolute;bottom: 15px;">REJECTED</span>
-                    <span *ngIf="transaction.hasDispute === true"
-                    style="color:red;margin-left: 80px;position: absolute;bottom: 15px;">IN DISPUTE</span>
-                    <span *ngIf="transaction.isCompleted === true"
-                    style="color:var(--ion-color-primary);margin-left: 80px;position: absolute;bottom: 15px;">COMPLETED</span>
-                  </ion-text>
+                    <div style="display: flex;flex-direction: column;justify-content: center;height:45px;margin-left: 150px;position:absolute;top: 22px;">
+                      <span *ngIf="transaction.isAccepted === true && transaction.isCompleted === false"
+                      style="color:var(--ion-color-primary);">ACCEPTED</span>
+                      <span *ngIf="transaction.isRejected === true && transaction.isCompleted === false"
+                      style="color:red;">REJECTED</span>
+                      <span *ngIf="transaction.hasDispute === true"
+                      style="color:red;">IN DISPUTE</span>
+                      <span *ngIf="transaction.isCompleted === true"
+                      style="color:var(--ion-color-primary);">COMPLETED</span>
+                    </div>
+                    </ion-text>
                 </ion-item-group>
               </div>
               <div>

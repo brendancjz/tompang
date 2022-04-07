@@ -53,8 +53,8 @@ export class MyPurchasesPage implements OnInit {
   }
 
   formatListingETA(transaction: Transaction): string {
-    const etaString = transaction.listing.expectedArrivalDate.toString();
+    const etaString = transaction.listing.expectedArrivalDate.toString().split('T')[0];
 
-    return etaString.substring(4, 15);
+    return etaString;
   }
 }
