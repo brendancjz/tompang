@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Conversation } from 'src/app/models/conversation';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-conversation-item',
@@ -11,7 +12,8 @@ export class ConversationItemPage implements OnInit {
 
   @Input() convo: Conversation;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private sessionService: SessionService) { }
 
   ngOnInit() {
   }
@@ -41,4 +43,5 @@ export class ConversationItemPage implements OnInit {
     console.log('Viewing buying conversation...');
     this.router.navigate(['/view-conversation/' + convo.convoId]);
   }
+
 }

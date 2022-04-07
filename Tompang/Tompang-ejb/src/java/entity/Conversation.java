@@ -43,8 +43,9 @@ public class Conversation implements Serializable {
     @Column(nullable = false)
     @NotNull
     private Integer sellerUnread;
+    @ManyToOne
+    private User seller;
 
-    
     public Conversation() {
         this.messages = new ArrayList<>();
         this.isOpen = true;
@@ -56,6 +57,7 @@ public class Conversation implements Serializable {
         this();
         this.createdBy = createdBy;
         this.listing = listing;
+        this.seller = listing.getCreatedBy();
     }
 
     public Long getConvoId() {
@@ -97,7 +99,7 @@ public class Conversation implements Serializable {
     public void setMessages(List<Message> messages) {
         this.messages = messages;
     }
-    
+
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -138,5 +140,19 @@ public class Conversation implements Serializable {
     public void setSellerUnread(int sellerUnread) {
         this.sellerUnread = sellerUnread;
     }
-    
+
+    /**
+     * @return the seller
+     */
+    public User getSeller() {
+        return seller;
+    }
+
+    /**
+     * @param seller the seller to set
+     */
+    public void setSeller(User seller) {
+        this.seller = seller;
+    }
+
 }

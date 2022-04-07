@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { SessionService } from '../../services/session.service';
+import { ConversationService } from '../../services/conversation.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 import { Conversation } from 'src/app/models/conversation';
@@ -19,16 +20,22 @@ export class BuyingPage implements OnInit {
 
   constructor(private location: Location,
     public sessionService: SessionService,
-    private userService: UserService) {
+    private userService: UserService,
+    private conversationService: ConversationService) {
 
     //Creating a sample Conversation;
-    const sampleConvo1 = new Conversation(60);
-    sampleConvo1.createdBy = sessionService.getCurrentUser();
-    sampleConvo1.listing = new Listing(5, 'Singapore', 'Singapore',
-      'Dumbbell Set', 'Hello there mate. Would you like to buy this dumbbell set from Singapore?',
-      'GIFTS', 40.00, new Date(), 2);
+    this.conversationService.retrieveBuyerConversations().subscribe({
+      next: (response) => {
+        this.buyingConvos = response;
+        console.log(this.sessionService.getCurrentUser().username);
+        console.log(this.sessionService.getCurrentUser().password);
+        console.log(this.buyingConvos);
+      },
+      error: (error) => {
+        console.log('buyingPage : retrieveBuyerConversations.ts:' + error);
+      },
+    });
 
-    this.buyingConvos = [sampleConvo1, sampleConvo1, sampleConvo1];
   }
 
   ngOnInit() {

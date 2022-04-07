@@ -72,7 +72,22 @@ public class ConversationResource {
                     convo.getCreatedBy().getFollowers().clear();
                     convo.getCreatedBy().getFollowing().clear();
                     convo.getCreatedBy().setLikedListings(null);
-                    convo.setListing(null);
+                }
+                if (convo.getListing() != null) {
+                    convo.getListing().setCreatedBy(null);
+                    convo.getListing().getLikedByUsers().clear();
+                    convo.getListing().getTransactions().clear();
+                    convo.getListing().getConversations().clear();
+                }
+                if (convo.getSeller() != null) {
+                    convo.getSeller().getCreatedListings().clear();
+                    convo.getSeller().setConversations(null);
+                    convo.getSeller().setCreditCards(null);
+                    convo.getSeller().setBuyerTransactions(null);
+                    convo.getSeller().setSellerTransactions(null);
+                    convo.getSeller().getFollowers().clear();
+                    convo.getSeller().getFollowing().clear();
+                    convo.getSeller().setLikedListings(null);
                 }
             }
 
@@ -108,7 +123,22 @@ public class ConversationResource {
                     convo.getCreatedBy().getFollowers().clear();
                     convo.getCreatedBy().getFollowing().clear();
                     convo.getCreatedBy().setLikedListings(null);
-                    convo.setListing(null);
+                }
+                if (convo.getListing() != null) {
+                    convo.getListing().setCreatedBy(null);
+                    convo.getListing().getLikedByUsers().clear();
+                    convo.getListing().getTransactions().clear();
+                    convo.getListing().getConversations().clear();
+                }
+                if (convo.getSeller() != null) {
+                    convo.getSeller().getCreatedListings().clear();
+                    convo.getSeller().setConversations(null);
+                    convo.getSeller().setCreditCards(null);
+                    convo.getSeller().setBuyerTransactions(null);
+                    convo.getSeller().setSellerTransactions(null);
+                    convo.getSeller().getFollowers().clear();
+                    convo.getSeller().getFollowing().clear();
+                    convo.getSeller().setLikedListings(null);
                 }
             }
 
