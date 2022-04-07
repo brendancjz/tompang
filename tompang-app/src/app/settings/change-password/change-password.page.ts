@@ -32,6 +32,11 @@ export class ChangePasswordPage implements OnInit {
     }, { once: true});
 
     this.currentUser = this.sessionService.getCurrentUser();
+    this.currentPassword = undefined;
+    this.newPassword = undefined;
+    this.repeatPassword = undefined;
+    this.resultSuccess = false;
+    console.log('Current User password onInIt() ' + this.currentUser.password);
   }
 
   updateUserPassword(): void {
@@ -44,7 +49,6 @@ export class ChangePasswordPage implements OnInit {
     this.doValidation();
     if(this.resultError) {
       console.log('Validation error ' + this.message);
-      this.resetPage();
       return;
     }
 
@@ -55,6 +59,11 @@ export class ChangePasswordPage implements OnInit {
         this.resultSuccess = true;
         this.resultError = false;
         this.message = 'User password updated successfully';
+
+        this.currentUser.password = this.newPassword;
+        console.log('Updated current user this password');
+        this.sessionService.setCurrentUser(this.currentUser);
+
         this.resetPage();
       },
       error: (error) => {
@@ -95,7 +104,5 @@ export class ChangePasswordPage implements OnInit {
     this.newPassword = undefined;
     this.repeatPassword = undefined;
     this.resultError = undefined;
-    this.resultSuccess = undefined;
-    this.message = undefined;
   }
 }
