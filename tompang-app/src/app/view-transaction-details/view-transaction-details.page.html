@@ -10,12 +10,58 @@
     </ion-title>
     <hr class="horizontal-rule" />
     <div style="margin-left: 16px;">
-      <ion-label>Payment</ion-label>
-      <!--TODO -->
+      <ion-card style="width: 345px;">
+        <ion-card-header>
+          Payment Details
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-card-title style="font-size: 16px;">
+            Payment
+          </ion-card-title>
+          <div style="display: flex;align-items: center;justify-content: space-between;">
+            <ion-label class="grey-color">Product Cost</ion-label>
+            <ion-text>S${{transactionToView.amount * 0.97}}</ion-text>
+          </div>
+          <div style="display: flex;align-items: center;justify-content: space-between;">
+            <ion-label class="grey-color">Platform Fee</ion-label>
+            <ion-text>S${{transactionToView.amount * 0.03}}</ion-text>
+          </div>
+          <hr class="horizontal-rule">
+          <div style="display: flex;align-items: center;justify-content: space-between;">
+            <ion-label style="color: black;">Total Paid</ion-label>
+            <ion-text>S${{transactionToView.amount}}</ion-text>
+          </div>
+        </ion-card-content>
+      </ion-card>
     </div>
     <div>
-      <div class="input-button-div">
-        <ion-button style="text-transform: initial;font-size: 16px;width: 160px;" color="tertiary" (click)="raiseDispute()">Raise A Dispute</ion-button>
+      <div class="input-button-div" *ngIf="!raisingDispute">
+        <ion-button style="text-transform: initial;font-size: 16px;width: 160px;" color="tertiary" (click)="toggleRaiseDispute()">Raise A Dispute</ion-button>
+      </div>
+      <div *ngIf="raisingDispute && !resultSuccess">
+        <form (ngSubmit)="raiseDispute()">
+          <div class="form-input">
+            <ion-item lines="none">
+              <div style="display: flex;flex-direction: column;width: 100%;height: 150px;">
+                <ion-text class="grey-color" style="width:90px;margin-right:16px;">Description</ion-text>
+                <ion-textarea class="grey-color" placeholder="Dispute Description" [(ngModel)]="disputeDescription" name="description" required maxlength="500"></ion-textarea>
+              </div>
+            </ion-item>
+          </div>
+          <div class="form-input input-button-div">
+            <ion-button style="text-transform: initial;font-size: 16px;" color="tertiary"  type="reset">Clear</ion-button>
+            <ion-button style="text-transform: initial;font-size: 16px;" color="tertiary" type="submit">Raise Dispute</ion-button>
+          </div>
+        </form>
+        <div *ngIf="resultError" style="display: flex;justify-content: center;margin-bottom: 20px;">
+          <ion-label class="grey-color" style="text-align:center;color:red;">{{message}}</ion-label>
+        </div>
+      </div>
+      <div *ngIf="resultSuccess" style="display: flex;justify-content: center;margin-bottom: 20px;">
+        <ion-label class="grey-color" style="text-align:center;">
+          {{message}}
+        </ion-label>
       </div>
     </div>
   </div>

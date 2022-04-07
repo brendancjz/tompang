@@ -15,8 +15,10 @@ import { DisputeService } from '../services/dispute.service';
 export class ViewTransactionDetailsPage implements OnInit {
   transactionId: number | undefined;
   transactionToView: Transaction | undefined;
-  retrieveTransationError: boolean;
-  dispute: Dispute | undefined;
+
+  disputeDescription: string | undefined;
+
+  raisingDispute: boolean;
 
   resultSuccess: boolean;
   resultError: boolean;
@@ -38,7 +40,7 @@ export class ViewTransactionDetailsPage implements OnInit {
       this.activatedRoute.snapshot.paramMap.get('transactionId')
     );
     this.currentUser = this.sessionService.getCurrentUser();
-    this.dispute = new Dispute();
+    this.raisingDispute = false;
 
     this.transactionService.getTransactionById(this.transactionId).subscribe({
       next: (response) => {
@@ -58,18 +60,49 @@ export class ViewTransactionDetailsPage implements OnInit {
   }
 
   raiseDispute(): void {
+
+    this.doValidation();
+    if (this.resultError) {
+      return;
+    }
+
+    const newDispute = new Dispute();
+    newDispute.description = this.disputeDescription;
+
     this.disputeService
-      .createDispute(this.transactionId, this.dispute)
+      .createDispute(this.transactionId, newDispute)
       .subscribe({
         next: (response) => {
-          let newDisputeId: number = response;
+          const newDisputeId: number = response;
           this.resultSuccess = true;
           this.resultError = false;
-          this.message = 'Dispute ' + newDisputeId + ' raised successfully';
+          this.message = 'Sucessfully raise a dispute';
+          console.log('Dispute ' + newDisputeId + ' raised successfully');
+
+          this.resetPage();
         },
         error: (error) => {
           console.log('raiseDispute.ts:' + error);
+          this.resultSuccess = false;
+          this.resultError = true;
+          this.message = 'Invalid entry: Unexpected error occured. Try again later';
         },
       });
+  }
+
+  doValidation() {
+    if (this.disputeDescription === undefined) {
+      this.resultError = true;
+      this.message = 'Invalid entry: Missing input field';
+      return;
+    }
+  }
+
+  resetPage() {
+    this.disputeDescription = undefined;
+  }
+
+  toggleRaiseDispute() {
+    this.raisingDispute = true;
   }
 }
