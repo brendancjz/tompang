@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { sample } from 'rxjs/operators';
 import { Transaction } from 'src/app/models/transaction';
 import { ListingService } from 'src/app/services/listing.service';
+import { TransactionService } from 'src/app/services/transaction.service';
 
 @Component({
   selector: 'app-my-purchases',
@@ -10,46 +11,42 @@ import { ListingService } from 'src/app/services/listing.service';
   styleUrls: ['./my-purchases.page.scss'],
 })
 export class MyPurchasesPage implements OnInit {
-
   transactions: Transaction[];
+  transaction: Transaction;
 
-  constructor(private router: Router, private listingService: ListingService) { }
+  constructor(
+    private router: Router,
+    private listingService: ListingService,
+    private transactionService: TransactionService
+  ) {}
 
   ngOnInit() {
     this.transactions = [];
-    let sampleTransaction = new Transaction(2, 25.25);
-    sampleTransaction.listing = this.listingService.getSampleListing();
-    sampleTransaction.isAccepted = true;
-    this.transactions.push(sampleTransaction);
-
-    sampleTransaction = new Transaction(3, 30);
-    sampleTransaction.listing = this.listingService.getSampleListing();
-    sampleTransaction.hasDispute = true;
-    this.transactions.push(sampleTransaction);
-
-    sampleTransaction = new Transaction(4, 35);
-    sampleTransaction.listing = this.listingService.getSampleListing();
-    sampleTransaction.isCompleted = true;
-    this.transactions.push(sampleTransaction);
-
-    sampleTransaction = new Transaction(5, 310);
-    sampleTransaction.listing = this.listingService.getSampleListing();
-    sampleTransaction.isRejected = true;
-    this.transactions.push(sampleTransaction);
-
-    this.transactions.push(sampleTransaction, sampleTransaction, sampleTransaction);
+    this.transactionService.getUserTransactions().subscribe({
+      next: (response) => {
+        this.transactions = response;
+      },
+      error: (error) => {
+        console.log('getAllUserTransactions.ts:' + error);
+      },
+    });
   }
 
-  viewTransaction(transaction: Transaction) {
+  viewTransaction(transactionId: number)  {
     console.log('view transaction details');
 
-    this.router.navigate(['/view-transaction-details/' + transaction.transactionId]);
+    this.router.navigate([
+      '/view-transaction-details/' + transactionId,
+    ]);
   }
 
   formatListingTitle(transaction: Transaction): string {
     const maxNumberBeforeCutOff = 20;
     if (transaction.listing.title.length >= maxNumberBeforeCutOff) {
-      return transaction.listing.title.substring(0, maxNumberBeforeCutOff - 3) + '...';
+      return (
+        transaction.listing.title.substring(0, maxNumberBeforeCutOff - 3) +
+        '...'
+      );
     }
 
     return transaction.listing.title;
@@ -58,7 +55,6 @@ export class MyPurchasesPage implements OnInit {
   formatListingETA(transaction: Transaction): string {
     const etaString = transaction.listing.expectedArrivalDate.toString();
 
-    return etaString.substring(4,15);
+    return etaString.substring(4, 15);
   }
-
 }

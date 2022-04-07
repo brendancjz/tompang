@@ -40,12 +40,12 @@ export class TransactionService {
     return this.httpClient
       .get<Transaction>(
         this.baseUrl +
-          '/retrieveTransaction?username=' +
+          '/retrieveTransaction/' +
+          transactionId +
+          '?username=' +
           username +
           '&password=' +
-          password +
-          '&transactionId=' +
-          transactionId
+          password
       )
       .pipe(catchError(this.handleError));
   }
@@ -66,7 +66,10 @@ export class TransactionService {
       .pipe(catchError(this.handleError));
   }
 
-  createTransaction(listingId: number, newTransaction: Transaction) : Observable<number>{
+  createTransaction(
+    listingId: number,
+    newTransaction: Transaction
+  ): Observable<number> {
     const currentUser = this.sessionService.getCurrentUser();
     const username = currentUser.username;
     const password = currentUser.password;
