@@ -18,3 +18,32 @@ ion-button.button-icon {
   width: 100%;
   margin-top: 10px;
 }
+
+.form-input {
+  margin-bottom: 20px;
+  padding: 0 20px;
+
+  ion-item {
+    border-radius: 10px;
+    padding: 8px;
+    box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px,
+      rgb(0 0 0 / 14%) 0px 2px 2px 0px,
+      rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+
+    ion-icon {
+      margin-right: 16px;
+    }
+
+    ion-input {
+      padding-left: 10px !important;
+      border-left: 1px solid #f4f4f4;
+    }
+  }
+}
+
+.input-button-div {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 10px;
+}
