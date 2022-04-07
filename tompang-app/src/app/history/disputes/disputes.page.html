@@ -9,7 +9,38 @@
     </ion-title>
   </div>
   <hr class="horizontal-rule" />
-  <div style="display: flex;align-items: center;width: 75%;margin: 0 auto;">
-    <ion-label style="text-align: center;" class="grey-color">We will follow up with on your disputes via e-mail.</ion-label>
+  <div>
+    <!-- <ion-list *ngFor="let dispute of disputes">
+        <ion-item class="grey-color">
+          <div class="transaction-block">
+            <div style="display: flex;align-items: center;">
+              <ion-icon name="document-text-outline" style="font-size: 30px;margin-right: 20px;"></ion-icon>
+              <ion-item-group style="display:flex;flex-direction:column;justify-content:center;">
+                <ion-label style="font-size: 16px;margin-bottom: 5px;">Dispute</ion-label>
+                <ion-text style="font-size: 14px;margin-bottom: 5px;">S${{transaction.listing.price}}</ion-text>
+                <ion-text style="font-size: 12px;margin-bottom: 15px;">
+                  ETA: {{formatListingETA(transaction)}}
+                  <div style="display: flex;flex-direction: column;justify-content: center;height:45px;margin-left: 150px;position:absolute;top: 22px;">
+                    <span *ngIf="transaction.isAccepted === true && transaction.isCompleted === false"
+                    style="color:var(--ion-color-primary);">ACCEPTED</span>
+                    <span *ngIf="transaction.isRejected === true && transaction.isCompleted === false"
+                    style="color:red;">REJECTED</span>
+                    <span *ngIf="transaction.hasDispute === true"
+                    style="color:red;">IN DISPUTE</span>
+                    <span *ngIf="transaction.isCompleted === true"
+                    style="color:var(--ion-color-primary);">COMPLETED</span>
+                  </div>
+                  </ion-text>
+              </ion-item-group>
+            </div>
+            <div>
+              <ion-button color="tertiary" class="button-icon" icon-only (click)="viewTransaction(transaction.transactionId)">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+              </ion-button>
+            </div>
+
+          </div>
+        </ion-item>
+    </ion-list> -->
   </div>
 </ion-content>

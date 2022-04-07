@@ -45,7 +45,7 @@ export class ViewTransactionDetailsPage implements OnInit {
     this.transactionService.getTransactionById(this.transactionId).subscribe({
       next: (response) => {
         this.transactionToView = response;
-        console.log('success');
+        console.log('Found Transaction To View');
       },
       error: (error) => {
         console.log('viewTransaction.ts:' + error);
