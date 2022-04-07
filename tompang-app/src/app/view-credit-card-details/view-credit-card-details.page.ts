@@ -46,7 +46,6 @@ export class ViewCreditCardDetailsPage implements OnInit {
       this.hasLoaded = true;
       console.log('View credit card: ' + this.ccId);
 
-      //Implement bridge with try catch
       // eslint-disable-next-line radix
       this.ccToView = this.creditCardService.getCreditCardById(parseInt(this.ccId));
 
@@ -65,43 +64,58 @@ export class ViewCreditCardDetailsPage implements OnInit {
     return stringDate;
   }
 
-  async deleteCreditCard() {
+  deleteCreditCard() {
     console.log('Deleting credit card..');
 
-    const alert = await this.alertController.create({
-      header: 'Confirm Delete Credit Card',
-      message: 'Confirm delete Credit Card <strong>' + this.ccToView.ccNumber + '</strong>?',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-
-          }
-        }, {
-          text: 'Okay',
-          handler: () => {
-
-            this.userService.deleteCreditCard(Number(this.ccId)).subscribe({
-              next:(response)=>{
-                this.successfulDeletion = true;
-                // this.ccId = null; Can we redirect back to view all credit cards page?
-              },
-              error:(error)=>{
-                this.error = true;
-                this.errorMessage = error;
-              }
-            });
-          }
-        }
-      ]
-    });
-
-    await alert.present(); 
     // eslint-disable-next-line radix
-   
+    this.userService.deleteCreditCard(parseInt(this.ccId)).subscribe({
+      next:(response)=>{
+        this.successfulDeletion = true;
+        // this.ccId = null; Can we redirect back to view all credit cards page?
+      },
+      error:(error)=>{
+        this.error = true;
+        this.errorMessage = error;
+      }
+    });
   }
+
+  // async deleteCreditCard() {
+  //   console.log('Deleting credit card..');
+
+  //   const alert = await this.alertController.create({
+  //     header: 'Confirm Delete Credit Card',
+  //     message: 'Confirm delete Credit Card <strong>' + this.ccToView.ccNumber + '</strong>?',
+  //     buttons: [
+  //       {
+  //         text: 'Cancel',
+  //         role: 'cancel',
+  //         cssClass: 'secondary',
+  //         handler: (blah) => {
+
+  //         }
+  //       }, {
+  //         text: 'Okay',
+  //         handler: () => {
+
+  //           // eslint-disable-next-line radix
+  //           this.userService.deleteCreditCard(parseInt(this.ccId)).subscribe({
+  //             next:(response)=>{
+  //               this.successfulDeletion = true;
+  //               // this.ccId = null; Can we redirect back to view all credit cards page?
+  //             },
+  //             error:(error)=>{
+  //               this.error = true;
+  //               this.errorMessage = error;
+  //             }
+  //           });
+  //         }
+  //       }
+  //     ]
+  //   });
+
+  //   await alert.present();
+  // }
 
   toggleConfirmDeleteButton() {
     console.log('Toggling delete button');

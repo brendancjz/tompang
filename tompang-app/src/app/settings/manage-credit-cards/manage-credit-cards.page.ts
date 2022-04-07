@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user';
 import { CreditCard } from 'src/app/models/creditCard';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { CreditCardService } from 'src/app/services/creditCard.service';
 
 @Component({
   selector: 'app-manage-credit-cards',
@@ -35,10 +36,13 @@ export class ManageCreditCardsPage implements OnInit {
     private router: Router,
     private location: Location,
     public sessionService: SessionService,
-    public userService: UserService
+    public userService: UserService,
+    private creditCardService: CreditCardService
   ) {}
 
   ngOnInit() {
+    console.log('Manage Credit Cards Page OnInIt');
+
     document.getElementById('back-button').addEventListener('click',() => {
         this.resetPage();
       },
@@ -54,6 +58,19 @@ export class ManageCreditCardsPage implements OnInit {
     this.userService.getUserCreditCards().subscribe({
       next: (response) => {
         this.creditCards = response;
+      },
+      error: (error) => {
+        console.log('getAllAvailableListings.ts:' + error);
+      },
+    });
+  }
+
+  ionViewWillEnter() {
+    console.log('Ion Will Enter for Manage Credit Cards');
+    this.userService.getUserCreditCards().subscribe({
+      next: (response) => {
+        this.creditCards = response;
+        this.resultSuccess = false;
       },
       error: (error) => {
         console.log('getAllAvailableListings.ts:' + error);
@@ -84,6 +101,9 @@ export class ManageCreditCardsPage implements OnInit {
         this.resultSuccess = true;
         this.resultError = false;
         this.message = 'Successfully added a new Credit Card!';
+
+        creditCard.ccId = newCreditCardId;
+        this.creditCards.push(creditCard);
         this.resetPage();
       },
       error:(error)=>{
@@ -143,6 +163,7 @@ export class ManageCreditCardsPage implements OnInit {
     this.ccCIV = null;
     this.expiryMonth = null;
     this.expiryYear = null;
+    this.isDisplayingCCList = true;
   }
 
   viewCreditCard(creditcard: CreditCard) {

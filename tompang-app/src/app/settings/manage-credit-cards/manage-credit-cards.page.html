@@ -94,14 +94,15 @@
       </form>
     </div>
 
-    <div *ngIf="resultError" style="display: flex;justify-content: center;margin-bottom: 20px;">
+    <div *ngIf="resultError" style="display: flex;justify-content: center;margin-top:20px;margin-bottom: 20px;">
       <ion-label class="grey-color" style="text-align:center;color:red;">{{message}}</ion-label>
     </div>
-    <div *ngIf="resultSuccess" style="display: flex;justify-content: center;margin-bottom: 20px;">
-      <ion-label class="grey-color" style="text-align:center;">
-        {{message}}
-      </ion-label>
-    </div>
+
+  </div>
+  <div *ngIf="resultSuccess" style="display: flex;justify-content: center;margin-top:20px;margin-bottom: 20px;">
+    <ion-label class="grey-color" style="text-align:center;">
+      {{message}}
+    </ion-label>
   </div>
 </ion-content>
 <app-footer></app-footer>
