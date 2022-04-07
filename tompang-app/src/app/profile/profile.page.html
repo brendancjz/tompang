@@ -27,6 +27,28 @@
       >
         <ion-icon name="settings-outline"></ion-icon>
       </ion-button>
+      <ion-button *ngIf="displayFollowButton()"
+        color="tertiary"
+        class="grey-color"
+        style="text-transform: capitalize;"
+        icon-only
+        slot="end"
+        id="settings-button"
+        (click)="followUser()"
+      >
+        Follow
+      </ion-button>
+      <ion-button *ngIf="displayUnfollowButton()"
+        color="tertiary"
+        class="grey-color"
+        style="text-transform: capitalize;"
+        icon-only
+        slot="end"
+        id="settings-button"
+        (click)="unfollowUser()"
+      >
+        Unfollow
+      </ion-button>
     </div>
   </div>
   <hr class="horizontal-rule" />

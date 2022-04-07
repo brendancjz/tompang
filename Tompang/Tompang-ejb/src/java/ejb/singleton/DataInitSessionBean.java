@@ -102,6 +102,7 @@ public class DataInitSessionBean {
             Listing japanBiscuit = (Listing) em.find(Listing.class, 1L);
             User buyerAdmin = (User) em.find(User.class, 2L);
             Conversation convo = new Conversation(buyerAdmin, japanBiscuit);
+            convo.setSeller(japanBiscuit.getCreatedBy());
             em.persist(convo);
             em.flush();
         }

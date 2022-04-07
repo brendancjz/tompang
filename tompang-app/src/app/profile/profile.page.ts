@@ -59,6 +59,7 @@ export class ProfilePage implements OnInit {
         this.userToViewProfilePic = this.userToView.profilePic;
 
         this.listingService.getUserListings(this.userToView).subscribe({
+          // eslint-disable-next-line @typescript-eslint/no-shadow
           next: (response) => {
             this.listings = response;
             this.hasLoaded = true;
@@ -82,6 +83,36 @@ export class ProfilePage implements OnInit {
   }
 
   isProfileTheCurrentUser(): boolean {
-    return this.userToView.userId == this.currentUser.userId;
+    return this.userToView.userId === this.currentUser.userId;
+  }
+
+  displayFollowButton(): boolean {
+    // return this.hasLoaded === true && !this.isProfileTheCurrentUser() &&
+    // !this.currentUser.following.includes(this.userToView);
+
+    return this.hasLoaded === true && !this.isProfileTheCurrentUser();
+  }
+
+  displayUnfollowButton(): boolean {
+    // return this.hasLoaded === true && !this.isProfileTheCurrentUser() &&
+    // this.currentUser.following.includes(this.userToView);
+
+    return this.hasLoaded === true && !this.isProfileTheCurrentUser();
+  }
+
+  followUser() {
+    //user to follow userToView
+    console.log('Following user..');
+
+    //Must update the current user to have the updated list of
+    //following so that it will rerender the Unfollow button
+  }
+
+  unfollowUser() {
+    //user to unfollow is userToView
+    console.log('Unfollowing user..');
+
+    //Must update the current user to have the updated list of
+    //following so that it will rerender the Follow button
   }
 }
