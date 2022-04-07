@@ -51,44 +51,13 @@
       </div>
 
     </form>
-    <div *ngIf="editError === true" style="text-align: center; color: red;">
-      Invalid edit: Inputted fields are incorrectly formatted!
+    <div *ngIf="resultError === true" style="text-align: center; color: red; margin-bottom: 100px;">
+      {{message}}
+    </div>
+    <div *ngIf="resultSuccess === true" style="text-align: center; color: var(--ion-primary-color); margin-bottom: 100px;">
+      {{message}}
     </div>
   </div>
-  <!-- <hr class="horizontal-rule" />
-  <div id="formBox" class="formBox">
-    <div id="editProfileForm">
-      <form (ngSubmit)="updateUser()">
-        <ion-item>
-          <ion-label>First Name: </ion-label>
-          <ion-input placeholder="John" [(ngModel)]="firstName" name="firstName" required maxlength="50"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Last Name: </ion-label>
-          <ion-input placeholder="Doe" [(ngModel)]="lastName" name="lastName" required maxlength="50"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Email: </ion-label>
-          <ion-input type="email" placeholder="john.doe@gmail.com" [(ngModel)]="email" name="email" required maxlength="50" clearInput></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Contact No.: </ion-label>
-          <ion-input type="tel" [(ngModel)]="contactNumber" name="contactNumber" required minlength="8"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>D.O.B: </ion-label>
-          <ion-input type="date" [(ngModel)]="dateOfBirth" name="dateOfBirth" required></ion-input>
-        </ion-item>
-        <div class="input-button-div">
-          <ion-button color="primary"  type="reset">Clear</ion-button>
-          <ion-button color="primary" type="submit">Update</ion-button>
-        </div>
-      </form>
-      <div *ngIf="editError === true" style="text-align: center; color: red;width: 300px;">
-        Invalid edit: Inputted fields are incorrectly formatted!
-      </div>
-    </div>
 
-  </div> -->
 </ion-content>
 <app-footer></app-footer>

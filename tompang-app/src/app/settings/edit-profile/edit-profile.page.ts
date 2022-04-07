@@ -11,17 +11,15 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./edit-profile.page.scss'],
 })
 export class EditProfilePage implements OnInit {
-  firstName: string | undefined;
-  lastName: string | undefined;
-  email: string | undefined;
-  contactNumber: number | undefined;
-  dateOfBirth: string | undefined;
+  firstName: string;
+  lastName: string;
+  email: string;
+  contactNumber: number;
+  dateOfBirth: string;
 
   resultSuccess: boolean;
   resultError: boolean;
   message: string;
-
-  editError: boolean;
 
   constructor(
     public sessionService: SessionService,
@@ -49,14 +47,22 @@ export class EditProfilePage implements OnInit {
 
   updateUser(): void {
     console.log('Updating user...');
-    console.log('First Name: ' + this.firstName);
-    console.log('Last Name: ' + this.lastName);
-    console.log('Email: ' + this.email);
-    console.log('Contact No.: ' + this.contactNumber);
-    console.log('DoB: ' + this.dateOfBirth);
-
     const currentUser = this.sessionService.getCurrentUser();
-    let updatedUser = new User(
+
+    this.resultError = false;
+    this.doValidation();
+    if (this.resultError) {
+      console.log('Validation error');
+      return;
+    }
+
+    console.log('firstname: ' + this.firstName);
+    console.log('lastname: ' + this.lastName);
+    console.log('email: ' + typeof(this.email));
+    console.log('contact number: ' + this.contactNumber);
+    console.log('dob: ' + this.dateOfBirth);
+
+    const updatedUser = new User(
       currentUser.userId,
       this.firstName,
       this.lastName,
@@ -70,19 +76,42 @@ export class EditProfilePage implements OnInit {
 
     this.userService.updateUser(updatedUser).subscribe({
       next: (response) => {
+        console.log('Update user success!');
         this.resultSuccess = true;
         this.resultError = false;
-        this.message = ' User updated successfully';
+        this.message = 'User updated successfully';
+
       },
       error: (error) => {
         this.resultError = true;
         this.resultSuccess = false;
-        this.message =
-          'An error has occurred while updating the user: ' + error;
+        this.message = 'Invalid edit: Unexpected error occured. Try again later.';
 
         console.log('********** UpdateUserPage: ' + error);
       },
     });
+  }
+
+  doValidation(): void {
+    if (this.firstName.length === 0 || this.lastName.length === 0 || this.email.length === 0 ||
+      this.contactNumber.toString().length === 0) {
+        this.resultError = true;
+        this.message = 'Invalid edit: Missing input fields';
+        return;
+    }
+
+    if (this.contactNumber.toString().length !== 8) {
+      this.resultError = true;
+      this.message = 'Invalid edit: Incorrect formatting of Contact Number';
+      return;
+    }
+
+    if (!this.email.includes('@') || !this.email.includes('.com')) {
+      this.resultError = true;
+      this.message = 'Invalid edit: Incorrect formatting of Email';
+      return;
+    }
+
   }
 
   resetPage(): void {
@@ -91,7 +120,10 @@ export class EditProfilePage implements OnInit {
     this.email = undefined;
     this.contactNumber = undefined;
     this.dateOfBirth = undefined;
-    this.editError = false;
+    this.resultError = undefined;
+    this.resultSuccess = undefined;
+    this.message = undefined;
+
   }
 
   confirm() {
