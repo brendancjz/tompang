@@ -30,8 +30,7 @@ export class LikedListingsPage implements OnInit {
         response.map((listing) => {
           console.log(listing);
           listing.likedByUsers.map((user) => {
-            if (user.userId == this.currentUser.userId) {
-              console.log(listing);
+            if (user.userId === this.currentUser.userId) {
               this.myLikedListings.push(listing);
             }
           });

@@ -20,6 +20,7 @@ export class DisputesPage implements OnInit {
     this.disputeService.getUserDisputes().subscribe({
       next: (response) => {
         this.disputes = response;
+        console.log(this.disputes);
       },
       error: (error) => {
         console.log('getAllUserTransactions.ts:' + error);

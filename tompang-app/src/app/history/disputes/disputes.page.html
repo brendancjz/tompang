@@ -11,29 +11,29 @@
         <div class="transaction-block">
           <div style="display: flex; align-items: center">
             <ion-icon
-              name="document-text-outline"
-              style="font-size: 30px; margin-right: 20px"
+              name="hand-right-outline"
+              style="font-size: 35px; margin-right: 20px"
             ></ion-icon>
             <ion-item-group
               style="
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
-              "
-            >
-              <ion-label style="font-size: 16px; margin-bottom: 5px"
-                >Dispute</ion-label
+                justify-content: center;">
+              <ion-label style="font-size: 16px; margin-bottom: 5px">
+                Dispute for
+              </ion-label
               >
               <ion-text style="font-size: 14px; margin-bottom: 5px"
                 >{{dispute.description}}</ion-text
               >
             </ion-item-group>
+            <div>
+              <ion-button color="tertiary" class="button-icon" icon-only (click)="viewDispute(dispute.disputeId)">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+              </ion-button>
+            </div>
           </div>
-          <div>
-            <ion-button color="tertiary" class="button-icon" icon-only (click)="viewDispute(dispute.disputeId)">
-              <ion-icon name="chevron-forward-outline"></ion-icon>
-            </ion-button>
-          </div>
+
           <div></div>
         </div>
       </ion-item>
