@@ -40,7 +40,8 @@ export class ViewListingDetailsPage implements OnInit {
 
     if (this.listingId != null) {
       this.listingService
-        .getListingByListingId(this.listingService.listingToViewListingId)
+        // eslint-disable-next-line radix
+        .getListingByListingId(parseInt(this.listingId))
         .subscribe({
           next: (response) => {
             this.listingToView = response;
@@ -97,9 +98,9 @@ export class ViewListingDetailsPage implements OnInit {
 
     try {
       //Have a current convo
-      // eslint-disable-next-line radix
       convo = this.conversationService.getBuyerConversationWithListing(
         currentUser.userId,
+        // eslint-disable-next-line radix
         parseInt(this.listingId)
       );
     } catch (ex) {
@@ -131,10 +132,7 @@ export class ViewListingDetailsPage implements OnInit {
 
   doesCurrentUserLikeThisListing(): boolean {
     // eslint-disable-next-line radix
-    return this.userService.isListingLikedByUser(
-      this.currentUser.userId,
-      parseInt(this.listingId)
-    );
+    return this.userService.isListingLikedByUser(this.currentUser.userId,parseInt(this.listingId));
   }
 
   formatListingTitle(): string {

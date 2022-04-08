@@ -35,7 +35,6 @@ export class ListingCardPage implements OnInit {
   viewListingDetails(listing: Listing): void {
     console.log(listing.title);
     console.log(listing.listingId);
-    this.listingService.setListingToViewListingId(listing.listingId);
     this.router.navigate(['/view-listing-details/' + listing.listingId]);
   }
 

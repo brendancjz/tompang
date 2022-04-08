@@ -23,7 +23,6 @@ const httpOptions = {
 })
 export class ListingService {
   baseUrl = '/api/Listing';
-  listingToViewListingId: number | undefined;
 
   constructor(
     private httpClient: HttpClient,
@@ -242,10 +241,6 @@ export class ListingService {
         httpOptions
       )
       .pipe(catchError(this.handleError));
-  }
-
-  setListingToViewListingId(listingId: number) {
-    this.listingToViewListingId = listingId;
   }
 
   private handleError(error: HttpErrorResponse) {
