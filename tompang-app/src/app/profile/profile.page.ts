@@ -57,11 +57,12 @@ export class ProfilePage implements OnInit {
         this.userToViewFollowers = this.userToView.followers.length;
         this.userToViewFollowing = this.userToView.following.length;
         this.userToViewProfilePic = this.userToView.profilePic;
-
+        console.log(this.userToView);
         this.listingService.getUserListings(this.userToView).subscribe({
           // eslint-disable-next-line @typescript-eslint/no-shadow
           next: (response) => {
             this.listings = response;
+            console.log(response)
             this.hasLoaded = true;
           },
           error: (error) => {

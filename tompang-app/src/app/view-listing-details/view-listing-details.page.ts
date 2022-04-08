@@ -40,7 +40,7 @@ export class ViewListingDetailsPage implements OnInit {
 
     if (this.listingId != null) {
       this.listingService
-        .getListingByListingId(this.listingService.listingToViewListingId)
+        .getListingByListingId(Number(this.listingId))
         .subscribe({
           next: (response) => {
             this.listingToView = response;

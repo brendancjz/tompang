@@ -43,11 +43,23 @@ export class ViewCreditCardDetailsPage implements OnInit {
 
     if(this.ccId != null)
     {
-      this.hasLoaded = true;
+     
       console.log('View credit card: ' + this.ccId);
 
       // eslint-disable-next-line radix
-      this.ccToView = this.creditCardService.getCreditCardById(parseInt(this.ccId));
+      this.userService.getCreditCardById(Number(this.ccId)).subscribe({
+        next: (response) => {
+          this.ccToView = response;
+          this.hasLoaded = true;
+          console.log(this.ccToView);
+
+          
+        },
+        error: (error) => {
+          this.error = true;
+          console.log('********** View Credit Card Details.ts: ' + error);
+        },
+      });
 
     }
   }
@@ -59,8 +71,13 @@ export class ViewCreditCardDetailsPage implements OnInit {
   }
 
   formatCreditCardExpiryDate() {
-    const stringDate = this.ccToView.expiryDate.getMonth() + 1 +
-    '/' + this.ccToView.expiryDate.getFullYear();
+    let expiryDate = new Date(Number(this.ccToView.expiryDate.toString().substring(0,4)), 
+    Number(this.ccToView.expiryDate.toString().substring(5,7)))
+    const stringDate = expiryDate.getMonth() + 1 +
+    '/' + expiryDate.getFullYear();
+    console.log(this.ccToView.expiryDate)
+   
+    console.log(stringDate);
     return stringDate;
   }
 
