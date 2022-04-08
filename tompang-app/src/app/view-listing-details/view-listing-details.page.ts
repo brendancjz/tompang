@@ -36,7 +36,6 @@ export class ViewListingDetailsPage implements OnInit {
   ngOnInit() {
     this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
     this.currentUser = this.sessionService.getCurrentUser();
-    this.listingIsLiked = this.doesCurrentUserLikeThisListing();
 
     if (this.listingId != null) {
       this.listingService
@@ -45,24 +44,13 @@ export class ViewListingDetailsPage implements OnInit {
           next: (response) => {
             this.listingToView = response;
             this.hasLoaded = true;
-            console.log(this.listingToView);
+            this.checkLikedByUser();
           },
           error: (error) => {
             this.retrieveListingError = true;
             console.log('********** View Listing Details Page.ts: ' + error);
           },
         });
-
-      // eslint-disable-next-line radix
-      // this.listingService.getListingByListingId(parseInt(this.listingId)).subscribe({
-      //   next:(response)=>{
-      //     this.listingToView = response;
-      //   },
-      //   error:(error)=>{
-      //     this.retrieveListingError = true;
-      // 		console.log('********** View Listing Details Page.ts: ' + error);
-      //   }
-      // });
     }
   }
 
@@ -118,23 +106,42 @@ export class ViewListingDetailsPage implements OnInit {
   }
 
   likeListing(): void {
-    this.listingService.likeListing(this.listingToView);
-
+    this.listingService.likeListing(this.listingToView).subscribe({
+      next: (response) => {
+        this.listingService.getListingByListingId(this.listingToView.listingId);
+        console.log('listing liked!');
+      },
+      error: (error) => {
+        console.log('view-listing-card.page.ts:' + error);
+        console.log('FAIL');
+      },
+    });
     this.listingIsLiked = true;
+    this.listingToView.likedByUsers.length += 1;
   }
 
   unlikeListing(): void {
-    this.listingService.unlikeListing(this.listingToView);
-
+    this.listingService.unlikeListing(this.listingToView).subscribe({
+      next: (response) => {
+        this.listingService.getListingByListingId(this.listingToView.listingId);
+        console.log('listing unliked!');
+      },
+      error: (error) => {
+        console.log('view-listing-card.page.ts:' + error);
+        console.log('FAIL');
+      },
+    });
     this.listingIsLiked = false;
+    this.listingToView.likedByUsers.length -= 1;
   }
 
-  doesCurrentUserLikeThisListing(): boolean {
-    // eslint-disable-next-line radix
-    return this.userService.isListingLikedByUser(
-      this.currentUser.userId,
-      parseInt(this.listingId)
-    );
+  checkLikedByUser(): void {
+    console.log(this.listingToView.likedByUsers);
+    this.listingToView.likedByUsers.map((likedUser) => {
+      if (this.currentUser.userId === likedUser.userId) {
+        this.listingIsLiked = true;
+      }
+    });
   }
 
   formatListingTitle(): string {

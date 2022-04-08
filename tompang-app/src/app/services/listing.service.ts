@@ -167,7 +167,9 @@ export class ListingService {
           '?username=' +
           username +
           '&password=' +
-          password
+          password +
+          '&listingId=' +
+          listingId
       )
       .pipe(catchError(this.handleError));
   }
