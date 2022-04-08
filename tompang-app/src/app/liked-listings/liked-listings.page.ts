@@ -14,17 +14,34 @@ export class LikedListingsPage implements OnInit {
   searchTerm: string;
 
   currentUser: User;
-  myLikedListings: Listing[];
+  myLikedListings: Listing[] = [];
+  message: string;
 
-  constructor(public sessionService: SessionService,
+  constructor(
+    public sessionService: SessionService,
     public listingService: ListingService
   ) {
-
     this.currentUser = sessionService.getCurrentUser();
-    this.myLikedListings = listingService.getUserLikedListings(this.currentUser);
-
-   }
+  }
 
   ngOnInit() {
+    this.listingService.getAllAvailableListings().subscribe({
+      next: (response) => {
+        response.map((listing) => {
+          console.log(listing);
+          listing.likedByUsers.map((user) => {
+            if (user.userId == this.currentUser.userId) {
+              console.log(listing);
+              this.myLikedListings.push(listing);
+            }
+          });
+        });
+      },
+      error: (error) => {
+        this.message =
+          'An error has occurred while creating the new conversation: ' + error;
+        console.log('********** createNewConversation: ' + error);
+      },
+    });
   }
 }

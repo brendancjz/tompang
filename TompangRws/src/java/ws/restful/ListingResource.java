@@ -147,7 +147,7 @@ public class ListingResource {
                 System.out.println("&&&& " + listing.getTitle());
 
                 if (listing.getCreatedBy() != null) {
-                    listing.getCreatedBy().getCreatedListings().clear();
+                    listing.getCreatedBy().setCreatedListings(null);
                     listing.getCreatedBy().setConversations(null);
                     listing.getCreatedBy().setCreditCards(null);
                     listing.getCreatedBy().setBuyerTransactions(null);
@@ -161,7 +161,7 @@ public class ListingResource {
                     for (Conversation conversation : listing.getConversations()) {
                         conversation.setListing(null);
                         conversation.setCreatedBy(null);
-                        conversation.getMessages().clear();
+                        conversation.setMessages(null);
                     }
                 }
 
@@ -177,7 +177,7 @@ public class ListingResource {
 
                 if (listing.getLikedByUsers() != null) {
                     for (User likedByUser : listing.getLikedByUsers()) {
-                        likedByUser.getCreatedListings().clear();
+                        likedByUser.setCreatedListings(null);
                         likedByUser.setConversations(null);
                         likedByUser.setCreditCards(null);
                         likedByUser.setBuyerTransactions(null);

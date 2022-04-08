@@ -137,7 +137,6 @@ export class ListingService {
   getUserListings(user: User): Observable<Listing[]> {
     const username = user.username;
     const password = user.password;
- 
 
     return this.httpClient
       .get<Listing[]>(
