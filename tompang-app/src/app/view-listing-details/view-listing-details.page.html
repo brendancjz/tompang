@@ -5,72 +5,101 @@
       <ion-slides
         [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }"
       >
-        <ion-slide *ngFor="let photo of listingToView.photos" style="width: 450px;height: 450px;">
+        <ion-slide
+          *ngFor="let photo of listingToView.photos"
+          style="width: 450px; height: 450px"
+        >
           <ion-col class="ion-text-left">
             <ion-card>
               <ion-card-content>
-                <img src="{{getPhotoUrl(photo)}}" >
+                <img src="{{getPhotoUrl(photo)}}" />
               </ion-card-content>
             </ion-card>
           </ion-col>
         </ion-slide>
       </ion-slides>
 
-      <div *ngIf="!listingIsLiked"  style="position:absolute;right:10px;" (click)="likeListing()">
+      <div
+        *ngIf="!listingIsLiked"
+        style="position: absolute; right: 10px"
+        (click)="likeListing()"
+      >
         <ion-button color="tertiary">
-          <ion-icon style="font-size:26px;" name="heart-outline"></ion-icon>
+          <ion-icon style="font-size: 26px" name="heart-outline"></ion-icon>
         </ion-button>
       </div>
-      <div *ngIf="listingIsLiked" style="position:absolute;right:10px;" (click)="unlikeListing()">
+      <div
+        *ngIf="listingIsLiked"
+        style="position: absolute; right: 10px"
+        (click)="unlikeListing()"
+      >
         <ion-button color="tertiary">
-          <ion-icon color="primary" style="font-size:26px;" name="heart"></ion-icon>
+          <ion-icon
+            color="primary"
+            style="font-size: 26px"
+            name="heart"
+          ></ion-icon>
         </ion-button>
       </div>
       <div class="details-info">
-        <ion-label style="font-size: 18px;" class="grey-color">
+        <ion-label style="font-size: 18px" class="grey-color">
           {{formatListingTitle()}}
         </ion-label>
       </div>
       <div class="details-info">
-        <ion-label style="font-size: 18px;" class="grey-color">
+        <ion-label style="font-size: 18px" class="grey-color">
           S${{listingToView.price}}
         </ion-label>
       </div>
       <div class="details-info">
-        <ion-icon style="margin-right: 5px;" name="time-outline"></ion-icon>
-        <ion-label style="font-size: 14px;" class="grey-color">
+        <ion-icon style="margin-right: 5px" name="time-outline"></ion-icon>
+        <ion-label style="font-size: 14px" class="grey-color">
           {{listingToView.createdOn.toString().split('T')[0]}}
         </ion-label>
       </div>
       <div class="details-info">
-        <ion-icon style="margin-right: 5px;" name="person-outline"></ion-icon>
-        <ion-label style="font-size: 14px;color: var(--ion-color-primary);" class="grey-color" (click)="viewUserProfile()">
+        <ion-icon style="margin-right: 5px" name="person-outline"></ion-icon>
+        <ion-label
+          style="font-size: 14px; color: var(--ion-color-primary)"
+          class="grey-color"
+          (click)="viewUserProfile()"
+        >
           {{formatListingCreatedBy()}}
         </ion-label>
       </div>
       <div class="details-info">
-        <ion-icon style="margin-right: 5px;" name="heart-outline"></ion-icon>
-        <ion-label style="font-size: 14px;" class="grey-color">
+        <ion-icon style="margin-right: 5px" name="heart-outline"></ion-icon>
+        <ion-label style="font-size: 14px" class="grey-color">
           {{listingToView.likedByUsers.length}} Likes
         </ion-label>
       </div>
       <div class="details-info">
-        <ion-icon style="margin-right: 5px;" name="list-outline"></ion-icon>
-        <ion-label style="font-size: 14px;" class="grey-color">
+        <ion-icon style="margin-right: 5px" name="list-outline"></ion-icon>
+        <ion-label style="font-size: 14px" class="grey-color">
           {{formatListingCategory()}}
         </ion-label>
       </div>
-      <div style="margin-left: 10px;margin-right: 10px;display: flex;">
-        <ion-icon style="margin-right: 5px;" name="pencil-outline"></ion-icon>
-        <div style="width: 320px;">
-          <ion-label style="font-size: 14px;" class="grey-color">
+      <div style="margin-left: 10px; margin-right: 10px; display: flex">
+        <ion-icon style="margin-right: 5px" name="pencil-outline"></ion-icon>
+        <div style="width: 320px">
+          <ion-label style="font-size: 14px" class="grey-color">
             {{listingToView.description}}
           </ion-label>
         </div>
       </div>
       <div class="input-button-div">
-        <ion-button style="text-transform: initial;font-size: 16px;width: 80px;" color="tertiary" (click)="viewListingConversation()">Chat</ion-button>
-        <ion-button style="text-transform: initial;font-size: 16px;width: 110px;" color="tertiary" (click)="makeTransaction()">Buy Now</ion-button>
+        <ion-button
+          style="text-transform: initial; font-size: 16px; width: 80px"
+          color="tertiary"
+          (click)="viewListingConversation()"
+          >Chat</ion-button
+        >
+        <ion-button
+          style="text-transform: initial; font-size: 16px; width: 110px"
+          color="tertiary"
+          (click)="makeTransaction()"
+          >Buy Now</ion-button
+        >
       </div>
     </div>
   </div>

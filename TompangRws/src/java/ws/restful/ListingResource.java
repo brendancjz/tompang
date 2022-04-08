@@ -103,7 +103,7 @@ public class ListingResource {
                         transaction.setCreditCard(null);
                     }
                 }
-                
+
                 if (listing.getLikedByUsers() != null) {
                     for (User likedByUser : listing.getLikedByUsers()) {
                         likedByUser.getCreatedListings().clear();
@@ -113,7 +113,6 @@ public class ListingResource {
                         likedByUser.setSellerTransactions(null);
                         likedByUser.setFollowers(null);
                         likedByUser.setFollowing(null);
-                        System.out.println("***** liked by users liked listngs: " + likedByUser.getLikedListings());
                         likedByUser.setLikedListings(null);
                     }
                 }
@@ -179,10 +178,16 @@ public class ListingResource {
                 }
 
                 if (listing.getLikedByUsers() != null) {
-                    listing.setLikedByUsers(null);
-//                    for (User likedByUser : listing.getLikedByUsers()) {
-//                        likedByUser.setLikedListings(null);
-//                    }
+                    for (User likedByUser : listing.getLikedByUsers()) {
+                        likedByUser.getCreatedListings().clear();
+                        likedByUser.setConversations(null);
+                        likedByUser.setCreditCards(null);
+                        likedByUser.setBuyerTransactions(null);
+                        likedByUser.setSellerTransactions(null);
+                        likedByUser.setFollowers(null);
+                        likedByUser.setFollowing(null);
+                        likedByUser.setLikedListings(null);
+                    }
                 }
             }
 
@@ -260,7 +265,6 @@ public class ListingResource {
             System.out.println("********** ListingResource.retrieveAllProducts(): User " + user.getUsername() + " login remotely via web service");
 
             Listing listing = listingSessionBean.getListingByListingId(listingId);
-            listing.setLikedByUsers(null);
 
             if (listing.getCreatedBy() != null) {
                 listing.getCreatedBy().getCreatedListings().clear();
@@ -292,14 +296,14 @@ public class ListingResource {
             }
 
             if (listing.getLikedByUsers() != null) {
-                listing.setLikedByUsers(null);
-//                for (User likedByUser : listing.getLikedByUsers()) {
-//                    likedByUser.setLikedListings(null);
-//                }
-            }
-
-            if (listing.getLikedByUsers() != null) {
                 for (User likedByUser : listing.getLikedByUsers()) {
+                    likedByUser.getCreatedListings().clear();
+                    likedByUser.setConversations(null);
+                    likedByUser.setCreditCards(null);
+                    likedByUser.setBuyerTransactions(null);
+                    likedByUser.setSellerTransactions(null);
+                    likedByUser.setFollowers(null);
+                    likedByUser.setFollowing(null);
                     likedByUser.setLikedListings(null);
                 }
             }
@@ -344,7 +348,6 @@ public class ListingResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response likeListing(@QueryParam("username") String username,
             @QueryParam("password") String password, @PathParam("listingId") Long listingId, @PathParam("userId") Long userId) {
-        System.out.println("hi");
         try {
             listingSessionBean.likeListing(listingId, userId);
             return Response.status(Response.Status.OK).build();
