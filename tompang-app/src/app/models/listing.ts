@@ -29,22 +29,33 @@ export class Listing {
   // private List<Conversation> conversations;
   transactions: Transaction[] | undefined;
 
-    constructor(listingId?: number, country?: string, city?: string, title?: string, description?: string,
-      category?: string, price?: number, expectedArrivalDate?: Date, quantity?: number) {
-        this.listingId = listingId;
-        this.country = country;
-        this.city = city;
-        this.title = title;
-        this.description = description;
-        this.category = category;
-        this.price = price;
-        this.createdOn = new Date();
-        this.expectedArrivalDate = expectedArrivalDate;
-        this.numOfLikes = 0;
-        this.quantity = quantity;
-        this.isOpen = true;
-        this.isDisabled = false;
+  likedByUsers: User[] | undefined;
 
-        this.photos = [];
-    }
+  constructor(
+    listingId?: number,
+    country?: string,
+    city?: string,
+    title?: string,
+    description?: string,
+    category?: string,
+    price?: number,
+    expectedArrivalDate?: Date,
+    quantity?: number
+  ) {
+    this.listingId = listingId;
+    this.country = country;
+    this.city = city;
+    this.title = title;
+    this.description = description;
+    this.category = category;
+    this.price = price;
+    this.createdOn = new Date();
+    this.expectedArrivalDate = expectedArrivalDate;
+    this.numOfLikes = 0;
+    this.quantity = quantity;
+    this.isOpen = true;
+    this.isDisabled = false;
+
+    this.photos = [];
+  }
 }

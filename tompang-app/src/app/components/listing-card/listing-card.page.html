@@ -1,26 +1,49 @@
-<ion-card style="width: 160px;">
+<ion-card style="width: 160px">
   <ion-card-header (click)="viewListingDetails(listing)">
-    <ion-img style="height: 140px;" src={{getListingFirstPhoto(listing)}}></ion-img>
+    <ion-img
+      style="height: 140px"
+      src="{{getListingFirstPhoto(listing)}}"
+    ></ion-img>
   </ion-card-header>
 
   <ion-card-content>
-    <ion-card-title style="font-size: 16px;" (click)="viewListingDetails(listing)">
+    <ion-card-title
+      style="font-size: 16px"
+      (click)="viewListingDetails(listing)"
+    >
       {{formatListingTitle(listing)}}
     </ion-card-title>
     <div class="listing-card-info">
       <div (click)="viewListingDetails(listing)">
         <ion-card-subtitle>${{listing.price}}</ion-card-subtitle>
-        <ion-card-subtitle>{{formatListingCreatedBy(listing)}}</ion-card-subtitle>
+        <ion-card-subtitle
+          >{{formatListingCreatedBy(listing)}}</ion-card-subtitle
+        >
       </div>
       <!-- Need to handle logic if listing is liked or not. Update accordingly -->
-      <ion-button *ngIf="!listingIsLiked" color="tertiary" class="small-button-icon" (click)="likeListing(listing)" icon-only slot="end">
-        <ion-icon name="heart-outline"></ion-icon>
-      </ion-button>
-      <ion-button *ngIf="listingIsLiked" color="tertiary" class="small-button-icon" (click)="unlikeListing(listing)" icon-only slot="end">
-        <ion-icon color="primary" name="heart"></ion-icon>
-      </ion-button>
+      <div style="display: flex; justify-content: center; align-items: center">
+        <ion-button
+          *ngIf="!listingIsLiked"
+          color="tertiary"
+          class="small-button-icon"
+          (click)="likeListing(listing)"
+          icon-only
+          slot="end"
+        >
+          <ion-icon name="heart-outline"></ion-icon>
+        </ion-button>
+        <ion-button
+          *ngIf="listingIsLiked"
+          color="tertiary"
+          class="small-button-icon"
+          (click)="unlikeListing(listing)"
+          icon-only
+          slot="end"
+        >
+          <ion-icon color="primary" name="heart"></ion-icon>
+        </ion-button>
+        <span>{{listing.likedByUsers.length}} </span>
+      </div>
     </div>
-
-
   </ion-card-content>
 </ion-card>

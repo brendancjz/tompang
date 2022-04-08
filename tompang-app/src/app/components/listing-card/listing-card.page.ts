@@ -29,7 +29,7 @@ export class ListingCardPage implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.sessionSerivce.getCurrentUser();
-    this.listingIsLiked = this.doesCurrentUserLikeThisListing();
+    this.checkLikedByUser();
   }
 
   viewListingDetails(listing: Listing): void {
@@ -73,19 +73,40 @@ export class ListingCardPage implements OnInit {
   }
 
   likeListing(listing: Listing): void {
-    this.listingService.likeListing(listing);
+    this.listingService.likeListing(listing).subscribe({
+      next: (response) => {
+        this.listingService.getListingByListingId(this.listing.listingId);
+        console.log('listing liked!');
+      },
+      error: (error) => {
+        console.log('view-listing-card.page.ts:' + error);
+        console.log('FAIL');
+      },
+    });
     this.listingIsLiked = true;
+    this.listing.likedByUsers.length += 1;
   }
 
   unlikeListing(listing: Listing): void {
-    this.listingService.unlikeListing(listing);
+    this.listingService.unlikeListing(listing).subscribe({
+      next: (response) => {
+        this.listingService.getListingByListingId(this.listing.listingId);
+        console.log('listing unliked!');
+      },
+      error: (error) => {
+        console.log('view-listing-card.page.ts:' + error);
+        console.log('FAIL');
+      },
+    });
     this.listingIsLiked = false;
+    this.listing.likedByUsers.length -= 1;
   }
 
-  doesCurrentUserLikeThisListing(): boolean {
-    return this.userService.isListingLikedByUser(
-      this.currentUser.userId,
-      this.listing.listingId
-    );
+  checkLikedByUser(): void {
+    this.listing.likedByUsers.map((likedUser) => {
+      if (this.currentUser.userId === likedUser.userId) {
+        this.listingIsLiked = true;
+      }
+    });
   }
 }
