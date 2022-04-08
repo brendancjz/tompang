@@ -71,7 +71,7 @@ public class DisputeResource {
             try {
                 User user = userSessionBean.userLogin(createDisputeReq.getUsername(), createDisputeReq.getPassword());
                 
-                Long disputeId = disputeSessionBean.createNewDispute(createDisputeReq.getTransactionId(), createDisputeReq.getDispute());
+                Long disputeId = disputeSessionBean.createNewDispute(createDisputeReq.getTransactionId(), createDisputeReq.getDispute(), user.getUserId());
 
                 return Response.status(Response.Status.OK).entity(disputeId).build();
             } catch (InvalidLoginCredentialsException ex) {
@@ -100,8 +100,44 @@ public class DisputeResource {
             User user = userSessionBean.userLogin(username, password);
            
             Dispute dispute = disputeSessionBean.getDisputeByDisputeId(disputeId);
-            dispute.setTransaction(null);
-            
+            Transaction transaction = dispute.getTransaction();
+            if (transaction.getBuyer() != null) {
+                 transaction.getBuyer().getCreatedListings().clear();
+                 transaction.getBuyer().setConversations(null);
+                 transaction.getBuyer().setCreditCards(null);
+                 transaction.getBuyer().setBuyerTransactions(null);
+                 transaction.getBuyer().setSellerTransactions(null);
+                 transaction.getBuyer().getFollowers().clear();
+                 transaction.getBuyer().getFollowing().clear();
+                 transaction.getBuyer().setLikedListings(null);
+             }
+
+             if (transaction.getSeller() != null) {
+                 transaction.getSeller().getCreatedListings().clear();
+                 transaction.getSeller().setConversations(null);
+                 transaction.getSeller().setCreditCards(null);
+                 transaction.getSeller().setBuyerTransactions(null);
+                 transaction.getSeller().setSellerTransactions(null);
+                 transaction.getSeller().getFollowers().clear();
+                 transaction.getSeller().getFollowing().clear();
+                 transaction.getSeller().setLikedListings(null);
+             }
+
+
+             if (transaction.getDispute() != null){
+                 transaction.getDispute().setTransaction(null);
+             }
+
+             if(transaction.getCreatedOn() != null){
+                 transaction.getCreditCard().setUser(null);
+             }
+
+             if(transaction.getListing()!= null){
+                 transaction.getListing().setCreatedBy(null);
+                 transaction.getListing().getLikedByUsers().clear();
+                 transaction.getListing().getTransactions().clear();
+                 transaction.getListing().getConversations().clear();
+             }
 
             return Response.status(Status.OK).entity(dispute).build();
         } catch (InvalidLoginCredentialsException ex) {

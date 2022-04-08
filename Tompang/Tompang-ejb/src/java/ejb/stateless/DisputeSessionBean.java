@@ -33,7 +33,7 @@ public class DisputeSessionBean implements DisputeSessionBeanLocal {
     
 
     @Override
-    public Long createNewDispute(Long transactionId, Dispute dispute) throws CreateNewDisputeException{
+    public Long createNewDispute(Long transactionId, Dispute dispute, Long userId) throws CreateNewDisputeException{
         
         if(transactionId == null){
             throw new CreateNewDisputeException();
@@ -45,7 +45,7 @@ public class DisputeSessionBean implements DisputeSessionBeanLocal {
             transaction.setDispute(dispute);
             transaction.setHasDispute(true);
             dispute.setTransaction(transaction);
-            
+            dispute.setUserId(userId);
             
         } catch(EntityNotFoundException ex){
             throw new CreateNewDisputeException();
