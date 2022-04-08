@@ -12,7 +12,6 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./listing-card.page.scss'],
 })
 export class ListingCardPage implements OnInit {
-  basePictureUrl = '../../assets/images';
   currentUser: User;
 
   listingIsLiked: boolean;
@@ -40,7 +39,7 @@ export class ListingCardPage implements OnInit {
 
   //Methods for Listings list
   getListingFirstPhoto(listing: Listing): string {
-    const photoUrl = this.basePictureUrl + listing.photos[0];
+    const photoUrl = 'http://localhost:8080/Tompang-war' + listing.photos[0];
     return photoUrl;
   }
 

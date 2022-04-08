@@ -13,7 +13,6 @@ import { UserService } from '../services/user.service';
 })
 export class ProfilePage implements OnInit {
   samplePic = '../../assets/images/tompang_icon_logo_blue.png';
-  defaultProfilePic = '../../assets/images/uploadedFiles/default_picture.jpg';
 
   currentUser: User | null;
 
@@ -80,6 +79,10 @@ export class ProfilePage implements OnInit {
 
     console.log(this.userToView);
     console.log(this.listings);
+  }
+
+  displayProfilePic() {
+    return 'http://localhost:8080/Tompang-war' + this.currentUser.profilePic;
   }
 
   isProfileTheCurrentUser(): boolean {

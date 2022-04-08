@@ -1,5 +1,5 @@
 <app-header></app-header>
-<ion-content>
+<ion-content class="hide-scroll-bar">
   <div>
     <ion-title class="page-name grey-color">
       Settings
@@ -13,6 +13,12 @@
   <div id="formBox" class="formBox" *ngIf="sessionService.getIsLogin() !== false">
     <div id="changeProfilePicForm">
       <form (ngSubmit)="updateUserProfilePic()">
+        <ion-item lines="none">
+          <img style="border-radius: 10%;width: 70%;margin: 10px auto;" src={{displayProfilePic()}} />
+        </ion-item>
+        <label for="file">Choose File</label>
+        <!-- <input type="file" id="file" (change)="handleFileInput($event)"> -->
+
 
         <div class="input-button-div">
           <ion-button color="primary"  type="reset">Clear</ion-button>
