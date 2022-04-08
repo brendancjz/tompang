@@ -38,10 +38,12 @@ public class CreditCardSessionBean implements CreditCardSessionBeanLocal {
             User user = userSessionBeanLocal.getUserByUserId(userId);
             if (!user.getCreditCards().contains(cc)) {
                 user.getCreditCards().add(cc);
+                cc.setUser(user);
             }
         } catch (EntityNotFoundException ex) {
             throw new CreateNewCreditCardException();
         }
+        
         em.persist(cc);
         em.flush();
         return cc.getCcId();
