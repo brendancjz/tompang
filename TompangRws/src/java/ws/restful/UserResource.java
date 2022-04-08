@@ -367,7 +367,7 @@ public class UserResource {
 
             creditCardSessionBean.deleteCreditCard(ccId, user.getUserId());
 
-            return Response.status(Response.Status.OK).entity(user).build();
+            return Response.status(Response.Status.OK).build();
         } catch (InvalidLoginCredentialsException ex) {
             return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
         } catch (EntityNotFoundException ex) {

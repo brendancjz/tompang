@@ -16,11 +16,11 @@ export class ChangePasswordPage implements OnInit {
   newPassword: string | undefined;
   repeatPassword: string | undefined;
 
-  editError: boolean;
-
   resultSuccess: boolean;
   resultError: boolean;
   message: string;
+
+  currentUser: User;
 
   constructor(private location: Location,
     public sessionService: SessionService,
@@ -30,6 +30,13 @@ export class ChangePasswordPage implements OnInit {
     document.getElementById('back-button').addEventListener('click', () => {
       this.resetPage();
     }, { once: true});
+
+    this.currentUser = this.sessionService.getCurrentUser();
+    this.currentPassword = undefined;
+    this.newPassword = undefined;
+    this.repeatPassword = undefined;
+    this.resultSuccess = false;
+    console.log('Current User password onInIt() ' + this.currentUser.password);
   }
 
   updateUserPassword(): void {
@@ -38,38 +45,64 @@ export class ChangePasswordPage implements OnInit {
     console.log('New Password: ' + this.newPassword);
     console.log('Repeat Password: ' + this.repeatPassword);
 
-    
+    this.resultError = false;
+    this.doValidation();
+    if(this.resultError) {
+      console.log('Validation error ' + this.message);
+      return;
+    }
 
-    const currentUser: User = this.sessionService.getCurrentUser();
-    if (this.currentPassword === currentUser.password && this.newPassword === this.repeatPassword
-      && this.newPassword !== this.currentPassword) {
-        console.log('Good to change password');
-        
-        this.userService.updateUserPassword(this.newPassword).subscribe({
-          next: (response) => {
-            this.resultSuccess = true;
-            this.resultError = false;
-            this.message = ' User password updated successfully';
-          },
-          error: (error) => {
-            this.resultError = true;
-            this.resultSuccess = false;
-            this.message =
-              'An error has occurred while updating the user password: ' + error;
-    
-            console.log('********** UpdateUserPage: ' + error);
-          },
-        });
-        this.editError = false;
-      } else{
-    this.editError = true;
-      }
+    console.log('Validation passed.');
+    this.userService.updateUserPassword(this.newPassword).subscribe({
+      next: (response) => {
+        console.log('Update password successful');
+        this.resultSuccess = true;
+        this.resultError = false;
+        this.message = 'User password updated successfully';
+
+        this.currentUser.password = this.newPassword;
+        console.log('Updated current user this password');
+        this.sessionService.setCurrentUser(this.currentUser);
+
+        this.resetPage();
+      },
+      error: (error) => {
+        this.resultError = true;
+        this.resultSuccess = false;
+        this.message = 'Invalid update: Unexpected error occured. Try again later';
+        this.resetPage();
+        console.log('********** UpdateUserPage: ' + error);
+      },
+    });
+
+  }
+
+  doValidation(): void {
+    if (this.currentPassword === undefined || this.newPassword === undefined ||
+      this.repeatPassword === undefined) {
+        this.resultError = true;
+        this.message = 'Invalid update: Missing input fields';
+        return;
+    }
+
+    console.log(this.currentUser.password);
+    if (this.currentPassword !== this.currentUser.password) {
+      this.resultError = true;
+      this.message = 'Invalid update: Current Password does not match';
+      return;
+    }
+
+    if (this.newPassword !== this.repeatPassword) {
+      this.resultError = true;
+      this.message = 'Invalid update: Passwords do not match';
+      return;
+    }
   }
 
   resetPage(): void {
     this.currentPassword = undefined;
     this.newPassword = undefined;
     this.repeatPassword = undefined;
-    this.editError = false;
+    this.resultError = undefined;
   }
 }

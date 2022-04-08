@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user';
 import { CreditCard } from 'src/app/models/creditCard';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { CreditCardService } from 'src/app/services/creditCard.service';
 
 @Component({
   selector: 'app-manage-credit-cards',
@@ -31,21 +32,18 @@ export class ManageCreditCardsPage implements OnInit {
   resultError: boolean;
   message: string;
 
-  hasCreationCCError: boolean;
-  errorMsg: string;
-  successfulCreation: boolean;
-
   constructor(
     private router: Router,
     private location: Location,
     public sessionService: SessionService,
-    public userService: UserService
+    public userService: UserService,
+    private creditCardService: CreditCardService
   ) {}
 
   ngOnInit() {
-    document.getElementById('back-button').addEventListener(
-      'click',
-      () => {
+    console.log('Manage Credit Cards Page OnInIt');
+
+    document.getElementById('back-button').addEventListener('click',() => {
         this.resetPage();
       },
       { once: true }
@@ -55,7 +53,7 @@ export class ManageCreditCardsPage implements OnInit {
     this.isDisplayingCCList = true;
     this.years = this.initialiseYears();
     this.months = this.initialiseMonths();
-    this.hasCreationCCError = false;
+    this.resultError = false;
 
     this.userService.getUserCreditCards().subscribe({
       next: (response) => {
@@ -66,64 +64,61 @@ export class ManageCreditCardsPage implements OnInit {
       },
     });
   }
-  resetPage() {
-    return;
-  }
 
-  viewCreditCard(creditcard: CreditCard) {
-    console.log('Viewing credit card..');
-    this.router.navigate(['/view-credit-card-details/' + creditcard.ccId]);
+  ionViewWillEnter() {
+    console.log('Ion Will Enter for Manage Credit Cards');
+    this.userService.getUserCreditCards().subscribe({
+      next: (response) => {
+        this.creditCards = response;
+        this.resultSuccess = false;
+      },
+      error: (error) => {
+        console.log('getAllAvailableListings.ts:' + error);
+      },
+    });
   }
 
   addCreditCard() {
     console.log('Creating new credit card..');
     this.doValidation();
-    if (this.hasCreationCCError) {
-      console.log('has creation of credit card error');
+    if (this.resultError) {
+      console.log('Validation error for credit card');
       return;
     }
-    //TODO
-    let creditCard: CreditCard = new CreditCard();
+
+    const creditCard: CreditCard = new CreditCard();
     creditCard.ccBrand = this.ccBrand;
-    console.log(this.ccBrand);
     creditCard.ccName = this.ccName;
-    console.log(this.ccName);
     creditCard.ccNumber = this.ccNumber;
-    console.log(this.ccNumber);
     creditCard.ccCIV =  this.ccCIV;
-    console.log(this.ccCIV);
-    creditCard.expiryDate = new Date(this.expiryYear, this.expiryMonth)
-    console.log(this.expiryYear);
-    console.log(this.expiryMonth);
-    
+    creditCard.expiryDate = new Date(this.expiryYear, this.expiryMonth);
+
 
     this.userService.createCreditCard(creditCard).subscribe({
       next:(response)=>{
-        let newCreditCardId: number = response;
+        console.log('Successful creation of credit card');
+        const newCreditCardId: number = response;
         this.resultSuccess = true;
         this.resultError = false;
-        this.message = "New Credit Card " + newCreditCardId + " created successfully";
+        this.message = 'Successfully added a new Credit Card!';
+
+        creditCard.ccId = newCreditCardId;
+        this.creditCards.push(creditCard);
+        this.resetPage();
       },
       error:(error)=>{
         this.resultError = true;
         this.resultSuccess = false;
-        this.message = "An error has occurred while creating the new credit card: " + error;
+        this.message = 'Invalid Creation: Unexpected error occured. Try again later.';
 
         console.log('********** CreateNewCreditCardPage: ' + error);
       }
     });
 
-    this.ccBrand = null;
-    this.ccName = null;
-    this.ccNumber = null;
-    this.ccCIV = null;
-    this.expiryMonth = null;
-    this.expiryYear = null;
-    this.successfulCreation = true;
   }
 
   doValidation() {
-    this.hasCreationCCError = false;
+    this.resultError = false;
 
     if (
       this.ccBrand === undefined ||
@@ -133,14 +128,14 @@ export class ManageCreditCardsPage implements OnInit {
       this.expiryMonth === undefined ||
       this.expiryYear === undefined
     ) {
-      this.hasCreationCCError = true;
-      this.errorMsg = 'Sorry, Missing and invalid inputs.';
+      this.resultError = true;
+      this.message = 'Sorry, Missing and invalid inputs.';
       return;
     }
 
     if (this.ccNumber.toString().length !== 16) {
-      this.hasCreationCCError = true;
-      this.errorMsg = 'Sorry, Credit Card Number is not correctly formatted.';
+      this.resultError = true;
+      this.message = 'Sorry, Credit Card Number is not correctly formatted.';
     }
 
     if (
@@ -151,16 +146,30 @@ export class ManageCreditCardsPage implements OnInit {
       this.ccBrand !== 'OCBC' &&
       this.ccBrand !== 'UOB'
     ) {
-      this.hasCreationCCError = true;
-      this.errorMsg = 'Sorry, invalid Bank input.';
+      this.resultError = true;
+      this.message = 'Sorry, invalid Bank input.';
     }
 
     if (this.ccCIV.toString().length !== 3) {
-      this.hasCreationCCError = true;
-      this.errorMsg = 'Sorry, Credit Card CIV is not correctly formatted.';
+      this.resultError = true;
+      this.message = 'Sorry, Credit Card CIV is not correctly formatted.';
     }
   }
 
+  resetPage() {
+    this.ccBrand = null;
+    this.ccName = null;
+    this.ccNumber = null;
+    this.ccCIV = null;
+    this.expiryMonth = null;
+    this.expiryYear = null;
+    this.isDisplayingCCList = true;
+  }
+
+  viewCreditCard(creditcard: CreditCard) {
+    console.log('Viewing credit card..');
+    this.router.navigate(['/view-credit-card-details/' + creditcard.ccId]);
+  }
   toggleAddCreditCardPage() {
     console.log('Adding credit card page..');
     this.isDisplayingCCList = !this.isDisplayingCCList;

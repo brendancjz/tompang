@@ -12,14 +12,14 @@
   <div>
     <ion-searchbar class="grey-color" placeholder="Search Conversation" [(ngModel)]="searchTerm"
       showCancelButton="focus" animated></ion-searchbar>
-    <div *ngIf="sellingConvos != null">
+    <div *ngIf="sellingConvos !== null">
       <ion-list *ngFor="let convo of sellingConvos | filter:searchTerm">
         <app-conversation-item [convo]="convo"></app-conversation-item>
       </ion-list>
     </div>
     <br/>
-    <div *ngIf="sellingConvos == null" style="text-align: center;">
-      <ion-text>List of conversations is empty.</ion-text>
+    <div *ngIf="sellingConvos === null" style="text-align: center;">
+      <ion-text class="grey-color">List of conversations is empty.</ion-text>
     </div>
   </div>
 </ion-content>

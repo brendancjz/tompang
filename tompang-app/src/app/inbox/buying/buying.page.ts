@@ -15,7 +15,7 @@ import { Message } from 'src/app/models/message';
   styleUrls: ['./buying.page.scss'],
 })
 export class BuyingPage implements OnInit {
-  buyingConvos: Conversation[];
+  buyingConvos: Conversation[] | null;
   searchTerm: string;
 
   constructor(private location: Location,
@@ -33,6 +33,7 @@ export class BuyingPage implements OnInit {
       },
       error: (error) => {
         console.log('buyingPage : retrieveBuyerConversations.ts:' + error);
+        this.buyingConvos = null;
       },
     });
 

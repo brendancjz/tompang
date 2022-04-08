@@ -131,6 +131,17 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
+  deleteCreditCard(creditCardId: number): Observable<any>
+  {
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
+    return this.httpClient.delete<any>(this.baseUrl + "/creditCards/" + creditCardId + "?username=" + username + "&password=" + password).pipe
+    (
+      catchError(this.handleError)
+    );
+  }
+
   getSampleUser() {
     const manager = new User(
       1,
