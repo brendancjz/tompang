@@ -6,6 +6,7 @@ import { User } from '../models/user';
 import { ConversationService } from '../services/conversation.service';
 import { ListingService } from '../services/listing.service';
 import { SessionService } from '../services/session.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-view-conversation',
@@ -32,6 +33,7 @@ export class ViewConversationPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
     private listingService: ListingService,
+    private userService: UserService,
     private conversationService: ConversationService) { }
 
   ngOnInit() {
@@ -146,9 +148,14 @@ export class ViewConversationPage implements OnInit {
     this.newMessageBody = undefined;
   }
 
-  getUserProfilePic(convo: Conversation): string {
+  getUserProfilePic(indicator: number): string {
     const baseUrl = '../../assets/images';
-    //Profile pic should be the user of the latest message sent
-    return baseUrl + convo.createdBy.profilePic;
+    if (indicator == 2) {
+      console.log('never enter')
+      return baseUrl + this.convoToView.createdBy.profilePic;
+    } else {
+      console.log('enter')
+      return baseUrl + this.convoToView.seller.profilePic;
+    }
   }
 }

@@ -15,7 +15,7 @@
         <div class="form-input">
           <ion-item lines="none">
             <ion-icon style="font-size:35px;" name="card-outline" slot="start"></ion-icon>
-            <ion-select class="grey-color" slot="end" [(ngModel)]="buyerCreditCard" name="buyerCreditCard" required>
+            <ion-select class="grey-color" slot="end" [(ngModel)]="transaction.creditCard" name="buyerCreditCard" required>
               <ion-label class="grey-color" style="font-size:12px;">Select Credit Card</ion-label>
               <ion-select-option class="grey-color"
                 *ngFor="let card of currentUser.creditCards"
@@ -28,7 +28,7 @@
           <ion-button style="text-transform: initial;font-size: 16px;height: 50px;" color="tertiary" type="submit">Confirm Purchase</ion-button>
         </div>
         <div *ngIf="transactionSuccessful" style="display: flex;flex-direction: column;justify-content: center;">
-          <ion-label style="text-align: center;" class="grey-color">Successfully purchase this listing!</ion-label>
+          <ion-label style="text-align: center;" class="grey-color">Successfully requested to purchase this listing!</ion-label>
           <ion-label class="grey-color" style="text-align: center;">
             Expected arrivel date is {{eta}}.
           </ion-label>

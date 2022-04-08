@@ -16,6 +16,7 @@ import { Transaction } from '../models/transaction';
 import { CreateTransactionReq } from '../models/create-transaction-req';
 import { UpdateTransactionReq } from '../models/update-transaction-req';
 
+
 const httpOptions = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -73,13 +74,14 @@ export class TransactionService {
     const currentUser = this.sessionService.getCurrentUser();
     const username = currentUser.username;
     const password = currentUser.password;
-    const userId = currentUser.userId;
-
+   
+    console.log(listingId);
+   
     let createTransactionReq: CreateTransactionReq = new CreateTransactionReq(
       username,
       password,
-      newTransaction,
-      listingId
+      listingId,
+      newTransaction
     );
 
     return this.httpClient

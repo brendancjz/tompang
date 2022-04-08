@@ -41,6 +41,7 @@ public class TransactionSessionBean implements TransactionSessionBeanLocal {
     @Override
     public Long createNewTransaction(Long buyerId, Long listingId, Transaction transaction) throws CreateNewTransactionException {
         if (buyerId == null || listingId == null){
+            
             throw new CreateNewTransactionException();
         }
         try {

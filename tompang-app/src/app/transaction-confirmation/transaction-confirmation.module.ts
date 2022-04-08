@@ -15,6 +15,7 @@ import { FooterPageModule } from '../footer/footer.module';
     CommonModule,
     FormsModule,
     IonicModule,
+    HeaderPageModule,
     TransactionConfirmationPageRoutingModule,
   ],
   declarations: [TransactionConfirmationPage],
