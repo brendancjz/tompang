@@ -12,19 +12,17 @@
   <hr class="horizontal-rule" />
   <div id="formBox" class="formBox" *ngIf="sessionService.getIsLogin() !== false">
     <div id="changeProfilePicForm">
-      <form (ngSubmit)="updateUserProfilePic()">
-        <ion-item lines="none">
-          <img style="border-radius: 10%;width: 70%;margin: 10px auto;" src={{displayProfilePic()}} />
-        </ion-item>
-        <label for="file">Choose File</label>
-        <!-- <input type="file" id="file" (change)="handleFileInput($event)"> -->
+      <ion-item lines="none">
+        <img style="border-radius: 10%;width: 70%;margin: 10px auto;" src={{displayProfilePic()}} />
 
-
-        <div class="input-button-div">
-          <ion-button color="primary"  type="reset">Clear</ion-button>
-          <ion-button color="primary" type="submit">Change</ion-button>
-        </div>
-      </form>
+      </ion-item>
+      <ion-item lines="none">
+        <!-- <input style="margin: 10px auto;" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleFileInput($event)"> -->
+        <input style="margin: 10px auto;" type="file" accept="image/png, image/gif, image/jpeg" (change)="changeProfilePic($event)">
+      </ion-item>
+      <div class="input-button-div">
+        <ion-button color="tertiary" style="text-transform: capitalize;" (click)="updateProfilePic()">Change</ion-button>
+      </div>
       <div *ngIf="editError === true" style="text-align: center; color: red;width: 300px;">
         Invalid change: Bad profile picture url!
       </div>
