@@ -106,11 +106,12 @@ export class ViewListingDetailsPage implements OnInit {
       next: (response) => {
         buyingConvos = response;
         // check to see if there is existing convo
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < buyingConvos.length; i++) {
           console.log(buyingConvos);
           console.log(this.listingToView);
           console.log('enter for loop');
-          if (buyingConvos[i].listing.listingId == this.listingToView.listingId) {
+          if (buyingConvos[i].listing.listingId === this.listingToView.listingId) {
             console.log('convo found');
             convo = buyingConvos[i];
             this.router.navigate(['/view-conversation/' + convo.convoId]);
@@ -127,18 +128,20 @@ export class ViewListingDetailsPage implements OnInit {
         convo.seller = this.listingToView.createdBy;
         convo.messages = new Array();
         convo.isOpen = true;
-        this.conversationService.createConversation(convo, (Number(this.listingToView.listingId)), (Number(this.sessionService.getCurrentUser().userId))).subscribe({
+        this.conversationService.createConversation(convo, (Number(this.listingToView.listingId)),
+        (Number(this.sessionService.getCurrentUser().userId))).subscribe({
+          // eslint-disable-next-line @typescript-eslint/no-shadow
           next: (response) => {
-            let newConversationId: number = response;
+            const newConversationId: number = response;
             this.resultSuccess = true;
             this.resultError = false;
-            this.message = "New Conversation " + newConversationId + " created successfully";
+            this.message = 'New Conversation ' + newConversationId + ' created successfully';
             this.router.navigate(['/view-conversation/' + newConversationId]);
           },
           error: (error) => {
             this.resultError = true;
             this.resultSuccess = false;
-            this.message = "An error has occurred while creating the new conversation: " + error;
+            this.message = 'An error has occurred while creating the new conversation: ' + error;
             console.log('********** createNewConversation: ' + error);
           }
         });
@@ -153,20 +156,24 @@ export class ViewListingDetailsPage implements OnInit {
         convo.seller = this.listingToView.createdBy;
         convo.messages = new Array();
         convo.isOpen = true;
-        this.conversationService.createConversation(convo, (Number(this.listingToView.listingId)), (Number(this.sessionService.getCurrentUser().userId))).subscribe({
+        this.conversationService.createConversation(convo, (Number(this.listingToView.listingId)),
+        (Number(this.sessionService.getCurrentUser().userId))).subscribe({
           next: (response) => {
             console.log('service method success');
-            let newConversationId: number = response;
+            const newConversationId: number = response;
             this.resultSuccess = true;
             this.resultError = false;
-            this.message = "New Conversation " + newConversationId + " created successfully";
+            this.message = 'Successfully created a conversation';
             this.router.navigate(['/view-conversation/' + newConversationId]);
+            console.log('New Conversation ' + newConversationId + ' created successfully');
           },
+          // eslint-disable-next-line @typescript-eslint/no-shadow
           error: (error) => {
             this.resultError = true;
             this.resultSuccess = false;
-            this.message = "An error has occurred while creating the new conversation: " + error;
+            this.message = 'Unexpected error occured. Try again later';
             console.log('********** createNewConversation: ' + error);
+            console.log('An error has occurred while creating the new conversation: ' + error);
           }
         });
       },
@@ -195,10 +202,7 @@ export class ViewListingDetailsPage implements OnInit {
 
   doesCurrentUserLikeThisListing(): boolean {
     // eslint-disable-next-line radix
-    return this.userService.isListingLikedByUser(
-      this.currentUser.userId,
-      parseInt(this.listingId)
-    );
+    return this.userService.isListingLikedByUser(this.currentUser.userId,parseInt(this.listingId));
   }
 
   formatListingTitle(): string {

@@ -49,7 +49,7 @@ export class ProfilePage implements OnInit {
     this.userService.getUser(parseInt(this.userIdToView)).subscribe({
       next: (response) => {
         this.userToView = response;
-        console.log(this.userToView.userId);
+        console.log(this.userToView);
         console.log(this.currentUser.userId);
 
         this.userToViewUsername = this.userToView.username;
@@ -61,10 +61,11 @@ export class ProfilePage implements OnInit {
           // eslint-disable-next-line @typescript-eslint/no-shadow
           next: (response) => {
             this.listings = response;
-            console.log(response)
             this.hasLoaded = true;
           },
           error: (error) => {
+            this.listings = [];
+            this.hasLoaded = true;
             console.log('getAllAvailableListings.ts:' + error);
           },
         });
@@ -74,16 +75,12 @@ export class ProfilePage implements OnInit {
       },
     });
 
-    // this.userToViewFollowers = this.currentUser.followers.length;
-    // this.userToViewFollowing = this.currentUser.following.length;
-    // this.userToViewProfilePic = this.currentUser.profilePic;
-
     console.log(this.userToView);
     console.log(this.listings);
   }
 
   displayProfilePic() {
-    return 'http://localhost:8080/Tompang-war' + this.currentUser.profilePic;
+    return 'http://localhost:8080/Tompang-war' + this.userToView.profilePic;
   }
 
   isProfileTheCurrentUser(): boolean {

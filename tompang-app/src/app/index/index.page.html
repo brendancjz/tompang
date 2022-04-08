@@ -106,6 +106,11 @@
       <div *ngIf="registrationError === true" style="text-align: center; color: red;margin-bottom: 20px;">
         {{registrationErrorMsg}}
       </div>
+      <div *ngIf="registrationSuccess" style="text-align: center; color: var(--ion-primary-color);margin-bottom: 20px;">
+        {{registrationErrorMsg}}
+      </div>
     </div>
   </div>
+
+
 </ion-content>
