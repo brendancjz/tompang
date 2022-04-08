@@ -53,7 +53,7 @@ export class DisputeService {
     return this.httpClient
       .get<Dispute[]>(
         this.baseUrl +
-          '/retrieveAllUserDisputes?username=' +
+          '/retrieveUserDisputes?username=' +
           username +
           '&password=' +
           password
@@ -69,12 +69,10 @@ export class DisputeService {
     return this.httpClient
       .get<Dispute>(
         this.baseUrl +
-          '/retrieveDispute?username=' +
+          '/retrieveDispute/' + disputeId + '?username=' +
           username +
           '&password=' +
-          password +
-          '&disputeId=' +
-          disputeId
+          password 
       )
       .pipe(catchError(this.handleError));
   }
