@@ -152,8 +152,8 @@ public class ListingResource {
                     listing.getCreatedBy().setCreditCards(null);
                     listing.getCreatedBy().setBuyerTransactions(null);
                     listing.getCreatedBy().setSellerTransactions(null);
-                    listing.getCreatedBy().getFollowers().clear();
-                    listing.getCreatedBy().getFollowing().clear();
+                    listing.getCreatedBy().setFollowers(null);
+                    listing.getCreatedBy().setFollowing(null);
                     listing.getCreatedBy().setLikedListings(null);
                 }
 
