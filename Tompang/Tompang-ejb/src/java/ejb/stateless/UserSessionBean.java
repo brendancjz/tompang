@@ -278,12 +278,12 @@ public class UserSessionBean implements UserSessionBeanLocal {
     }
 
     @Override
-    public void unfollow(Long followingUserId, Long followedUserId) throws EntityNotFoundException {
-        User followingUser = this.getUserByUserId(followingUserId);
-        User followedUser = this.getUserByUserId(followedUserId);
+    public void unfollow(Long unfollowingUserId, Long unfollowedUserId) throws EntityNotFoundException {
+        User unfollowingUser = this.getUserByUserId(unfollowingUserId);
+        User unfollowedUser = this.getUserByUserId(unfollowedUserId);
         
-        System.out.print("Following user: " + followingUser.getUsername() + " Followed user: " + followedUser.getUsername());
-        followingUser.getFollowing().remove(followedUser);
-        followedUser.getFollowers().remove(followingUser);
+        System.out.print("Unfollowing user: " + unfollowingUser.getUsername() + " Unfollowed user: " + unfollowedUser.getUsername());
+        unfollowingUser.getFollowing().remove(unfollowedUser);
+        unfollowedUser.getFollowers().remove(unfollowingUser);
     }
 }

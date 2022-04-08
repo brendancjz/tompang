@@ -215,7 +215,7 @@ public class DataInitSessionBean {
         try {
 
             //Users following manager
-            userSessionBean.follow(guojun.getUserId(), manager.getUserId());
+           userSessionBean.follow(guojun.getUserId(), manager.getUserId());
             userSessionBean.follow(6L, manager.getUserId());
             userSessionBean.follow(7L, manager.getUserId());
             userSessionBean.follow(8L, manager.getUserId());
@@ -228,7 +228,6 @@ public class DataInitSessionBean {
 
             //Users following iggy
             userSessionBean.follow(manager.getUserId(), iggy.getUserId());
-            userSessionBean.follow(guojun.getUserId(), iggy.getUserId());
             userSessionBean.follow(4L, iggy.getUserId());
             userSessionBean.follow(10L, iggy.getUserId());
             
@@ -249,7 +248,6 @@ public class DataInitSessionBean {
             userSessionBean.follow(2L, 6L);
             userSessionBean.follow(3L, 6L);
             userSessionBean.follow(4L, 6L);
-            userSessionBean.follow(5L, 6L);
             
             //Users following ryan ng
             userSessionBean.follow(1L, 7L);
@@ -281,7 +279,6 @@ public class DataInitSessionBean {
             userSessionBean.follow(2L, 12L);
             userSessionBean.follow(3L, 12L);
             userSessionBean.follow(4L, 12L);
-            userSessionBean.follow(5L, 12L);
             
             //Users following anna
             userSessionBean.follow(1L, 13L);

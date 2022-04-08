@@ -398,7 +398,36 @@ public class UserResource {
         } catch (EntityNotFoundException ex) {
             return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
         }
-
+    }
+    
+    @Path("follow/{followingUserId}/{followedUserId}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response follow(@QueryParam("username") String username,
+            @QueryParam("password") String password, @PathParam("followingUserId") Long followingUserId, @PathParam("followedUserId") Long followedUserId ) {
+        System.out.println("hi");
+        try {
+            userSessionBean.follow(followingUserId, followedUserId);
+            return Response.status(Response.Status.OK).build(); 
+        } catch (EntityNotFoundException ex) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+        }
+    }
+    
+    @Path("unfollow/{unfollowingUserId}/{unfollowedUserId}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response unfollow(@PathParam("unfollowingUserId") Long unfollowingUserId, @PathParam("unfollowedUserId") Long unfollowedUserId, @QueryParam("username") String username,
+            @QueryParam("password") String password ) {
+        
+        try {
+            userSessionBean.unfollow(unfollowingUserId, unfollowedUserId);
+            return Response.status(Response.Status.OK).build(); 
+        } catch (EntityNotFoundException ex) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+        }
     }
 
     private UserSessionBeanLocal lookupUserSessionBeanLocal() {

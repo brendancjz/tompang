@@ -27,6 +27,7 @@ export class ProfilePage implements OnInit {
   listings: Listing[];
   searchTerm: string;
   hasLoaded: boolean | undefined;
+  showFollowButton: boolean | undefined;
 
   constructor(
     private router: Router,
@@ -39,6 +40,8 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
     this.currentUser = this.sessionService.getCurrentUser();
 
+    console.log(this.currentUser);
+
     this.userIdToView = this.activatedRoute.snapshot.paramMap.get('userId');
     if (this.userIdToView === '#') {
       //This is to handle the missing userId at the beginning
@@ -49,37 +52,42 @@ export class ProfilePage implements OnInit {
     this.userService.getUser(parseInt(this.userIdToView)).subscribe({
       next: (response) => {
         this.userToView = response;
-        console.log(this.userToView.userId);
-        console.log(this.currentUser.userId);
+        console.log(this.userToView);
 
         this.userToViewUsername = this.userToView.username;
         this.userToViewFollowers = this.userToView.followers.length;
         this.userToViewFollowing = this.userToView.following.length;
         this.userToViewProfilePic = this.userToView.profilePic;
         console.log(this.userToView);
+
         this.listingService.getUserListings(this.userToView).subscribe({
           // eslint-disable-next-line @typescript-eslint/no-shadow
           next: (response) => {
             this.listings = response;
-            console.log(response)
+            console.log(response);
             this.hasLoaded = true;
           },
           error: (error) => {
             console.log('getAllAvailableListings.ts:' + error);
           },
         });
+
+        this.showFollowButton = true;
+        this.currentUser.following.map((following) => {
+          console.log(following);
+          console.log(following.userId);
+          console.log(this.userToView.userId);
+          if (following.userId === this.userToView.userId) {
+            this.showFollowButton = false;
+          }
+        });
+
+        console.log('follow button' + this.showFollowButton);
       },
       error: (error) => {
         console.log('********** View User Profile.ts: ' + error);
       },
     });
-
-    // this.userToViewFollowers = this.currentUser.followers.length;
-    // this.userToViewFollowing = this.currentUser.following.length;
-    // this.userToViewProfilePic = this.currentUser.profilePic;
-
-    console.log(this.userToView);
-    console.log(this.listings);
   }
 
   displayProfilePic() {
@@ -90,32 +98,33 @@ export class ProfilePage implements OnInit {
     return this.userToView.userId === this.currentUser.userId;
   }
 
-  displayFollowButton(): boolean {
-    // return this.hasLoaded === true && !this.isProfileTheCurrentUser() &&
-    // !this.currentUser.following.includes(this.userToView);
-
-    return this.hasLoaded === true && !this.isProfileTheCurrentUser();
-  }
-
-  displayUnfollowButton(): boolean {
-    // return this.hasLoaded === true && !this.isProfileTheCurrentUser() &&
-    // this.currentUser.following.includes(this.userToView);
-
-    return this.hasLoaded === true && !this.isProfileTheCurrentUser();
-  }
-
-  followUser() {
+  followUser(userId: number) {
     //user to follow userToView
     console.log('Following user..');
 
+    this.userService.follow(userId).subscribe({
+      next: (response) => {
+        console.log('user followed');
+      },
+    });
+    this.userToViewFollowers += 1;
+    this.showFollowButton = false;
     //Must update the current user to have the updated list of
     //following so that it will rerender the Unfollow button
   }
 
-  unfollowUser() {
+  unfollowUser(userId: number) {
     //user to unfollow is userToView
     console.log('Unfollowing user..');
 
+    this.userService.unfollow(userId).subscribe({
+      next: (response) => {
+        console.log('user unfollowed');
+      },
+    });
+
+    this.userToViewFollowers -= 1;
+    this.showFollowButton = true;
     //Must update the current user to have the updated list of
     //following so that it will rerender the Follow button
   }
