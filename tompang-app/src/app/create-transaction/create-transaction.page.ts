@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreditCard } from '../models/creditCard';
 import { Listing } from '../models/listing';
+import { Transaction } from '../models/transaction';
 import { User } from '../models/user';
 import { ConversationService } from '../services/conversation.service';
 import { ListingService } from '../services/listing.service';
 import { SessionService } from '../services/session.service';
+import { TransactionService } from '../services/transaction.service';
 
 @Component({
   selector: 'app-create-transaction',
@@ -22,21 +24,25 @@ export class CreateTransactionPage implements OnInit {
   hasLoaded: boolean;
 
   currentUser: User | null;
+  transaction: Transaction
 
   buyerCreditCard: CreditCard;
   transactionSuccessful: boolean;
+  resultError: boolean
+  message: String
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
     private listingService: ListingService,
-    private conversationService: ConversationService) { }
+    private conversationService: ConversationService,
+    private transactionService: TransactionService) { }
 
   ngOnInit() {
 
     this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
     this.currentUser = this.sessionService.getCurrentUser();
-
+    this.transaction = new Transaction();
     //ToChange
     this.listingService.getAllAvailableListings().subscribe({
       next:(response)=> {
@@ -63,8 +69,27 @@ export class CreateTransactionPage implements OnInit {
 
   createTransaction() {
     console.log('Creating transaction..');
-    console.log(this.buyerCreditCard);
-    //To implement
+    this.transaction.seller = this.listingToView.createdBy;
+    this.transaction.createdOn = new Date();
+    this.transaction.amount = this.listingToView.price;
+
+    this.transactionService.createTransaction(Number(this.listingId), this.transaction).subscribe({
+      next:(response)=>{
+        console.log('Successful creation of transaction');
+        const newTransactionId: number = response;
+        this.transactionSuccessful = true;
+        this.resultError = false;
+        this.message = 'Successfully requested to purchase listing';       
+      },
+      error:(error)=>{
+        this.resultError = true;
+        this.transactionSuccessful= false;
+        this.message = 'Invalid Creation: Unexpected error occured. Try again later.';
+
+        console.log('********** CreateNewTransactionPage: ' + error);
+      }
+    });
+    
     if (this.buyerCreditCard !== undefined) {
       this.transactionSuccessful = true;
     } else {

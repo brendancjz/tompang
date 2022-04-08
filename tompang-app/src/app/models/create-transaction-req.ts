@@ -3,18 +3,20 @@ import { Transaction } from './transaction';
 export class CreateTransactionReq {
   username: string | undefined;
   password: string | undefined;
+  listingId: number | undefined | null;
   transaction: Transaction | undefined;
-  buyerId: number | undefined | null;
+  
 
   constructor(
     username?: string,
     password?: string,
+    listingId?: number | null,
     transaction?: Transaction,
-    buyerId?: number | null
   ) {
     this.username = username;
     this.password = password;
+    this.listingId = listingId;
     this.transaction = transaction;
-    this.buyerId = buyerId;
+    
   }
 }
