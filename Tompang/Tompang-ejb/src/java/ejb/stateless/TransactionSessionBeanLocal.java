@@ -30,5 +30,9 @@ public interface TransactionSessionBeanLocal {
     public void updateTransactionHasDispute(Long transactionId, Boolean hasDispute) throws EntityNotFoundException;
     
     public List<Transaction> retrieveTransactionsByUserId(Long userId);
+
+    public List<Double> getList();
+
+    
     
 }
