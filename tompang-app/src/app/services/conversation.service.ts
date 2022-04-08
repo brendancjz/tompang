@@ -14,6 +14,7 @@ import { Conversation } from '../models/conversation';
 import { ListingService } from './listing.service';
 import { Message } from '../models/message';
 import { NewMessageReq } from '../models/new-message-req';
+import { NewConversationReq } from '../models/new-conversation-req';
 
 const httpOptions = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -73,6 +74,12 @@ export class ConversationService {
     return this.httpClient.put<number>(this.baseUrl, newMessageReq, httpOptions).pipe(catchError(this.handleError));
   }
 
+  createConversation(newConversation: Conversation, listingId: number, userId: number) {
+    console.log(' create convo service method called');
+    let newConversationReq: NewConversationReq = new NewConversationReq(newConversation, listingId, userId);
+    return this.httpClient.put<number>(this.baseUrl + '/createConversation', newConversationReq, httpOptions).pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
@@ -84,4 +91,5 @@ export class ConversationService {
     console.error(errorMessage);
     return throwError(() => new Error(errorMessage));
   }
+
 }

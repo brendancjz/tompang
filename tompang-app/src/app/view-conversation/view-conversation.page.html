@@ -30,12 +30,29 @@
       <div id="divExample" style="height: 40vh; overflow-y: scroll;">
         <ion-list *ngFor="let message of convoToView.messages">
           <div *ngIf="!isCurrentUserTheBuyer()">
-            <ion-item lines="none" *ngIf="message.fromBuyer">{{message.body}}</ion-item>
-            <ion-item lines="none" *ngIf="!message.fromBuyer" style="float:right">{{message.body}}</ion-item>
+
+            <img *ngIf="message.sentBy == currentUser.userId" src="{{getUserProfilePic(1)}}"
+              style=" float:right; width: 45px;border-radius: 100%;margin-right: 16px;">
+            <ion-item lines="none" *ngIf="message.sentBy == currentUser.userId" style="float: right;">{{message.body}}
+            </ion-item>
+
+
+            <img *ngIf="message.sentBy != currentUser.userId" src="{{getUserProfilePic(2)}}"
+              style="width: 45px;border-radius: 100%;margin-right: 16px; float: left;">
+            <ion-item lines="none" *ngIf="message.sentBy != currentUser.userId" style="float: left;">{{message.body}}
+            </ion-item>
+
           </div>
+
           <div *ngIf="isCurrentUserTheBuyer()">
-            <ion-item lines="none" *ngIf="message.fromBuyer" style="float:right">{{message.body}}</ion-item>
-            <ion-item lines="none" *ngIf="!message.fromBuyer">{{message.body}}</ion-item>
+            <img *ngIf="message.sentBy != currentUser.userId" src="{{getUserProfilePic(1)}}"
+              style="width: 45px;border-radius: 100%;margin-right: 16px; float: left;">
+            <ion-item lines="none" *ngIf="message.sentBy != currentUser.userId" style="float: left;">{{message.body}}
+            </ion-item>
+            <img *ngIf="message.sentBy == currentUser.userId" src="{{getUserProfilePic(2)}}"
+              style=" float:right; width: 45px;border-radius: 100%;margin-right: 16px;">
+            <ion-item lines="none" *ngIf="message.sentBy == currentUser.userId" style="float: right;">{{message.body}}
+            </ion-item>
           </div>
         </ion-list>
       </div>
