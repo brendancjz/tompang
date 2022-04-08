@@ -330,6 +330,31 @@ public class UserResource {
         }
     }
     
+    @Path("retrieveCreditCard/{creditCardId}")
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response retrieveCreditCardByCCId(@QueryParam("username") String username,
+            @QueryParam("password") String password, @PathParam("creditCardId") Long ccId) {
+        try {
+            System.out.println("*********** " + username + " " + password);
+            User user = userSessionBean.userLogin(username, password);
+            System.out.println("********** UserResource.userLogin(): User " + user.getUsername() + " login remotely via web service");
+
+            CreditCard creditCard = creditCardSessionBean.getCreditCardByCCId(ccId);
+            
+           
+             creditCard.setUser(null);
+            
+           
+            return Response.status(Status.OK).entity(creditCard).build();
+        } catch (InvalidLoginCredentialsException ex) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
+        } catch (EntityNotFoundException ex) {
+                return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+            } 
+    }
+    
     @Path("createCreditCard")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)

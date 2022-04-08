@@ -110,6 +110,24 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
+  getCreditCardById(creditCardId: number): Observable<CreditCard> {
+
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
+
+    return this.httpClient
+      .get<CreditCard>(
+        this.baseUrl +
+          '/retrieveCreditCard/' + creditCardId + '?username=' +
+          username +
+          '&password=' +
+          password
+      )
+      .pipe(catchError(this.handleError));
+
+  }
+
   createCreditCard(creditCard: CreditCard): Observable<any> {
     const currentUser = this.sessionService.getCurrentUser();
     const username = currentUser.username;
