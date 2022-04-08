@@ -73,8 +73,6 @@ public class ListingResource {
 
             for (Listing listing : listings) {
 
-                System.out.println("&&&& " + listing.getTitle());
-
                 if (listing.getCreatedBy() != null) {
                     listing.getCreatedBy().getCreatedListings().clear();
                     listing.getCreatedBy().setConversations(null);
@@ -154,8 +152,8 @@ public class ListingResource {
                     listing.getCreatedBy().setCreditCards(null);
                     listing.getCreatedBy().setBuyerTransactions(null);
                     listing.getCreatedBy().setSellerTransactions(null);
-                    listing.getCreatedBy().getFollowers().clear();
-                    listing.getCreatedBy().getFollowing().clear();
+                    listing.getCreatedBy().setFollowers(null);
+                    listing.getCreatedBy().setFollowing(null);
                     listing.getCreatedBy().setLikedListings(null);
                 }
 
@@ -348,6 +346,7 @@ public class ListingResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response likeListing(@QueryParam("username") String username,
             @QueryParam("password") String password, @PathParam("listingId") Long listingId, @PathParam("userId") Long userId) {
+        System.out.println("hi " + listingId + " i am getting liked!");
         try {
             listingSessionBean.likeListing(listingId, userId);
             return Response.status(Response.Status.OK).build();
