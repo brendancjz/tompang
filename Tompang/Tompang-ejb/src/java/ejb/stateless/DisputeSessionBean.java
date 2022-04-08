@@ -70,6 +70,16 @@ public class DisputeSessionBean implements DisputeSessionBeanLocal {
         
         return disputes;
     }
+    
+    @Override
+    public List<Dispute> retrieveUserDisputes(Long userId) {
+        Query query = em.createQuery("SELECT d FROM Dispute d WHERE d.transaction.buyer.userId =?1 "
+                + "OR d.transaction.seller.userId = ?2");
+        query.setParameter(1, userId);
+        query.setParameter(2, userId);
+        
+        return query.getResultList();
+    }
     @Override
     public void resolveDispute(Long disputeId) throws EntityNotFoundException {
         System.out.println("Resolve dispute.");

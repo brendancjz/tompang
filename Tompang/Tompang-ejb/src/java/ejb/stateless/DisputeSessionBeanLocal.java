@@ -26,4 +26,8 @@ public interface DisputeSessionBeanLocal {
     public void resolveDispute(Long disputeId) throws EntityNotFoundException;
     
     public Dispute getDisputeByDisputeId(Long disputeId) throws EntityNotFoundException;
+
+    public List<Dispute> retrieveUserDisputes(Long userId);
+
+   
 }
