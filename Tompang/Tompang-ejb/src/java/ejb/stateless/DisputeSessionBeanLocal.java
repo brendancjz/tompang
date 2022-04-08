@@ -21,9 +21,13 @@ public interface DisputeSessionBeanLocal {
     
     public List<Dispute> retrieveAllDisputes() throws EmptyListException;
     
-    public Long createNewDispute(Long transactionId, Dispute dispute) throws CreateNewDisputeException;
+    public Long createNewDispute(Long transactionId, Dispute dispute, Long userId) throws CreateNewDisputeException;
     
     public void resolveDispute(Long disputeId) throws EntityNotFoundException;
     
     public Dispute getDisputeByDisputeId(Long disputeId) throws EntityNotFoundException;
+
+    public List<Dispute> retrieveUserDisputes(Long userId);
+
+   
 }
