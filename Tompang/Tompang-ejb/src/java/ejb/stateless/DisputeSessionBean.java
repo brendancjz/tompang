@@ -33,7 +33,7 @@ public class DisputeSessionBean implements DisputeSessionBeanLocal {
     
 
     @Override
-    public Long createNewDispute(Long transactionId, Dispute dispute) throws CreateNewDisputeException{
+    public Long createNewDispute(Long transactionId, Dispute dispute, Long userId) throws CreateNewDisputeException{
         
         if(transactionId == null){
             throw new CreateNewDisputeException();
@@ -45,7 +45,7 @@ public class DisputeSessionBean implements DisputeSessionBeanLocal {
             transaction.setDispute(dispute);
             transaction.setHasDispute(true);
             dispute.setTransaction(transaction);
-            
+            dispute.setUserId(userId);
             
         } catch(EntityNotFoundException ex){
             throw new CreateNewDisputeException();
@@ -69,6 +69,16 @@ public class DisputeSessionBean implements DisputeSessionBeanLocal {
        
         
         return disputes;
+    }
+    
+    @Override
+    public List<Dispute> retrieveUserDisputes(Long userId) {
+        Query query = em.createQuery("SELECT d FROM Dispute d WHERE d.transaction.buyer.userId =?1 "
+                + "OR d.transaction.seller.userId = ?2");
+        query.setParameter(1, userId);
+        query.setParameter(2, userId);
+        
+        return query.getResultList();
     }
     @Override
     public void resolveDispute(Long disputeId) throws EntityNotFoundException {

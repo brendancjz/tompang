@@ -11,6 +11,7 @@ import entity.User;
 import exception.CreateNewTransactionException;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -31,7 +32,7 @@ public class TransactionSessionBean implements TransactionSessionBeanLocal {
     @EJB
     private UserSessionBeanLocal userSessionBean;
     
-    
+    private List<Double> list;
 
     @PersistenceContext(unitName = "Tompang-ejbPU")
     private EntityManager em;
@@ -118,6 +119,40 @@ public class TransactionSessionBean implements TransactionSessionBeanLocal {
         
         return query.getResultList();
     
+    }
+    
+    public List<Double> loadData(){
+        this.setList(new ArrayList<Double>());
+        List<Double> monthList = new ArrayList<Double>();
+        
+        for(int i = 0; i < 12; i++){
+            Query query = em.createQuery("Select t.amount FROM Transaction t WHERE t.month = ?1");
+            query.setParameter(1, i);
+            monthList = query.getResultList();
+            Double totalAmount = 0.0;
+            if(!monthList.isEmpty()){
+                for(Double amount: monthList){
+                    totalAmount += amount;
+                }
+            } 
+            list.add(totalAmount);
+        }
+        return list;
+    }
+
+    /**
+     * @return the list
+     */
+    @Override
+    public List<Double> getList() {
+        return loadData();
+    }
+
+    /**
+     * @param list the list to set
+     */
+    public void setList(List<Double> list) {
+        this.list = list;
     }
         
         

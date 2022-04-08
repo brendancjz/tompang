@@ -33,6 +33,9 @@ public class Dispute implements Serializable {
     private boolean isResolved;
     @OneToOne(mappedBy = "dispute")
     private Transaction transaction;
+    @Column(nullable = false)
+    @NotNull
+    private Long userId;
 
     public Dispute() {
         this.isResolved = false;
@@ -118,6 +121,20 @@ public class Dispute implements Serializable {
      */
     public void setIsResolved(boolean isResolved) {
         this.isResolved = isResolved;
+    }
+
+    /**
+     * @return the userId
+     */
+    public Long getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId the userId to set
+     */
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
     
 }

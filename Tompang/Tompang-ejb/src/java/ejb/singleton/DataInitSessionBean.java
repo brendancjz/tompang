@@ -92,6 +92,7 @@ public class DataInitSessionBean {
             em.flush();
 
             Dispute dispute = new Dispute("Seller does not want to buy additional product for me.", transaction2);
+            dispute.setUserId(3L);
             em.persist(dispute);
             em.flush();
             transaction2.setDispute(dispute);

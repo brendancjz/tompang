@@ -2,7 +2,7 @@
 <ion-content class="hide-scroll-bar">
   <ion-title class="page-name grey-color"> Profile </ion-title>
 
-  <div id="profile-info">
+  <div id="profile-info" *ngIf="hasLoaded === true">
     <img
       src="{{displayProfilePic()}}"
       style="width: 75px; border-radius: 100%"
@@ -22,7 +22,7 @@
 
       <div>
         <ion-button
-          *ngIf="hasLoaded === true && isProfileTheCurrentUser()"
+          *ngIf="isProfileTheCurrentUser()"
           color="tertiary"
           class="button-icon"
           icon-only

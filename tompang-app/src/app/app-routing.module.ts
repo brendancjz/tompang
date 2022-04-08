@@ -136,6 +136,10 @@ const routes: Routes = [
       redirectTo: 'index',
       pathMatch: 'full',
     },
+  {
+    path: 'view-dispute-details',
+    loadChildren: () => import('./view-dispute-details/view-dispute-details.module').then( m => m.ViewDisputeDetailsPageModule)
+  },
 
 
 

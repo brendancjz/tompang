@@ -67,7 +67,7 @@ public class ViewMyTransactionsManagedBean implements Serializable {
     public void doRaiseDispute(){
         
         try{
-            disputeSessionBean.createNewDispute(transactionIdOfDispute, dispute);
+            disputeSessionBean.createNewDispute(transactionIdOfDispute, dispute, this.user.getUserId());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Dispute raised successfully", null));
         } catch(CreateNewDisputeException ex){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Errro raising dispute", null));

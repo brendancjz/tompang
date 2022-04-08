@@ -6,6 +6,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -66,6 +67,7 @@ public class Transaction implements Serializable {
     @Column(nullable = false)
     @NotNull
     private Boolean isRejected;
+    private Integer month;
 
     public Transaction() {
         this.isCompleted = false;
@@ -82,6 +84,10 @@ public class Transaction implements Serializable {
         this.seller = seller;
         this.listing = listing;
         this.creditCard = buyerCard;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(createdOn);
+        this.month = cal.get(Calendar.MONTH);
+        
     }
     
     public String disputeStatus(){
@@ -223,5 +229,19 @@ public class Transaction implements Serializable {
      */
     public void setIsAccepted(Boolean isAccepted) {
         this.isAccepted = isAccepted;
+    }
+
+    /**
+     * @return the month
+     */
+    public Integer getMonth() {
+        return month;
+    }
+
+    /**
+     * @param month the month to set
+     */
+    public void setMonth(Integer month) {
+        this.month = month;
     }
 }

@@ -64,10 +64,11 @@ export class ProfilePage implements OnInit {
           // eslint-disable-next-line @typescript-eslint/no-shadow
           next: (response) => {
             this.listings = response;
-            console.log(response);
             this.hasLoaded = true;
           },
           error: (error) => {
+            this.listings = [];
+            this.hasLoaded = true;
             console.log('getAllAvailableListings.ts:' + error);
           },
         });
@@ -88,10 +89,13 @@ export class ProfilePage implements OnInit {
         console.log('********** View User Profile.ts: ' + error);
       },
     });
+
+    console.log(this.userToView);
+    console.log(this.listings);
   }
 
   displayProfilePic() {
-    return 'http://localhost:8080/Tompang-war' + this.currentUser.profilePic;
+    return 'http://localhost:8080/Tompang-war' + this.userToView.profilePic;
   }
 
   isProfileTheCurrentUser(): boolean {

@@ -94,7 +94,7 @@ export class IndexPage implements OnInit {
     user.password = this.registerPassword;
     user.email = this.email;
     user.dateOfBirth = this.dateOfBirth;
-    user.profilePic = '';
+    user.profilePic = '/uploadedFiles/default_picture.jpg';
     user.contactNumber = this.contactNumber;
     user.joinedOn = new Date();
     user.isAdmin = false;
@@ -104,15 +104,15 @@ export class IndexPage implements OnInit {
 
     this.userService.createUser(user).subscribe({
       next:(response)=>{
-        let newUserId: number = response;
+        const newUserId: number = response;
         this.registrationSuccess = true;
         this.registrationError = false;
-        this.registrationErrorMsg = "New User " + newUserId + " created successfully";
+        this.registrationErrorMsg = 'Successfully created an account';
       },
       error:(error)=>{
         this.registrationError = true;
         this.registrationSuccess = false;
-        this.registrationErrorMsg = "An error has occurred while creating the new user: " + error;
+        this.registrationErrorMsg = 'Unexpected error occurred. Try again later.';
 
         console.log(this.registrationErrorMsg);
         console.log('********** CreateNewUserPage: ' + error);
@@ -150,8 +150,6 @@ export class IndexPage implements OnInit {
   }
 
   resetPage(): void {
-    this.currentView = this.possibleViews[0];
-
     //Login Box
     this.username = undefined;
     this.password = undefined;
