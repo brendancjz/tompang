@@ -13,6 +13,10 @@ export class TransactionConfirmationPage implements OnInit {
   encodedData: any;
   scannedQRCode: {};
   QRScannerOptions: BarcodeScannerOptions;
+
+  qrData = 'https://www.example.com';
+  scannedCode = null;
+  elementType: 'url' | 'canvas' | 'img' = 'canvas';
   constructor(private scanner: BarcodeScanner) {
     this.QRScannerOptions = {
       showTorchButton: true,
