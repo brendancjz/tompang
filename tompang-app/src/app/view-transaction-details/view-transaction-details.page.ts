@@ -46,6 +46,7 @@ export class ViewTransactionDetailsPage implements OnInit {
       next: (response) => {
         this.transactionToView = response;
         console.log('Found Transaction To View');
+        console.log(this.transactionToView);
       },
       error: (error) => {
         console.log('viewTransaction.ts:' + error);

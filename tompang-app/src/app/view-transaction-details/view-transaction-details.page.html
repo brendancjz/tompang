@@ -35,8 +35,8 @@
         </ion-card-content>
       </ion-card>
     </div>
-    <div>
-      <div class="input-button-div" *ngIf="!raisingDispute">
+    <div *ngIf="hasLoaded">
+      <div class="input-button-div" *ngIf="!raisingDispute && transactionToView.hasDispute === false">
         <ion-button style="text-transform: initial;font-size: 16px;width: 160px;" color="tertiary" (click)="toggleRaiseDispute()">Raise A Dispute</ion-button>
       </div>
       <div *ngIf="raisingDispute && !resultSuccess">
