@@ -46,8 +46,7 @@ export class ListingService {
       .pipe(catchError(this.handleError));
   }
 
-  updateListing(listing: Listing): Observable<any>
-  {
+  updateListing(listing: Listing): Observable<any> {
     const currentUser = this.sessionService.getCurrentUser();
     const username = currentUser.username;
     const password = currentUser.password;
@@ -57,10 +56,9 @@ export class ListingService {
       listing
     );
 
-    return this.httpClient.post<any>(this.baseUrl, createListingReq, httpOptions).pipe
-    (
-      catchError(this.handleError)
-    );
+    return this.httpClient
+      .post<any>(this.baseUrl, createListingReq, httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   getSampleListing() {
@@ -138,7 +136,6 @@ export class ListingService {
   }
 
   getUserListings(user: User): Observable<Listing[]> {
-
     const username = user.username;
     const password = user.password;
 
@@ -202,11 +199,49 @@ export class ListingService {
   }
 
   likeListing(listing: Listing) {
-    console.log('Liking listing..');
+    const currentUser = this.sessionService.getCurrentUser();
+    const userId = currentUser.userId;
+    const username = currentUser.username;
+    const password = currentUser.password;
+
+    return this.httpClient
+      .put(
+        this.baseUrl +
+          '/likeListing/' +
+          listing.listingId +
+          '/' +
+          userId +
+          '?username=' +
+          username +
+          '&password=' +
+          password,
+        {},
+        httpOptions
+      )
+      .pipe(catchError(this.handleError));
   }
 
   unlikeListing(listing: Listing) {
-    console.log('unliking listing..');
+    const currentUser = this.sessionService.getCurrentUser();
+    const userId = currentUser.userId;
+    const username = currentUser.username;
+    const password = currentUser.password;
+
+    return this.httpClient
+      .put(
+        this.baseUrl +
+          '/unlikeListing/' +
+          listing.listingId +
+          '/' +
+          userId +
+          '?username=' +
+          username +
+          '&password=' +
+          password,
+        {},
+        httpOptions
+      )
+      .pipe(catchError(this.handleError));
   }
 
   setListingToViewListingId(listingId: number) {

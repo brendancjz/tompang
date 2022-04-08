@@ -463,37 +463,29 @@ public class DataInitSessionBean {
             try {
                 // LIKE LISTINGS
                 //manager liking some listings
-                listingSessionBean.incrementListingLikes(4L);
-                userSessionBean.associateListingToUserLikedListings(1L, 6L);
-                listingSessionBean.incrementListingLikes(9L);
-                userSessionBean.associateListingToUserLikedListings(1L, 9L);
-                listingSessionBean.incrementListingLikes(3L);
-                userSessionBean.associateListingToUserLikedListings(1L, 3L);
+                listingSessionBean.likeListing(1L, 6L);
+                listingSessionBean.likeListing(1L, 9L);
+                listingSessionBean.likeListing(1L, 3L);
                 //admin liking some listings
-                listingSessionBean.incrementListingLikes(4L);
-                userSessionBean.associateListingToUserLikedListings(2L, 4L);
-                listingSessionBean.incrementListingLikes(5L);
-                userSessionBean.associateListingToUserLikedListings(2L, 5L);
-                listingSessionBean.incrementListingLikes(10L);
-                userSessionBean.associateListingToUserLikedListings(2L, 10L);
+                listingSessionBean.likeListing(2L, 4L);
+                listingSessionBean.likeListing(2L, 5L);
+                listingSessionBean.likeListing(2L, 10L);
                 //iggy liking some listings
-                listingSessionBean.incrementListingLikes(4L);
-                userSessionBean.associateListingToUserLikedListings(3L, 4L);
-                listingSessionBean.incrementListingLikes(5L);
-                userSessionBean.associateListingToUserLikedListings(3L, 5L);
-                listingSessionBean.incrementListingLikes(10L);
-                userSessionBean.associateListingToUserLikedListings(3L, 10L);
-                listingSessionBean.incrementListingLikes(1L);
-                userSessionBean.associateListingToUserLikedListings(3L, 1L);
-                listingSessionBean.incrementListingLikes(2L);
-                userSessionBean.associateListingToUserLikedListings(3L, 2L);
-                listingSessionBean.incrementListingLikes(3L);
-                userSessionBean.associateListingToUserLikedListings(3L, 3L);
+                listingSessionBean.likeListing(3L, 4L);
+                listingSessionBean.likeListing(3L, 5L);
+                listingSessionBean.likeListing(3L, 10L);
+                listingSessionBean.likeListing(3L, 1L);
+                listingSessionBean.likeListing(3L, 2L);
+                listingSessionBean.likeListing(3L, 3L);
                 //guojun liking some listings
-                listingSessionBean.incrementListingLikes(6L);
-                userSessionBean.associateListingToUserLikedListings(5L, 6L);
-                listingSessionBean.incrementListingLikes(8L);
-                userSessionBean.associateListingToUserLikedListings(5L, 8L);
+                listingSessionBean.likeListing(5L, 6L);
+                listingSessionBean.likeListing(5L, 8L);
+                
+                // guojun liking even more listings
+                listingSessionBean.likeListing(5L, 1L);
+                listingSessionBean.likeListing(5L, 2L);
+                listingSessionBean.likeListing(5L, 3L);
+                listingSessionBean.likeListing(5L, 4L);
             } catch (EntityNotFoundException ex) {
                 System.out.println(ex.getMessage());
             }

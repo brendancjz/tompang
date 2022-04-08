@@ -17,20 +17,35 @@
         </ion-button>
       </div>
 
-      <ion-button *ngIf="hasLoaded === true && isProfileTheCurrentUser()"
-        color="tertiary"
-        class="button-icon"
-        icon-only
-        slot="end"
-        id="settings-button"
-        [routerLink]="['/settings']"
-      >
-        <ion-icon name="settings-outline"></ion-icon>
-      </ion-button>
-      <ion-button *ngIf="displayFollowButton()"
+      <div>
+        <ion-button
+          *ngIf="hasLoaded === true && isProfileTheCurrentUser()"
+          color="tertiary"
+          class="button-icon"
+          icon-only
+          slot="end"
+          id="qr-code-button"
+          [routerLink]="['/orders']"
+        >
+          <ion-icon name="qr-code-outline"></ion-icon>
+        </ion-button>
+        <ion-button
+          *ngIf="hasLoaded === true && isProfileTheCurrentUser()"
+          color="tertiary"
+          class="button-icon"
+          icon-only
+          slot="end"
+          id="settings-button"
+          [routerLink]="['/settings']"
+        >
+          <ion-icon name="settings-outline"></ion-icon>
+        </ion-button>
+      </div>
+      <ion-button
+        *ngIf="displayFollowButton()"
         color="tertiary"
         class="grey-color"
-        style="text-transform: capitalize;"
+        style="text-transform: capitalize"
         icon-only
         slot="end"
         id="settings-button"
@@ -38,10 +53,11 @@
       >
         Follow
       </ion-button>
-      <ion-button *ngIf="displayUnfollowButton()"
+      <ion-button
+        *ngIf="displayUnfollowButton()"
         color="tertiary"
         class="grey-color"
-        style="text-transform: capitalize;"
+        style="text-transform: capitalize"
         icon-only
         slot="end"
         id="settings-button"

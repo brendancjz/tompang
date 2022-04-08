@@ -21,8 +21,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     HeaderPageModule,
     FooterPageModule,
     ListingCardPageModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
   ],
-  declarations: [ShopPage]
+  declarations: [ShopPage],
 })
 export class ShopPageModule {}

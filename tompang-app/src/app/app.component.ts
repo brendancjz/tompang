@@ -18,7 +18,6 @@ export class AppComponent {
       { title: 'History', url: '/history', icon: 'receipt' },
       { title: 'Settings', url: '/settings', icon: 'settings' },
       { title: 'Help', url: '/help', icon: 'hand-right' },
-      { title: 'Orders', url: '/orders', icon: 'orders' },
     ];
   }
 }
