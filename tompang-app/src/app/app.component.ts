@@ -16,8 +16,8 @@ export class AppComponent {
       { title: 'Blog', url: '/blog', icon: 'newspaper' },
       { title: 'Inbox', url: '/inbox', icon: 'chatbubbles' },
       { title: 'History', url: '/history', icon: 'receipt' },
-      { title: 'Settings', url: '/settings', icon: 'settings' },
       { title: 'Help', url: '/help', icon: 'hand-right' },
+      { title: 'Settings', url: '/settings', icon: 'settings' },
     ];
   }
 }

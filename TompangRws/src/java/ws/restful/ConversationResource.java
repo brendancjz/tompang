@@ -31,6 +31,7 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import ws.datamodel.NewConversationReq;
 import ws.datamodel.NewMessageReq;
 
 /**
@@ -227,6 +228,26 @@ public class ConversationResource {
             }
         } else {
             return Response.status(Response.Status.BAD_REQUEST).entity("Invalid add message request").build();
+        }
+    }
+
+    @Path("createConversation")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createNewConversation(NewConversationReq newConversationReq) {
+        System.out.println("create new convo Method called");
+        if (newConversationReq != null) {
+            try {
+                System.out.println("ENTER TRY");
+                Long newConversationId = conversationSessionBeanLocal.createNewConversation(newConversationReq.getNewConversation(), newConversationReq.getListingId(), newConversationReq.getUserId());
+                System.out.println(newConversationId);
+                return Response.status(Response.Status.OK).entity(newConversationId).build();
+            } catch (Exception ex) {
+                return Response.status(Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+            }
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid create conversation request").build();
         }
     }
 

@@ -24,6 +24,10 @@ export class ViewListingDetailsPage implements OnInit {
 
   listingIsLiked: boolean;
 
+  resultSuccess: boolean;
+  resultError: boolean;
+  message: string;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -31,11 +35,12 @@ export class ViewListingDetailsPage implements OnInit {
     private listingService: ListingService,
     private conversationService: ConversationService,
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
     this.currentUser = this.sessionService.getCurrentUser();
+    this.listingIsLiked = this.doesCurrentUserLikeThisListing();
 
     if (this.listingId != null) {
       this.listingService
@@ -44,17 +49,28 @@ export class ViewListingDetailsPage implements OnInit {
           next: (response) => {
             this.listingToView = response;
             this.hasLoaded = true;
-            this.checkLikedByUser();
+            console.log(this.listingToView);
           },
           error: (error) => {
             this.retrieveListingError = true;
             console.log('********** View Listing Details Page.ts: ' + error);
           },
         });
+
+      // eslint-disable-next-line radix
+      // this.listingService.getListingByListingId(parseInt(this.listingId)).subscribe({
+      //   next:(response)=>{
+      //     this.listingToView = response;
+      //   },
+      //   error:(error)=>{
+      //     this.retrieveListingError = true;
+      // 		console.log('********** View Listing Details Page.ts: ' + error);
+      //   }
+      // });
     }
   }
 
-  ionViewDidEnter() {}
+  ionViewDidEnter() { }
 
   getPhotoUrl(photo: string) {
     const baseUrl = '../../assets/images';
@@ -82,22 +98,82 @@ export class ViewListingDetailsPage implements OnInit {
     const currentUser = this.sessionService.getCurrentUser();
 
     let convo: Conversation;
+    let buyingConvos: Conversation[];
 
-    try {
-      //Have a current convo
-      convo = this.conversationService.getBuyerConversationWithListing(
-        currentUser.userId,
-        // eslint-disable-next-line radix
-        parseInt(this.listingId)
-      );
-    } catch (ex) {
-      //Need to create a new convo
-      // System.out.println(ex.getMessage());
-      // convo = new Conversation(user, listing);
-      // conversationSessionBean.createNewConversation(convo, listing.getListingId(), user.getUserId());
-    }
+    //Have a current convo
+    // eslint-disable-next-line radix
+    this.conversationService.retrieveBuyerConversations().subscribe({
+      next: (response) => {
+        buyingConvos = response;
+        // check to see if there is existing convo
+        for (let i = 0; i < buyingConvos.length; i++) {
+          console.log(buyingConvos);
+          console.log(this.listingToView);
+          console.log('enter for loop');
+          if (buyingConvos[i].listing.listingId == this.listingToView.listingId) {
+            console.log('convo found');
+            convo = buyingConvos[i];
+            this.router.navigate(['/view-conversation/' + convo.convoId]);
+            break;
+          }
+        }
+        console.log('need to cr8 new convo');
+        //after for loop no existing convo le. need create new
+        convo = new Conversation();
+        convo.createdBy = this.sessionService.getCurrentUser();
+        convo.listing = this.listingToView;
+        convo.buyerUnread = 0;
+        convo.sellerUnread = 0;
+        convo.seller = this.listingToView.createdBy;
+        convo.messages = new Array();
+        convo.isOpen = true;
+        this.conversationService.createConversation(convo, (Number(this.listingToView.listingId)), (Number(this.sessionService.getCurrentUser().userId))).subscribe({
+          next: (response) => {
+            let newConversationId: number = response;
+            this.resultSuccess = true;
+            this.resultError = false;
+            this.message = "New Conversation " + newConversationId + " created successfully";
+            this.router.navigate(['/view-conversation/' + newConversationId]);
+          },
+          error: (error) => {
+            this.resultError = true;
+            this.resultSuccess = false;
+            this.message = "An error has occurred while creating the new conversation: " + error;
+            console.log('********** createNewConversation: ' + error);
+          }
+        });
+      },
+      error: (error) => {
+        console.log('view-listing-chat-now (no buying convos at all):' + error);
+        convo = new Conversation();
+        convo.createdBy = this.sessionService.getCurrentUser();
+        convo.listing = this.listingToView;
+        convo.buyerUnread = 0;
+        convo.sellerUnread = 0;
+        convo.seller = this.listingToView.createdBy;
+        convo.messages = new Array();
+        convo.isOpen = true;
+        this.conversationService.createConversation(convo, (Number(this.listingToView.listingId)), (Number(this.sessionService.getCurrentUser().userId))).subscribe({
+          next: (response) => {
+            console.log('service method success');
+            let newConversationId: number = response;
+            this.resultSuccess = true;
+            this.resultError = false;
+            this.message = "New Conversation " + newConversationId + " created successfully";
+            this.router.navigate(['/view-conversation/' + newConversationId]);
+          },
+          error: (error) => {
+            this.resultError = true;
+            this.resultSuccess = false;
+            this.message = "An error has occurred while creating the new conversation: " + error;
+            console.log('********** createNewConversation: ' + error);
+          }
+        });
+      },
+    });
 
-    this.router.navigate(['/view-conversation/' + convo.convoId]);
+
+
   }
 
   makeTransaction(): void {
@@ -106,42 +182,23 @@ export class ViewListingDetailsPage implements OnInit {
   }
 
   likeListing(): void {
-    this.listingService.likeListing(this.listingToView).subscribe({
-      next: (response) => {
-        this.listingService.getListingByListingId(this.listingToView.listingId);
-        console.log('listing liked!');
-      },
-      error: (error) => {
-        console.log('view-listing-card.page.ts:' + error);
-        console.log('FAIL');
-      },
-    });
+    this.listingService.likeListing(this.listingToView);
+
     this.listingIsLiked = true;
-    this.listingToView.likedByUsers.length += 1;
   }
 
   unlikeListing(): void {
-    this.listingService.unlikeListing(this.listingToView).subscribe({
-      next: (response) => {
-        this.listingService.getListingByListingId(this.listingToView.listingId);
-        console.log('listing unliked!');
-      },
-      error: (error) => {
-        console.log('view-listing-card.page.ts:' + error);
-        console.log('FAIL');
-      },
-    });
+    this.listingService.unlikeListing(this.listingToView);
+
     this.listingIsLiked = false;
-    this.listingToView.likedByUsers.length -= 1;
   }
 
-  checkLikedByUser(): void {
-    console.log(this.listingToView.likedByUsers);
-    this.listingToView.likedByUsers.map((likedUser) => {
-      if (this.currentUser.userId === likedUser.userId) {
-        this.listingIsLiked = true;
-      }
-    });
+  doesCurrentUserLikeThisListing(): boolean {
+    // eslint-disable-next-line radix
+    return this.userService.isListingLikedByUser(
+      this.currentUser.userId,
+      parseInt(this.listingId)
+    );
   }
 
   formatListingTitle(): string {
@@ -155,3 +212,4 @@ export class ViewListingDetailsPage implements OnInit {
     return this.listingToView.title;
   }
 }
+

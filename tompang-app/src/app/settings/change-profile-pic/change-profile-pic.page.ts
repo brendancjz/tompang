@@ -12,9 +12,13 @@ import { User } from 'src/app/models/user';
 })
 export class ChangeProfilePicPage implements OnInit {
 
+  basePicUrl = 'picApi';
+  currentProfilePic: string;
   newProfilePic: string | undefined;
 
   editError: boolean;
+
+  currentUser: User;
 
   constructor(private location: Location,
     public sessionService: SessionService,
@@ -24,6 +28,12 @@ export class ChangeProfilePicPage implements OnInit {
     document.getElementById('back-button').addEventListener('click', () => {
       this.resetPage();
     }, { once: true});
+
+    this.currentUser = this.sessionService.getCurrentUser();
+  }
+
+  displayProfilePic() {
+    return 'http://localhost:8080/Tompang-war' + this.currentUser.profilePic;
   }
 
   updateUserProfilePic(): void {
