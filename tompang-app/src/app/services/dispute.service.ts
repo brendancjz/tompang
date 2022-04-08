@@ -34,7 +34,7 @@ export class DisputeService {
     const username = currentUser.username;
     const password = currentUser.password;
 
-    let createDisputeReq: CreateDisputeReq = new CreateDisputeReq(
+    const createDisputeReq: CreateDisputeReq = new CreateDisputeReq(
       username,
       password,
       dispute,
@@ -72,7 +72,7 @@ export class DisputeService {
           '/retrieveDispute/' + disputeId + '?username=' +
           username +
           '&password=' +
-          password 
+          password
       )
       .pipe(catchError(this.handleError));
   }
