@@ -68,16 +68,27 @@ export class ChangeProfilePicPage implements OnInit {
     {
       this.fileName = this.newProfilePic.name;
 
+      //This works but it does not follow the normal flow of response / error. It is always error w 200
       this.fileUploadService.uploadFile(this.newProfilePic).subscribe(
         response => {
-          this.currentProfilePic = '/uploadedFile/' + this.fileName;
+          this.currentProfilePic = '/uploadedFiles/' + this.fileName;
           console.log('New Profile pic url: ' + this.currentProfilePic);
           console.log('********** FileUploadComponent.ts: File uploaded successfully: ' + response.status);
         },
         error => {
+          this.currentProfilePic = '/uploadedFiles/' + this.fileName;
+          console.log('ERROR for url: ' + this.currentProfilePic);
           console.log('********** FileUploadComponent.ts: ' + error);
+
+          console.log(error);
         }
       );
+
+      //Hardcoded
+      //Assuming we uploaded alr, rerender the pic with new pic
+      //This does not work because the above code is running async
+      console.log('Successfully upload');
+      this.currentProfilePic = '/uploadedFiles/' + this.fileName;
     }
   }
 

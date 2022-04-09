@@ -22,15 +22,22 @@ export class FileUploadService
 
   uploadFile(fileToUpload: File | null): Observable<any>
   {
+    console.log('Uploading file...');
+
     if(fileToUpload != null)
     {
       const formData: FormData = new FormData();
       formData.append('file', fileToUpload, fileToUpload.name);
 
-      return this.httpClient.post<any>(this.baseUrl + '/upload', formData).pipe
+      return this.httpClient.post<any>('http://localhost:8080/TompangRws/Resources/File/upload', formData).pipe
       (
         catchError(this.handleError)
       );
+
+      // return this.httpClient.post<any>(this.baseUrl + '/upload', formData, httpOptions).pipe
+      // (
+      //   catchError(this.handleError)
+      // );
     }
     else
     {
@@ -50,10 +57,16 @@ export class FileUploadService
     }
     else
     {
+
+      //I added this because 200 shouldnt be here but it is somehow. Help
+      if (`${error.status}` === '200' ) {
+        console.log('200 OK File Upload');
+        return new Observable();
+      }
+
       errorMessage = 'A HTTP error has occurred: ' + `HTTP ${error.status}: ${error.error.message}`;
     }
 
-    console.error(errorMessage);
 
     return throwError(errorMessage);
   }
