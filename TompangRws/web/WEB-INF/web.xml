@@ -5,6 +5,14 @@
             30
         </session-timeout>
     </session-config>
+    <context-param>
+        <param-name>alternatedocroot_1</param-name>
+        <param-value>C:/glassfish-5.1.0-uploadedfiles/uploadedFiles</param-value>
+    </context-param>
+    <context-param>
+        <param-name>uploadedFilesPath</param-name>
+        <param-value>/uploadedFiles</param-value>
+    </context-param>
     <ejb-local-ref>
         <ejb-ref-name>ListingSessionBeanLocal</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
