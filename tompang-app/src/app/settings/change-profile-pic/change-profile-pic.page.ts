@@ -30,7 +30,7 @@ export class ChangeProfilePicPage implements OnInit {
   ngOnInit() {
     document.getElementById('back-button').addEventListener('click', () => {
       this.resetPage();
-    }, { once: true});
+    }, { once: true });
 
     this.currentUser = this.sessionService.getCurrentUser();
   }
@@ -59,30 +59,35 @@ export class ChangeProfilePicPage implements OnInit {
   // }
 
   changeProfilePic(event: any) {
+    console.log('changeProfilePic -> new pic should show')
     this.newProfilePic = event.target.files.item(0);
     console.log(this.newProfilePic);
   }
 
   updateProfilePic() {
-    if(this.newProfilePic != null)
-    {
+    console.log(this.newProfilePic);
+    console.log(this.newProfilePic.name);
+    if (this.newProfilePic != null) {
       this.fileName = this.newProfilePic.name;
+      console.log(this.fileName);
 
       //This works but it does not follow the normal flow of response / error. It is always error w 200
-      this.fileUploadService.uploadFile(this.newProfilePic).subscribe(
-        response => {
+      this.fileUploadService.uploadFile(this.newProfilePic).subscribe({
+        next: (response) => {
+          console.log("HUAT");
+          console.log(this.fileName);
           this.currentProfilePic = '/uploadedFiles/' + this.fileName;
           console.log('New Profile pic url: ' + this.currentProfilePic);
           console.log('********** FileUploadComponent.ts: File uploaded successfully: ' + response.status);
         },
-        error => {
+        error: (error) => {
           this.currentProfilePic = '/uploadedFiles/' + this.fileName;
           console.log('ERROR for url: ' + this.currentProfilePic);
           console.log('********** FileUploadComponent.ts: ' + error);
 
           console.log(error);
-        }
-      );
+        },
+      });
 
       //Hardcoded
       //Assuming we uploaded alr, rerender the pic with new pic
