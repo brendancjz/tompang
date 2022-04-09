@@ -3,7 +3,10 @@
   <ion-title class="page-name grey-color"> Profile </ion-title>
 
   <div id="profile-info" *ngIf="hasLoaded === true">
-    <img src={{displayProfilePic()}} style="width: 75px; border-radius: 100%" />
+    <img
+      src="{{displayProfilePic()}}"
+      style="width: 75px; border-radius: 100%"
+    />
     <ion-title id="username-tag" class="grey-color">
       @{{userToViewUsername}}
     </ion-title>
@@ -42,26 +45,26 @@
         </ion-button>
       </div>
       <ion-button
-        *ngIf="displayFollowButton()"
+        *ngIf="showFollowButton"
         color="tertiary"
         class="grey-color"
         style="text-transform: capitalize"
         icon-only
         slot="end"
         id="settings-button"
-        (click)="followUser()"
+        (click)="followUser(userToView.userId)"
       >
         Follow
       </ion-button>
       <ion-button
-        *ngIf="displayUnfollowButton()"
+        *ngIf="!showFollowButton"
         color="tertiary"
         class="grey-color"
         style="text-transform: capitalize"
         icon-only
         slot="end"
         id="settings-button"
-        (click)="unfollowUser()"
+        (click)="unfollowUser(userToView.userId)"
       >
         Unfollow
       </ion-button>

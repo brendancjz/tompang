@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Conversation } from '../models/conversation';
 import { Message } from '../models/message';
@@ -28,6 +28,9 @@ export class ViewConversationPage implements OnInit {
   resultSuccess: boolean;
   resultError: boolean;
   message: string;
+
+  @ViewChild('convoblock') private convoblock: any;
+  @ViewChild('convoblocklist') private convoblocklist: any;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -129,7 +132,10 @@ export class ViewConversationPage implements OnInit {
             console.log(this.convoToView);
             this.hasLoaded = true;
             console.log("PASS");
-            document.getElementById("divExample").style.bottom = '0';
+            this.convoblock.scrollToBottom(300);
+            this.convoblock.scrollToBottom(300);
+            this.convoblocklist.scrollToBottom(300);
+            this.convoblocklist.scrollToBottom(300);
           },
           error: (error) => {
             console.log('view-conversation.page.ts:' + error);

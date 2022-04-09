@@ -26,44 +26,45 @@
 
     </div>
     <br />
-    <div style="overflow:auto; display:flex; flex-direction:column;">
-      <div id="divExample" style="height: 40vh; overflow-y: scroll;">
-        <ion-list *ngFor="let message of convoToView.messages">
-          <div *ngIf="!isCurrentUserTheBuyer()">
+    <div id="convoblock" #convoblock style="height: 40vh; overflow-y: scroll;">
+      <ion-list id="convoblocklist" #convoblocklist *ngFor="let message of convoToView.messages">
+        <div *ngIf="!isCurrentUserTheBuyer()">
 
-            <img *ngIf="message.sentBy == currentUser.userId" src="{{getUserProfilePic(1)}}"
-              style=" float:right; width: 45px;border-radius: 100%;margin-right: 16px;">
-            <ion-item lines="none" *ngIf="message.sentBy == currentUser.userId" style="float: right;">{{message.body}}
-            </ion-item>
+          <img *ngIf="message.sentBy == currentUser.userId" src="{{getUserProfilePic(1)}}"
+            style=" float:right; width: 45px;border-radius: 100%;margin-right: 16px;">
+          <ion-item lines="none" *ngIf="message.sentBy == currentUser.userId" style="float: right;">{{message.body}}
+          </ion-item>
 
 
-            <img *ngIf="message.sentBy != currentUser.userId" src="{{getUserProfilePic(2)}}"
-              style="width: 45px;border-radius: 100%;margin-right: 16px; float: left;">
-            <ion-item lines="none" *ngIf="message.sentBy != currentUser.userId" style="float: left;">{{message.body}}
-            </ion-item>
+          <img *ngIf="message.sentBy != currentUser.userId" src="{{getUserProfilePic(2)}}"
+            style="width: 45px;border-radius: 100%;margin-right: 16px; float: left;">
+          <ion-item lines="none" *ngIf="message.sentBy != currentUser.userId" style="float: left;">{{message.body}}
+          </ion-item>
 
-          </div>
+        </div>
 
-          <div *ngIf="isCurrentUserTheBuyer()">
-            <img *ngIf="message.sentBy != currentUser.userId" src="{{getUserProfilePic(1)}}"
-              style="width: 45px;border-radius: 100%;margin-right: 16px; float: left;">
-            <ion-item lines="none" *ngIf="message.sentBy != currentUser.userId" style="float: left;">{{message.body}}
-            </ion-item>
-            <img *ngIf="message.sentBy == currentUser.userId" src="{{getUserProfilePic(2)}}"
-              style=" float:right; width: 45px;border-radius: 100%;margin-right: 16px;">
-            <ion-item lines="none" *ngIf="message.sentBy == currentUser.userId" style="float: right;">{{message.body}}
-            </ion-item>
-          </div>
-        </ion-list>
-      </div>
+        <div *ngIf="isCurrentUserTheBuyer()">
+          <img *ngIf="message.sentBy != currentUser.userId" src="{{getUserProfilePic(1)}}"
+            style="width: 45px;border-radius: 100%;margin-right: 16px; float: left;">
+          <ion-item lines="none" *ngIf="message.sentBy != currentUser.userId" style="float: left;">{{message.body}}
+          </ion-item>
+          <img *ngIf="message.sentBy == currentUser.userId" src="{{getUserProfilePic(2)}}"
+            style=" float:right; width: 45px;border-radius: 100%;margin-right: 16px;">
+          <ion-item lines="none" *ngIf="message.sentBy == currentUser.userId" style="float: right;">{{message.body}}
+          </ion-item>
+        </div>
+      </ion-list>
     </div>
-    <div>
+
+
+    <div style="height: 10vh;">
       <form (ngSubmit)="addMessage()">
         <div class="form-input">
           <ion-input
             style="width: 90%; min-height: 100px; max-height: 150px; overflow:hidden; overflow-wrap: break-word; height: 70px; padding:10px;"
             class="grey-color" placeholder="Send Message..." [(ngModel)]="newMessageBody" name="newMessageBody"
-            required></ion-input>
+            required>
+          </ion-input>
 
         </div>
         <div class="form-input input-button-div">

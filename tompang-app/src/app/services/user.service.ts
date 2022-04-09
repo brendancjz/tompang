@@ -80,7 +80,6 @@ export class UserService {
     const currentUser = this.sessionService.getCurrentUser();
     const username = currentUser.username;
     const password = currentUser.password;
- 
 
     let updateUserReq: UpdateUserReq = new UpdateUserReq(
       username,
@@ -111,7 +110,6 @@ export class UserService {
   }
 
   getCreditCardById(creditCardId: number): Observable<CreditCard> {
-
     const currentUser = this.sessionService.getCurrentUser();
     const username = currentUser.username;
     const password = currentUser.password;
@@ -119,13 +117,14 @@ export class UserService {
     return this.httpClient
       .get<CreditCard>(
         this.baseUrl +
-          '/retrieveCreditCard/' + creditCardId + '?username=' +
+          '/retrieveCreditCard/' +
+          creditCardId +
+          '?username=' +
           username +
           '&password=' +
           password
       )
       .pipe(catchError(this.handleError));
-
   }
 
   createCreditCard(creditCard: CreditCard): Observable<any> {
@@ -149,15 +148,21 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
-  deleteCreditCard(creditCardId: number): Observable<any>
-  {
+  deleteCreditCard(creditCardId: number): Observable<any> {
     const currentUser = this.sessionService.getCurrentUser();
     const username = currentUser.username;
     const password = currentUser.password;
-    return this.httpClient.delete<any>(this.baseUrl + "/creditCards/" + creditCardId + "?username=" + username + "&password=" + password).pipe
-    (
-      catchError(this.handleError)
-    );
+    return this.httpClient
+      .delete<any>(
+        this.baseUrl +
+          '/creditCards/' +
+          creditCardId +
+          '?username=' +
+          username +
+          '&password=' +
+          password
+      )
+      .pipe(catchError(this.handleError));
   }
 
   getSampleUser() {
@@ -210,11 +215,65 @@ export class UserService {
   //   }
   // }
 
- 
-
   isListingLikedByUser(userId: number, listingId: number) {
     //To implement
     return true;
+  }
+
+  follow(followingUserId: number) {
+    const currentUser = this.sessionService.getCurrentUser();
+
+    const username = currentUser.username;
+    const password = currentUser.password;
+    console.log(
+      this.baseUrl +
+        '/follow/' +
+        currentUser.userId +
+        '/' +
+        followingUserId +
+        '?username=' +
+        username +
+        '&password=' +
+        password
+    );
+    return this.httpClient
+      .put(
+        this.baseUrl +
+          '/follow/' +
+          currentUser.userId +
+          '/' +
+          followingUserId +
+          '?username=' +
+          username +
+          '&password=' +
+          password,
+        {},
+        httpOptions
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  unfollow(unfollowingUserId: number) {
+    const currentUser = this.sessionService.getCurrentUser();
+
+    const username = currentUser.username;
+    const password = currentUser.password;
+    console.log(currentUser.userId + '/' + unfollowingUserId);
+    return this.httpClient
+      .put(
+        this.baseUrl +
+          '/unfollow/' +
+          currentUser.userId +
+          '/' +
+          unfollowingUserId +
+          '?username=' +
+          username +
+          '&password=' +
+          password,
+        {},
+        httpOptions
+      )
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {

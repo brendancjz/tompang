@@ -94,6 +94,22 @@ public class TransactionSessionBean implements TransactionSessionBeanLocal {
         transaction.setIsCompleted(isCompleted);
     }
     
+       
+    @Override
+    public void updateTransactionIsAccepted(Long transactionId) throws EntityNotFoundException {
+        Transaction transaction = this.getTransactionByTransactionId(transactionId);
+        System.out.println("TRANSACTION ACCEPTED");
+        transaction.setIsAccepted(true);
+    }
+    
+       
+    @Override
+    public void updateTransactionIsRejected(Long transactionId) throws EntityNotFoundException {
+        Transaction transaction = this.getTransactionByTransactionId(transactionId);
+        System.out.println("TRANSACTION REJECTED");
+        transaction.setIsRejected(true);
+    }
+    
     @Override
     public void updateTransactionHasDispute(Long transactionId, Boolean hasDispute) throws EntityNotFoundException {
         Transaction transaction = this.getTransactionByTransactionId(transactionId);
