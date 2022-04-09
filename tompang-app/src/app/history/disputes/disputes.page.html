@@ -12,7 +12,7 @@
           <div style="display: flex; align-items: center">
             <ion-icon
               name="hand-right-outline"
-              style="font-size: 35px; margin-right: 20px"
+              style="font-size: 30px; margin-right: 20px"
             ></ion-icon>
             <ion-item-group
               style="
@@ -20,12 +20,17 @@
                 flex-direction: column;
                 justify-content: center;">
               <ion-label style="font-size: 16px; margin-bottom: 5px">
-                Dispute for
-              </ion-label
-              >
-              <ion-text style="font-size: 14px; margin-bottom: 5px"
-                >{{dispute.description}}</ion-text
-              >
+                Dispute for {{formatListingTitle(dispute)}}
+              </ion-label>
+              <ion-text style="font-size: 12px; margin-bottom: 5px">
+                Purchased on {{formatTransactionDate(dispute)}}
+                <div style="display: flex;flex-direction: column;justify-content: center;height:15px;margin-left: 170px;position:absolute;top: 22px;">
+                  <span *ngIf="dispute.isResolved === true"
+                  style="color:var(--ion-color-primary);">RESOLVED</span>
+                  <span *ngIf="dispute.isResolved === false"
+                  style="color: red;">NOT RESOLVED</span>
+                </div>
+              </ion-text>
             </ion-item-group>
             <div>
               <ion-button color="tertiary" class="button-icon" icon-only (click)="viewDispute(dispute.disputeId)">

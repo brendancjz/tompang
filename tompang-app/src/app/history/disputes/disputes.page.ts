@@ -34,4 +34,18 @@ export class DisputesPage implements OnInit {
     ]);
   }
 
+  formatListingTitle(dispute: Dispute) {
+    const maxNumberBeforeCutOff = 25;
+    if (dispute.transaction.listing.title.length >= maxNumberBeforeCutOff) {
+      return dispute.transaction.listing.title.substring(0, maxNumberBeforeCutOff - 3) + '...';
+    }
+
+    return dispute.transaction.listing.title;
+  }
+
+  formatTransactionDate(dispute: Dispute) {
+    const dateString = dispute.transaction.createdOn.toString().split('T')[0];
+
+    return dateString;
+  }
 }
