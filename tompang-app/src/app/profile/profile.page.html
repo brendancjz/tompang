@@ -45,7 +45,7 @@
         </ion-button>
       </div>
       <ion-button
-        *ngIf="showFollowButton"
+        *ngIf="showFollowButton && !isProfileTheCurrentUser()"
         color="tertiary"
         class="grey-color"
         style="text-transform: capitalize"
@@ -57,7 +57,7 @@
         Follow
       </ion-button>
       <ion-button
-        *ngIf="!showFollowButton"
+        *ngIf="!showFollowButton && !isProfileTheCurrentUser()"
         color="tertiary"
         class="grey-color"
         style="text-transform: capitalize"
