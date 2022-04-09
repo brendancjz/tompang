@@ -33,6 +33,10 @@ public interface TransactionSessionBeanLocal {
 
     public List<Double> getList();
 
+    public void updateTransactionIsRejected(Long transactionId) throws EntityNotFoundException;
+
+    public void updateTransactionIsAccepted(Long transactionId) throws EntityNotFoundException;
+
     
     
 }

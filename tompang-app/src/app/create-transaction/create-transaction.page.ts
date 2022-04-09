@@ -85,6 +85,7 @@ export class CreateTransactionPage implements OnInit {
   createTransaction() {
     console.log('Creating transaction..');
     this.transaction.seller = this.listingToView.createdBy;
+    this.transaction.buyer = this.sessionService.getCurrentUser();
     this.transaction.createdOn = new Date();
     this.transaction.amount = this.listingToView.price;
 
@@ -132,20 +133,20 @@ export class CreateTransactionPage implements OnInit {
                     this.resultSuccess = true;
                     this.resultError = false;
                     this.message = "New Message " + newMessageId + " created successfully";
-                    this.conversationService.getConversationById(convo.convoId).subscribe({
-                      next: (response) => {
-                        // this.convoToView = response;
-                        console.log(response);
-                        // console.log(this.convoToView);
-                        this.hasLoaded = true;
-                        console.log("PASS");
-                        // document.getElementById("divExample").style.bottom = '0';
-                      },
-                      error: (error) => {
-                        console.log('view-conversation.page.ts:' + error);
-                        console.log("FAIL");
-                      },
-                    });
+                    // this.conversationService.getConversationById(convo.convoId).subscribe({
+                    //   next: (response) => {
+                    //     // this.convoToView = response;
+                    //     console.log(response);
+                    //     // console.log(this.convoToView);
+                    //     this.hasLoaded = true;
+                    //     console.log("PASS");
+                    //     // document.getElementById("divExample").style.bottom = '0';
+                    //   },
+                    //   error: (error) => {
+                    //     console.log('view-conversation.page.ts:' + error);
+                    //     console.log("FAIL");
+                    //   },
+                    // });
                   },
                   //add message error
                   error: (error) => {
@@ -158,7 +159,6 @@ export class CreateTransactionPage implements OnInit {
                 });
                 //*********************************************************************************** need add message to convo and send no need navigate
                 // this.router.navigate(['/view-conversation/' + convo.convoId]);
-                break;
               }
             }
             if (convoNotFound) {
@@ -182,33 +182,18 @@ export class CreateTransactionPage implements OnInit {
                   this.resultError = false;
                   this.message = "New Conversation " + newConversationId + " created successfully";
                   //*********************************************************************************** need add message to convo and send no need navigate
-                  this.conversationService.addMessage(newMessage, (Number(convo.convoId))).subscribe({
+                  this.conversationService.addMessage(newMessage, newConversationId).subscribe({
                     next: (response) => {
                       let newMessageId: number = response;
                       this.resultSuccess = true;
                       this.resultError = false;
                       this.message = "New Message " + newMessageId + " created successfully";
-                      this.conversationService.getConversationById(convo.convoId).subscribe({
-                        next: (response) => {
-                          // this.convoToView = response;
-                          console.log(response);
-                          // console.log(this.convoToView);
-                          this.hasLoaded = true;
-                          console.log("PASS");
-                          // document.getElementById("divExample").style.bottom = '0';
-                        },
-                        error: (error) => {
-                          console.log('view-conversation.page.ts:' + error);
-                          console.log("FAIL");
-                        },
-                      });
                     },
                     //add message error
                     error: (error) => {
                       this.resultError = true;
                       this.resultSuccess = false;
                       this.message = "An error has occurred while creating the new message: " + error;
-
                       console.log('********** createNewMessage: ' + error);
                     }
                   });
@@ -242,37 +227,22 @@ export class CreateTransactionPage implements OnInit {
                 this.resultError = false;
                 this.message = "New Conversation " + newConversationId + " created successfully";
                 //*********************************************************************************** need add message to convo and send no need navigate
-                this.conversationService.addMessage(newMessage, (Number(convo.convoId))).subscribe({
+                this.conversationService.addMessage(newMessage, newConversationId).subscribe({
                   next: (response) => {
                     let newMessageId: number = response;
                     this.resultSuccess = true;
                     this.resultError = false;
                     this.message = "New Message " + newMessageId + " created successfully";
-                    this.conversationService.getConversationById(convo.convoId).subscribe({
-                      next: (response) => {
-                        // this.convoToView = response;
-                        console.log(response);
-                        // console.log(this.convoToView);
-                        this.hasLoaded = true;
-                        console.log("PASS");
-                        // document.getElementById("divExample").style.bottom = '0';
-                      },
-                      error: (error) => {
-                        console.log('view-conversation.page.ts:' + error);
-                        console.log("FAIL");
-                      },
-                    });
                   },
                   //add message error
                   error: (error) => {
                     this.resultError = true;
                     this.resultSuccess = false;
                     this.message = "An error has occurred while creating the new message: " + error;
-
                     console.log('********** createNewMessage: ' + error);
                   }
                 });
-                this.router.navigate(['/view-conversation/' + newConversationId]);
+                // this.router.navigate(['/view-conversation/' + newConversationId]);
               },
               error: (error) => {
                 this.resultError = true;
@@ -290,7 +260,6 @@ export class CreateTransactionPage implements OnInit {
         this.resultError = true;
         this.transactionSuccessful = false;
         this.message = 'Invalid Creation: Unexpected error occured. Try again later.';
-
         console.log('********** CreateNewTransactionPage: ' + error);
       }
 

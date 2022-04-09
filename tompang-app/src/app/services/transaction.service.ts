@@ -105,6 +105,38 @@ export class TransactionService {
       .pipe(catchError(this.handleError));
   }
 
+  acceptTransaction(transactionId: number) {
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
+
+    let updateTransactionReq: UpdateTransactionReq = new UpdateTransactionReq(
+      username,
+      password,
+      transactionId
+    );
+
+    return this.httpClient
+      .post<any>(this.baseUrl + '/acceptTransaction', updateTransactionReq, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  rejectTransaction(transactionId: number) {
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
+
+    let updateTransactionReq: UpdateTransactionReq = new UpdateTransactionReq(
+      username,
+      password,
+      transactionId
+    );
+
+    return this.httpClient
+      .post<any>(this.baseUrl + '/rejectTransaction', updateTransactionReq, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

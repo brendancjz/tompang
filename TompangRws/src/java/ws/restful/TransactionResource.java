@@ -44,7 +44,6 @@ import ws.datamodel.UpdateTransactionReq;
 @Path("Transaction")
 public class TransactionResource {
 
-    
     @Context
     private UriInfo context;
 
@@ -52,7 +51,6 @@ public class TransactionResource {
 //    private final ListingSessionBeanLocal listingSessionBean;
     private final UserSessionBeanLocal userSessionBean;
     private final TransactionSessionBeanLocal transactionSessionBean;
-    
 
     public TransactionResource() {
         sessionBeanLookup = new SessionBeanLookup();
@@ -69,12 +67,11 @@ public class TransactionResource {
         try {
             System.out.println("*********** " + username + " " + password);
             User user = userSessionBean.userLogin(username, password);
-           
 
             List<Transaction> transactions = transactionSessionBean.retrieveTransactionsByUserId(user.getUserId());
 
             for (Transaction transaction : transactions) {
-                
+
                 if (transaction.getBuyer() != null) {
                     transaction.getBuyer().getCreatedListings().clear();
                     transaction.getBuyer().setConversations(null);
@@ -85,7 +82,7 @@ public class TransactionResource {
                     transaction.getBuyer().getFollowing().clear();
                     transaction.getBuyer().setLikedListings(null);
                 }
-                
+
                 if (transaction.getSeller() != null) {
                     transaction.getSeller().getCreatedListings().clear();
                     transaction.getSeller().setConversations(null);
@@ -96,24 +93,22 @@ public class TransactionResource {
                     transaction.getSeller().getFollowing().clear();
                     transaction.getSeller().setLikedListings(null);
                 }
-                
 
-                if (transaction.getDispute() != null){
+                if (transaction.getDispute() != null) {
                     transaction.getDispute().setTransaction(null);
                 }
 
-                if(transaction.getCreatedOn() != null){
+                if (transaction.getCreatedOn() != null) {
                     transaction.getCreditCard().setUser(null);
                 }
-                
-                if(transaction.getListing()!= null){
+
+                if (transaction.getListing() != null) {
                     transaction.getListing().setCreatedBy(null);
                     transaction.getListing().getLikedByUsers().clear();
                     transaction.getListing().getTransactions().clear();
                     transaction.getListing().getConversations().clear();
                 }
 
-                
             }
 
             System.out.println(transactions);
@@ -130,9 +125,7 @@ public class TransactionResource {
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
         }
 
-    }   
-
-    
+    }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -149,8 +142,7 @@ public class TransactionResource {
                 return Response.status(Status.UNAUTHORIZED).entity(ex.getMessage()).build();
             } catch (CreateNewTransactionException ex) {
                 return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
-            } 
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 return Response.status(Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
             }
         } else {
@@ -165,10 +157,10 @@ public class TransactionResource {
         if (updateTransactionReq != null) {
             try {
                 User user = userSessionBean.userLogin(updateTransactionReq.getUsername(), updateTransactionReq.getPassword());
-                
+
                 Transaction transaction = transactionSessionBean.getTransactionByTransactionId(updateTransactionReq.getTransactionId());
-                
-                if(transaction.getSeller() != user){
+
+                if (transaction.getSeller() != user) {
                     return Response.status(Response.Status.UNAUTHORIZED).entity("Transaction does not belong to user").build();
                 } else {
                     transactionSessionBean.updateTransactionIsCompleted(updateTransactionReq.getTransactionId(), Boolean.TRUE);
@@ -185,62 +177,118 @@ public class TransactionResource {
             return Response.status(Response.Status.BAD_REQUEST).entity("Invalid update listing request").build();
         }
     }
-    
+
+    @Path("acceptTransaction")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response acceptTransaction(UpdateTransactionReq updateTransactionReq) {
+        if (updateTransactionReq != null) {
+            try {
+                User user = userSessionBean.userLogin(updateTransactionReq.getUsername(), updateTransactionReq.getPassword());
+                System.out.println(updateTransactionReq.getTransactionId());
+                Transaction transaction = transactionSessionBean.getTransactionByTransactionId(updateTransactionReq.getTransactionId());
+                System.out.println(transaction.getSeller().getUserId());
+                System.out.println(user.getUserId());
+                if (transaction.getSeller().getUserId() != user.getUserId()) {
+                    return Response.status(Response.Status.UNAUTHORIZED).entity("Transaction does not belong to user").build();
+                } else {
+                    transactionSessionBean.updateTransactionIsAccepted(updateTransactionReq.getTransactionId());
+                }
+                return Response.status(Response.Status.OK).build();
+            } catch (InvalidLoginCredentialsException ex) {
+                return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
+            } catch (EntityNotFoundException ex) {
+                return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+            } catch (Exception ex) {
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+            }
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid update listing request").build();
+        }
+    }
+
+    @Path("rejectTransaction")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response rejectTransaction(UpdateTransactionReq updateTransactionReq) {
+        if (updateTransactionReq != null) {
+            try {
+                User user = userSessionBean.userLogin(updateTransactionReq.getUsername(), updateTransactionReq.getPassword());
+
+                Transaction transaction = transactionSessionBean.getTransactionByTransactionId(updateTransactionReq.getTransactionId());
+
+                if (transaction.getSeller().getUserId() != user.getUserId()) {
+                    return Response.status(Response.Status.UNAUTHORIZED).entity("Transaction does not belong to user").build();
+                } else {
+                    transactionSessionBean.updateTransactionIsRejected(updateTransactionReq.getTransactionId());
+                }
+                return Response.status(Response.Status.OK).build();
+            } catch (InvalidLoginCredentialsException ex) {
+                return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();
+            } catch (EntityNotFoundException ex) {
+                return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+            } catch (Exception ex) {
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+            }
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid update listing request").build();
+        }
+    }
+
     @Path("retrieveTransaction/{transactionId}")
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response retrieveTransaction(@QueryParam("username") String username, 
-                                    @QueryParam("password") String password,
-                                    @PathParam("transactionId") Long transactionId){
-    
-         try {
+    public Response retrieveTransaction(@QueryParam("username") String username,
+            @QueryParam("password") String password,
+            @PathParam("transactionId") Long transactionId) {
+
+        try {
             System.out.println("*********** " + username + " " + password);
             User user = userSessionBean.userLogin(username, password);
-           
+
             Transaction transaction = transactionSessionBean.getTransactionByTransactionId(transactionId);
-              
+
             if (transaction.getBuyer() != null) {
-                    transaction.getBuyer().getCreatedListings().clear();
-                    transaction.getBuyer().setConversations(null);
-                    transaction.getBuyer().setCreditCards(null);
-                    transaction.getBuyer().setBuyerTransactions(null);
-                    transaction.getBuyer().setSellerTransactions(null);
-                    transaction.getBuyer().getFollowers().clear();
-                    transaction.getBuyer().getFollowing().clear();
-                    transaction.getBuyer().setLikedListings(null);
-                }
-                
-                if (transaction.getSeller() != null) {
-                    transaction.getSeller().getCreatedListings().clear();
-                    transaction.getSeller().setConversations(null);
-                    transaction.getSeller().setCreditCards(null);
-                    transaction.getSeller().setBuyerTransactions(null);
-                    transaction.getSeller().setSellerTransactions(null);
-                    transaction.getSeller().getFollowers().clear();
-                    transaction.getSeller().getFollowing().clear();
-                    transaction.getSeller().setLikedListings(null);
-                }
-                
+                transaction.getBuyer().getCreatedListings().clear();
+                transaction.getBuyer().setConversations(null);
+                transaction.getBuyer().setCreditCards(null);
+                transaction.getBuyer().setBuyerTransactions(null);
+                transaction.getBuyer().setSellerTransactions(null);
+                transaction.getBuyer().getFollowers().clear();
+                transaction.getBuyer().getFollowing().clear();
+                transaction.getBuyer().setLikedListings(null);
+            }
 
-                if (transaction.getDispute() != null){
-                    transaction.getDispute().setTransaction(null);
-                }
+            if (transaction.getSeller() != null) {
+                transaction.getSeller().getCreatedListings().clear();
+                transaction.getSeller().setConversations(null);
+                transaction.getSeller().setCreditCards(null);
+                transaction.getSeller().setBuyerTransactions(null);
+                transaction.getSeller().setSellerTransactions(null);
+                transaction.getSeller().getFollowers().clear();
+                transaction.getSeller().getFollowing().clear();
+                transaction.getSeller().setLikedListings(null);
+            }
 
-                if(transaction.getCreatedOn() != null){
-                    transaction.getCreditCard().setUser(null);
-                }
-                
-                if(transaction.getListing()!= null){
-                    transaction.getListing().setCreatedBy(null);
-                    transaction.getListing().getLikedByUsers().clear();
-                    transaction.getListing().getTransactions().clear();
-                    transaction.getListing().getConversations().clear();
-                }
-        
-            
+            if (transaction.getDispute() != null) {
+                transaction.getDispute().setTransaction(null);
+            }
+
+            if (transaction.getCreatedOn() != null) {
+                transaction.getCreditCard().setUser(null);
+            }
+
+            if (transaction.getListing() != null) {
+                transaction.getListing().setCreatedBy(null);
+                transaction.getListing().getLikedByUsers().clear();
+                transaction.getListing().getTransactions().clear();
+                transaction.getListing().getConversations().clear();
+            }
+
             System.out.println(transaction);
-
 
             return Response.status(Status.OK).entity(transaction).build();
         } catch (InvalidLoginCredentialsException ex) {
@@ -249,8 +297,7 @@ public class TransactionResource {
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
         }
     }
-        
-    
+
     private ListingSessionBeanLocal lookupListingSessionBeanLocal() {
         try {
             javax.naming.Context c = new InitialContext();
@@ -280,6 +327,5 @@ public class TransactionResource {
             throw new RuntimeException(ne);
         }
     }
-    
-       
+
 }

@@ -99,6 +99,8 @@ export class ViewListingDetailsPage implements OnInit {
 
     let convo: Conversation;
     let buyingConvos: Conversation[];
+    let convoNotFound: Boolean;
+    convoNotFound = true;
 
     //Have a current convo
     // eslint-disable-next-line radix
@@ -113,39 +115,43 @@ export class ViewListingDetailsPage implements OnInit {
           console.log('enter for loop');
           if (buyingConvos[i].listing.listingId === this.listingToView.listingId) {
             console.log('convo found');
+            convoNotFound = false;
             convo = buyingConvos[i];
             this.router.navigate(['/view-conversation/' + convo.convoId]);
             break;
           }
         }
-        console.log('need to cr8 new convo');
-        //after for loop no existing convo le. need create new
-        convo = new Conversation();
-        convo.createdBy = this.sessionService.getCurrentUser();
-        convo.listing = this.listingToView;
-        convo.buyerUnread = 0;
-        convo.sellerUnread = 0;
-        convo.seller = this.listingToView.createdBy;
-        convo.messages = new Array();
-        convo.isOpen = true;
-        this.conversationService.createConversation(convo, (Number(this.listingToView.listingId)),
-        (Number(this.sessionService.getCurrentUser().userId))).subscribe({
-          // eslint-disable-next-line @typescript-eslint/no-shadow
-          next: (response) => {
-            const newConversationId: number = response;
-            this.resultSuccess = true;
-            this.resultError = false;
-            this.message = 'New Conversation ' + newConversationId + ' created successfully';
-            this.router.navigate(['/view-conversation/' + newConversationId]);
-          },
-          error: (error) => {
-            this.resultError = true;
-            this.resultSuccess = false;
-            this.message = 'An error has occurred while creating the new conversation: ' + error;
-            console.log('********** createNewConversation: ' + error);
-          }
-        });
+        if (convoNotFound) {
+          console.log('need to cr8 new convo');
+          //after for loop no existing convo le. need create new
+          convo = new Conversation();
+          convo.createdBy = this.sessionService.getCurrentUser();
+          convo.listing = this.listingToView;
+          convo.buyerUnread = 0;
+          convo.sellerUnread = 0;
+          convo.seller = this.listingToView.createdBy;
+          convo.messages = new Array();
+          convo.isOpen = true;
+          this.conversationService.createConversation(convo, (Number(this.listingToView.listingId)),
+            (Number(this.sessionService.getCurrentUser().userId))).subscribe({
+              // eslint-disable-next-line @typescript-eslint/no-shadow
+              next: (response) => {
+                const newConversationId: number = response;
+                this.resultSuccess = true;
+                this.resultError = false;
+                this.message = 'New Conversation ' + newConversationId + ' created successfully';
+                this.router.navigate(['/view-conversation/' + newConversationId]);
+              },
+              error: (error) => {
+                this.resultError = true;
+                this.resultSuccess = false;
+                this.message = 'An error has occurred while creating the new conversation: ' + error;
+                console.log('********** createNewConversation: ' + error);
+              }
+            });
+        }
       },
+
       error: (error) => {
         console.log('view-listing-chat-now (no buying convos at all):' + error);
         convo = new Conversation();
@@ -157,25 +163,25 @@ export class ViewListingDetailsPage implements OnInit {
         convo.messages = new Array();
         convo.isOpen = true;
         this.conversationService.createConversation(convo, (Number(this.listingToView.listingId)),
-        (Number(this.sessionService.getCurrentUser().userId))).subscribe({
-          next: (response) => {
-            console.log('service method success');
-            const newConversationId: number = response;
-            this.resultSuccess = true;
-            this.resultError = false;
-            this.message = 'Successfully created a conversation';
-            this.router.navigate(['/view-conversation/' + newConversationId]);
-            console.log('New Conversation ' + newConversationId + ' created successfully');
-          },
-          // eslint-disable-next-line @typescript-eslint/no-shadow
-          error: (error) => {
-            this.resultError = true;
-            this.resultSuccess = false;
-            this.message = 'Unexpected error occured. Try again later';
-            console.log('********** createNewConversation: ' + error);
-            console.log('An error has occurred while creating the new conversation: ' + error);
-          }
-        });
+          (Number(this.sessionService.getCurrentUser().userId))).subscribe({
+            next: (response) => {
+              console.log('service method success');
+              const newConversationId: number = response;
+              this.resultSuccess = true;
+              this.resultError = false;
+              this.message = 'Successfully created a conversation';
+              this.router.navigate(['/view-conversation/' + newConversationId]);
+              console.log('New Conversation ' + newConversationId + ' created successfully');
+            },
+            // eslint-disable-next-line @typescript-eslint/no-shadow
+            error: (error) => {
+              this.resultError = true;
+              this.resultSuccess = false;
+              this.message = 'Unexpected error occured. Try again later';
+              console.log('********** createNewConversation: ' + error);
+              console.log('An error has occurred while creating the new conversation: ' + error);
+            }
+          });
       },
     });
 
@@ -202,7 +208,7 @@ export class ViewListingDetailsPage implements OnInit {
 
   doesCurrentUserLikeThisListing(): boolean {
     // eslint-disable-next-line radix
-    return this.userService.isListingLikedByUser(this.currentUser.userId,parseInt(this.listingId));
+    return this.userService.isListingLikedByUser(this.currentUser.userId, parseInt(this.listingId));
   }
 
   formatListingTitle(): string {
