@@ -6,6 +6,7 @@
 package ws.restful;
 
 import java.util.Set;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 
 /**
  *
@@ -19,8 +20,7 @@ public class ApplicationConfig extends javax.ws.rs.core.Application {
         Set<Class<?>> resources = new java.util.HashSet<>();
         addRestResourceClasses(resources);
         
-        // not sure where prof got this import from..
-       // resources.add(MultiPartFeature.class);
+        resources.add(MultiPartFeature.class);
         return resources;
     }
 
@@ -34,6 +34,7 @@ public class ApplicationConfig extends javax.ws.rs.core.Application {
         resources.add(ws.restful.ConversationResource.class);
         resources.add(ws.restful.CorsFilter.class);
         resources.add(ws.restful.DisputeResource.class);
+        resources.add(ws.restful.FileResource.class);
         resources.add(ws.restful.ListingResource.class);
         resources.add(ws.restful.TransactionResource.class);
         resources.add(ws.restful.UserResource.class);
