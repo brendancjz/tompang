@@ -88,7 +88,7 @@
           </ion-label>
         </div>
       </div>
-      <div class="input-button-div">
+      <div class="input-button-div" *ngIf="!isCurrentUserTheCreatorOfThisListing()">
         <ion-button
           style="text-transform: initial; font-size: 16px; width: 80px"
           color="tertiary"
