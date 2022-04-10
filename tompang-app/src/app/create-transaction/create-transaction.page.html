@@ -10,7 +10,7 @@
         </div>
       </ion-item>
     </div>
-    <div>
+    <div *ngIf="!hasUserAlreadyBoughtThis">
       <form (ngSubmit)="createTransaction()" *ngIf="!transactionSuccessful">
         <div class="form-input">
           <ion-item lines="none">
@@ -40,6 +40,13 @@
       <div *ngIf="transactionSuccessful === false" style="display: flex;flex-direction: column;justify-content: center;">
         <ion-label class="grey-color" style="text-align: center;color: red;">
           Missing or invalid Credit Card
+        </ion-label>
+      </div>
+    </div>
+    <div *ngIf="hasUserAlreadyBoughtThis">
+      <div style="display: flex;flex-direction: column;justify-content: center;">
+        <ion-label style="text-align: center;" class="grey-color">
+          You have already bought this. Go to History > My Purchases for updates.
         </ion-label>
       </div>
     </div>

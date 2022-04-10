@@ -34,6 +34,8 @@ export class CreateTransactionPage implements OnInit {
   message: string;
   resultSuccess: boolean;
 
+  hasUserAlreadyBoughtThis: boolean;
+
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -47,6 +49,7 @@ export class CreateTransactionPage implements OnInit {
     this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
     this.currentUser = this.sessionService.getCurrentUser();
     this.transaction = new Transaction();
+    this.hasUserAlreadyBoughtThis = false;
 
     // eslint-disable-next-line radix
     this.listingService.getListingByListingId(parseInt(this.listingId)).subscribe({
@@ -57,6 +60,7 @@ export class CreateTransactionPage implements OnInit {
 
         //Check if user has alr bought this.
         //TODO
+        //this.hasUserAlreadyBoughtThis = true / false
       },
       error: (error) => {
         this.retrieveListingError = true;
