@@ -124,9 +124,7 @@ public class DisputeResource {
              }
 
 
-             if (transaction.getDispute() != null){
-                 transaction.getDispute().setTransaction(null);
-             }
+             transaction.setDispute(null);
 
              if(transaction.getCreatedOn() != null){
                  transaction.getCreditCard().setUser(null);
@@ -160,6 +158,7 @@ public class DisputeResource {
             User user = userSessionBean.userLogin(username, password);
            
             List<Dispute> list = disputeSessionBean.retrieveUserDisputes(user.getUserId());
+            System.out.println(list);
             
             for(Dispute dispute: list){
                 Transaction transaction = dispute.getTransaction();

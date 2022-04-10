@@ -153,7 +153,7 @@ public class DataInitSessionBean {
             em.flush();
 
             Dispute dispute = new Dispute("Seller does not want to buy additional product for me.", transaction2);
-            dispute.setUserId(3L);
+            dispute.setUserId(5L);
             em.persist(dispute);
             em.flush();
             transaction2.setDispute(dispute);
@@ -578,7 +578,7 @@ public class DataInitSessionBean {
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/pringles.jpg");
-            listing = new Listing("Japan", "Osaka", "Trio flavoured Japanese Pringles", "Cheese Burger, Butter Caramel and Sweet Mayo Japanese Pringles! ", "FOOD", 15.00, expectedArrivalDate2 ,sean, 10, photos);
+            listing = new Listing("Korea", "Seoul", "Trio flavoured Japanese Pringles", "Cheese Burger, Butter Caramel and Sweet Mayo Japanese Pringles! ", "FOOD", 15.00, expectedArrivalDate2 ,sean, 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
