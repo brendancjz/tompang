@@ -287,7 +287,9 @@ public class UserResource {
             try {
                 User user = userSessionBean.userLogin(updateUserReq.getUsername(), updateUserReq.getPassword());
                 if(updateUserReq.getUser() != null){
+                    
                     userSessionBean.updateUserDetails(updateUserReq.getUser());
+                    System.out.println("Successful update of user details");
                 } else {
                     userSessionBean.updateUserPassword(user.getUserId(), updateUserReq.getNewPassword());
                 }

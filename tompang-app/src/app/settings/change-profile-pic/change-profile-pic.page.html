@@ -16,12 +16,23 @@
         <img style="border-radius: 10%;width: 70%;margin: 10px auto;" src={{displayProfilePic()}} />
 
       </ion-item>
-      <ion-item lines="none">
-        <!-- <input style="margin: 10px auto;" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleFileInput($event)"> -->
-        <input style="margin: 10px auto;" type="file" accept="image/png, image/gif, image/jpeg" (change)="changeProfilePic($event)">
-      </ion-item>
+      <ion-card>
+        <ion-item lines="none">
+          <!-- <input style="margin: 10px auto;" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleFileInput($event)"> -->
+          <input style="margin: 10px auto;" type="file" accept="image/png, image/gif, image/jpeg" (change)="changeProfilePic($event)">
+        </ion-item>
+        <div class="input-button-div" style="margin-bottom: 15px;">
+          <ion-button color="tertiary" style="text-transform: capitalize;" (click)="updateProfilePic()">Change</ion-button>
+          <!-- <ion-button (click)="getPicturesFromGallery()">Select Images</ion-button> -->
+        </div>
+      </ion-card>
+      <div style="display: flex; align-items: center; justify-content: center;">
+        <div style="border: 1px solid black;width: 100px;background-color: black;"></div>
+        <span style="padding: 0 10px;">or</span>
+        <div style="border: 1px solid black;width: 100px;background-color: black;"></div>
+      </div>
       <div class="input-button-div">
-        <ion-button color="tertiary" style="text-transform: capitalize;" (click)="updateProfilePic()">Change</ion-button>
+        <ion-button color="tertiary" style="text-transform: capitalize;" (click)="takePicture()">Take Picture</ion-button>
         <!-- <ion-button (click)="getPicturesFromGallery()">Select Images</ion-button> -->
       </div>
       <div *ngIf="editError === true" style="text-align: center; color: red;width: 300px;">
