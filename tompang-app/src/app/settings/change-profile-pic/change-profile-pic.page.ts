@@ -59,7 +59,6 @@ export class ChangeProfilePicPage implements OnInit {
   // }
 
   changeProfilePic(event: any) {
-    console.log('changeProfilePic -> new pic should show')
     this.newProfilePic = event.target.files.item(0);
     console.log(this.newProfilePic);
   }
@@ -74,11 +73,35 @@ export class ChangeProfilePicPage implements OnInit {
       //This works but it does not follow the normal flow of response / error. It is always error w 200
       this.fileUploadService.uploadFile(this.newProfilePic).subscribe({
         next: (response) => {
-          console.log("HUAT");
           console.log(this.fileName);
-          this.currentProfilePic = '/uploadedFiles/' + this.fileName;
-          console.log('New Profile pic url: ' + this.currentProfilePic);
           console.log('********** FileUploadComponent.ts: File uploaded successfully: ' + response.status);
+
+          //Updating User
+          this.currentProfilePic = '/uploadedFiles/' + this.fileName;
+
+          const updatedUser = new User(
+            this.currentUser.userId,
+            this.currentUser.firstName,
+            this.currentUser.lastName,
+            this.currentUser.username,
+            this.currentUser.password,
+            this.currentUser.email,
+            new Date(this.currentUser.dateOfBirth),
+            this.currentProfilePic, //Changed
+            this.currentUser.contactNumber
+          );
+
+          this.userService.updateUser(updatedUser).subscribe({
+            // eslint-disable-next-line @typescript-eslint/no-shadow
+            next: (response) => {
+              //Update the current User in the sessionScope will rerender the profile pic
+              this.currentUser.profilePic = this.currentProfilePic;
+              console.log('Successfully changed user profile pic');
+            },
+            error: (error) => {
+              console.log('Udating user profile pic got error ' + error);
+            }
+          });
         },
         error: (error) => {
           this.currentProfilePic = '/uploadedFiles/' + this.fileName;
