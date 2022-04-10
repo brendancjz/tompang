@@ -29,6 +29,7 @@ export class ChangeProfilePicPage implements OnInit {
   ) {}
 
   ngOnInit() {
+<<<<<<< HEAD
     document.getElementById('back-button').addEventListener(
       'click',
       () => {
@@ -36,6 +37,11 @@ export class ChangeProfilePicPage implements OnInit {
       },
       { once: true }
     );
+=======
+    document.getElementById('back-button').addEventListener('click', () => {
+      this.resetPage();
+    }, { once: true });
+>>>>>>> 2524890e0bb867add9563f421cbb85f234710773
 
     this.currentUser = this.sessionService.getCurrentUser();
   }
@@ -69,18 +75,43 @@ export class ChangeProfilePicPage implements OnInit {
   }
 
   updateProfilePic() {
+    console.log(this.newProfilePic);
+    console.log(this.newProfilePic.name);
     if (this.newProfilePic != null) {
       this.fileName = this.newProfilePic.name;
+      console.log(this.fileName);
 
-      //This works but it does not follow the normal flow of response / error. It is always error w 200
       this.fileUploadService.uploadFile(this.newProfilePic).subscribe({
         next: (response) => {
+          console.log(this.fileName);
+          console.log('********** FileUploadComponent.ts: File uploaded successfully: ' + response.status);
+
+          //Updating User
           this.currentProfilePic = '/uploadedFiles/' + this.fileName;
-          console.log('New Profile pic url: ' + this.currentProfilePic);
-          console.log(
-            '********** FileUploadComponent.ts: File uploaded successfully: ' +
-              response.status
+
+          const updatedUser = new User(
+            this.currentUser.userId,
+            this.currentUser.firstName,
+            this.currentUser.lastName,
+            this.currentUser.username,
+            this.currentUser.password,
+            this.currentUser.email,
+            new Date(this.currentUser.dateOfBirth),
+            this.currentProfilePic, //Changed
+            this.currentUser.contactNumber
           );
+
+          this.userService.updateUser(updatedUser).subscribe({
+            // eslint-disable-next-line @typescript-eslint/no-shadow
+            next: (response) => {
+              //Update the current User in the sessionScope will rerender the profile pic
+              this.currentUser.profilePic = this.currentProfilePic;
+              console.log('Successfully changed user profile pic');
+            },
+            error: (error) => {
+              console.log('Udating user profile pic got error ' + error);
+            }
+          });
         },
         error: (error) => {
           this.currentProfilePic = '/uploadedFiles/' + this.fileName;
