@@ -14,7 +14,8 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./view-conversation.page.scss'],
 })
 export class ViewConversationPage implements OnInit {
-
+  @ViewChild('convoblock') private convoblock: any;
+  @ViewChild('convoblocklist') private convoblocklist: any;
   convoId: string | null;
   convoToView: Conversation | null;
   retrieveConvoError: boolean;
@@ -28,9 +29,6 @@ export class ViewConversationPage implements OnInit {
   resultSuccess: boolean;
   resultError: boolean;
   message: string;
-
-  @ViewChild('convoblock') private convoblock: any;
-  @ViewChild('convoblocklist') private convoblocklist: any;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -46,17 +44,16 @@ export class ViewConversationPage implements OnInit {
     if (this.convoId != null) {
       console.log('View conversation: ' + this.convoId);
 
+      // eslint-disable-next-line radix
       this.conversationService.getConversationById(parseInt(this.convoId)).subscribe({
         next: (response) => {
           this.convoToView = response;
           console.log(response);
           console.log(this.convoToView);
           this.hasLoaded = true;
-          console.log("PASS");
         },
         error: (error) => {
           console.log('view-conversation.page.ts:' + error);
-          console.log("FAIL");
         },
       });
 
@@ -78,7 +75,7 @@ export class ViewConversationPage implements OnInit {
   }
 
   getConversationListingUrl(): string {
-    const basePictureUrl = '../../assets/images';
+    const basePictureUrl = 'http://localhost:8080/Tompang-war';
     console.log('getConversationListingUrl : ' + this.convoToView.convoId);
     return basePictureUrl + this.convoToView.listing.photos[0];
   }
@@ -121,17 +118,18 @@ export class ViewConversationPage implements OnInit {
     console.log(this.convoId);
     this.conversationService.addMessage(newMessage, (Number(this.convoId))).subscribe({
       next: (response) => {
-        let newMessageId: number = response;
+        const newMessageId: number = response;
         this.resultSuccess = true;
         this.resultError = false;
-        this.message = "New Message " + newMessageId + " created successfully";
+        this.message = 'New Message ' + newMessageId + ' created successfully';
+        // eslint-disable-next-line radix
         this.conversationService.getConversationById(parseInt(this.convoId)).subscribe({
+          // eslint-disable-next-line @typescript-eslint/no-shadow
           next: (response) => {
             this.convoToView = response;
             console.log(response);
             console.log(this.convoToView);
             this.hasLoaded = true;
-            console.log("PASS");
             this.convoblock.scrollToBottom(300);
             this.convoblock.scrollToBottom(300);
             this.convoblocklist.scrollToBottom(300);
@@ -139,14 +137,13 @@ export class ViewConversationPage implements OnInit {
           },
           error: (error) => {
             console.log('view-conversation.page.ts:' + error);
-            console.log("FAIL");
           },
         });
       },
       error: (error) => {
         this.resultError = true;
         this.resultSuccess = false;
-        this.message = "An error has occurred while creating the new message: " + error;
+        this.message = 'An error has occurred while creating the new message: ' + error;
 
         console.log('********** createNewMessage: ' + error);
       }
@@ -155,13 +152,20 @@ export class ViewConversationPage implements OnInit {
   }
 
   getUserProfilePic(indicator: number): string {
-    const baseUrl = '../../assets/images';
-    if (indicator == 2) {
-      console.log('never enter')
+    const baseUrl = 'http://localhost:8080/Tompang-war';
+    if (indicator === 2) {
       return baseUrl + this.convoToView.createdBy.profilePic;
     } else {
-      console.log('enter')
       return baseUrl + this.convoToView.seller.profilePic;
     }
+  }
+
+  formatListingTitle() {
+    const maxNumberBeforeCutOff = 35;
+    if (this.convoToView.listing.title.length >= maxNumberBeforeCutOff) {
+      return this.convoToView.listing.title.substring(0, maxNumberBeforeCutOff - 3) + '...';
+    }
+
+    return this.convoToView.listing.title;
   }
 }

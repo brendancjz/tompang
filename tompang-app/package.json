@@ -48,6 +48,7 @@
     "@typescript-eslint/parser": "5.3.0",
     "cordova-android": "^10.1.1",
     "cordova-plugin-device": "2.0.2",
+    "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^5.0.0",
     "cordova-plugin-photo-library": "^2.3.1",

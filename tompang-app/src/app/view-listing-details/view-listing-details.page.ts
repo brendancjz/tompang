@@ -99,7 +99,7 @@ export class ViewListingDetailsPage implements OnInit {
 
     let convo: Conversation;
     let buyingConvos: Conversation[];
-    let convoNotFound: Boolean;
+    let convoNotFound: boolean;
     convoNotFound = true;
 
     //Have a current convo
@@ -187,6 +187,10 @@ export class ViewListingDetailsPage implements OnInit {
 
 
 
+  }
+
+  isCurrentUserTheCreatorOfThisListing() {
+    return this.listingToView.createdBy.username === this.currentUser.username;
   }
 
   makeTransaction(): void {

@@ -1,17 +1,20 @@
 <app-header></app-header>
 <ion-content class="hide-scroll-bar">
+  <div *ngIf="!hasLoaded" style="text-align: center;margin-top: 20px;" class="grey-color">
+    Loading...
+  </div>
   <div *ngIf="hasLoaded">
     <div style="display: flex;align-items: center;margin-bottom: 10px;" (click)="viewListing()">
       <ion-item lines="none">
         <img style="width: 70px;border-radius: 5px;margin-right: 10px;" src={{getListingPicUrl()}}>
         <div style="display: flex;flex-direction: column;">
-          <ion-label class="grey-color" style="margin-bottom: 5px;" >{{listingToView.title}}</ion-label>
+          <ion-label class="grey-color" style="margin-bottom: 5px;" >{{formatListingTitle()}}</ion-label>
           <ion-label class="grey-color">S${{listingToView.price}}</ion-label>
         </div>
       </ion-item>
     </div>
-    <div>
-      <form (ngSubmit)="createTransaction()">
+    <div *ngIf="!hasUserAlreadyBoughtThis">
+      <form (ngSubmit)="createTransaction()" *ngIf="!transactionSuccessful">
         <div class="form-input">
           <ion-item lines="none">
             <ion-icon style="font-size:35px;" name="card-outline" slot="start"></ion-icon>
@@ -27,22 +30,28 @@
         <div class="form-input input-button-div">
           <ion-button style="text-transform: initial;font-size: 16px;height: 50px;" color="tertiary" type="submit">Confirm Purchase</ion-button>
         </div>
-        <div *ngIf="transactionSuccessful" style="display: flex;flex-direction: column;justify-content: center;">
-          <ion-label style="text-align: center;" class="grey-color">Successfully requested to purchase this listing!</ion-label>
-          <ion-label class="grey-color" style="text-align: center;">
-            Expected arrivel date is {{eta}}.
-          </ion-label>
-          <ion-label class="grey-color" style="text-align: center;">
-            Go to History > My Purchases for updates.
-          </ion-label>
-        </div>
-        <div *ngIf="transactionSuccessful === false" style="display: flex;flex-direction: column;justify-content: center;">
-          <ion-label class="grey-color" style="text-align: center;color: red;">
-            Missing or invalid Credit Card
-          </ion-label>
-
-        </div>
       </form>
+      <div *ngIf="transactionSuccessful" style="display: flex;flex-direction: column;justify-content: center;">
+        <ion-label style="text-align: center;" class="grey-color">Successfully requested to purchase this listing!</ion-label>
+        <ion-label class="grey-color" style="text-align: center;">
+          Expected arrivel date is {{eta}}.
+        </ion-label>
+        <ion-label class="grey-color" style="text-align: center;">
+          Go to History > My Purchases for updates.
+        </ion-label>
+      </div>
+      <div *ngIf="transactionSuccessful === false" style="display: flex;flex-direction: column;justify-content: center;">
+        <ion-label class="grey-color" style="text-align: center;color: red;">
+          Missing or invalid Credit Card
+        </ion-label>
+      </div>
+    </div>
+    <div *ngIf="hasUserAlreadyBoughtThis">
+      <div style="display: flex;flex-direction: column;justify-content: center;">
+        <ion-label style="text-align: center;" class="grey-color">
+          You have already bought this. Go to History > My Purchases for updates.
+        </ion-label>
+      </div>
     </div>
   </div>
 </ion-content>

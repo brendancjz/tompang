@@ -1,9 +1,46 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>viewDisputeDetails</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header></app-header>
+<ion-content class="hide-scroll-bar">
+  <div *ngIf="!hasLoaded" style="text-align: center;margin-top: 20px;" class="grey-color">
+    Loading...
+  </div>
+  <div *ngIf="hasLoaded">
+    <ion-title class="page-name grey-color">
+      Disputes
+    </ion-title>
+    <hr class="horizontal-rule" />
+    <ion-title class="sub-page-name grey-color">
+      Dispute ID: {{disputeId}}
+    </ion-title>
+    <hr class="horizontal-rule" />
+    <div style="margin-left: 16px;">
+      <ion-card style="width: 345px;">
+        <ion-card-header>
+          Dispute Details
+        </ion-card-header>
 
-<ion-content>
-
+        <ion-card-content>
+          <ion-card-title style="font-size: 16px;">
+            Status
+          </ion-card-title>
+          <div style="display: flex;align-items: center;justify-content: space-between;">
+            <ion-label class="grey-color">Is dispute resolved?</ion-label>
+            <ion-text>{{disputeToView.isResolved}}</ion-text>
+          </div>
+          <hr class="horizontal-rule">
+          <div style="display: flex;flex-direction:column;align-items: flex-start;justify-content: space-between;">
+            <ion-label style="color: black;">Description</ion-label>
+            <ion-text>{{disputeToView.description}}</ion-text>
+          </div>
+          <hr class="horizontal-rule">
+          <div style="display: flex;align-items: center;justify-content: space-between;">
+            <ion-label style="color: black;font-size: 16px;">Transaction</ion-label>
+            <ion-button color="tertiary" class="button-icon" icon-only (click)="viewTransaction()">
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
 </ion-content>
+<app-footer></app-footer>
