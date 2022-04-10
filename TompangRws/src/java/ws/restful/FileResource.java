@@ -30,7 +30,6 @@ public class FileResource {
     }
 
     @POST
-    @Path("upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public Response upload(@FormDataParam("file") InputStream uploadedFileInputStream,

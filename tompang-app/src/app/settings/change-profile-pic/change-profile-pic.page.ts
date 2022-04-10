@@ -13,7 +13,6 @@ import { PhotoService } from 'src/app/services/photo.service';
   styleUrls: ['./change-profile-pic.page.scss'],
 })
 export class ChangeProfilePicPage implements OnInit {
-
   basePicUrl = 'picApi';
   currentProfilePic: string;
   newProfilePic: File | null;
@@ -143,7 +142,6 @@ export class ChangeProfilePicPage implements OnInit {
 
   updateUserProfilePic(): void {
     console.log('Updating user profile pic...');
-
   }
 
   resetPage(): void {

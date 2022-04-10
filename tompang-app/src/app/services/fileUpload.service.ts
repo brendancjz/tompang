@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse,
+} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -10,7 +14,7 @@ const httpOptions = {
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FileUploadService {
   baseUrl = '/api/File';
@@ -59,9 +63,10 @@ export class FileUploadService {
         return new Observable();
       }
 
-      errorMessage = 'A HTTP error has occurred: ' + `HTTP ${error.status}: ${error.error.message}`;
+      errorMessage =
+        'A HTTP error has occurred: FUCKKKK' +
+        `HTTP ${error.status}: ${error.error.message}`;
     }
-
 
     return throwError(errorMessage);
   }

@@ -10,16 +10,17 @@ import { Dispute } from '../models/dispute';
   styleUrls: ['./view-dispute-details.page.scss'],
 })
 export class ViewDisputeDetailsPage implements OnInit {
-
   disputeId: string;
   disputeToView: Dispute;
 
   hasLoaded: boolean;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
-    private disputeService: DisputeService) { }
+    private disputeService: DisputeService
+  ) {}
 
   ngOnInit() {
     console.log('View dispute details page');
@@ -39,14 +40,14 @@ export class ViewDisputeDetailsPage implements OnInit {
         },
       });
     }
-
   }
 
   viewTransaction() {
     console.log('View transaction details from view dispute details page');
-    this.router.navigate(['/view-transaction-details/' + this.disputeToView.transaction.transactionId]);
-
+    console.log(this.disputeToView.transaction);
+    this.router.navigate([
+      '/view-transaction-details/' +
+        this.disputeToView.transaction.transactionId,
+    ]);
   }
-
-
 }
