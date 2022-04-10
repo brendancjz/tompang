@@ -21,7 +21,8 @@ export class FileUploadService {
   uploadFile(fileToUpload: File | null): Observable<any> {
     console.log('Uploading file...');
     console.log(fileToUpload);
-    const requestOptions: Object = {responseType : 'text'}
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    const requestOptions: Object = {responseType : 'text'};
 
     if (fileToUpload != null) {
       const formData: FormData = new FormData();

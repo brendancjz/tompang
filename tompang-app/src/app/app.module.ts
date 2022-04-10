@@ -12,6 +12,8 @@ import { HeaderPageModule } from './header/header.module';
 import { FooterPageModule } from './footer/footer.module';
 import { enterAnimation } from './animations/nav-animation';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { Camera } from '@awesome-cordova-plugins/camera/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -29,6 +31,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     BarcodeScanner,
+    Camera
   ],
   bootstrap: [AppComponent],
 })

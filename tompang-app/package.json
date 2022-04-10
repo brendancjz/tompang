@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~13.2.2",
     "@angular/platform-browser-dynamic": "~13.2.2",
     "@angular/router": "~13.2.2",
+    "@awesome-cordova-plugins/camera": "^5.41.0",
     "@ionic-native/barcode-scanner": "^5.36.0",
     "@ionic-native/camera": "^5.36.0",
     "@ionic-native/file": "^5.36.0",
@@ -47,6 +48,7 @@
     "@typescript-eslint/eslint-plugin": "5.3.0",
     "@typescript-eslint/parser": "5.3.0",
     "cordova-android": "^10.1.1",
+    "cordova-plugin-camera": "^6.0.0",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
@@ -82,7 +84,10 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-photo-library": {}
+      "cordova-plugin-photo-library": {},
+      "cordova-plugin-camera": {
+        "ANDROIDX_CORE_VERSION": "1.6.+"
+      }
     },
     "platforms": [
       "android"
