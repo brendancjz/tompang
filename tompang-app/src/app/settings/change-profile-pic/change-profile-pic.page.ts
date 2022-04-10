@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+// import { ImagePicker } from '@ionic-native/image-picker';
 
 import { SessionService } from '../../services/session.service';
 import { UserService } from 'src/app/services/user.service';
@@ -22,8 +22,7 @@ export class ChangeProfilePicPage implements OnInit {
 
   currentUser: User;
 
-  constructor(private location: Location,
-    public sessionService: SessionService,
+  constructor(public sessionService: SessionService,
     private userService: UserService,
     private fileUploadService: FileUploadService) { }
 
@@ -57,6 +56,26 @@ export class ChangeProfilePicPage implements OnInit {
   //     );
   //   }
   // }
+
+  // getPicturesFromGallery() {
+  //   const options = {
+  //     width: 200,
+  //     quality: 30,
+  //     outputType: 1
+  //   };
+
+  //   const imgRes = [];
+  //   ImagePicker.getPictures(options).then((results) => {
+  //     // eslint-disable-next-line @typescript-eslint/prefer-for-of
+  //     for (let i = 0; i < results.length; i++) {
+  //       imgRes.push('data:image/jpeg;base64,' + results[i]);
+  //       console.log(imgRes);
+  //     }
+  //   }, (error) => {
+  //     alert(error);
+  //   });
+  // }
+
 
   changeProfilePic(event: any) {
     this.newProfilePic = event.target.files.item(0);
