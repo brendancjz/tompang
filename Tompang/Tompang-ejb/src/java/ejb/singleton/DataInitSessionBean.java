@@ -605,16 +605,30 @@ public class DataInitSessionBean {
             photos.add("/uploadedFiles/twinkies.jpeg");
             listing = new Listing("USA", "California", "Key Lime Twinkies", "Limited Edition Key Lime Twinkies!! This flavour is limited for a short amount of time only!!", "FOOD", 15.00, expectedArrivalDate2 ,sean, 9, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
+            
+            photos = new ArrayList<>();
+            photos.add("/uploadedFiles/birkenstock.jpeg");
+            listing = new Listing("USA", "California", "Birkenstock Arizona", "Birkenstock Arizona in Sandy Grey. Available in US 6,7,8,9", "APPAREL", 150.00, expectedArrivalDate3 ,sean, 9, photos);
+            this.listingSessionBean.createNewListing(listing, 2L);
+            
             try {
                 // LIKE LISTINGS
                 //manager liking some listings
+                
                 listingSessionBean.likeListing(1L, 6L);
                 listingSessionBean.likeListing(1L, 9L);
                 listingSessionBean.likeListing(1L, 3L);
+                listingSessionBean.likeListing(1L, 3L);
+                for(int i = 12; i < 31; i++){
+                    listingSessionBean.likeListing(1L,new Long(i) );
+                }
                 //admin liking some listings
                 listingSessionBean.likeListing(2L, 4L);
                 listingSessionBean.likeListing(2L, 5L);
                 listingSessionBean.likeListing(2L, 10L);
+                for(int i = 12; i < 31; i++){
+                    listingSessionBean.likeListing(2L,new Long(i) );
+                }
                 //iggy liking some listings
                 listingSessionBean.likeListing(3L, 4L);
                 listingSessionBean.likeListing(3L, 5L);
@@ -622,15 +636,24 @@ public class DataInitSessionBean {
                 listingSessionBean.likeListing(3L, 1L);
                 listingSessionBean.likeListing(3L, 2L);
                 listingSessionBean.likeListing(3L, 3L);
+                for(int i = 18; i < 31; i++){
+                    listingSessionBean.likeListing(3L,new Long(i) );
+                }
                 //guojun liking some listings
                 listingSessionBean.likeListing(5L, 6L);
                 listingSessionBean.likeListing(5L, 8L);
+                for(int i = 12; i < 20; i++){
+                    listingSessionBean.likeListing(5L,new Long(i) );
+                }
                 
                 // guojun liking even more listings
                 listingSessionBean.likeListing(5L, 1L);
                 listingSessionBean.likeListing(5L, 2L);
                 listingSessionBean.likeListing(5L, 3L);
                 listingSessionBean.likeListing(5L, 4L);
+                for(int i = 12; i < 22; i++){
+                    listingSessionBean.likeListing(1L,new Long(i) );
+                }
             } catch (EntityNotFoundException ex) {
                 System.out.println(ex.getMessage());
             }

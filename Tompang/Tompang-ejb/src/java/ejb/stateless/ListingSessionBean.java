@@ -110,13 +110,14 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
     }
 
     @Override
-    public void likeListing(Long listingId, Long userId) throws EntityNotFoundException {
+    public void likeListing(Long userId, Long listingId) throws EntityNotFoundException {
         System.out.println(listingId + "listing liked by user: " + userId);
         Listing listing = this.getListingByListingId(listingId);
         User user = userSessionBeanLocal.getUserByUserId(userId);
         
         if (!listing.getLikedByUsers().contains(user)) {
             listing.getLikedByUsers().add(user);
+            System.out.println("liked");
         }
         
         if (!user.getLikedListings().contains(listing)) {
