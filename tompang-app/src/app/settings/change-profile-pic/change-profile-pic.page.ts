@@ -12,7 +12,6 @@ import { FileUploadService } from 'src/app/services/fileUpload.service';
   styleUrls: ['./change-profile-pic.page.scss'],
 })
 export class ChangeProfilePicPage implements OnInit {
-
   basePicUrl = 'picApi';
   currentProfilePic: string;
   newProfilePic: File | null;
@@ -22,15 +21,21 @@ export class ChangeProfilePicPage implements OnInit {
 
   currentUser: User;
 
-  constructor(private location: Location,
+  constructor(
+    private location: Location,
     public sessionService: SessionService,
     private userService: UserService,
-    private fileUploadService: FileUploadService) { }
+    private fileUploadService: FileUploadService
+  ) {}
 
   ngOnInit() {
-    document.getElementById('back-button').addEventListener('click', () => {
-      this.resetPage();
-    }, { once: true});
+    document.getElementById('back-button').addEventListener(
+      'click',
+      () => {
+        this.resetPage();
+      },
+      { once: true }
+    );
 
     this.currentUser = this.sessionService.getCurrentUser();
   }
@@ -64,25 +69,27 @@ export class ChangeProfilePicPage implements OnInit {
   }
 
   updateProfilePic() {
-    if(this.newProfilePic != null)
-    {
+    if (this.newProfilePic != null) {
       this.fileName = this.newProfilePic.name;
 
       //This works but it does not follow the normal flow of response / error. It is always error w 200
-      this.fileUploadService.uploadFile(this.newProfilePic).subscribe(
-        response => {
+      this.fileUploadService.uploadFile(this.newProfilePic).subscribe({
+        next: (response) => {
           this.currentProfilePic = '/uploadedFiles/' + this.fileName;
           console.log('New Profile pic url: ' + this.currentProfilePic);
-          console.log('********** FileUploadComponent.ts: File uploaded successfully: ' + response.status);
+          console.log(
+            '********** FileUploadComponent.ts: File uploaded successfully: ' +
+              response.status
+          );
         },
-        error => {
+        error: (error) => {
           this.currentProfilePic = '/uploadedFiles/' + this.fileName;
           console.log('ERROR for url: ' + this.currentProfilePic);
           console.log('********** FileUploadComponent.ts: ' + error);
 
           console.log(error);
-        }
-      );
+        },
+      });
 
       //Hardcoded
       //Assuming we uploaded alr, rerender the pic with new pic
@@ -98,7 +105,6 @@ export class ChangeProfilePicPage implements OnInit {
 
   updateUserProfilePic(): void {
     console.log('Updating user profile pic...');
-
   }
 
   resetPage(): void {

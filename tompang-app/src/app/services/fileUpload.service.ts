@@ -1,72 +1,61 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse,
+} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 const httpOptions = {
-	// eslint-disable-next-line @typescript-eslint/naming-convention
-	headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' })
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' }),
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class FileUploadService
-{
+export class FileUploadService {
   baseUrl = '/api/File';
 
-  constructor(private httpClient: HttpClient)
-  {
-  }
+  constructor(private httpClient: HttpClient) {}
 
-  uploadFile(fileToUpload: File | null): Observable<any>
-  {
+  uploadFile(fileToUpload: File | null): Observable<any> {
     console.log('Uploading file...');
 
-    if(fileToUpload != null)
-    {
+    if (fileToUpload != null) {
       const formData: FormData = new FormData();
       formData.append('file', fileToUpload, fileToUpload.name);
 
-      return this.httpClient.post<any>('http://localhost:8080/TompangRws/Resources/File/upload', formData).pipe
-      (
-        catchError(this.handleError)
-      );
+      // return this.httpClient
+      //   .post<any>('http://localhost:8080/TompangRws/Resources/File', formData)
+      //   .pipe(catchError(this.handleError));
 
-      // return this.httpClient.post<any>(this.baseUrl + '/upload', formData, httpOptions).pipe
-      // (
-      //   catchError(this.handleError)
-      // );
-    }
-    else
-    {
+      return this.httpClient
+        .post<any>(this.baseUrl, formData)
+        .pipe(catchError(this.handleError));
+    } else {
       return new Observable();
     }
   }
 
-
-
-  private handleError(error: HttpErrorResponse)
-  {
+  private handleError(error: HttpErrorResponse) {
     let errorMessage = '';
 
-    if (error.error instanceof ErrorEvent)
-    {
+    if (error.error instanceof ErrorEvent) {
       errorMessage = 'An unknown error has occurred: ' + error.error.message;
-    }
-    else
-    {
-
+    } else {
       //I added this because 200 shouldnt be here but it is somehow. Help
-      if (`${error.status}` === '200' ) {
-        console.log('200 OK File Upload');
-        return new Observable();
-      }
+      // if (`${error.status}` === '200') {
+      //   console.log('200 OK File Upload');
+      //   return new Observable();
+      // }
 
-      errorMessage = 'A HTTP error has occurred: ' + `HTTP ${error.status}: ${error.error.message}`;
+      errorMessage =
+        'A HTTP error has occurred: FUCKKKK' +
+        `HTTP ${error.status}: ${error.error.message}`;
     }
-
 
     return throwError(errorMessage);
   }
