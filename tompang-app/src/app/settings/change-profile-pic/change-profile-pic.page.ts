@@ -70,7 +70,6 @@ export class ChangeProfilePicPage implements OnInit {
       this.fileName = this.newProfilePic.name;
       console.log(this.fileName);
 
-      //This works but it does not follow the normal flow of response / error. It is always error w 200
       this.fileUploadService.uploadFile(this.newProfilePic).subscribe({
         next: (response) => {
           console.log(this.fileName);
