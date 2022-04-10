@@ -106,4 +106,9 @@ export class ViewTransactionDetailsPage implements OnInit {
   toggleRaiseDispute() {
     this.raisingDispute = true;
   }
+
+  viewListing(): void {
+    console.log('View listing details from view transaction page');
+    this.router.navigate(['/view-listing-details/' + this.transactionToView.listing.listingId]);
+  }
 }

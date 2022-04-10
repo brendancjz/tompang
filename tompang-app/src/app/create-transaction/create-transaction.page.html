@@ -1,5 +1,8 @@
 <app-header></app-header>
 <ion-content class="hide-scroll-bar">
+  <div *ngIf="!hasLoaded" style="text-align: center;margin-top: 20px;" class="grey-color">
+    Loading...
+  </div>
   <div *ngIf="hasLoaded">
     <div style="display: flex;align-items: center;margin-bottom: 10px;" (click)="viewListing()">
       <ion-item lines="none">

@@ -11,8 +11,10 @@ import { Dispute } from '../models/dispute';
 })
 export class ViewDisputeDetailsPage implements OnInit {
 
-  disputeId: number
-  dispute: Dispute
+  disputeId: string;
+  disputeToView: Dispute;
+
+  hasLoaded: boolean;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -20,21 +22,31 @@ export class ViewDisputeDetailsPage implements OnInit {
     private disputeService: DisputeService) { }
 
   ngOnInit() {
-    this.disputeId = Number(
-      this.activatedRoute.snapshot.paramMap.get('transactionId')
-    );
+    console.log('View dispute details page');
+    this.disputeId = this.activatedRoute.snapshot.paramMap.get('disputeId');
 
-    this.disputeService.getDisputeById(this.disputeId).subscribe({
-      next: (response) => {
-        this.dispute = response;
-        console.log('Found Dispute To View');
-      },
-      error: (error) => {
-        console.log('viewDispute.ts:' + error);
-      },
-    });
+    if (this.disputeId !== null) {
+      // eslint-disable-next-line radix
+      this.disputeService.getDisputeById(parseInt(this.disputeId)).subscribe({
+        next: (response) => {
+          this.disputeToView = response;
+          console.log(this.disputeToView);
+          this.hasLoaded = true;
+          console.log('Found Dispute To View');
+        },
+        error: (error) => {
+          console.log('viewDispute.ts:' + error);
+        },
+      });
+    }
+
   }
 
+  viewTransaction() {
+    console.log('View transaction details from view dispute details page');
+    this.router.navigate(['/view-transaction-details/' + this.disputeToView.transaction.transactionId]);
+
+  }
 
 
 }

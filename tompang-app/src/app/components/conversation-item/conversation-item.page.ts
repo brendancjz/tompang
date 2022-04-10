@@ -13,13 +13,13 @@ export class ConversationItemPage implements OnInit {
   @Input() convo: Conversation;
 
   constructor(private router: Router,
-    private sessionService: SessionService) { }
+    public sessionService: SessionService) { }
 
   ngOnInit() {
   }
 
   getUserProfilePic(convo: Conversation): string {
-    const baseUrl = '../../assets/images';
+    const baseUrl = 'http://localhost:8080/Tompang-war';
     //Profile pic should be the user of the latest message sent
     return baseUrl + convo.createdBy.profilePic;
   }

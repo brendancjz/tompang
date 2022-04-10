@@ -1,5 +1,8 @@
 <app-header></app-header>
 <ion-content class="hide-scroll-bar">
+  <div *ngIf="!hasLoaded" style="text-align: center;margin-top: 20px;" class="grey-color">
+    Loading...
+  </div>
   <div *ngIf="hasLoaded">
     <ion-title class="page-name grey-color">
       My Purchases
@@ -35,7 +38,43 @@
         </ion-card-content>
       </ion-card>
     </div>
-    <div *ngIf="hasLoaded">
+    <div style="margin-left: 16px;">
+      <ion-card style="width: 345px;">
+        <ion-card-header>
+          Transaction Details
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-card-title style="font-size: 16px;">
+            Status
+          </ion-card-title>
+          <div style="display: flex;align-items: center;justify-content: space-between;">
+            <ion-label class="grey-color">Has seller accepted?</ion-label>
+            <ion-text>{{transactionToView.isAccepted}}</ion-text>
+          </div>
+          <div style="display: flex;align-items: center;justify-content: space-between;">
+            <ion-label class="grey-color">Has seller rejected?</ion-label>
+            <ion-text>{{transactionToView.isRejected}}</ion-text>
+          </div>
+          <div style="display: flex;align-items: center;justify-content: space-between;">
+            <ion-label class="grey-color">Is transaction completed?</ion-label>
+            <ion-text>{{transactionToView.isCompleted}}</ion-text>
+          </div>
+          <div style="display: flex;align-items: center;justify-content: space-between;">
+            <ion-label class="grey-color">Is in dispute?</ion-label>
+            <ion-text>{{transactionToView.hasDispute}}</ion-text>
+          </div>
+          <hr class="horizontal-rule">
+          <div style="display: flex;align-items: center;justify-content: space-between;">
+            <ion-label style="color: black;font-size: 16px;">Listing</ion-label>
+            <ion-button color="tertiary" class="button-icon" icon-only (click)="viewListing()">
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <div>
       <div class="input-button-div" *ngIf="!raisingDispute && transactionToView.hasDispute === false">
         <ion-button style="text-transform: initial;font-size: 16px;width: 160px;" color="tertiary" (click)="toggleRaiseDispute()">Raise A Dispute</ion-button>
       </div>

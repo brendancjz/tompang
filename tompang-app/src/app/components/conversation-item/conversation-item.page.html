@@ -4,11 +4,11 @@
       <img src="{{getUserProfilePic(convo)}}" style="width: 45px;border-radius: 100%;margin-right: 16px;">
       <ion-item-group style="display:flex;flex-direction:column;justify-content:center;height: 65px;">
         <div>
-          <ion-text *ngIf="sessionService.getCurrentUser().username != convo.createdBy.username"
+          <ion-text *ngIf="sessionService.getCurrentUser().username !== convo.createdBy.username"
             style="font-size: 12px;">
             @{{convo.createdBy.username}}
           </ion-text>
-          <ion-text *ngIf="sessionService.getCurrentUser().username == convo.createdBy.username"
+          <ion-text *ngIf="sessionService.getCurrentUser().username === convo.createdBy.username"
             style="font-size: 12px;">
             @{{convo.seller.username}}
           </ion-text>

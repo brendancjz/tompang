@@ -132,14 +132,15 @@ const routes: Routes = [
     loadChildren: () => import('./help/help.module').then( m => m.HelpPageModule)
   },
   {
+    path: 'view-dispute-details/:disputeId',
+    loadChildren: () => import('./view-dispute-details/view-dispute-details.module').then( m => m.ViewDisputeDetailsPageModule)
+  },
+  {
       path: '**',
       redirectTo: 'index',
       pathMatch: 'full',
     },
-  {
-    path: 'view-dispute-details',
-    loadChildren: () => import('./view-dispute-details/view-dispute-details.module').then( m => m.ViewDisputeDetailsPageModule)
-  },
+
 
 
 
