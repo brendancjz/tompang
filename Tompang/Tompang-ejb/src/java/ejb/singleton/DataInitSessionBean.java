@@ -597,12 +597,12 @@ public class DataInitSessionBean {
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
-            photos.add("/uploadedFiles/soju.jpeg");
+            photos.add("/uploadedFiles/tokyobanana.jpeg");
             listing = new Listing("Japan", "Tokyo", "Tokyo Banana", "Tokyo Banana! This favourite needs no introduction!", "FOOD", 20.00, expectedArrivalDate2 ,sean, 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
-            photos.add("/uploadedFiles/skittles.jpeg");
+            photos.add("/uploadedFiles/twinkies.jpeg");
             listing = new Listing("USA", "California", "Key Lime Twinkies", "Limited Edition Key Lime Twinkies!! This flavour is limited for a short amount of time only!!", "FOOD", 15.00, expectedArrivalDate2 ,sean, 9, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             try {
