@@ -19,9 +19,17 @@ export class ConversationItemPage implements OnInit {
   }
 
   getUserProfilePic(convo: Conversation): string {
-    const baseUrl = '../../assets/images';
+    //const baseUrl = '../../assets/images';
+    const baseUrl = 'http://localhost:8080/Tompang-war';
     //Profile pic should be the user of the latest message sent
-    return baseUrl + convo.createdBy.profilePic;
+    console.log('getting user profile pics');
+    console.log(convo.createdBy.profilePic);
+    console.log(convo.seller.profilePic);
+    if (this.sessionService.getCurrentUser().userId == convo.seller.userId) {
+      return baseUrl + convo.createdBy.profilePic;
+    } else {
+      return baseUrl + convo.seller.profilePic;
+    }
   }
 
   getLatestMessageDateOfConvo(convo: Conversation): string {
