@@ -81,16 +81,16 @@ public class UserResource {
                 for (Conversation conversation : user.getConversations()) {
                     conversation.setListing(null);
                     conversation.setCreatedBy(null);
-                    conversation.getMessages().clear();
+                    conversation.setMessages(null);
                 }
             }
 
             if (user.getCreatedListings() != null) {
                 for (Listing createdListing : user.getCreatedListings()) {
                     createdListing.setCreatedBy(null);
-                    createdListing.getLikedByUsers().clear();
-                    createdListing.getTransactions().clear();
-                    createdListing.getConversations().clear();
+                    createdListing.setLikedByUsers(null);
+                    createdListing.setTransactions(null);
+                    createdListing.setConversations(null);
                 }
             }
 
@@ -116,20 +116,20 @@ public class UserResource {
 
             if (user.getFollowers() != null) {
                 for (User follower : user.getFollowers()) {
-                    follower.getCreatedListings().clear();
+                    follower.setCreatedListings(null);
                     follower.setConversations(null);
                     follower.setCreditCards(null);
                     follower.setBuyerTransactions(null);
                     follower.setSellerTransactions(null);
-                    follower.getFollowers().clear();
-                    follower.getFollowing().clear();
+                    follower.setFollowers(null);
+                    follower.setFollowing(null);
                     follower.setLikedListings(null);
                 }
             }
 
             if (user.getFollowing() != null) {
                 for (User following : user.getFollowing()) {
-                    following.getCreatedListings().clear();
+                    following.setCreatedListings(null);
                     following.setConversations(null);
                     following.setCreditCards(null);
                     following.setBuyerTransactions(null);
@@ -143,9 +143,9 @@ public class UserResource {
             if (user.getLikedListings() != null) {
                 for (Listing likedListing : user.getLikedListings()) {
                     likedListing.setCreatedBy(null);
-                    likedListing.getLikedByUsers().clear();
-                    likedListing.getTransactions().clear();
-                    likedListing.getConversations().clear();
+                    likedListing.setLikedByUsers(null);
+                    likedListing.setTransactions(null);
+                    likedListing.setConversations(null);
                 }
             }
 
