@@ -5,7 +5,7 @@
     </ion-title>
     <hr class="horizontal-rule" />
     <ion-title class="sub-page-name grey-color">
-      My Purchases
+      My Transactions
     </ion-title>
   </div>
   <hr class="horizontal-rule" />
@@ -17,7 +17,7 @@
               <div style="display: flex;align-items: center;">
                 <ion-icon name="document-text-outline" style="font-size: 35px;margin-right: 20px;margin-bottom: 25px;"></ion-icon>
                 <ion-item-group style="display:flex;flex-direction:column;justify-content:center;">
-                  <ion-label style="font-size: 16px;margin-bottom: 5px;">Purchased {{formatListingTitle(transaction)}}</ion-label>
+                  <ion-label style="font-size: 16px;margin-bottom: 5px;">{{checkTransaction(transaction)}} {{formatListingTitle(transaction)}}</ion-label>
                   <ion-text style="font-size: 14px;margin-bottom: 5px;">S${{transaction.listing.price}}</ion-text>
                   <ion-text style="font-size: 12px;margin-bottom: 15px;">
                     ETA: {{formatListingETA(transaction)}}
