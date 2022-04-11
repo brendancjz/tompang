@@ -7,6 +7,35 @@
     <hr class="horizontal-rule" />
     <div class="create-listing-block">
       <div id="createListingForm" class="createListingForm">
+        <ion-slides
+          [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }"
+        >
+          <ion-slide
+            *ngFor="let photo of listingImages"
+            style="width: 450px; height: 450px"
+          >
+            <ion-col class="ion-text-left">
+              <ion-card>
+                <ion-card-content>
+                  <img src="{{getPhotoUrl(photo)}}" />
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-slide>
+        </ion-slides>
+        <ion-card>
+          <ion-item lines="none">
+            <!-- <input style="margin: 10px auto;" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleFileInput($event)"> -->
+            <input style="margin: 10px auto;" #fileInput type="file" accept="image/png, image/gif, image/jpeg" (change)="addingListingImage($event)">
+          </ion-item>
+          <div class="input-button-div" style="margin-bottom: 15px;">
+            <ion-button color="tertiary" style="text-transform: capitalize;" (click)="addListingImage()">Add Image</ion-button>
+            <!-- <ion-button (click)="getPicturesFromGallery()">Select Images</ion-button> -->
+          </div>
+          <div *ngIf="imageSuccess" class="grey-color" style="text-align: center;margin-bottom: 15px;">
+            {{imageSuccessMsg}}
+          </div>
+        </ion-card>
         <form>
           <!--Add images upload here-->
           <div class="form-input">

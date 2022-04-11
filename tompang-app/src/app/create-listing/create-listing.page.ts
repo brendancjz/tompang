@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Listing } from '../models/listing';
+import { FileUploadService } from '../services/fileUpload.service';
 import { ListingService } from '../services/listing.service';
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-create-listing',
@@ -8,6 +10,9 @@ import { ListingService } from '../services/listing.service';
   styleUrls: ['./create-listing.page.scss'],
 })
 export class CreateListingPage implements OnInit {
+  @ViewChild('fileInput')
+  fileInput: ElementRef;
+
   title: string | undefined;
   country: string | undefined;
   city: string | undefined;
@@ -17,6 +22,10 @@ export class CreateListingPage implements OnInit {
   quantity: number | undefined;
   expectedArrivalDate: string | undefined;
 
+  listingImages: string[] | undefined;
+  newListingImage: File | null;
+  imageSuccessMsg: string;
+  imageSuccess: boolean;
 
   creationError: boolean;
   creationErrorMessage: string | undefined;
@@ -29,10 +38,14 @@ export class CreateListingPage implements OnInit {
 
   listingCreationSuccessful: boolean;
 
-  constructor(private listingService: ListingService) {
+  constructor(private listingService: ListingService,
+      private fileUploadService: FileUploadService,
+      private sessionService: SessionService) {
   }
 
   ngOnInit() {
+    this.listingImages = [];
+
     this.categories = [
       'FOOD',
       'APPAREL',
@@ -52,6 +65,44 @@ export class CreateListingPage implements OnInit {
     this.countryCityMap = this.initialiseCountriesCities();
   }
 
+
+  addingListingImage(event: any) {
+    this.newListingImage = event.target.files.item(0);
+  }
+
+  addListingImage() {
+    console.log(this.newListingImage);
+    console.log(this.newListingImage.name);
+    if (this.newListingImage != null) {
+      const fileName = this.newListingImage.name;
+      console.log(fileName);
+
+      this.fileUploadService.uploadFile(this.newListingImage).subscribe({
+        next: (response) => {
+          console.log(fileName);
+          console.log('********** FileUploadComponent.ts: File uploaded successfully: ' + response.status);
+
+          //Updating User Listing Images
+          this.listingImages.push('/uploadedFiles/' + fileName);
+          this.imageSuccess = true;
+          this.imageSuccessMsg = 'Added Image ' + fileName;
+          this.resetFileInput();
+        },
+        error: (error) => {
+          console.log('********** FileUploadComponent.ts: ' + error);
+          console.log(error);
+        },
+      });
+
+    }
+  }
+
+  resetFileInput() {
+    console.log('Reseting file input');
+    this.fileInput.nativeElement.value = '';
+
+  }
+
   createListing(): void {
     console.log('Creating listing..');
     this.doValidation();
@@ -61,6 +112,8 @@ export class CreateListingPage implements OnInit {
     }
 
     console.log('Passed validations. Creating listing...');
+    const currentUser = this.sessionService.getCurrentUser();
+
     const listing: Listing = new Listing();
     listing.title = this.title;
     listing.country = this.country;
@@ -70,11 +123,26 @@ export class CreateListingPage implements OnInit {
     listing.price = this.price;
     listing.quantity = this.quantity;
     listing.expectedArrivalDate = new Date(this.expectedArrivalDate);
+    listing.photos = this.listingImages;
+    listing.createdBy = currentUser;
 
-    this.listingService.createListing(listing);
-    this.listingCreationSuccessful = true;
-    this.resetInputs();
-    console.log(listing);
+    this.listingService.createListing(listing).subscribe({
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      next: (response) => {
+        this.listingCreationSuccessful = true;
+        this.resetInputs();
+        console.log('Successful Creation', listing);
+      },
+      error: (error) => {
+        console.log('Error in creating listing:' + error);
+      },
+    });
+
+  }
+
+  getPhotoUrl(photo: string) {
+    const baseUrl = 'http://localhost:8080/Tompang-war';
+    return baseUrl + photo;
   }
 
   resetInputs(): void {
@@ -85,6 +153,8 @@ export class CreateListingPage implements OnInit {
     this.category = undefined;
     this.price = undefined;
     this.quantity = undefined;
+    this.listingImages = [];
+    this.imageSuccess = undefined;
   }
 
   doValidation(): void {
@@ -94,7 +164,7 @@ export class CreateListingPage implements OnInit {
       this.title === undefined || this.country === undefined ||
       this.city === undefined || this.description === undefined ||
       this.category === undefined || this.price === undefined ||
-      this.quantity === undefined
+      this.quantity === undefined || this.listingImages.length === 0
     ) {
       this.creationError = true;
       this.creationErrorMessage = 'Incomplete fields, could not create listing.';

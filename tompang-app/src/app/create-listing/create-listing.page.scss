@@ -36,3 +36,14 @@ ion-title.sub-page-name {
   width: 100%;
   margin-top: 10px;
 }
+
+.listing-slider {
+  margin-bottom: 30px;
+
+  ion-slide {
+    width: 150px;
+    height: auto;
+    margin-left: 20px;
+    margin-right: 10px;
+  }
+}
