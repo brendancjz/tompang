@@ -28,6 +28,9 @@ export class ViewListingDetailsPage implements OnInit {
   resultError: boolean;
   message: string;
 
+  confirmDelete: boolean;
+  confirmConfirmDeleted: boolean;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -38,6 +41,39 @@ export class ViewListingDetailsPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
+    this.currentUser = this.sessionService.getCurrentUser();
+    this.confirmDelete = false;
+
+    if (this.listingId != null) {
+      this.listingService
+        .getListingByListingId(Number(this.listingId))
+        .subscribe({
+          next: (response) => {
+            this.listingToView = response;
+            this.hasLoaded = true;
+            this.checkLikedByUser();
+          },
+          error: (error) => {
+            this.retrieveListingError = true;
+            console.log('********** View Listing Details Page.ts: ' + error);
+          },
+        });
+
+      // eslint-disable-next-line radix
+      // this.listingService.getListingByListingId(parseInt(this.listingId)).subscribe({
+      //   next:(response)=>{
+      //     this.listingToView = response;
+      //   },
+      //   error:(error)=>{
+      //     this.retrieveListingError = true;
+      // 		console.log('********** View Listing Details Page.ts: ' + error);
+      //   }
+      // });
+    }
+  }
+
+  ionViewWillEnter() {
     this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
     this.currentUser = this.sessionService.getCurrentUser();
 
@@ -68,8 +104,6 @@ export class ViewListingDetailsPage implements OnInit {
       // });
     }
   }
-
-  ionViewDidEnter() {}
 
   getPhotoUrl(photo: string) {
     return this.sessionService.getImageBaseUrl() + photo;
@@ -266,5 +300,20 @@ export class ViewListingDetailsPage implements OnInit {
     }
 
     return this.listingToView.title;
+  }
+
+  editListing() {
+    this.router.navigate(['/edit-listing-page/' + this.listingId]);
+  }
+
+  deleteListing() {
+    console.log('Deleting Listing');
+
+    //Delete listing sean pls help
+    this.confirmConfirmDeleted = true;
+  }
+
+  toggleConfirmDeleteListing() {
+    this.confirmDelete = true;
   }
 }

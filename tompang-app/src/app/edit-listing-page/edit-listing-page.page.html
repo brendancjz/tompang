@@ -1,0 +1,260 @@
+<app-header></app-header>
+<ion-content>
+  <div *ngIf="hasLoaded">
+    <ion-title class="sub-page-name grey-color"> Edit Listing Details </ion-title>
+    <hr class="horizontal-rule" />
+    <div class="create-listing-block">
+      <div id="createListingForm" class="createListingForm">
+        <ion-slides
+          [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }"
+        >
+          <ion-slide
+            *ngFor="let photo of listingToView.photos"
+            style="width: 450px; height: 450px"
+          >
+            <ion-col class="ion-text-left">
+              <ion-card>
+                <ion-card-content>
+                  <img src="{{getPhotoUrl(photo)}}" />
+                  <ion-button color="tertiary" style="text-transform: capitalize;" (click)="removeImage(photo)">Remove</ion-button>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-slide>
+        </ion-slides>
+        <ion-card>
+          <ion-item lines="none">
+            <!-- <input style="margin: 10px auto;" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleFileInput($event)"> -->
+            <input
+              style="margin: 10px auto"
+              #fileInput
+              type="file"
+              accept="image/png, image/gif, image/jpeg"
+              (change)="addingListingImage($event)"
+            />
+          </ion-item>
+          <div class="input-button-div" style="margin-bottom: 15px">
+            <ion-button
+              color="tertiary"
+              style="text-transform: capitalize"
+              (click)="addListingImage()"
+              >Add Image</ion-button
+            >
+            <!-- <ion-button (click)="getPicturesFromGallery()">Select Images</ion-button> -->
+          </div>
+          <div
+            *ngIf="imageSuccess"
+            class="grey-color"
+            style="text-align: center; margin-bottom: 15px"
+          >
+            {{imageSuccessMsg}}
+          </div>
+        </ion-card>
+        <form>
+          <!--Add images upload here-->
+          <div class="form-input">
+            <ion-item lines="none">
+              <ion-text
+                class="grey-color"
+                style="width: 90px; margin-right: 16px"
+                >Title</ion-text
+              >
+              <ion-input
+                class="grey-color"
+                placeholder="Title"
+                [(ngModel)]="listingToView.title"
+                name="title"
+                required
+                maxlength="50"
+              ></ion-input>
+            </ion-item>
+          </div>
+          <div class="form-input">
+            <ion-item lines="none">
+              <ion-text
+                class="grey-color"
+                style="width: 90px; margin-right: 16px"
+                >Country</ion-text
+              >
+              <ion-select
+                class="grey-color"
+                slot="end"
+                [(ngModel)]="listingToView.country"
+                name="country"
+                required
+                (ionChange)="selectCitiesFromCountry(listingToView.country)"
+              >
+                <ion-select-option
+                  class="grey-color"
+                  *ngFor="let country of countries"
+                  [value]="country"
+                  >{{country}}</ion-select-option
+                ></ion-select
+              ></ion-item
+            >
+          </div>
+          <div class="form-input">
+            <ion-item lines="none">
+              <ion-text
+                class="grey-color"
+                style="width: 90px; margin-right: 16px"
+                >City</ion-text
+              >
+              <ion-select
+                class="grey-color"
+                slot="end"
+                [(ngModel)]="listingToView.city"
+                name="city"
+                required
+              >
+                <ion-select-option
+                  class="grey-color"
+                  *ngFor="let city of cities"
+                  [value]="city"
+                  >{{city}}</ion-select-option
+                ></ion-select
+              ></ion-item
+            >
+          </div>
+          <div class="form-input">
+            <ion-item lines="none">
+              <ion-text
+                class="grey-color"
+                style="width: 90px; margin-right: 16px"
+                >Category</ion-text
+              >
+              <ion-select
+                class="grey-color"
+                slot="end"
+                [(ngModel)]="listingToView.category"
+                name="category"
+                required
+              >
+                <ion-select-option
+                  class="grey-color"
+                  *ngFor="let category of categories"
+                  [value]="category"
+                  >{{category}}</ion-select-option
+                ></ion-select
+              ></ion-item
+            >
+          </div>
+          <div class="form-input">
+            <ion-item lines="none">
+              <ion-text
+                class="grey-color"
+                style="width: 90px; margin-right: 16px"
+                >Price (SGD)</ion-text
+              >
+              <ion-input
+                class="grey-color"
+                type="number"
+                placeholder="Price"
+                [(ngModel)]="listingToView.price"
+                name="price"
+                required
+              ></ion-input>
+            </ion-item>
+          </div>
+          <div class="form-input">
+            <ion-item lines="none">
+              <ion-text
+                class="grey-color"
+                style="width: 90px; margin-right: 16px"
+                >Quantity</ion-text
+              >
+              <ion-input
+                class="grey-color"
+                type="number"
+                placeholder="Quantity"
+                [(ngModel)]="listingToView.quantity"
+                name="quantity"
+                required
+              ></ion-input>
+            </ion-item>
+          </div>
+          <div class="form-input">
+            <ion-item lines="none">
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  width: 100%;
+                  height: 150px;
+                "
+              >
+                <ion-text
+                  class="grey-color"
+                  style="width: 90px; margin-right: 16px"
+                  >Description</ion-text
+                >
+                <ion-textarea
+                  class="grey-color"
+                  placeholder="Add a description"
+                  [(ngModel)]="listingToView.description"
+                  name="description"
+                  required
+                  maxlength="500"
+                ></ion-textarea>
+              </div>
+            </ion-item>
+          </div>
+          <div class="form-input">
+            <ion-item lines="none">
+              <div style="display: flex; flex-direction: column; width: 100%">
+                <ion-text
+                  class="grey-color"
+                  style="width: 90px; margin-right: 16px"
+                  >Expected Arrival Date</ion-text
+                >
+                <ion-datetime
+                  [(ngModel)]="updatedExpectedArrivalDate"
+                  name="expectedArrivalDate"
+                >
+                </ion-datetime>
+              </div>
+            </ion-item>
+          </div>
+          <div class="form-input input-button-div">
+            <ion-button
+              style="text-transform: initial; font-size: 16px; height: 50px"
+              color="tertiary"
+              type="reset"
+              >Clear</ion-button
+            >
+            <ion-button
+              style="text-transform: initial; font-size: 16px; height: 50px"
+              color="tertiary"
+              type="submit"
+              (click)="updateListing()"
+              >Update</ion-button
+            >
+          </div>
+        </form>
+        <div
+          *ngIf="listingUpdateSuccessful"
+          style="
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          "
+        >
+          <ion-label class="grey-color" style="text-align: center">
+            Successfully updated the listing.
+          </ion-label>
+          <ion-label class="grey-color" style="text-align: center">
+            View it under Profile.
+          </ion-label>
+        </div>
+        <div
+          *ngIf="updateError === true"
+          style="text-align: center; color: red; margin-bottom: 40px"
+        >
+          {{updateErrorMsg}}
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<app-footer></app-footer>

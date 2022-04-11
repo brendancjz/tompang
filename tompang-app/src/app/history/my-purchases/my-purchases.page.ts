@@ -4,6 +4,7 @@ import { sample } from 'rxjs/operators';
 import { Transaction } from 'src/app/models/transaction';
 import { ListingService } from 'src/app/services/listing.service';
 import { TransactionService } from 'src/app/services/transaction.service';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-my-purchases',
@@ -13,14 +14,16 @@ import { TransactionService } from 'src/app/services/transaction.service';
 export class MyPurchasesPage implements OnInit {
   transactions: Transaction[];
   transaction: Transaction;
-
+  userId: number
   constructor(
     private router: Router,
     private listingService: ListingService,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private sessionService: SessionService
   ) {}
 
   ngOnInit() {
+    this.userId = this.sessionService.getCurrentUser().userId;
     this.transactions = [];
     this.transactionService.getUserTransactions().subscribe({
       next: (response) => {
@@ -56,5 +59,14 @@ export class MyPurchasesPage implements OnInit {
     const etaString = transaction.listing.expectedArrivalDate.toString().split('T')[0];
 
     return etaString;
+  }
+
+  checkTransaction(transaction: Transaction): string{
+ 
+    if (transaction.buyer.userId == this.userId) {
+        return "Purchased";
+    } else {
+      return "Sold";
+    }
   }
 }

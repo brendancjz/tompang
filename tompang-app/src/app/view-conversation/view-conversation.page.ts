@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Conversation } from '../models/conversation';
 import { Message } from '../models/message';
@@ -7,6 +7,7 @@ import { ConversationService } from '../services/conversation.service';
 import { ListingService } from '../services/listing.service';
 import { SessionService } from '../services/session.service';
 import { UserService } from '../services/user.service';
+import { FileUploadService } from '../services/fileUpload.service';
 
 @Component({
   selector: 'app-view-conversation',
@@ -16,10 +17,13 @@ import { UserService } from '../services/user.service';
 export class ViewConversationPage implements OnInit {
   @ViewChild('convoblock') private convoblock: any;
   @ViewChild('convoblocklist') private convoblocklist: any;
+  @ViewChild('fileInput') fileInput: ElementRef;
   convoId: string | null;
   convoToView: Conversation | null;
   retrieveConvoError: boolean;
   newMessageBody: string | null;
+  containsImage: boolean;
+  imageToSend: File | null;
 
   hasLoaded: boolean;
 
@@ -35,9 +39,11 @@ export class ViewConversationPage implements OnInit {
     public sessionService: SessionService,
     private listingService: ListingService,
     private userService: UserService,
-    private conversationService: ConversationService) { }
+    private conversationService: ConversationService,
+    private fileUploadService: FileUploadService) { }
 
   ngOnInit() {
+    console.log('**********************reload the convo baby**************************');
     this.convoId = this.activatedRoute.snapshot.paramMap.get('convoId');
     this.currentUser = this.sessionService.getCurrentUser();
 
@@ -93,7 +99,38 @@ export class ViewConversationPage implements OnInit {
     this.router.navigate(['/create-transaction/' + this.convoToView.listing.listingId]);
   }
 
+  ionViewWillEnter() {
+    console.log('**********************reload the convo baby**************************');
+    this.conversationService.getConversationById(this.convoToView.convoId).subscribe({
+      next: (response) => {
+        this.convoToView = response;
+        console.log('re-render');
+      },
+      error: (error) => {
+        console.log('problem');
+      },
+    });
+  }
+
+  uploadPicture(event: any) {
+    this.imageToSend = event.target.files.item(0);
+    this.containsImage = true;
+    console.log(this.imageToSend);
+    console.log(this.containsImage);
+  }
+
   addMessage() {
+    this.fileUploadService.uploadFile(this.imageToSend).subscribe({
+      next: (response) => {
+        console.log(this.imageToSend);
+        console.log('********** FileUploadComponent.ts: File uploaded successfully: ' + response.status);
+        this.imageToSend = null;
+        this.fileInput.nativeElement.value = '';
+      },
+      error: (error) => {
+        console.log('********** FileUploadComponent.ts: File upload unsuccessful: ' + error);
+      }
+    });
     console.log('method called');
     const newMessage = new Message();
     newMessage.body = this.newMessageBody;
@@ -113,6 +150,10 @@ export class ViewConversationPage implements OnInit {
       newMessage.readByBuyer = false;
     }
     newMessage.sentBy = this.currentUser.userId;
+    if (this.containsImage) {
+      newMessage.containsImage = true;
+      newMessage.imageUrl = 'C:/glassfish-5.1.0-uploadedfiles/uploadedFiles/' + this.imageToSend.name;
+    }
     console.log(newMessage);
     console.log(this.convoId);
     this.conversationService.addMessage(newMessage, (Number(this.convoId))).subscribe({

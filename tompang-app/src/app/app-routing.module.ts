@@ -162,6 +162,14 @@ const routes: Routes = [
         (m) => m.ConfirmTransactionPageModule
       ),
   },
+
+  {
+    path: 'edit-listing-page/:listingId',
+    loadChildren: () =>
+      import('./edit-listing-page/edit-listing-page.module').then(
+        (m) => m.EditListingPagePageModule
+      ),
+  },
   {
     path: '**',
     redirectTo: 'index',

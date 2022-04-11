@@ -235,8 +235,20 @@ public class ListingResource {
         if (updateListingReq != null) {
             try {
                 User user = userSessionBean.userLogin(updateListingReq.getUsername(), updateListingReq.getPassword());
+                
+                System.out.println(updateListingReq.getListing().getPrice());
+                System.out.println(updateListingReq.getListing().getPhotos());
+                System.out.println(updateListingReq.getListing().getNumOfLikes());
+                System.out.println(updateListingReq.getListing().getCity());
+                System.out.println(updateListingReq.getListing().getCategory());
+                System.out.println(updateListingReq.getListing().getCreatedBy() == null);
+                System.out.println(updateListingReq.getListing().getDescription());
+                System.out.println(updateListingReq.getListing().getExpectedArrivalDate() == null);
+                
+                
                 listingSessionBean.updateListingDetails(updateListingReq.getListing());
-
+                
+                System.out.println("Successful update of listing");
                 return Response.status(Response.Status.OK).build();
             } catch (InvalidLoginCredentialsException ex) {
                 return Response.status(Response.Status.UNAUTHORIZED).entity(ex.getMessage()).build();

@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~13.2.2",
     "@angular/router": "~13.2.2",
     "@awesome-cordova-plugins/camera": "^5.41.0",
+    "@awesome-cordova-plugins/ionic-webview": "^5.41.0",
     "@ionic-native/barcode-scanner": "^5.36.0",
     "@ionic-native/camera": "^5.36.0",
     "@ionic-native/file": "^5.36.0",
@@ -88,7 +89,8 @@
       "cordova-plugin-photo-library": {},
       "cordova-plugin-camera": {
         "ANDROIDX_CORE_VERSION": "1.6.+"
-      }
+      },
+      "cordova-plugin-file": {}
     },
     "platforms": [
       "android"
