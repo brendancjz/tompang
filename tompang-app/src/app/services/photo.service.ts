@@ -8,6 +8,7 @@ import { FileUploadService } from './fileUpload.service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { WebView } from '@awesome-cordova-plugins/ionic-webview/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -19,14 +20,16 @@ export class PhotoService
 
   constructor(private camera: Camera,
     private fileUploadService: FileUploadService,
-    private httpClient: HttpClient)
+    private httpClient: HttpClient,
+    private file: File,
+    private webview: WebView)
   {
     console.log('photo service constructor');
   }
 
 
 
-  takePicture(): Observable<any> {
+  async takePicture() {
     console.log('Taking picture in photo service method');
     //Prof code
 		// const options: CameraOptions = {
@@ -43,63 +46,25 @@ export class PhotoService
 			mediaType: this.camera.MediaType.PICTURE
 		};
 
-    const file = new File();
+    const tempImage = await this.camera.getPicture(options);
+    // console.log(tempImage);
 
-		this.camera.getPicture(options).then((imageData) => {
-      // Do something with the new photo
-      console.log('Camera image captured');
-      console.log(imageData);
+    // Extract just the filename. Result example: cdv_photo_003.jpg
+    const tempFilename = tempImage.substr(tempImage.lastIndexOf('/') + 1);
 
-      file.resolveLocalFilesystemUrl(imageData).then((entry: FileEntry) => {
-        // eslint-disable-next-line @typescript-eslint/no-shadow
-        entry.file(file => {
-          console.log('Inside File Entry');
-          console.log(file);
+    const tempBaseFilesystemPath = tempImage.substr(0, tempImage.lastIndexOf('/') + 1);
 
-          const reader = new FileReader();
-          reader.onload = () => {
-            const blob = new Blob([reader.result], {
-              type: file.type
-            });
+    const newBaseFilesystemPath = this.file.dataDirectory;
+    console.log('here');
+    await this.file.copyFile(tempBaseFilesystemPath, tempFilename,
+      newBaseFilesystemPath, tempFilename);
+    console.log('here2');
+    const storedPhoto = newBaseFilesystemPath + tempFilename;
 
-            const formData = new FormData();
-            formData.append('file', blob, file.name);
+    const displayImage = this.webview.convertFileSrc(storedPhoto);
 
-            // eslint-disable-next-line @typescript-eslint/ban-types
-            const requestOptions: Object = {responseType : 'text'};
-            console.log('code reaches here');
-            return this.httpClient.post<any>(this.baseUrl + '/upload', formData, requestOptions).pipe(
-              catchError(this.handleError)
-              );
-          };
-
-          reader.readAsArrayBuffer(file);
-        });
-      }, (err) => {
-      // Handle error
-      console.log('Camera issue: ' + err);
-      ;
-    });
-    });
-
-    console.log('codes runs here');
-    return new Observable<any>();
+    console.log('help lah');
+    console.log(displayImage);
   }
 
-  private handleError(error: HttpErrorResponse) {
-    console.log('goes into error msg');
-
-    let errorMessage = '';
-
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = 'An unknown error has occurred: ' + error.error.message;
-    }
-    else {
-
-      errorMessage = 'A HTTP error has occurred: ' + `HTTP ${error.status}: ${error.error.message}`;
-    }
-
-
-    return throwError(errorMessage);
-  }
 }
