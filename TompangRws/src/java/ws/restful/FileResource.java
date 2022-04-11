@@ -39,13 +39,15 @@ public class FileResource {
         try {
             System.out.println("Method enter");
             System.err.println("********** FileResource.upload(): " + uploadedFileDetails.getFileName());
-<<<<<<< HEAD
-            String outputFilePath =  File.separator+ "Users" + File.separator + "GuoJun" + File.separator + "glassfish-5.1.0-uploadedfiles" + File.separator + "uploadedFiles" + File.separator + uploadedFileDetails.getFileName();
-=======
+
+            //String outputFilePath =  File.separator+ "Users" + File.separator + "GuoJun" + File.separator + "glassfish-5.1.0-uploadedfiles" + File.separator + "uploadedFiles" + File.separator + uploadedFileDetails.getFileName();
 //            String outputFilePath =  File.separator+ "Users" + File.separator + "seanang" + File.separator + "glassfish-5.1.0-uploadedfiles" + File.separator + "uploadedFiles" + File.separator + uploadedFileDetails.getFileName();
-            String outputFilePath = "C:" + File.separator + "glassfish-5.1.0-uploadedfiles" + File.separator + "uploadedFiles" + File.separator + uploadedFileDetails.getFileName();
->>>>>>> a6b423c78e1c46c95df995e4572fcd59b33f1b5d
+            //String outputFilePath = "C:" + File.separator + "glassfish-5.1.0-uploadedfiles" + File.separator + "uploadedFiles" + File.separator + uploadedFileDetails.getFileName();
+
+            
+            String outputFilePath = servletContext.getInitParameter("alternatedocroot_1") + System.getProperty("file.separator") + uploadedFileDetails.getFileName();
             System.out.println(outputFilePath);
+            
             File file = new File(outputFilePath);
             FileOutputStream fileOutputStream = new FileOutputStream(file);
 

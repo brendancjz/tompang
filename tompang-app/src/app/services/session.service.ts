@@ -33,6 +33,6 @@ export class SessionService {
 
   getImageBaseUrl() {
     //Change ip address
-    return 'http://' + this.ipAddressBren + ':8080/Tompang-war/';
+    return 'http://' + this.ipAddressBren + ':8080/Tompang-war';
   }
 }

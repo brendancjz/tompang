@@ -74,7 +74,7 @@ export class CreateListingPage implements OnInit {
       this.fileUploadService.uploadFile(this.newListingImage).subscribe({
         next: (response) => {
           console.log(fileName);
-          
+
           console.log(
             '********** FileUploadComponent.ts: File uploaded successfully: ' +
               response.status
