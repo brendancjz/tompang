@@ -1,0 +1,27 @@
+<app-header></app-header>
+<ion-content class="hide-scroll-bar">
+  <div>
+    <ion-title class="page-name grey-color">
+      Profile
+    </ion-title>
+    <hr class="horizontal-rule" />
+    <ion-title class="sub-page-name grey-color">
+      Following
+    </ion-title>
+  </div>
+  <hr class="horizontal-rule" />
+  <div>
+    <ion-searchbar class="grey-color" placeholder="Search User" [(ngModel)]="searchTerm"
+      showCancelButton="focus" animated></ion-searchbar>
+    <div *ngIf="userFollowing !== null">
+      <ion-list *ngFor="let following of userFollowing | filter:searchTerm">
+        <app-user-item [user]="following"></app-user-item>
+      </ion-list>
+    </div>
+    <br/>
+    <div *ngIf="userFollowing === null" style="text-align: center;">
+      <ion-text class="grey-color">List of following is empty.</ion-text>
+    </div>
+  </div>
+</ion-content>
+<app-footer></app-footer>

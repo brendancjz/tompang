@@ -134,17 +134,19 @@ const routes: Routes = [
   {
     path: 'view-dispute-details/:disputeId',
     loadChildren: () => import('./view-dispute-details/view-dispute-details.module').then( m => m.ViewDisputeDetailsPageModule)
+  },{
+    path: 'view-followers/:userId',
+    loadChildren: () => import('./view-followers/view-followers.module').then( m => m.ViewFollowersPageModule)
+  },
+  {
+    path: 'view-following/:userId',
+    loadChildren: () => import('./view-following/view-following.module').then( m => m.ViewFollowingPageModule)
   },
   {
       path: '**',
       redirectTo: 'index',
       pathMatch: 'full',
     },
-
-
-
-
-
 
 ];
 

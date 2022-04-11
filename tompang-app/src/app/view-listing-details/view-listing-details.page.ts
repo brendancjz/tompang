@@ -35,12 +35,11 @@ export class ViewListingDetailsPage implements OnInit {
     private listingService: ListingService,
     private conversationService: ConversationService,
     private userService: UserService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
     this.currentUser = this.sessionService.getCurrentUser();
-    this.listingIsLiked = this.doesCurrentUserLikeThisListing();
 
     if (this.listingId != null) {
       this.listingService
@@ -49,7 +48,7 @@ export class ViewListingDetailsPage implements OnInit {
           next: (response) => {
             this.listingToView = response;
             this.hasLoaded = true;
-            console.log(this.listingToView);
+            this.checkLikedByUser();
           },
           error: (error) => {
             this.retrieveListingError = true;
@@ -70,7 +69,7 @@ export class ViewListingDetailsPage implements OnInit {
     }
   }
 
-  ionViewDidEnter() { }
+  ionViewDidEnter() {}
 
   getPhotoUrl(photo: string) {
     return this.sessionService.getImageBaseUrl() + photo;
@@ -112,7 +111,9 @@ export class ViewListingDetailsPage implements OnInit {
           console.log(buyingConvos);
           console.log(this.listingToView);
           console.log('enter for loop');
-          if (buyingConvos[i].listing.listingId === this.listingToView.listingId) {
+          if (
+            buyingConvos[i].listing.listingId === this.listingToView.listingId
+          ) {
             console.log('convo found');
             convoNotFound = false;
             convo = buyingConvos[i];
@@ -131,22 +132,34 @@ export class ViewListingDetailsPage implements OnInit {
           convo.seller = this.listingToView.createdBy;
           convo.messages = new Array();
           convo.isOpen = true;
-          this.conversationService.createConversation(convo, (Number(this.listingToView.listingId)),
-            (Number(this.sessionService.getCurrentUser().userId))).subscribe({
+          this.conversationService
+            .createConversation(
+              convo,
+              Number(this.listingToView.listingId),
+              Number(this.sessionService.getCurrentUser().userId)
+            )
+            .subscribe({
               // eslint-disable-next-line @typescript-eslint/no-shadow
               next: (response) => {
                 const newConversationId: number = response;
                 this.resultSuccess = true;
                 this.resultError = false;
-                this.message = 'New Conversation ' + newConversationId + ' created successfully';
-                this.router.navigate(['/view-conversation/' + newConversationId]);
+                this.message =
+                  'New Conversation ' +
+                  newConversationId +
+                  ' created successfully';
+                this.router.navigate([
+                  '/view-conversation/' + newConversationId,
+                ]);
               },
               error: (error) => {
                 this.resultError = true;
                 this.resultSuccess = false;
-                this.message = 'An error has occurred while creating the new conversation: ' + error;
+                this.message =
+                  'An error has occurred while creating the new conversation: ' +
+                  error;
                 console.log('********** createNewConversation: ' + error);
-              }
+              },
             });
         }
       },
@@ -161,8 +174,13 @@ export class ViewListingDetailsPage implements OnInit {
         convo.seller = this.listingToView.createdBy;
         convo.messages = new Array();
         convo.isOpen = true;
-        this.conversationService.createConversation(convo, (Number(this.listingToView.listingId)),
-          (Number(this.sessionService.getCurrentUser().userId))).subscribe({
+        this.conversationService
+          .createConversation(
+            convo,
+            Number(this.listingToView.listingId),
+            Number(this.sessionService.getCurrentUser().userId)
+          )
+          .subscribe({
             next: (response) => {
               console.log('service method success');
               const newConversationId: number = response;
@@ -170,7 +188,11 @@ export class ViewListingDetailsPage implements OnInit {
               this.resultError = false;
               this.message = 'Successfully created a conversation';
               this.router.navigate(['/view-conversation/' + newConversationId]);
-              console.log('New Conversation ' + newConversationId + ' created successfully');
+              console.log(
+                'New Conversation ' +
+                  newConversationId +
+                  ' created successfully'
+              );
             },
             // eslint-disable-next-line @typescript-eslint/no-shadow
             error: (error) => {
@@ -178,14 +200,14 @@ export class ViewListingDetailsPage implements OnInit {
               this.resultSuccess = false;
               this.message = 'Unexpected error occured. Try again later';
               console.log('********** createNewConversation: ' + error);
-              console.log('An error has occurred while creating the new conversation: ' + error);
-            }
+              console.log(
+                'An error has occurred while creating the new conversation: ' +
+                  error
+              );
+            },
           });
       },
     });
-
-
-
   }
 
   isCurrentUserTheCreatorOfThisListing() {
@@ -198,20 +220,41 @@ export class ViewListingDetailsPage implements OnInit {
   }
 
   likeListing(): void {
-    this.listingService.likeListing(this.listingToView);
+    this.listingService.likeListing(this.listingToView).subscribe({
+      next: (response) => {
+        console.log('listing liked!');
+      },
+      error: (error) => {
+        console.log('view-listing-card.page.ts:' + error);
+        console.log('FAIL');
+      },
+    });
 
+    this.listingToView.likedByUsers.length += 1;
     this.listingIsLiked = true;
   }
 
   unlikeListing(): void {
-    this.listingService.unlikeListing(this.listingToView);
+    this.listingService.unlikeListing(this.listingToView).subscribe({
+      next: (response) => {
+        console.log('listing unliked!');
+      },
+      error: (error) => {
+        console.log('view-listing-card.page.ts:' + error);
+        console.log('FAIL');
+      },
+    });
 
+    this.listingToView.likedByUsers.length -= 1;
     this.listingIsLiked = false;
   }
 
-  doesCurrentUserLikeThisListing(): boolean {
-    // eslint-disable-next-line radix
-    return this.userService.isListingLikedByUser(this.currentUser.userId, parseInt(this.listingId));
+  checkLikedByUser(): void {
+    this.listingToView.likedByUsers.map((likedUser) => {
+      if (this.currentUser.userId === likedUser.userId) {
+        this.listingIsLiked = true;
+      }
+    });
   }
 
   formatListingTitle(): string {
@@ -225,4 +268,3 @@ export class ViewListingDetailsPage implements OnInit {
     return this.listingToView.title;
   }
 }
-

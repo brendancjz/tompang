@@ -73,7 +73,6 @@ export class ListingCardPage implements OnInit {
   likeListing(listing: Listing): void {
     this.listingService.likeListing(listing).subscribe({
       next: (response) => {
-        this.listingService.getListingByListingId(this.listing.listingId);
         console.log('listing liked!');
       },
       error: (error) => {
@@ -88,7 +87,6 @@ export class ListingCardPage implements OnInit {
   unlikeListing(listing: Listing): void {
     this.listingService.unlikeListing(listing).subscribe({
       next: (response) => {
-        this.listingService.getListingByListingId(this.listing.listingId);
         console.log('listing unliked!');
       },
       error: (error) => {
