@@ -142,17 +142,11 @@
         <ion-button
           style="text-transform: initial; font-size: 16px; width: 90px"
           color="tertiary"
-          (click)="toggleConfirmDeleteListing()"
+          (click)="deleteListing()"
           *ngIf="!confirmDelete"
           >Delete</ion-button
         >
-        <ion-button
-          style="text-transform: initial; font-size: 16px; width: 140px"
-          color="tertiary"
-          (click)="deleteListing()"
-          *ngIf="confirmDelete"
-          >Confirm Delete</ion-button
-        >
+        
       </div>
     </div>
     <div *ngIf="confirmConfirmDeleted" style="text-align: center;margin-top:10px;margin-bottom: 20px;" class="grey-color">

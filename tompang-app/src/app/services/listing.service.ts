@@ -60,78 +60,15 @@ export class ListingService {
       .pipe(catchError(this.handleError));
   }
 
-  getSampleListing() {
-    const sampleListing = new Listing(
-      1,
-      'Singapore',
-      'Singapore',
-      'Bape T-Shirt With Black Stripes super dope',
-      'Get yo bape t-shirts today!',
-      'APPAREL',
-      100,
-      new Date('December 17, 1995 03:24:00'),
-      5
+  deleteListing(listingId: number): Observable<any>
+  {
+    const currentUser = this.sessionService.getCurrentUser();
+    const username = currentUser.username;
+    const password = currentUser.password;
+    return this.httpClient.delete<any>(this.baseUrl + "/" + listingId + "?username=" + username + "&password=" + password).pipe
+    (
+      catchError(this.handleError)
     );
-    sampleListing.photos.push('/tompang_icon_logo_blue.png');
-
-    const samepleUser = new User(
-      23,
-      'Keng',
-      'Yong',
-      'kengyong',
-      'password',
-      'keng.yong@gmail.com',
-      new Date(),
-      '/uploadedFiles/default_picture.jpg',
-      87695478
-    );
-    sampleListing.createdBy = samepleUser;
-
-    return sampleListing;
-  }
-
-  getSampleListings() {
-    const sampleListing = new Listing(
-      1,
-      'Singapore',
-      'Singapore',
-      'Bape T-Shirt',
-      'Get yo bape t-shirts today!',
-      'APPAREL',
-      100,
-      new Date(),
-      5
-    );
-
-    const sampleListing2 = new Listing(
-      2,
-      'Malaysia',
-      'Johor Bahru',
-      'Skateboard',
-      'Hello everyone, I am going to malaysia this weekend.' +
-        'Heard there are some skateboards there. Lmk if you want one.',
-      'GIFTS',
-      75,
-      new Date(),
-      5
-    );
-
-    sampleListing.photos.push('/tompang_icon_logo_blue.png');
-    sampleListing2.photos.push('/uploadedFiles/default_picture.jpg');
-
-    const sampleListings = [
-      sampleListing,
-      sampleListing2,
-      sampleListing,
-      sampleListing2,
-      sampleListing2,
-      sampleListing2,
-      sampleListing,
-      sampleListing2,
-      sampleListing,
-    ];
-
-    return sampleListings;
   }
 
   getUserListings(user: User): Observable<Listing[]> {
@@ -149,9 +86,9 @@ export class ListingService {
       .pipe(catchError(this.handleError));
   }
 
-  getUserLikedListings(user: User): Listing[] {
-    return this.getSampleListings();
-  }
+  // getUserLikedListings(user: User): Listing[] {
+  //   return this.getSampleListings();
+  // }
 
   getListingByListingId(listingId: number): Observable<Listing> {
     const currentUser = this.sessionService.getCurrentUser();

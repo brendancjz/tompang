@@ -331,7 +331,7 @@ public class ListingResource {
         }
     }
 
-    @Path("{listingId}")
+    @Path("/{listingId}")
     @DELETE
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
@@ -343,7 +343,7 @@ public class ListingResource {
 
             listingSessionBean.deleteListing(listingId);
             return Response.status(Status.OK).build();
-
+            
         } catch (InvalidLoginCredentialsException ex) {
             return Response.status(Status.UNAUTHORIZED).entity(ex.getMessage()).build();
         } catch (Exception ex) {
