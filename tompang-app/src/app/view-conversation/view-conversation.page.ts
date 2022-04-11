@@ -38,6 +38,7 @@ export class ViewConversationPage implements OnInit {
     private conversationService: ConversationService) { }
 
   ngOnInit() {
+    console.log('**********************reload the convo baby**************************');
     this.convoId = this.activatedRoute.snapshot.paramMap.get('convoId');
     this.currentUser = this.sessionService.getCurrentUser();
 
@@ -91,6 +92,19 @@ export class ViewConversationPage implements OnInit {
   makeTransaction(): void {
     console.log('Make transaction..');
     this.router.navigate(['/create-transaction/' + this.convoToView.listing.listingId]);
+  }
+
+  ionViewWillEnter() {
+    console.log('**********************reload the convo baby**************************');
+    this.conversationService.getConversationById(this.convoToView.convoId).subscribe({
+      next: (response) => {
+        this.convoToView = response;
+        console.log('re-render');
+      },
+      error: (error) => {
+        console.log('problem');
+      },
+    });
   }
 
   addMessage() {
