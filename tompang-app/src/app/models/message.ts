@@ -8,7 +8,9 @@ export class Message {
   readByBuyer: boolean | undefined;
   readBySeller: boolean | undefined;
   offerMessage: boolean | undefined;
-
+  containsImage : boolean | undefined;
+  imageUrl : string | undefined;
+  
     constructor(messageId?: number, body?: string, fromBuyer?: boolean, sentBy?: number,
       readByBuyer?: boolean, readBySeller?: boolean, offerMessage?: boolean) {
         this.messageId = messageId;

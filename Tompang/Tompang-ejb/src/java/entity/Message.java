@@ -50,9 +50,16 @@ public class Message implements Serializable, Comparable {
     @Column(nullable = false)
     @NotNull
     private Boolean offerMessage;
+    @Column(nullable = false)
+    @NotNull
+    private Boolean containsImage;
+    @Column(nullable = true)
+    private String imageUrl;
 
     public Message() {
         this.createdOn = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
+        this.containsImage = false;
+        this.imageUrl = null;
     }
 
     public Message(String body, Boolean fromBuyer, Long sentBy, Boolean offerMessage) {
@@ -175,5 +182,33 @@ public class Message implements Serializable, Comparable {
      */
     public void setOfferMessage(Boolean offerMessage) {
         this.offerMessage = offerMessage;
+    }
+
+    /**
+     * @return the containsImage
+     */
+    public Boolean getContainsImage() {
+        return containsImage;
+    }
+
+    /**
+     * @param containsImage the containsImage to set
+     */
+    public void setContainsImage(Boolean containsImage) {
+        this.containsImage = containsImage;
+    }
+
+    /**
+     * @return the imageUrl
+     */
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    /**
+     * @param imageUrl the imageUrl to set
+     */
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
