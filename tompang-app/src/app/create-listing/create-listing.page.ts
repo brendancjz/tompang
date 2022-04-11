@@ -141,8 +141,7 @@ export class CreateListingPage implements OnInit {
   }
 
   getPhotoUrl(photo: string) {
-    const baseUrl = 'http://localhost:8080/Tompang-war';
-    return baseUrl + photo;
+    return this.sessionService.getImageBaseUrl() + photo;
   }
 
   resetInputs(): void {

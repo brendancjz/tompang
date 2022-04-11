@@ -22,12 +22,12 @@ export class ListingCardPage implements OnInit {
   constructor(
     private router: Router,
     public listingService: ListingService,
-    private sessionSerivce: SessionService,
+    private sessionService: SessionService,
     private userService: UserService
   ) {}
 
   ngOnInit() {
-    this.currentUser = this.sessionSerivce.getCurrentUser();
+    this.currentUser = this.sessionService.getCurrentUser();
     this.checkLikedByUser();
   }
 
@@ -39,7 +39,7 @@ export class ListingCardPage implements OnInit {
 
   //Methods for Listings list
   getListingFirstPhoto(listing: Listing): string {
-    const photoUrl = 'http://localhost:8080/Tompang-war' + listing.photos[0];
+    const photoUrl = this.sessionService.getImageBaseUrl() + listing.photos[0];
     return photoUrl;
   }
 

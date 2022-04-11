@@ -88,6 +88,7 @@ public class DefaultFilter implements Filter
         return path.equals("/index.xhtml") ||
                 path.startsWith("/javax.faces.resource") ||
                 path.equals("/login.xhtml") ||
-                path.startsWith("/resources/");
+                path.startsWith("/resources/") ||
+                path.startsWith("/uploadedFiles/");
     }
 }

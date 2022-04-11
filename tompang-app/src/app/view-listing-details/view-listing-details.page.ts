@@ -73,8 +73,7 @@ export class ViewListingDetailsPage implements OnInit {
   ionViewDidEnter() { }
 
   getPhotoUrl(photo: string) {
-    const baseUrl = 'http://localhost:8080/Tompang-war';
-    return baseUrl + photo;
+    return this.sessionService.getImageBaseUrl() + photo;
   }
 
   formatListingCreatedBy(): string {

@@ -93,7 +93,7 @@ export class ProfilePage implements OnInit {
   }
 
   displayProfilePic() {
-    return 'http://localhost:8080/Tompang-war' + this.userToView.profilePic;
+    return this.sessionService.getImageBaseUrl() + this.userToView.profilePic;
   }
 
   isProfileTheCurrentUser(): boolean {

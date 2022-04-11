@@ -28,15 +28,6 @@ export class NotificationsPage implements OnInit {
     private transactionService: TransactionService,
     public toastController: ToastController) {
     this.notifications = new Array();
-
-    // const sampleTransaction = new Transaction(1, 1000);
-    // sampleTransaction.buyer = sessionService.getCurrentUser();
-    // sampleTransaction.listing = this.listingService.getSampleListing();
-    // this.notifications = [sampleTransaction, sampleTransaction, sampleTransaction,
-    //   sampleTransaction, sampleTransaction, sampleTransaction,
-    //   sampleTransaction, sampleTransaction, sampleTransaction,
-    //   sampleTransaction, sampleTransaction, sampleTransaction,
-    //   sampleTransaction, sampleTransaction, sampleTransaction];
   }
 
   ngOnInit() {
@@ -46,8 +37,10 @@ export class NotificationsPage implements OnInit {
         this.allTransactions = response;
         console.log('before for');
 
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < this.allTransactions.length; i++) {
-          if (this.allTransactions[i].seller.userId === this.sessionService.getCurrentUser().userId && !this.allTransactions[i].isAccepted && !this.allTransactions[i].isRejected) {
+          if (this.allTransactions[i].seller.userId === this.sessionService.getCurrentUser().userId &&
+           !this.allTransactions[i].isAccepted && !this.allTransactions[i].isRejected) {
             console.log('pushed');
             this.notifications.push(this.allTransactions[i]);
           }
@@ -64,15 +57,17 @@ export class NotificationsPage implements OnInit {
   rejectOffer(transaction: Transaction) {
     this.transactionService.rejectTransaction(transaction.transactionId).subscribe({
       next: (response) => {
-        console.log("TRANSACTION REJECTED");
+        console.log('TRANSACTION REJECTED');
         this.transactionService.getUserTransactions().subscribe({
           next: (response) => {
             this.notifications = new Array();
             this.allTransactions = response;
             console.log('before for');
 
+            // eslint-disable-next-line @typescript-eslint/prefer-for-of
             for (let i = 0; i < this.allTransactions.length; i++) {
-              if (this.allTransactions[i].seller.userId === this.sessionService.getCurrentUser().userId && !this.allTransactions[i].isAccepted && !this.allTransactions[i].isRejected) {
+              if (this.allTransactions[i].seller.userId === this.sessionService.getCurrentUser().userId &&
+              !this.allTransactions[i].isAccepted && !this.allTransactions[i].isRejected) {
                 console.log('pushed');
                 this.notifications.push(this.allTransactions[i]);
               }

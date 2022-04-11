@@ -74,9 +74,7 @@ export class CreateTransactionPage implements OnInit {
   }
 
   getListingPicUrl(): string {
-    const basePicUrl = 'http://localhost:8080/Tompang-war';
-
-    return basePicUrl + this.listingToView.photos[0];
+    return this.sessionService.getImageBaseUrl() + this.listingToView.photos[0];
   }
 
   createTransaction() {

@@ -75,9 +75,8 @@ export class ViewConversationPage implements OnInit {
   }
 
   getConversationListingUrl(): string {
-    const basePictureUrl = 'http://localhost:8080/Tompang-war';
     console.log('getConversationListingUrl : ' + this.convoToView.convoId);
-    return basePictureUrl + this.convoToView.listing.photos[0];
+    return this.sessionService.getImageBaseUrl() + this.convoToView.listing.photos[0];
   }
 
   viewListing(): void {
@@ -152,11 +151,10 @@ export class ViewConversationPage implements OnInit {
   }
 
   getUserProfilePic(indicator: number): string {
-    const baseUrl = 'http://localhost:8080/Tompang-war';
     if (indicator === 2) {
-      return baseUrl + this.convoToView.createdBy.profilePic;
+      return this.sessionService.getImageBaseUrl() + this.convoToView.createdBy.profilePic;
     } else {
-      return baseUrl + this.convoToView.seller.profilePic;
+      return this.sessionService.getImageBaseUrl() + this.convoToView.seller.profilePic;
     }
   }
 

@@ -16,7 +16,6 @@ export class ChangeProfilePicPage implements OnInit {
   @ViewChild('fileInput')
   fileInput: ElementRef;
 
-  basePicUrl = 'picApi';
   currentProfilePic: string;
   newProfilePic: File | null;
   fileName: string | null;
@@ -144,7 +143,7 @@ export class ChangeProfilePicPage implements OnInit {
   }
 
   displayProfilePic() {
-    return 'http://localhost:8080/Tompang-war' + this.currentUser.profilePic;
+    return this.sessionService.getImageBaseUrl() + this.currentUser.profilePic;
   }
 
   updateUserProfilePic(): void {

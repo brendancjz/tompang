@@ -8,6 +8,8 @@ import { ListingService } from './listing.service';
   providedIn: 'root',
 })
 export class SessionService {
+  ipAddressBren = '192.168.137.1';
+
   constructor() {}
 
   getIsLogin(): boolean {
@@ -28,5 +30,10 @@ export class SessionService {
 
   setCurrentUser(currentUser: User | null): void {
     sessionStorage.currentUser = JSON.stringify(currentUser);
+  }
+
+  getImageBaseUrl() {
+    //Change ip address
+    return 'http://' + this.ipAddressBren + ':8080/Tompang-war/';
   }
 }
