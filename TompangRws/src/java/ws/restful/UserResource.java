@@ -82,6 +82,7 @@ public class UserResource {
                     conversation.setListing(null);
                     conversation.setCreatedBy(null);
                     conversation.setMessages(null);
+                    conversation.setSeller(null);
                 }
             }
 
@@ -134,8 +135,8 @@ public class UserResource {
                     following.setCreditCards(null);
                     following.setBuyerTransactions(null);
                     following.setSellerTransactions(null);
-                    following.getFollowers().clear();
-                    following.getFollowing().clear();
+                    following.setFollowers(null);
+                    following.setFollowing(null);
                     following.setLikedListings(null);
                 }
             }
