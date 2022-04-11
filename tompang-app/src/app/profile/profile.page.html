@@ -12,26 +12,24 @@
     </ion-title>
     <div id="profile-info-buttons">
       <div>
-        <ion-button color="tertiary" class="follow-button" (click)="viewFollowers()">
+        <ion-button
+          color="tertiary"
+          class="follow-button"
+          (click)="viewFollowers()"
+        >
           {{userToViewFollowers}} followers
         </ion-button>
-        <ion-button color="tertiary" class="follow-button" (click)="viewFollowing()">
+        <ion-button
+          color="tertiary"
+          class="follow-button"
+          (click)="viewFollowing()"
+        >
           {{userToViewFollowing}} following
         </ion-button>
       </div>
 
       <div>
-        <ion-button
-          *ngIf="isProfileTheCurrentUser()"
-          color="tertiary"
-          class="button-icon"
-          icon-only
-          slot="end"
-          id="qr-code-button"
-          [routerLink]="['/orders']"
-        >
-          <ion-icon name="qr-code-outline"></ion-icon>
-        </ion-button>
+        
         <ion-button
           *ngIf="hasLoaded === true && isProfileTheCurrentUser()"
           color="tertiary"
@@ -96,7 +94,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <div *ngIf="listings.length === 0" style="text-align: center;">
+    <div *ngIf="listings.length === 0" style="text-align: center">
       <ion-text class="grey-color">List of listings is empty.</ion-text>
     </div>
   </div>
