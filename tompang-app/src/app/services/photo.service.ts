@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
-import { File, FileEntry } from '@ionic-native/file/ngx';
+import { File as NgxFile, FileEntry } from '@ionic-native/file/ngx';
 import { User } from '../models/user';
 import { FileUploadService } from './fileUpload.service';
 
@@ -21,7 +21,7 @@ export class PhotoService
   constructor(private camera: Camera,
     private fileUploadService: FileUploadService,
     private httpClient: HttpClient,
-    private file: File,
+    private file: NgxFile,
     private webview: WebView)
   {
     console.log('photo service constructor');

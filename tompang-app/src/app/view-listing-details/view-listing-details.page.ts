@@ -7,6 +7,7 @@ import { ConversationService } from '../services/conversation.service';
 import { ListingService } from '../services/listing.service';
 import { SessionService } from '../services/session.service';
 import { UserService } from '../services/user.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-view-listing-details',
@@ -37,7 +38,8 @@ export class ViewListingDetailsPage implements OnInit {
     public sessionService: SessionService,
     private listingService: ListingService,
     private conversationService: ConversationService,
-    private userService: UserService
+    private userService: UserService,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -306,11 +308,43 @@ export class ViewListingDetailsPage implements OnInit {
     this.router.navigate(['/edit-listing-page/' + this.listingId]);
   }
 
-  deleteListing() {
+  async deleteListing() {
     console.log('Deleting Listing');
 
-    //Delete listing sean pls help
-    this.confirmConfirmDeleted = true;
+    const alert = await this.alertController.create({
+      header: 'Confirm Delete Listing',
+      message: 'Confirm delete listing <strong>' + this.listingToView.title + '</strong>?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+
+            this.listingService.deleteListing(Number(this.listingId)).subscribe({
+              next:(response)=>{
+                this.confirmDelete = true;
+                this.listingToView = null;
+                this.confirmConfirmDeleted = true;
+                console.log('success');
+              },
+              error:(error)=>{
+                this.resultError = true;
+                this.message = error;
+
+              }
+            });
+          }
+        }
+      ]
+    });
+    
+    await alert.present();
   }
 
   toggleConfirmDeleteListing() {

@@ -32,8 +32,9 @@ export class ViewTransactionDetailsPage implements OnInit {
   currentUser: User;
   isSeller: boolean | null;
 
-  scannedQRCode: {};
+  scannedQRCode = {};
   encodedData: any;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   QRScannerOptions: BarcodeScannerOptions;
 
   constructor(
@@ -63,7 +64,7 @@ export class ViewTransactionDetailsPage implements OnInit {
         console.log('Found Transaction To View');
         console.log(this.transactionToView);
 
-        if (this.transactionToView.seller.userId == this.currentUser.userId) {
+        if (this.transactionToView.seller.userId === this.currentUser.userId) {
           this.isSeller = true;
         } else {
           this.isSeller = false;
@@ -118,6 +119,7 @@ export class ViewTransactionDetailsPage implements OnInit {
       .scan()
       .then((res) => {
         this.scannedQRCode = res;
+        this.router.navigate([this.scannedQRCode]);
       })
       .catch((err) => {
         console.log(err);
