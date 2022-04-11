@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>confirm-transaction</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h2>Confirm your transaction for the following listing.</h2>
+
+  <ion-label style="font-size: 18px" class="grey-color">
+    {{transactionListingTitle}}
+  </ion-label>
+
+  <ion-label style="font-size: 18px" class="grey-color">
+    {{transactionListingQuantity}}
+  </ion-label>
+
+  <ion-button color="success" (click)="confirmTransaction()" expand="block">
+    Confirm Transaction
+  </ion-button>
+</ion-content>

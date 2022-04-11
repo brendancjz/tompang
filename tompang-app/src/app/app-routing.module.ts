@@ -38,13 +38,6 @@ const routes: Routes = [
       import('./history/history.module').then((m) => m.HistoryPageModule),
   },
   {
-    path: 'orders',
-    loadChildren: () =>
-      import('./transaction-confirmation/transaction-confirmation.module').then(
-        (m) => m.TransactionConfirmationPageModule
-      ),
-  },
-  {
     path: 'header',
     loadChildren: () =>
       import('./header/header.module').then((m) => m.HeaderPageModule),
@@ -97,61 +90,91 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'transaction-confirmation',
+    path: 'view-listing-details/:listingId',
     loadChildren: () =>
-      import('./transaction-confirmation/transaction-confirmation.module').then(
-        (m) => m.TransactionConfirmationPageModule
+      import('./view-listing-details/view-listing-details.module').then(
+        (m) => m.ViewListingDetailsPageModule
       ),
   },
   {
-    path: 'view-listing-details/:listingId',
-    loadChildren: () => import('./view-listing-details/view-listing-details.module').then( m => m.ViewListingDetailsPageModule)
-  },
-  {
     path: 'view-conversation/:convoId',
-    loadChildren: () => import('./view-conversation/view-conversation.module').then( m => m.ViewConversationPageModule)
+    loadChildren: () =>
+      import('./view-conversation/view-conversation.module').then(
+        (m) => m.ViewConversationPageModule
+      ),
   },
   {
     path: 'create-transaction/:listingId',
-    loadChildren: () => import('./create-transaction/create-transaction.module').then( m => m.CreateTransactionPageModule)
+    loadChildren: () =>
+      import('./create-transaction/create-transaction.module').then(
+        (m) => m.CreateTransactionPageModule
+      ),
   },
   {
     path: 'view-credit-card-details/:ccId',
-    loadChildren: () => import('./view-credit-card-details/view-credit-card-details.module').then( m => m.ViewCreditCardDetailsPageModule)
+    loadChildren: () =>
+      import('./view-credit-card-details/view-credit-card-details.module').then(
+        (m) => m.ViewCreditCardDetailsPageModule
+      ),
   },
   {
     path: 'view-transaction-details/:transactionId',
-    loadChildren: () => import('./view-transaction-details/view-transaction-details.module').then( m => m.ViewTransactionDetailsPageModule)
+    loadChildren: () =>
+      import('./view-transaction-details/view-transaction-details.module').then(
+        (m) => m.ViewTransactionDetailsPageModule
+      ),
   },
   {
     path: 'blog',
-    loadChildren: () => import('./blog/blog.module').then( m => m.BlogPageModule)
+    loadChildren: () =>
+      import('./blog/blog.module').then((m) => m.BlogPageModule),
   },
   {
     path: 'help',
-    loadChildren: () => import('./help/help.module').then( m => m.HelpPageModule)
+    loadChildren: () =>
+      import('./help/help.module').then((m) => m.HelpPageModule),
   },
   {
     path: 'view-dispute-details/:disputeId',
-    loadChildren: () => import('./view-dispute-details/view-dispute-details.module').then( m => m.ViewDisputeDetailsPageModule)
-  },{
+    loadChildren: () =>
+      import('./view-dispute-details/view-dispute-details.module').then(
+        (m) => m.ViewDisputeDetailsPageModule
+      ),
+  },
+  {
     path: 'view-followers/:userId',
-    loadChildren: () => import('./view-followers/view-followers.module').then( m => m.ViewFollowersPageModule)
+    loadChildren: () =>
+      import('./view-followers/view-followers.module').then(
+        (m) => m.ViewFollowersPageModule
+      ),
   },
   {
     path: 'view-following/:userId',
-    loadChildren: () => import('./view-following/view-following.module').then( m => m.ViewFollowingPageModule)
+    loadChildren: () =>
+      import('./view-following/view-following.module').then(
+        (m) => m.ViewFollowingPageModule
+      ),
   },
+  {
+    path: 'confirm-transaction/:transactionId',
+    loadChildren: () =>
+      import('./confirm-transaction/confirm-transaction.module').then(
+        (m) => m.ConfirmTransactionPageModule
+      ),
+  },
+
   {
     path: 'edit-listing-page/:listingId',
-    loadChildren: () => import('./edit-listing-page/edit-listing-page.module').then( m => m.EditListingPagePageModule)
+    loadChildren: () =>
+      import('./edit-listing-page/edit-listing-page.module').then(
+        (m) => m.EditListingPagePageModule
+      ),
   },
   {
-      path: '**',
-      redirectTo: 'index',
-      pathMatch: 'full',
-    },
-  
+    path: '**',
+    redirectTo: 'index',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({

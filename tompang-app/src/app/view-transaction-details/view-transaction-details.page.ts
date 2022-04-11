@@ -6,6 +6,10 @@ import { SessionService } from '../services/session.service';
 import { TransactionService } from '../services/transaction.service';
 import { Dispute } from '../models/dispute';
 import { DisputeService } from '../services/dispute.service';
+import {
+  BarcodeScanner,
+  BarcodeScannerOptions,
+} from '@ionic-native/barcode-scanner/ngx';
 
 @Component({
   selector: 'app-view-transaction-details',
@@ -26,14 +30,25 @@ export class ViewTransactionDetailsPage implements OnInit {
 
   hasLoaded: boolean;
   currentUser: User;
+  isSeller: boolean | null;
+
+  scannedQRCode: {};
+  encodedData: any;
+  QRScannerOptions: BarcodeScannerOptions;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
     private transactionService: TransactionService,
-    private disputeService: DisputeService
-  ) {}
+    private disputeService: DisputeService,
+    private scanner: BarcodeScanner
+  ) {
+    this.QRScannerOptions = {
+      showTorchButton: true,
+      showFlipCameraButton: true,
+    };
+  }
 
   ngOnInit() {
     this.transactionId = Number(
@@ -47,6 +62,13 @@ export class ViewTransactionDetailsPage implements OnInit {
         this.transactionToView = response;
         console.log('Found Transaction To View');
         console.log(this.transactionToView);
+
+        if (this.transactionToView.seller.userId == this.currentUser.userId) {
+          this.isSeller = true;
+        } else {
+          this.isSeller = false;
+        }
+        console.log('isSeller: ' + this.isSeller);
       },
       error: (error) => {
         console.log('viewTransaction.ts:' + error);
@@ -61,7 +83,6 @@ export class ViewTransactionDetailsPage implements OnInit {
   }
 
   raiseDispute(): void {
-
     this.doValidation();
     if (this.resultError) {
       return;
@@ -86,9 +107,45 @@ export class ViewTransactionDetailsPage implements OnInit {
           console.log('raiseDispute.ts:' + error);
           this.resultSuccess = false;
           this.resultError = true;
-          this.message = 'Invalid entry: Unexpected error occured. Try again later';
+          this.message =
+            'Invalid entry: Unexpected error occured. Try again later';
         },
       });
+  }
+
+  scanQRCode() {
+    this.scanner
+      .scan()
+      .then((res) => {
+        this.scannedQRCode = res;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  generateQRCode() {
+    this.scanner
+      .encode(
+        this.scanner.Encode.TEXT_TYPE,
+        'localhost:8100/confirm-transaction/' + this.transactionId
+      )
+      .then(
+        (res) => {
+          console.log('generated QR: ' + res);
+          // this.router.navigate(['/view-listing-details/' + .listingId]);
+          this.encodedData = res;
+
+          this.transactionService
+            .completeTransaction(this.transactionId)
+            .subscribe({
+              next: (response) => {},
+            });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   doValidation() {
@@ -109,6 +166,8 @@ export class ViewTransactionDetailsPage implements OnInit {
 
   viewListing(): void {
     console.log('View listing details from view transaction page');
-    this.router.navigate(['/view-listing-details/' + this.transactionToView.listing.listingId]);
+    this.router.navigate([
+      '/view-listing-details/' + this.transactionToView.listing.listingId,
+    ]);
   }
 }

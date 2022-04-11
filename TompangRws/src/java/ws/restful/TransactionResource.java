@@ -159,8 +159,10 @@ public class TransactionResource {
                 User user = userSessionBean.userLogin(updateTransactionReq.getUsername(), updateTransactionReq.getPassword());
 
                 Transaction transaction = transactionSessionBean.getTransactionByTransactionId(updateTransactionReq.getTransactionId());
-
-                if (transaction.getSeller() != user) {
+                
+                System.out.println("seller: " + transaction.getSeller().getUsername());
+                System.out.println("user: " + user.getUsername());
+                if (transaction.getSeller().getUserId() != user.getUserId()) {
                     return Response.status(Response.Status.UNAUTHORIZED).entity("Transaction does not belong to user").build();
                 } else {
                     transactionSessionBean.updateTransactionIsCompleted(updateTransactionReq.getTransactionId(), Boolean.TRUE);

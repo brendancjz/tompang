@@ -1,8 +1,6 @@
 <ion-content class="hide-scroll-bar">
   <div>
-    <ion-title class="page-name grey-color">
-      History
-    </ion-title>
+    <ion-title class="page-name grey-color"> History </ion-title>
     <hr class="horizontal-rule" />
     <ion-title class="sub-page-name grey-color">
       My Transactions
@@ -41,7 +39,18 @@
               </div>
 
             </div>
-          </ion-item>
+            <div>
+              <ion-button
+                color="tertiary"
+                class="button-icon"
+                icon-only
+                (click)="viewTransaction(transaction.transactionId)"
+              >
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </ion-item>
       </ion-list>
     </div>
   </div>
