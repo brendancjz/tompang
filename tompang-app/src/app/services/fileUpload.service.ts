@@ -32,7 +32,7 @@ export class FileUploadService {
       const formData: FormData = new FormData();
       formData.append('file', fileToUpload, fileToUpload.name);
 
-      return this.httpClient.post<any>(this.baseUrl + '/upload', formData, requestOptions).pipe
+      return this.httpClient.post<any>(this.baseUrl, formData, requestOptions).pipe
         (
           catchError(this.handleError)
         );
@@ -64,7 +64,7 @@ export class FileUploadService {
       }
 
       errorMessage =
-        'A HTTP error has occurred: FUCKKKK' +
+        'A HTTP error has occurred: ' +
         `HTTP ${error.status}: ${error.error.message}`;
     }
 

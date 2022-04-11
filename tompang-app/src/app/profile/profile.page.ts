@@ -76,9 +76,6 @@ export class ProfilePage implements OnInit {
         this.showFollowButton = true;
 
         this.currentUser.following.map((following) => {
-          console.log(following);
-          console.log(following.userId);
-          console.log(this.userToView.userId);
           if (following.userId === this.userToView.userId) {
             this.showFollowButton = false;
           }

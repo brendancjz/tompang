@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // import { ImagePicker } from '@ionic-native/image-picker';
 
 import { SessionService } from '../../services/session.service';
@@ -13,6 +13,9 @@ import { PhotoService } from 'src/app/services/photo.service';
   styleUrls: ['./change-profile-pic.page.scss'],
 })
 export class ChangeProfilePicPage implements OnInit {
+  @ViewChild('fileInput')
+  fileInput: ElementRef;
+
   basePicUrl = 'picApi';
   currentProfilePic: string;
   newProfilePic: File | null;
@@ -117,7 +120,11 @@ export class ChangeProfilePicPage implements OnInit {
             next: (response) => {
               //Update the current User in the sessionScope will rerender the profile pic
               this.currentUser.profilePic = this.currentProfilePic;
+              this.sessionService.setCurrentUser(this.currentUser);
               console.log('Successfully changed user profile pic');
+
+              //reset the fileInput
+              this.resetFileInput();
             },
             error: (error) => {
               console.log('Udating user profile pic got error ' + error);
@@ -149,53 +156,59 @@ export class ChangeProfilePicPage implements OnInit {
     this.editError = false;
   }
 
-  takePicture()
-	{
-		this.photoService.takePicture().subscribe({
-      next: (response) => {
-        console.log(this.fileName);
-        console.log('********** FileUploadComponent.ts: File uploaded successfully: ' + response.status);
+  resetFileInput() {
+    console.log('Reseting file input');
+    this.fileInput.nativeElement.value = '';
 
-        //Updating User
-        this.currentProfilePic = '/uploadedFiles/' + this.fileName;
+  }
 
-        console.log(this.currentUser.dateOfBirth);
+  // takePicture()
+	// {
+	// 	this.photoService.takePicture().subscribe({
+  //     next: (response) => {
+  //       console.log(this.fileName);
+  //       console.log('********** FileUploadComponent.ts: File uploaded successfully: ' + response.status);
 
-        const updatedUser = new User(
-          this.currentUser.userId,
-          this.currentUser.firstName,
-          this.currentUser.lastName,
-          this.currentUser.username,
-          this.currentUser.password,
-          this.currentUser.email,
-          new Date(this.currentUser.dateOfBirth.toString().split('T')[0]),
-          this.currentProfilePic, //Changed
-          this.currentUser.contactNumber
-        );
+  //       //Updating User
+  //       this.currentProfilePic = '/uploadedFiles/' + this.fileName;
 
-        this.userService.updateUser(updatedUser).subscribe({
-          // eslint-disable-next-line @typescript-eslint/no-shadow
-          next: (response) => {
-            //Update the current User in the sessionScope will rerender the profile pic
-            this.currentUser.profilePic = this.currentProfilePic;
-            this.sessionService.setCurrentUser(this.currentUser);
-            console.log(this.sessionService.getCurrentUser());
-            console.log('Successfully changed user profile pic');
-          },
-          error: (error) => {
-            console.log('Udating user profile pic got error ' + error);
-          }
-        });
-      },
-      error: (error) => {
-        this.currentProfilePic = '/uploadedFiles/' + this.fileName;
-        console.log('ERROR for url: ' + this.currentProfilePic);
-        console.log('********** FileUploadComponent.ts: ' + error);
+  //       console.log(this.currentUser.dateOfBirth);
 
-        console.log(error);
-      },
-    });
+  //       const updatedUser = new User(
+  //         this.currentUser.userId,
+  //         this.currentUser.firstName,
+  //         this.currentUser.lastName,
+  //         this.currentUser.username,
+  //         this.currentUser.password,
+  //         this.currentUser.email,
+  //         new Date(this.currentUser.dateOfBirth.toString().split('T')[0]),
+  //         this.currentProfilePic, //Changed
+  //         this.currentUser.contactNumber
+  //       );
 
-    console.log('========= End');
-	}
+  //       this.userService.updateUser(updatedUser).subscribe({
+  //         // eslint-disable-next-line @typescript-eslint/no-shadow
+  //         next: (response) => {
+  //           //Update the current User in the sessionScope will rerender the profile pic
+  //           this.currentUser.profilePic = this.currentProfilePic;
+  //           this.sessionService.setCurrentUser(this.currentUser);
+  //           console.log(this.sessionService.getCurrentUser());
+  //           console.log('Successfully changed user profile pic');
+  //         },
+  //         error: (error) => {
+  //           console.log('Udating user profile pic got error ' + error);
+  //         }
+  //       });
+  //     },
+  //     error: (error) => {
+  //       this.currentProfilePic = '/uploadedFiles/' + this.fileName;
+  //       console.log('ERROR for url: ' + this.currentProfilePic);
+  //       console.log('********** FileUploadComponent.ts: ' + error);
+
+  //       console.log(error);
+  //     },
+  //   });
+
+  //   console.log('========= End');
+	// }
 }

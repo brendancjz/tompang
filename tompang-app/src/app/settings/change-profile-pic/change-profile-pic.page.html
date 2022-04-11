@@ -19,7 +19,7 @@
       <ion-card>
         <ion-item lines="none">
           <!-- <input style="margin: 10px auto;" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleFileInput($event)"> -->
-          <input style="margin: 10px auto;" type="file" accept="image/png, image/gif, image/jpeg" (change)="changeProfilePic($event)">
+          <input style="margin: 10px auto;" #fileInput type="file" accept="image/png, image/gif, image/jpeg" (change)="changeProfilePic($event)">
         </ion-item>
         <div class="input-button-div" style="margin-bottom: 15px;">
           <ion-button color="tertiary" style="text-transform: capitalize;" (click)="updateProfilePic()">Change</ion-button>
@@ -32,7 +32,7 @@
         <div style="border: 1px solid black;width: 100px;background-color: black;"></div>
       </div>
       <div class="input-button-div">
-        <ion-button color="tertiary" style="text-transform: capitalize;" (click)="takePicture()">Take Picture</ion-button>
+        <!-- <ion-button color="tertiary" style="text-transform: capitalize;" (click)="takePicture()">Take Picture</ion-button> -->
         <!-- <ion-button (click)="getPicturesFromGallery()">Select Images</ion-button> -->
       </div>
       <div *ngIf="editError === true" style="text-align: center; color: red;width: 300px;">
