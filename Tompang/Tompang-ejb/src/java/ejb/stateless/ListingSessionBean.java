@@ -196,7 +196,7 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
         listing.setIsOpen(listingToUpdate.getIsOpen());
         listing.setNumOfLikes(listingToUpdate.getNumOfLikes());
         listing.setPhotos(listingToUpdate.getPhotos());
-        listing.setPrice(listing.getPrice());
+        listing.setPrice(listingToUpdate.getPrice());
         listing.setQuantity(listingToUpdate.getQuantity());
     }
 

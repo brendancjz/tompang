@@ -7,8 +7,8 @@
   >
     Loading...
   </div>
-  <div *ngIf="hasLoaded">
-    <div *ngIf="hasLoaded" class="listing-slider ion-padding-start">
+  <div>
+    <div *ngIf="hasLoaded && !confirmConfirmDeleted" class="listing-slider ion-padding-start">
       <ion-slides
         [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }"
       >
@@ -92,6 +92,18 @@
           {{formatListingCategory()}}
         </ion-label>
       </div>
+      <div class="details-info">
+        <ion-icon style="margin-right: 5px" name="time-outline"></ion-icon>
+        <ion-label style="font-size: 14px" class="grey-color">
+          ETA: {{listingToView.expectedArrivalDate.toString().split('T')[0]}}
+        </ion-label>
+      </div>
+      <div class="details-info">
+        <ion-icon style="margin-right: 5px" name="bag-outline"></ion-icon>
+        <ion-label style="font-size: 14px" class="grey-color">
+          {{listingToView.quantity}} items to buy back
+        </ion-label>
+      </div>
       <div style="margin-left: 10px; margin-right: 10px; display: flex">
         <ion-icon style="margin-right: 5px" name="pencil-outline"></ion-icon>
         <div style="width: 320px">
@@ -130,10 +142,21 @@
         <ion-button
           style="text-transform: initial; font-size: 16px; width: 90px"
           color="tertiary"
-          (click)="deleteListing()"
+          (click)="toggleConfirmDeleteListing()"
+          *ngIf="!confirmDelete"
           >Delete</ion-button
         >
+        <ion-button
+          style="text-transform: initial; font-size: 16px; width: 140px"
+          color="tertiary"
+          (click)="deleteListing()"
+          *ngIf="confirmDelete"
+          >Confirm Delete</ion-button
+        >
       </div>
+    </div>
+    <div *ngIf="confirmConfirmDeleted" style="text-align: center;margin-top:10px;margin-bottom: 20px;" class="grey-color">
+      Listing has been deleted
     </div>
   </div>
 </ion-content>
