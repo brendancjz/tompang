@@ -267,4 +267,12 @@ export class ViewListingDetailsPage implements OnInit {
 
     return this.listingToView.title;
   }
+
+  editListing() {
+    this.router.navigate(['/edit-listing-page/' + this.listingId]);
+  }
+
+  deleteListing() {
+    console.log('Deleting Listing');
+  }
 }
