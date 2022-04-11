@@ -19,7 +19,11 @@ export class ViewFollowersPage implements OnInit {
       private activatedRoute: ActivatedRoute,
       private userService: UserService) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter ViewFollowers');
+
     this.userIdToView = this.activatedRoute.snapshot.paramMap.get('userId');
     this.userFollowers = [];
 

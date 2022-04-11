@@ -33,7 +33,9 @@ export class ChangeProfilePicPage implements OnInit {
     document.getElementById('back-button').addEventListener('click', () => {
       this.resetPage();
     }, { once: true });
+  }
 
+  ionViewWillEnter() {
     this.currentUser = this.sessionService.getCurrentUser();
   }
 

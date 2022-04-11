@@ -25,8 +25,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -199,20 +197,6 @@ public class DataInitSessionBean {
             convo.getMessages().add(response);
         }
 
-        try {
-
-            System.out.println(userSessionBean.retrieveAllUsers());
-
-            User user = userSessionBean.getUserByUserId(1L);
-            //userSessionBean.updateUserDetails(user.getUserId(), user.getFirstName(), "User", user.getEmail(), user.getUsername(), user.getDateOfBirth(), user.getContactNumber());
-
-            for (Listing listing : user.getLikedListings()) {
-                System.out.println(listing.getListingId());
-            }
-            System.out.println();
-        } catch (EntityNotFoundException | EmptyListException ex) {
-            System.out.println(ex.getMessage());
-        }
     }
 
     private void initialiseAllUsers() throws CreateNewUserException {

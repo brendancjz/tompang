@@ -22,8 +22,11 @@ export class ViewDisputeDetailsPage implements OnInit {
     private disputeService: DisputeService
   ) {}
 
-  ngOnInit() {
-    console.log('View dispute details page');
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter ViewDisputeDetails');
+
     this.disputeId = this.activatedRoute.snapshot.paramMap.get('disputeId');
 
     if (this.disputeId !== null) {
@@ -31,9 +34,8 @@ export class ViewDisputeDetailsPage implements OnInit {
       this.disputeService.getDisputeById(parseInt(this.disputeId)).subscribe({
         next: (response) => {
           this.disputeToView = response;
-          console.log(this.disputeToView);
           this.hasLoaded = true;
-          console.log('Found Dispute To View');
+          console.log('DisputeToView', this.disputeToView);
         },
         error: (error) => {
           console.log('viewDispute.ts:' + error);

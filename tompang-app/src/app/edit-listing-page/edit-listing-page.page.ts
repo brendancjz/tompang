@@ -40,7 +40,9 @@ export class EditListingPagePage implements OnInit {
     private listingService: ListingService,
     private userService: UserService,
     private fileUploadService: FileUploadService
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.categories = [
       'FOOD',
       'APPAREL',
@@ -54,7 +56,9 @@ export class EditListingPagePage implements OnInit {
     this.countryCityMap = this.initialiseCountriesCities();
   }
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    console.log('IonViewWillEnter EditListing');
+
     this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
 
     if (this.listingId != null) {
@@ -66,7 +70,6 @@ export class EditListingPagePage implements OnInit {
             const eta = this.listingToView.expectedArrivalDate.toString().split('T')[0];
             this.updatedExpectedArrivalDate = eta + 'T00:01:00-04:00';
             this.cities = this.countryCityMap[this.listingToView.country];
-
             this.hasLoaded = true;
           },
           error: (error) => {

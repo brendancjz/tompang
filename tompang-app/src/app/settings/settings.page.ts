@@ -15,9 +15,7 @@ export class SettingsPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService) { }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   hideSettingTabs() {
     console.log('Hiding Setting Tabs...');
@@ -35,14 +33,4 @@ export class SettingsPage implements OnInit {
 
     this.router.navigate(['/index']);
   }
-
-	ionViewDidEnter()
-	{
-    console.log('view did enter');
-	}
-
-	ionViewDidLeave()
-	{
-    console.log('view did leave');
-	}
 }

@@ -25,6 +25,12 @@ export class ConfirmTransactionPage implements OnInit {
   ) {}
 
   ngOnInit() {
+
+  }
+
+  ionViewWillEnter() {
+    console.log('IonViewWillEnter ConfirmTransaction');
+
     this.transactionId = Number(
       this.activatedRoute.snapshot.paramMap.get('transactionId')
     );
@@ -48,10 +54,10 @@ export class ConfirmTransactionPage implements OnInit {
   confirmTransaction() {
     this.transactionService.completeTransaction(this.transactionId).subscribe({
       next: (response) => {
-        
+
       }, error: (error) => {
         console.log('completeTransaction.ts:' + error);
       },
-    })
+    });
   }
 }

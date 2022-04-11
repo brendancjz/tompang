@@ -46,7 +46,11 @@ export class CreateTransactionPage implements OnInit {
     private conversationService: ConversationService,
     private transactionService: TransactionService) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+    console.log('IonViewWillEnter CreateTransaction');
+
     this.result = 0;
     this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
     this.currentUser = this.sessionService.getCurrentUser();

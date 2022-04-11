@@ -20,7 +20,11 @@ export class ViewFollowingPage implements OnInit {
       private activatedRoute: ActivatedRoute,
       private userService: UserService) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter ViewFollowing');
+
     this.userIdToView = this.activatedRoute.snapshot.paramMap.get('userId');
     this.userFollowing = [];
 
@@ -29,7 +33,7 @@ export class ViewFollowingPage implements OnInit {
       next: (response) => {
         this.userToView = response;
         this.userFollowing = this.userToView.following;
-        console.log(this.userFollowing);
+        console.log('User Following ', this.userFollowing);
 
       },
       error: (error) => {

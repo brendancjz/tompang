@@ -42,40 +42,10 @@ export class ViewListingDetailsPage implements OnInit {
     private alertController: AlertController
   ) {}
 
-  ngOnInit() {
-    this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
-    this.currentUser = this.sessionService.getCurrentUser();
-    this.confirmDelete = false;
-
-    if (this.listingId != null) {
-      this.listingService
-        .getListingByListingId(Number(this.listingId))
-        .subscribe({
-          next: (response) => {
-            this.listingToView = response;
-            this.hasLoaded = true;
-            this.checkLikedByUser();
-          },
-          error: (error) => {
-            this.retrieveListingError = true;
-            console.log('********** View Listing Details Page.ts: ' + error);
-          },
-        });
-
-      // eslint-disable-next-line radix
-      // this.listingService.getListingByListingId(parseInt(this.listingId)).subscribe({
-      //   next:(response)=>{
-      //     this.listingToView = response;
-      //   },
-      //   error:(error)=>{
-      //     this.retrieveListingError = true;
-      // 		console.log('********** View Listing Details Page.ts: ' + error);
-      //   }
-      // });
-    }
-  }
+  ngOnInit() {}
 
   ionViewWillEnter() {
+    console.log('ionViewWillEnter ViewListingDetails');
     this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
     this.currentUser = this.sessionService.getCurrentUser();
 
@@ -93,17 +63,6 @@ export class ViewListingDetailsPage implements OnInit {
             console.log('********** View Listing Details Page.ts: ' + error);
           },
         });
-
-      // eslint-disable-next-line radix
-      // this.listingService.getListingByListingId(parseInt(this.listingId)).subscribe({
-      //   next:(response)=>{
-      //     this.listingToView = response;
-      //   },
-      //   error:(error)=>{
-      //     this.retrieveListingError = true;
-      // 		console.log('********** View Listing Details Page.ts: ' + error);
-      //   }
-      // });
     }
   }
 
@@ -343,7 +302,7 @@ export class ViewListingDetailsPage implements OnInit {
         }
       ]
     });
-    
+
     await alert.present();
   }
 

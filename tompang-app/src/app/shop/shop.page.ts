@@ -27,18 +27,11 @@ export class ShopPage implements OnInit {
     this.mostLikedListings = new Array();
   }
 
-  ngOnInit(): void {
-    this.refreshListings();
-
-  }
+  ngOnInit() {}
 
   ionViewWillEnter() {
+    console.log('ionViewWillEnter Marketplace');
     this.refreshListings();
-  }
-
-  ionViewDidEnter() {
-    this.refreshListings();
-    console.log('*** refreshed listings');
   }
 
   //Need to repeat this method in the Footer page as well.

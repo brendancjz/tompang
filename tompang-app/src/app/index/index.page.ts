@@ -51,16 +51,6 @@ export class IndexPage implements OnInit {
   }
 
   userRegistration(): void {
-    console.log('Registering user...');
-    console.log('First Name: ' + this.firstName);
-    console.log('Last Name: ' + this.lastName);
-    console.log('Username: ' + this.registerUsername);
-    console.log('Password: ' + this.registerPassword);
-    console.log('Repeat Password: ' + this.registerRepeatPassword);
-    console.log('Email: ' + this.email);
-    console.log('Contact Num: ' + this.contactNumber);
-    console.log('DOB: ' + this.dateOfBirth);
-
     if (
       this.firstName === undefined ||
       this.lastName === undefined ||
@@ -100,7 +90,7 @@ export class IndexPage implements OnInit {
     user.isAdmin = false;
     user.isDisabled = false;
 
-    console.log(user);
+    console.log('Registered User', user);
 
     this.userService.createUser(user).subscribe({
       next:(response)=>{

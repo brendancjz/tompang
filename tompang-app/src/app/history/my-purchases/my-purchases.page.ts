@@ -14,7 +14,7 @@ import { SessionService } from 'src/app/services/session.service';
 export class MyPurchasesPage implements OnInit {
   transactions: Transaction[];
   transaction: Transaction;
-  userId: number
+  userId: number;
   constructor(
     private router: Router,
     private listingService: ListingService,
@@ -23,8 +23,14 @@ export class MyPurchasesPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userId = this.sessionService.getCurrentUser().userId;
     this.transactions = [];
+  }
+
+  ionViewWillEnter() {
+    console.log('IonViewWillEnter MyPurchases');
+
+    this.userId = this.sessionService.getCurrentUser().userId;
+
     this.transactionService.getUserTransactions().subscribe({
       next: (response) => {
         this.transactions = response;
@@ -62,11 +68,11 @@ export class MyPurchasesPage implements OnInit {
   }
 
   checkTransaction(transaction: Transaction): string{
- 
-    if (transaction.buyer.userId == this.userId) {
-        return "Purchased";
+
+    if (transaction.buyer.userId === this.userId) {
+        return 'Purchased';
     } else {
-      return "Sold";
+      return 'Sold';
     }
   }
 }

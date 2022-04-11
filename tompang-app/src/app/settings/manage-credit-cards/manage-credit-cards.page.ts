@@ -42,12 +42,15 @@ export class ManageCreditCardsPage implements OnInit {
 
   ngOnInit() {
     console.log('Manage Credit Cards Page OnInIt');
-
     document.getElementById('back-button').addEventListener('click',() => {
         this.resetPage();
       },
       { once: true }
     );
+  }
+
+  ionViewWillEnter() {
+    console.log('IonViewWillEnter ManageCreditCards');
 
     this.currentUser = this.sessionService.getCurrentUser();
     this.isDisplayingCCList = true;
@@ -55,18 +58,6 @@ export class ManageCreditCardsPage implements OnInit {
     this.months = this.initialiseMonths();
     this.resultError = false;
 
-    this.userService.getUserCreditCards().subscribe({
-      next: (response) => {
-        this.creditCards = response;
-      },
-      error: (error) => {
-        console.log('getAllAvailableListings.ts:' + error);
-      },
-    });
-  }
-
-  ionViewWillEnter() {
-    console.log('Ion Will Enter for Manage Credit Cards');
     this.userService.getUserCreditCards().subscribe({
       next: (response) => {
         this.creditCards = response;
