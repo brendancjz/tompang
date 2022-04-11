@@ -66,7 +66,6 @@ export class ViewConversationPage implements OnInit {
   }
 
   getConversationListingUrl(): string {
-    console.log('getConversationListingUrl : ' + this.convoToView.convoId);
     return this.sessionService.getImageBaseUrl() + this.convoToView.listing.photos[0];
   }
 
