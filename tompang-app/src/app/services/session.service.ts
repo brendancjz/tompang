@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Listing } from '../models/listing';
+import { IP_ADDRESS } from 'src/environments/environment.prod';
 
 import { User } from '../models/user';
-import { ListingService } from './listing.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SessionService {
-  ipAddressBren = '192.168.137.1';
+  ipAddressBren = IP_ADDRESS;
 
   constructor() {}
 

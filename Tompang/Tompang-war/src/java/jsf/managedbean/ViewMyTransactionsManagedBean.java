@@ -5,7 +5,6 @@
  */
 package jsf.managedbean;
 
-import ejb.stateless.DisputeSessionBeanLocal;
 import ejb.stateless.TransactionSessionBeanLocal;
 import entity.Dispute;
 import entity.Transaction;
@@ -21,6 +20,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import ejb.stateless.DisputeSessionBeanLocal;
 
 /**
  *

@@ -5,7 +5,6 @@
  */
 package jsf.managedbean;
 
-import ejb.stateless.DisputeSessionBeanLocal;
 import entity.Dispute;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
@@ -19,6 +18,7 @@ import javax.inject.Named;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import ejb.stateless.DisputeSessionBeanLocal;
 
 /**
  *

@@ -5,7 +5,6 @@
  */
 package ws.restful;
 
-import ejb.stateless.DisputeSessionBeanLocal;
 import ejb.stateless.ListingSessionBeanLocal;
 import ejb.stateless.TransactionSessionBeanLocal;
 import ejb.stateless.UserSessionBeanLocal;
@@ -33,6 +32,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import ws.datamodel.CreateDisputeReq;
+import ejb.stateless.DisputeSessionBeanLocal;
 
 /**
  * REST Web Service
