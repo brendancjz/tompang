@@ -119,6 +119,10 @@ export class ViewConversationPage implements OnInit {
     console.log(this.containsImage);
   }
 
+  fetchFullImageUrl(imageUrl: string) {
+    return this.sessionService.getImageBaseUrl() + imageUrl;
+  }
+
   addMessage() {
     this.fileUploadService.uploadFile(this.imageToSend).subscribe({
       next: (response) => {
@@ -152,7 +156,7 @@ export class ViewConversationPage implements OnInit {
     newMessage.sentBy = this.currentUser.userId;
     if (this.containsImage) {
       newMessage.containsImage = true;
-      newMessage.imageUrl = 'C:/glassfish-5.1.0-uploadedfiles/uploadedFiles/' + this.imageToSend.name;
+      newMessage.imageUrl = '/uploadedFiles/' + this.imageToSend.name;
     }
     console.log(newMessage);
     console.log(this.convoId);

@@ -37,10 +37,9 @@
             style=" float:right; width: 45px;border-radius: 100%;margin-right: 16px;">
           <ion-item lines="none" *ngIf="message.sentBy === currentUser.userId" style="float: right;">{{message.body}}
           </ion-item>
-          <img *ngIf="message.containsImage && message.sentBy === currentUser.userId" src="{{message.imageUrl}}"
-            style="float: right;" />
-          <ion-tem lines="none" *ngIf="message.sentBy === currentUser.userId" style="float: right;">{{message.imageUrl}}
-          </ion-tem>
+          <img *ngIf="message.containsImage && message.sentBy === currentUser.userId" src="{{fetchFullImageUrl(message.imageUrl)}}"
+            style="float: right; width: 20%; height: 20%;" />
+        
 
 
 
@@ -48,11 +47,10 @@
             style="width: 45px;border-radius: 100%;margin-right: 16px; float: left;">
           <ion-item lines="none" *ngIf="message.sentBy !== currentUser.userId" style="float: left;">{{message.body}}
           </ion-item>
-          <img *ngIf="message.containsImage && message.sentBy !== currentUser.userId" src="{{message.imageUrl}}"
-            style="float: left;" />
-          <ion-tem lines="none" *ngIf="message.sentBy !== currentUser.userId" style="float: left;">{{message.imageUrl}}
-          </ion-tem>
-
+          <br *ngIf="message.containsImage && message.sentBy !== currentUser.userId"/>
+          <img *ngIf="message.containsImage && message.sentBy !== currentUser.userId" src="{{fetchFullImageUrl(message.imageUrl)}}"
+            style="float: left; width: 20%; height: 20%;" />
+     
         </div>
 
         <div *ngIf="isCurrentUserTheBuyer()">
@@ -60,20 +58,20 @@
             style="width: 45px;border-radius: 100%;margin-right: 16px; float: left;">
           <ion-item lines="none" *ngIf="message.sentBy !== currentUser.userId" style="float: left;">{{message.body}}
           </ion-item>
-          <img *ngIf="message.containsImage && message.sentBy !== currentUser.userId" src="{{message.imageUrl}}"
-            style="float: left;" />
-          <ion-tem lines="none" *ngIf="message.sentBy !== currentUser.userId" style="float: left;">{{message.imageUrl}}
-          </ion-tem>
+          <br *ngIf="message.containsImage && message.sentBy !== currentUser.userId"/>
+          <img *ngIf="message.containsImage && message.sentBy !== currentUser.userId" src="{{fetchFullImageUrl(message.imageUrl)}}"
+            style="float: left; width: 20%; height: 20%;" />
+         
 
 
           <img *ngIf="message.sentBy === currentUser.userId" src="{{getUserProfilePic(2)}}"
             style=" float:right; width: 45px;border-radius: 100%;margin-right: 16px;">
           <ion-item lines="none" *ngIf="message.sentBy === currentUser.userId" style="float: right;">{{message.body}}
           </ion-item>
-          <img *ngIf="message.containsImage && message.sentBy === currentUser.userId" src="{{message.imageUrl}}"
-            style="float: right;" />
-          <ion-tem lines="none" *ngIf="message.sentBy === currentUser.userId" style="float: right;">{{message.imageUrl}}
-          </ion-tem>
+          <br *ngIf="message.containsImage && message.sentBy === currentUser.userId"/>
+            <img *ngIf="message.containsImage && message.sentBy === currentUser.userId" src="{{fetchFullImageUrl(message.imageUrl)}"
+            style="float: right; width: 20%; height: 20%;" />
+         
         </div>
       </ion-list>
     </div>
