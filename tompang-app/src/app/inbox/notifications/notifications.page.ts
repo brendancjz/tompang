@@ -4,6 +4,7 @@ import { ToastController } from '@ionic/angular';
 import { SessionService } from '../../services/session.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
+import { Message } from 'src/app/models/message';
 import { Transaction } from 'src/app/models/transaction';
 import { ConversationService } from 'src/app/services/conversation.service';
 import { Router } from '@angular/router';
@@ -40,7 +41,7 @@ export class NotificationsPage implements OnInit {
         // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < this.allTransactions.length; i++) {
           if (this.allTransactions[i].seller.userId === this.sessionService.getCurrentUser().userId &&
-           !this.allTransactions[i].isAccepted && !this.allTransactions[i].isRejected) {
+            !this.allTransactions[i].isAccepted && !this.allTransactions[i].isRejected) {
             console.log('pushed');
             this.notifications.push(this.allTransactions[i]);
           }
@@ -67,12 +68,49 @@ export class NotificationsPage implements OnInit {
             // eslint-disable-next-line @typescript-eslint/prefer-for-of
             for (let i = 0; i < this.allTransactions.length; i++) {
               if (this.allTransactions[i].seller.userId === this.sessionService.getCurrentUser().userId &&
-              !this.allTransactions[i].isAccepted && !this.allTransactions[i].isRejected) {
+                !this.allTransactions[i].isAccepted && !this.allTransactions[i].isRejected) {
                 console.log('pushed');
                 this.notifications.push(this.allTransactions[i]);
               }
             }
+            let conversations = Array();
+            this.conversationService.retrieveSellerConversations().subscribe({
+              next: (response) => {
+                console.log(response);
 
+                conversations = response;
+                console.log(conversations);
+                console.log('retrieved all the conversations, need to lookup now');
+                for (let i = 0; i < conversations.length; i++) {
+                  console.log(conversations[i].createdBy.userId);
+                  console.log(transaction.buyer.userId);
+                  console.log(conversations[i].listing.listingId);
+                  console.log(transaction.listing.listingId);
+                  if (conversations[i].createdBy.userId == transaction.buyer.userId && conversations[i].listing.listingId == transaction.listing.listingId) {
+                    console.log('convo identified');
+                    const newMessage = new Message();
+                    newMessage.body = this.sessionService.getCurrentUser().username + ' has rejected your offer';
+                    newMessage.createdOn = new Date();
+                    newMessage.fromBuyer = false;
+                    newMessage.offerMessage = false;
+                    newMessage.readByBuyer = false;
+                    newMessage.readBySeller = true;
+                    newMessage.sentBy = this.sessionService.getCurrentUser().userId;
+                    this.conversationService.addMessage(newMessage, conversations[i].convoId).subscribe({
+                      next: (response) => {
+                        console.log('message added successfully');
+                      },
+                      error: (error) => {
+                        console.log('message failed to add');
+                      }
+                    })
+                  }
+                }
+              },
+              error: (error) => {
+                console.log('error looking up convo');
+              }
+            })
             this.presentToast('Offer has been rejected!');
           },
           error: (error) => {
@@ -104,7 +142,41 @@ export class NotificationsPage implements OnInit {
                 this.notifications.push(this.allTransactions[i]);
               }
             }
-
+            let conversations = Array();
+            this.conversationService.retrieveSellerConversations().subscribe({
+              next: (response) => {
+                conversations = response;
+                console.log('retrieved all the conversations, need to lookup now');
+                for (let i = 0; i < conversations.length; i++) {
+                  console.log(conversations[i].createdBy.userId);
+                  console.log(transaction.buyer.userId);
+                  console.log(conversations[i].listing.listingId);
+                  console.log(transaction.listing.listingId);
+                  if (conversations[i].createdBy.userId == transaction.buyer.userId && conversations[i].listing.listingId == transaction.listing.listingId) {
+                    console.log('convo identified');
+                    const newMessage = new Message();
+                    newMessage.body = this.sessionService.getCurrentUser().username + ' has accepted your offer';
+                    newMessage.createdOn = new Date();
+                    newMessage.fromBuyer = false;
+                    newMessage.offerMessage = false;
+                    newMessage.readByBuyer = false;
+                    newMessage.readBySeller = true;
+                    newMessage.sentBy = this.sessionService.getCurrentUser().userId;
+                    this.conversationService.addMessage(newMessage, conversations[i].convoId).subscribe({
+                      next: (response) => {
+                        console.log('message added successfully');
+                      },
+                      error: (error) => {
+                        console.log('message failed to add');
+                      }
+                    })
+                  }
+                }
+              },
+              error: (error) => {
+                console.log('error looking up convo');
+              }
+            })
             this.presentToast('Offer has been accepted!');
           },
           error: (error) => {
@@ -124,7 +196,7 @@ export class NotificationsPage implements OnInit {
     console.log('Viewing notification...');
   }
 
-  async presentToast(messageToDispaly : string) {
+  async presentToast(messageToDispaly: string) {
     const toast = await this.toastController.create({
       message: messageToDispaly,
       duration: 2000

@@ -34,6 +34,8 @@ export class CreateTransactionPage implements OnInit {
   message: string;
   resultSuccess: boolean;
 
+  result: number = 0;
+
   hasUserAlreadyBoughtThis: boolean;
 
 
@@ -84,12 +86,14 @@ export class CreateTransactionPage implements OnInit {
     this.transaction.createdOn = new Date();
     this.transaction.amount = this.listingToView.price;
 
+
     this.transactionService.createTransaction(Number(this.listingId), this.transaction).subscribe({
       next: (response) => {
 
         console.log('Successful creation of transaction');
         const newTransactionId: number = response;
         this.transactionSuccessful = true;
+        this.result = 1;
         this.resultError = false;
         this.message = 'Successfully requested to purchase listing';
         // crafting a new offer message
@@ -103,6 +107,13 @@ export class CreateTransactionPage implements OnInit {
         newMessage.sentBy = this.sessionService.getCurrentUser().userId;
         console.log(newMessage);
         // need to check whether a convo has been created before sending it into the convo
+        console.log(this.transactionSuccessful);
+        if (this.buyerCreditCard !== undefined) {
+          this.transactionSuccessful = true;
+        } else {
+          this.transactionSuccessful = false;
+        }
+
 
         let convo: Conversation;
         let buyingConvos: Conversation[];
@@ -265,17 +276,14 @@ export class CreateTransactionPage implements OnInit {
       error: (error) => {
         this.resultError = true;
         this.transactionSuccessful = false;
+        this.result = 2;
         this.message = 'Invalid Creation: Unexpected error occured. Try again later.';
         console.log('********** CreateNewTransactionPage: ' + error);
       }
 
     });
 
-    if (this.buyerCreditCard !== undefined) {
-      this.transactionSuccessful = true;
-    } else {
-      this.transactionSuccessful = false;
-    }
+  
 
   }
 

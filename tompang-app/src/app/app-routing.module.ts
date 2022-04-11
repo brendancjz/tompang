@@ -143,11 +143,15 @@ const routes: Routes = [
     loadChildren: () => import('./view-following/view-following.module').then( m => m.ViewFollowingPageModule)
   },
   {
+    path: 'edit-listing-page/:listingId',
+    loadChildren: () => import('./edit-listing-page/edit-listing-page.module').then( m => m.EditListingPagePageModule)
+  },
+  {
       path: '**',
       redirectTo: 'index',
       pathMatch: 'full',
     },
-
+  
 ];
 
 @NgModule({

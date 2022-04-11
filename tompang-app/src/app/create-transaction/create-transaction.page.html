@@ -31,7 +31,7 @@
           <ion-button style="text-transform: initial;font-size: 16px;height: 50px;" color="tertiary" type="submit">Confirm Purchase</ion-button>
         </div>
       </form>
-      <div *ngIf="transactionSuccessful" style="display: flex;flex-direction: column;justify-content: center;">
+      <div *ngIf="result == 1" style="display: flex;flex-direction: column;justify-content: center;">
         <ion-label style="text-align: center;" class="grey-color">Successfully requested to purchase this listing!</ion-label>
         <ion-label class="grey-color" style="text-align: center;">
           Expected arrivel date is {{eta}}.
@@ -40,7 +40,7 @@
           Go to History > My Purchases for updates.
         </ion-label>
       </div>
-      <div *ngIf="transactionSuccessful === false" style="display: flex;flex-direction: column;justify-content: center;">
+      <div *ngIf="result == 2" style="display: flex;flex-direction: column;justify-content: center;">
         <ion-label class="grey-color" style="text-align: center;color: red;">
           Missing or invalid Credit Card
         </ion-label>
