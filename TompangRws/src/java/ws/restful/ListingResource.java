@@ -348,7 +348,7 @@ public class ListingResource {
             @QueryParam("password") String password, @PathParam("listingId") Long listingId, @PathParam("userId") Long userId) {
         System.out.println("hi " + listingId + " i am getting liked!");
         try {
-            listingSessionBean.likeListing(listingId, userId);
+            listingSessionBean.likeListing(userId, listingId);
             return Response.status(Response.Status.OK).build();
         } catch (EntityNotFoundException ex) {
             return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
