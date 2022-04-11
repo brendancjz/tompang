@@ -12,10 +12,10 @@
     </ion-title>
     <div id="profile-info-buttons">
       <div>
-        <ion-button color="tertiary" class="follow-button">
+        <ion-button color="tertiary" class="follow-button" (click)="viewFollowers()">
           {{userToViewFollowers}} followers
         </ion-button>
-        <ion-button color="tertiary" class="follow-button">
+        <ion-button color="tertiary" class="follow-button" (click)="viewFollowing()">
           {{userToViewFollowing}} following
         </ion-button>
       </div>
@@ -96,6 +96,9 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+    <div *ngIf="listings.length === 0" style="text-align: center;">
+      <ion-text class="grey-color">List of listings is empty.</ion-text>
+    </div>
   </div>
 </ion-content>
 <app-footer></app-footer>
