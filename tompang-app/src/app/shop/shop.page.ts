@@ -30,36 +30,6 @@ export class ShopPage implements OnInit {
   ngOnInit(): void {
     this.refreshListings();
 
-    this.listingService.getAllAvailableListings().subscribe({
-      next: (response) => {
-        this.allAvailableListings = response;
-      },
-      error: (error) => {
-        console.log('getAllAvailableListings.ts:' + error);
-      },
-    });
-
-    this.listingService.getMostLikedListings().subscribe({
-      next: (response) => {
-        this.mostLikedListings = response; //Top 5 listings
-
-        this.mostLikedListings
-          .sort((l1, l2) => {
-            if (l1.likedByUsers.length > l2.likedByUsers.length) {
-              return -1;
-            } else if (l1.likedByUsers.length < l2.likedByUsers.length) {
-              return 1;
-            } else {
-              return 1;
-            }
-          })
-          .slice(5);
-        //slicing not working.. will fix tmr
-      },
-      error: (error) => {
-        console.log('getMostLikedListings.ts:' + error);
-      },
-    });
   }
 
   ionViewWillEnter() {

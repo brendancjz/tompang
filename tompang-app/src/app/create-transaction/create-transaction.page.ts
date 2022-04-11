@@ -34,7 +34,7 @@ export class CreateTransactionPage implements OnInit {
   message: string;
   resultSuccess: boolean;
 
-  result: number = 0;
+  result: number;
 
   hasUserAlreadyBoughtThis: boolean;
 
@@ -47,7 +47,7 @@ export class CreateTransactionPage implements OnInit {
     private transactionService: TransactionService) { }
 
   ngOnInit() {
-
+    this.result = 0;
     this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
     this.currentUser = this.sessionService.getCurrentUser();
     this.transaction = new Transaction();
@@ -283,7 +283,7 @@ export class CreateTransactionPage implements OnInit {
 
     });
 
-  
+
 
   }
 
