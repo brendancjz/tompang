@@ -130,4 +130,15 @@ export class ProfilePage implements OnInit {
     //Must update the current user to have the updated list of
     //following so that it will rerender the Follow button
   }
+
+  viewFollowers() {
+    console.log('view followers..');
+    this.router.navigate(['/view-followers/' + this.userToView.userId]);
+
+  }
+
+  viewFollowing() {
+    console.log('view following...');
+    this.router.navigate(['/view-following/' + this.userToView.userId]);
+  }
 }
