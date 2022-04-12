@@ -32,7 +32,7 @@ export class PhotoService
 
 
 
-  async takePicture() {
+  takePicture(): void {
     console.log('Taking picture in photo service method');
     //Prof code
 		// const options: CameraOptions = {
@@ -102,12 +102,11 @@ export class PhotoService
     console.log(options);
     fileTransfer.upload(this.imageURI, this.baseUrl, options)
     .then((data) => {
-      console.log(data+' Uploaded Successfully');
-      this.imageFileName = 'not yet';
-
+      console.log('Uploaded Successfully', data);
+      this.imageFileName = this.imageURI.split('/cache/')[1];
+      return this.imageFileName;
     }, (err) => {
       console.log('Error', err);
-
     });
 
     // const blob = this.dataURItoBlob(this.imageURI);

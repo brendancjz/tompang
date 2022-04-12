@@ -28,7 +28,7 @@ export class CreateTransactionPage implements OnInit {
 
   currentUser: User | null;
   transaction: Transaction;
-  
+
   buyerCreditCard: CreditCard;
   transactionSuccessful: boolean;
   result: number = 0;
@@ -36,7 +36,7 @@ export class CreateTransactionPage implements OnInit {
   message: string;
   resultSuccess: boolean;
 
-  
+
 
   hasUserAlreadyBoughtThis: boolean;
 
@@ -51,7 +51,7 @@ export class CreateTransactionPage implements OnInit {
     private transactionService: TransactionService) { }
 
   ngOnInit() {
-    
+
     this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
     this.currentUser = this.sessionService.getCurrentUser();
     this.transaction = new Transaction();
@@ -63,15 +63,15 @@ export class CreateTransactionPage implements OnInit {
       next: (response) => {
         this.listingToView = response;
         this.eta = this.listingToView.expectedArrivalDate.toString().split('T')[0];
-        
+
 
         for(let i = 1; i <= this.listingToView.quantity; i ++){
           this.quantities.push(i);
         }
-        
 
 
-        
+
+
 
         this.hasLoaded = true;
       },
@@ -119,7 +119,7 @@ export class CreateTransactionPage implements OnInit {
         newMessage.sentBy = this.sessionService.getCurrentUser().userId;
         console.log(newMessage);
         // need to check whether a convo has been created before sending it into the convo
-        
+
         if (this.buyerCreditCard !== undefined) {
           this.transactionSuccessful = true;
         } else {

@@ -34,7 +34,7 @@ export class FileUploadService {
       const formData: FormData = new FormData();
       formData.append('file', fileToUpload, fileToUpload.name);
 
-      return this.httpClient.post<any>(this.baseUrl, formData, requestOptions).pipe
+      return this.httpClient.post<any>(this.baseUrl + 'upload/', formData, requestOptions).pipe
         (
           catchError(this.handleError)
         );

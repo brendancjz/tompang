@@ -32,6 +32,57 @@ public class FileResource {
     }
 
     @POST
+    @Path("upload")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response upload(@FormDataParam("file") InputStream uploadedFileInputStream,
+                            @FormDataParam("file") FormDataContentDisposition uploadedFileDetails)
+    {
+        try
+        {
+            System.err.println("********** FileResource.upload(): " + uploadedFileDetails.getFileName());
+
+            String outputFilePath = servletContext.getInitParameter("alternatedocroot_1") + System.getProperty("file.separator") + uploadedFileDetails.getFileName();
+            File file = new File(outputFilePath);        
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            
+            int a;
+            int BUFFER_SIZE = 8192;
+            byte[] buffer = new byte[BUFFER_SIZE];
+
+            while (true)
+            {
+                a = uploadedFileInputStream.read(buffer);
+
+                if (a < 0)
+                {
+                    break;
+                }
+
+                fileOutputStream.write(buffer, 0, a);
+                fileOutputStream.flush();
+            }
+
+            fileOutputStream.close();
+            uploadedFileInputStream.close();
+            
+            return Response.status(Status.OK).entity("ok").build();
+        }
+        catch(FileNotFoundException ex)
+        {
+            ex.printStackTrace();
+            
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("file processing error").build();
+        }
+        catch(IOException ex)
+        {
+            ex.printStackTrace();
+            
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("file processing error").build();
+        }               
+    }
+    
+    @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public Response upload(@FormDataParam("file") InputStream uploadedFileInputStream,

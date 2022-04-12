@@ -6,6 +6,9 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 import { FileUploadService } from 'src/app/services/fileUpload.service';
 import { PhotoService } from 'src/app/services/photo.service';
+import { Camera } from '@awesome-cordova-plugins/camera/ngx';
+import { FileTransfer, FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer/ngx';
+import { CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
 
 @Component({
   selector: 'app-change-profile-pic',
@@ -20,14 +23,21 @@ export class ChangeProfilePicPage implements OnInit {
   newProfilePic: File | null;
   fileName: string | null;
 
+  imageURI: any;
+  imageFileName: any;
+
   editError: boolean;
 
   currentUser: User;
 
+  baseUrl = 'http://' + this.sessionService.ipAddress + ':8080/TompangRws/Resources/File/';
+
   constructor(public sessionService: SessionService,
     private userService: UserService,
     private fileUploadService: FileUploadService,
-    private photoService: PhotoService) { }
+    private photoService: PhotoService,
+    private camera: Camera,
+    private transfer: FileTransfer) { }
 
   ngOnInit() {
     document.getElementById('back-button').addEventListener('click', () => {
@@ -39,49 +49,6 @@ export class ChangeProfilePicPage implements OnInit {
   ionViewWillEnter() {
 
   }
-
-  //This code split into two below
-  // handleFileInput(event: any) {
-
-  //   this.newProfilePic = event.target.files.item(0);
-  //   console.log(this.newProfilePic);
-
-  //   if(this.newProfilePic != null)
-  //   {
-  //     this.fileName = this.newProfilePic.name;
-
-  //     this.fileUploadService.uploadFile(this.newProfilePic).subscribe(
-  //       response => {
-  //         this.currentProfilePic = '/uploadedFile/' + this.fileName;
-  //         console.log('New Profile pic url: ' + this.currentProfilePic);
-  //         console.log('********** FileUploadComponent.ts: File uploaded successfully: ' + response.status);
-  //       },
-  //       error => {
-  //         console.log('********** FileUploadComponent.ts: ' + error);
-  //       }
-  //     );
-  //   }
-  // }
-
-  // getPicturesFromGallery() {
-  //   const options = {
-  //     width: 200,
-  //     quality: 30,
-  //     outputType: 1
-  //   };
-
-  //   const imgRes = [];
-  //   ImagePicker.getPictures(options).then((results) => {
-  //     // eslint-disable-next-line @typescript-eslint/prefer-for-of
-  //     for (let i = 0; i < results.length; i++) {
-  //       imgRes.push('data:image/jpeg;base64,' + results[i]);
-  //       console.log(imgRes);
-  //     }
-  //   }, (error) => {
-  //     alert(error);
-  //   });
-  // }
-
 
   changeProfilePic(event: any) {
     this.newProfilePic = event.target.files.item(0);
@@ -166,52 +133,81 @@ export class ChangeProfilePicPage implements OnInit {
 
   takePicture()
 	{
-    this.photoService.takePicture();
-		// this.photoService.takePicture().subscribe({
-    //   next: (response) => {
-    //     console.log(this.fileName);
-    //     console.log('********** FileUploadComponent.ts: File uploaded successfully: ' + response.status);
 
-    //     //Updating User
-    //     this.currentProfilePic = '/uploadedFiles/' + this.fileName;
+    const options: CameraOptions = {
+			quality: 50,
+			destinationType: this.camera.DestinationType.FILE_URI,
+			encodingType: this.camera.EncodingType.JPEG,
+			mediaType: this.camera.MediaType.PICTURE,
+		};
 
-    //     console.log(this.currentUser.dateOfBirth);
+    this.camera.getPicture(options).then(async (imageData) => {
+      console.log('This is the step after getting the Picture');
+      this.imageURI = imageData;
+      console.log('ImageURI', this.imageURI);
 
-    //     const updatedUser = new User(
-    //       this.currentUser.userId,
-    //       this.currentUser.firstName,
-    //       this.currentUser.lastName,
-    //       this.currentUser.username,
-    //       this.currentUser.password,
-    //       this.currentUser.email,
-    //       new Date(this.currentUser.dateOfBirth.toString().split('T')[0]),
-    //       this.currentProfilePic, //Changed
-    //       this.currentUser.contactNumber
-    //     );
+      await this.uploadFile();
+    });
 
-    //     this.userService.updateUser(updatedUser).subscribe({
-    //       // eslint-disable-next-line @typescript-eslint/no-shadow
-    //       next: (response) => {
-    //         //Update the current User in the sessionScope will rerender the profile pic
-    //         this.currentUser.profilePic = this.currentProfilePic;
-    //         this.sessionService.setCurrentUser(this.currentUser);
-    //         console.log(this.sessionService.getCurrentUser());
-    //         console.log('Successfully changed user profile pic');
-    //       },
-    //       error: (error) => {
-    //         console.log('Udating user profile pic got error ' + error);
-    //       }
-    //     });
-    //   },
-    //   error: (error) => {
-    //     this.currentProfilePic = '/uploadedFiles/' + this.fileName;
-    //     console.log('ERROR for url: ' + this.currentProfilePic);
-    //     console.log('********** FileUploadComponent.ts: ' + error);
-
-    //     console.log(error);
-    //   },
-    // });
-
-    console.log('========= End');
 	}
+
+  async uploadFile() {
+    const fileTransfer: FileTransferObject = this.transfer.create();
+
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    const requestOptions: Object = {responseType : 'text'};
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    const blobOptions: Object = {responseType : 'blob'};
+
+    const options: FileUploadOptions = {
+      fileKey: 'file',
+      fileName: this.imageURI.split('/cache/')[1],
+      httpMethod: 'POST',
+      chunkedMode: false,
+      mimeType: 'image/jpeg',
+      headers: {fileName:this.imageURI.split('/cache/')[1]}
+    };
+
+    console.log(options);
+    fileTransfer.upload(this.imageURI, this.baseUrl, options)
+    .then((data) => {
+      console.log('Uploaded Successfully', data);
+      this.imageFileName = this.imageURI.split('/cache/')[1];
+      this.fileName = this.imageFileName;
+      console.log('FILE NAME', this.fileName);
+
+      //Updating User
+      this.currentProfilePic = '/uploadedFiles/' + this.fileName;
+
+      const updatedUser = new User(
+        this.currentUser.userId,
+        this.currentUser.firstName,
+        this.currentUser.lastName,
+        this.currentUser.username,
+        this.currentUser.password,
+        this.currentUser.email,
+        new Date(this.currentUser.dateOfBirth.toString().split('T')[0]),
+        this.currentProfilePic, //Changed
+        this.currentUser.contactNumber
+      );
+
+      this.userService.updateUser(updatedUser).subscribe({
+        // eslint-disable-next-line @typescript-eslint/no-shadow
+        next: (response) => {
+          //Update the current User in the sessionScope will rerender the profile pic
+          this.currentUser.profilePic = this.currentProfilePic;
+          this.sessionService.setCurrentUser(this.currentUser);
+          console.log('Successfully changed user profile pic');
+
+          //reset the fileInput
+          this.resetFileInput();
+        },
+        error: (error) => {
+          console.log('Udating user profile pic got error ' + error);
+        }
+      });
+    }, (err) => {
+      console.log('Error', err);
+    });
+  }
 }
