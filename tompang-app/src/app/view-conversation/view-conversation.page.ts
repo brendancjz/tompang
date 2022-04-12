@@ -89,10 +89,9 @@ export class ViewConversationPage implements OnInit {
     this.imageToSend = event.target.files.item(0);
     this.containsImage = true;
     console.log(this.imageToSend);
-    console.log(this.containsImage);
   }
 
-  fetchFullImageUrl(imageUrl: string) {
+  getImage(imageUrl: string) {
     return this.sessionService.getImageBaseUrl() + imageUrl;
   }
 
@@ -110,7 +109,11 @@ export class ViewConversationPage implements OnInit {
     });
     console.log('method called');
     const newMessage = new Message();
-    newMessage.body = this.newMessageBody;
+    if (this.newMessageBody === undefined && this.containsImage) {
+      newMessage.body = 'Sending an image';
+    } else {
+      newMessage.body = this.newMessageBody;
+    }
     newMessage.createdOn = new Date();
     if (this.isCurrentUserTheBuyer()) {
       console.log('message from buyer');

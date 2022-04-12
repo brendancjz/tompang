@@ -47,17 +47,16 @@ export class ManageCreditCardsPage implements OnInit {
       },
       { once: true }
     );
-  }
-
-  ionViewWillEnter() {
-    console.log('IonViewWillEnter ManageCreditCards');
 
     this.currentUser = this.sessionService.getCurrentUser();
     this.isDisplayingCCList = true;
     this.years = this.initialiseYears();
     this.months = this.initialiseMonths();
     this.resultError = false;
+  }
 
+  ionViewWillEnter() {
+    console.log('IonViewWillEnter ManageCreditCards');
     this.userService.getUserCreditCards().subscribe({
       next: (response) => {
         this.creditCards = response;

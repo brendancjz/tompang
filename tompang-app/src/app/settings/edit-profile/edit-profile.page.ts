@@ -34,9 +34,7 @@ export class EditProfilePage implements OnInit {
       },
       { once: true }
     );
-  }
 
-  ionViewWillEnter() {
     const currentUser = this.sessionService.getCurrentUser();
 
     this.firstName = currentUser.firstName;
@@ -46,6 +44,8 @@ export class EditProfilePage implements OnInit {
     const dobString = currentUser.dateOfBirth.toString().split('T')[0];
     this.dateOfBirth = dobString + 'T00:01:00-04:00';
   }
+
+  ionViewWillEnter() {}
 
   updateUser(): void {
     console.log('Updating user...');

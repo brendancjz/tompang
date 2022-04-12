@@ -30,16 +30,15 @@ export class ChangePasswordPage implements OnInit {
     document.getElementById('back-button').addEventListener('click', () => {
       this.resetPage();
     }, { once: true});
-  }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter Change Password');
     this.currentUser = this.sessionService.getCurrentUser();
     this.currentPassword = undefined;
     this.newPassword = undefined;
     this.repeatPassword = undefined;
     this.resultSuccess = false;
   }
+
+  ionViewWillEnter() {}
 
   updateUserPassword(): void {
     console.log('Changing password...');
