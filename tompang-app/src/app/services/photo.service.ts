@@ -90,14 +90,16 @@ export class PhotoService
     const blobOptions: Object = {responseType : 'blob'};
 
     const options: FileUploadOptions = {
-      fileKey: 'ionicfile',
+      fileKey: 'file',
       fileName: this.imageURI.split('/cache/')[1],
+      httpMethod: 'POST',
       chunkedMode: false,
       mimeType: 'image/jpeg',
-      headers: {}
+      headers: {fileName:this.imageURI.split('/cache/')[1]}
     };
 
     //500 error
+    console.log(options);
     fileTransfer.upload(this.imageURI, this.baseUrl, options)
     .then((data) => {
       console.log(data+' Uploaded Successfully');

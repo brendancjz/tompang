@@ -8,6 +8,7 @@ import java.io.InputStream;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -34,11 +35,11 @@ public class FileResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public Response upload(@FormDataParam("file") InputStream uploadedFileInputStream,
-            @FormDataParam("file") FormDataContentDisposition uploadedFileDetails) {
+            @HeaderParam("fileName") String uploadedFileDetails) {
 
         try {
             System.out.println("Method enter");
-            System.err.println("********** FileResource.upload(): " + uploadedFileDetails.getFileName());
+            System.err.println("********** FileResource.upload(): " + uploadedFileDetails);//.getFileName());
 //            String outputFilePath =  File.separator+ "Users" + File.separator + "seanang" + File.separator + "glassfish-5.1.0-uploadedfiles" + File.separator + "uploadedFiles" + File.separator + uploadedFileDetails.getFileName();
             System.err.println("********** FileResource.upload():");
 
@@ -47,7 +48,7 @@ public class FileResource {
             //String outputFilePath = "C:" + File.separator + "glassfish-5.1.0-uploadedfiles" + File.separator + "uploadedFiles" + File.separator + uploadedFileDetails.getFileName();
 
             
-            String outputFilePath = servletContext.getInitParameter("alternatedocroot_1") + System.getProperty("file.separator") + uploadedFileDetails.getFileName();
+            String outputFilePath = servletContext.getInitParameter("alternatedocroot_1") + System.getProperty("file.separator") + uploadedFileDetails;//.getFileName();
             System.out.println(outputFilePath);
             
             File file = new File(outputFilePath);
