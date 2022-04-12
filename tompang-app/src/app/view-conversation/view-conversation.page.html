@@ -35,43 +35,46 @@
 
           <img *ngIf="message.sentBy === currentUser.userId" src="{{getUserProfilePic(1)}}"
             style=" float:right; width: 45px;border-radius: 100%;margin-right: 16px;">
-          <ion-item lines="none" *ngIf="message.sentBy === currentUser.userId" style="float: right;">{{message.body}}
-          </ion-item>
-          <img *ngIf="message.containsImage && message.sentBy === currentUser.userId" src="{{fetchFullImageUrl(message.imageUrl)}}"
-            style="float: right; width: 20%; height: 20%;" />
-        
+          <div style="display:flex;flex-direction: column;align-items: flex-end;">
+            <ion-item lines="none" *ngIf="message.sentBy === currentUser.userId" style="float: right;">{{message.body}}
+            </ion-item>
+            <img *ngIf="message.containsImage && message.sentBy === currentUser.userId" src="{{getImage(message.imageUrl)}}"
+              style="float: right; width: 50%;" />
 
-
-
+          </div>
           <img *ngIf="message.sentBy !== currentUser.userId" src="{{getUserProfilePic(2)}}"
-            style="width: 45px;border-radius: 100%;margin-right: 16px; float: left;">
-          <ion-item lines="none" *ngIf="message.sentBy !== currentUser.userId" style="float: left;">{{message.body}}
-          </ion-item>
-          <br *ngIf="message.containsImage && message.sentBy !== currentUser.userId"/>
-          <img *ngIf="message.containsImage && message.sentBy !== currentUser.userId" src="{{fetchFullImageUrl(message.imageUrl)}}"
-            style="float: left; width: 20%; height: 20%;" />
-     
+            style="width: 45px;border-radius: 100%;margin-left: 16px; float: left;">
+          <div style="display:flex;flex-direction: column;">
+            <ion-item lines="none" *ngIf="message.sentBy !== currentUser.userId" style="float: left;">{{message.body}}
+            </ion-item>
+            <br *ngIf="message.containsImage && message.sentBy !== currentUser.userId"/>
+            <img *ngIf="message.containsImage && message.sentBy !== currentUser.userId" src="{{getImage(message.imageUrl)}}"
+              style="float: left; width: 50%;" />
+          </div>
+
         </div>
 
         <div *ngIf="isCurrentUserTheBuyer()">
           <img *ngIf="message.sentBy !== currentUser.userId" src="{{getUserProfilePic(1)}}"
-            style="width: 45px;border-radius: 100%;margin-right: 16px; float: left;">
-          <ion-item lines="none" *ngIf="message.sentBy !== currentUser.userId" style="float: left;">{{message.body}}
-          </ion-item>
-          <br *ngIf="message.containsImage && message.sentBy !== currentUser.userId"/>
-          <img *ngIf="message.containsImage && message.sentBy !== currentUser.userId" src="{{fetchFullImageUrl(message.imageUrl)}}"
-            style="float: left; width: 20%; height: 20%;" />
-         
+            style="width: 45px;border-radius: 100%;margin-left: 16px; float: left;">
+          <div style="display:flex;flex-direction: column;">
+            <ion-item lines="none" *ngIf="message.sentBy !== currentUser.userId" style="float: left;">{{message.body}}
+            </ion-item>
+            <br *ngIf="message.containsImage && message.sentBy !== currentUser.userId"/>
+            <img *ngIf="message.containsImage && message.sentBy !== currentUser.userId" src="{{getImage(message.imageUrl)}}"
+              style="float: left; width: 50%;" />
+          </div>
 
 
           <img *ngIf="message.sentBy === currentUser.userId" src="{{getUserProfilePic(2)}}"
             style=" float:right; width: 45px;border-radius: 100%;margin-right: 16px;">
-          <ion-item lines="none" *ngIf="message.sentBy === currentUser.userId" style="float: right;">{{message.body}}
-          </ion-item>
-          <br *ngIf="message.containsImage && message.sentBy === currentUser.userId"/>
-            <img *ngIf="message.containsImage && message.sentBy === currentUser.userId" src="{{fetchFullImageUrl(message.imageUrl)}"
-            style="float: right; width: 20%; height: 20%;" />
-         
+          <div style="display:flex;flex-direction: column;align-items: flex-end;">
+            <ion-item lines="none" *ngIf="message.sentBy === currentUser.userId" style="float: right;">{{message.body}}
+            </ion-item>
+            <br *ngIf="message.containsImage && message.sentBy === currentUser.userId"/>
+            <img *ngIf="message.containsImage && message.sentBy === currentUser.userId" src="{{getImage(message.imageUrl)}}"
+              style="float: right; width: 50%;" />
+          </div>
         </div>
       </ion-list>
     </div>
@@ -86,9 +89,12 @@
           </ion-input>
 
         </div>
-        <div class="form-input input-button-div">
-          <input style="float: right; margin: 10px auto;" #fileInput type="file"
+        <div>
+          <input id="fileInput" style="float: right; margin: 10px auto;" #fileInput type="file"
             accept="image/png, image/gif, image/jpeg" (change)="uploadPicture($event)">
+          <label for="fileInput" icon-only ion-button>
+              <ion-icon style="font-size: 35px;" name="add-circle-outline"></ion-icon>
+          </label>
           <ion-button style="text-transform: initial;font-size: 16px;height: 30px; float: right;" color="tertiary"
             type="submit">
             Send</ion-button>

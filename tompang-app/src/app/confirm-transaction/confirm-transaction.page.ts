@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Listing } from '../models/listing';
@@ -19,12 +20,19 @@ export class ConfirmTransactionPage implements OnInit {
   transactionId: number | undefined;
 
   constructor(
+    private location: Location,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
     private transactionService: TransactionService
   ) {}
 
   ngOnInit() {
+
+  }
+
+  ionViewWillEnter() {
+    console.log('IonViewWillEnter ConfirmTransaction');
+
     this.transactionId = Number(
       this.activatedRoute.snapshot.paramMap.get('transactionId')
     );
@@ -41,6 +49,7 @@ export class ConfirmTransactionPage implements OnInit {
       },
       error: (error) => {
         console.log('viewTransaction.ts:' + error);
+        this.location.back();
       },
     });
   }
@@ -48,10 +57,10 @@ export class ConfirmTransactionPage implements OnInit {
   confirmTransaction() {
     this.transactionService.completeTransaction(this.transactionId).subscribe({
       next: (response) => {
-        
+
       }, error: (error) => {
         console.log('completeTransaction.ts:' + error);
       },
-    })
+    });
   }
 }

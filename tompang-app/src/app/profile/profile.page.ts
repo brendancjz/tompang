@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Listing } from '../models/listing';
@@ -29,7 +30,7 @@ export class ProfilePage implements OnInit {
   hasLoaded: boolean | undefined;
   showFollowButton: boolean | undefined;
 
-  constructor(
+  constructor(private location: Location,
     private router: Router,
     public sessionService: SessionService,
     public listingService: ListingService,
@@ -37,65 +38,12 @@ export class ProfilePage implements OnInit {
     private userService: UserService
   ) {}
 
-  ngOnInit() {
-    this.currentUser = this.sessionService.getCurrentUser();
-
-    console.log(this.currentUser);
-
-    this.userIdToView = this.activatedRoute.snapshot.paramMap.get('userId');
-    if (this.userIdToView === '#') {
-      //This is to handle the missing userId at the beginning
-      this.userIdToView = this.currentUser.userId.toString();
-    }
-
-    // eslint-disable-next-line radix
-    this.userService.getUser(parseInt(this.userIdToView)).subscribe({
-      next: (response) => {
-        this.userToView = response;
-        console.log(this.userToView);
-
-        this.userToViewUsername = this.userToView.username;
-        this.userToViewFollowers = this.userToView.followers.length;
-        this.userToViewFollowing = this.userToView.following.length;
-        this.userToViewProfilePic = this.userToView.profilePic;
-        console.log(this.userToView);
-
-        this.listingService.getUserListings(this.userToView).subscribe({
-          // eslint-disable-next-line @typescript-eslint/no-shadow
-          next: (response) => {
-            this.listings = response;
-            this.hasLoaded = true;
-          },
-          error: (error) => {
-            this.listings = [];
-            this.hasLoaded = true;
-            console.log('getAllAvailableListings.ts:' + error);
-          },
-        });
-
-        this.showFollowButton = true;
-
-        this.currentUser.following.map((following) => {
-          if (following.userId === this.userToView.userId) {
-            this.showFollowButton = false;
-          }
-        });
-
-        console.log('follow button' + this.showFollowButton);
-      },
-      error: (error) => {
-        console.log('********** View User Profile.ts: ' + error);
-      },
-    });
-
-    console.log(this.userToView);
-    console.log(this.listings);
-  }
+  ngOnInit() {}
 
   ionViewWillEnter() {
-    this.currentUser = this.sessionService.getCurrentUser();
+    console.log('IonViewWillEnter Profile');
 
-    console.log(this.currentUser);
+    this.currentUser = this.sessionService.getCurrentUser();
 
     this.userIdToView = this.activatedRoute.snapshot.paramMap.get('userId');
     if (this.userIdToView === '#') {
@@ -107,13 +55,10 @@ export class ProfilePage implements OnInit {
     this.userService.getUser(parseInt(this.userIdToView)).subscribe({
       next: (response) => {
         this.userToView = response;
-        console.log(this.userToView);
-
         this.userToViewUsername = this.userToView.username;
         this.userToViewFollowers = this.userToView.followers.length;
         this.userToViewFollowing = this.userToView.following.length;
         this.userToViewProfilePic = this.userToView.profilePic;
-        console.log(this.userToView);
 
         this.listingService.getUserListings(this.userToView).subscribe({
           // eslint-disable-next-line @typescript-eslint/no-shadow
@@ -129,17 +74,15 @@ export class ProfilePage implements OnInit {
         });
 
         this.showFollowButton = true;
-
         this.currentUser.following.map((following) => {
           if (following.userId === this.userToView.userId) {
             this.showFollowButton = false;
           }
         });
-
-        console.log('follow button' + this.showFollowButton);
       },
       error: (error) => {
         console.log('********** View User Profile.ts: ' + error);
+        this.location.back();
       },
     });
   }

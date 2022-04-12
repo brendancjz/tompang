@@ -90,14 +90,20 @@
       </div>
       <div class="details-info">
         <ion-icon style="margin-right: 5px" name="heart-outline"></ion-icon>
-        <ion-label style="font-size: 14px" class="grey-color">
-          {{listingToView.likedByUsers.length}} Likes
+        <ion-label style="font-size: 14px" class="grey-color" (click)="viewUserWhoLikesListing()">
+          {{listingToView.likedByUsers.length}} <span style="color: var(--ion-color-primary)">Likes</span>
         </ion-label>
       </div>
       <div class="details-info">
         <ion-icon style="margin-right: 5px" name="list-outline"></ion-icon>
         <ion-label style="font-size: 14px" class="grey-color">
           {{formatListingCategory()}}
+        </ion-label>
+      </div>
+      <div class="details-info">
+        <ion-icon style="margin-right: 5px" name="earth-outline"></ion-icon>
+        <ion-label style="font-size: 14px" class="grey-color">
+          {{listingToView.city}}, {{listingToView.country}}
         </ion-label>
       </div>
       <div class="details-info">
@@ -155,7 +161,7 @@
           *ngIf="!confirmDelete"
           >Delete</ion-button
         >
-        
+
       </div>
     </div>
     <div *ngIf="confirmConfirmDeleted" style="text-align: center;margin-top:10px;margin-bottom: 20px;" class="grey-color">

@@ -10,6 +10,7 @@ import { ConversationService } from '../services/conversation.service';
 import { ListingService } from '../services/listing.service';
 import { SessionService } from '../services/session.service';
 import { TransactionService } from '../services/transaction.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-create-transaction',
@@ -42,7 +43,7 @@ export class CreateTransactionPage implements OnInit {
   quantities: number[]
 
 
-  constructor(private router: Router,
+  constructor(private location: Location, private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
     private listingService: ListingService,
@@ -74,6 +75,7 @@ export class CreateTransactionPage implements OnInit {
       error: (error) => {
         this.retrieveListingError = true;
         console.log('************* retrieveListingByListingId error');
+        this.location.back();
       }
     });
   }

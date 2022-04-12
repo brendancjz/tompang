@@ -36,8 +36,9 @@ export class ChangePasswordPage implements OnInit {
     this.newPassword = undefined;
     this.repeatPassword = undefined;
     this.resultSuccess = false;
-    console.log('Current User password onInIt() ' + this.currentUser.password);
   }
+
+  ionViewWillEnter() {}
 
   updateUserPassword(): void {
     console.log('Changing password...');

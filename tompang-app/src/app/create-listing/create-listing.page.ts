@@ -69,19 +69,14 @@ export class CreateListingPage implements OnInit {
     console.log(this.newListingImage.name);
     if (this.newListingImage != null) {
       const fileName = this.newListingImage.name;
-      console.log(fileName);
-
       this.fileUploadService.uploadFile(this.newListingImage).subscribe({
         next: (response) => {
-          console.log(fileName);
-
           console.log(
-            '********** FileUploadComponent.ts: File uploaded successfully: ' +
-              response.status
+            '********** FileUploadComponent.ts: File uploaded successfully'
           );
 
           //Updating User Listing Images
-          this.listingImages.push('/uploadedFiles' + fileName);
+          this.listingImages.push('/uploadedFiles/' + fileName);
           this.imageSuccess = true;
           this.imageSuccessMsg = 'Added Image ' + fileName;
           this.resetFileInput();

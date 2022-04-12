@@ -8,6 +8,7 @@ import { ListingService } from '../services/listing.service';
 import { SessionService } from '../services/session.service';
 import { UserService } from '../services/user.service';
 import { FileUploadService } from '../services/fileUpload.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-conversation',
@@ -15,9 +16,10 @@ import { FileUploadService } from '../services/fileUpload.service';
   styleUrls: ['./view-conversation.page.scss'],
 })
 export class ViewConversationPage implements OnInit {
-  @ViewChild('convoblock') private convoblock: any;
-  @ViewChild('convoblocklist') private convoblocklist: any;
+  @ViewChild('convoblock') convoblock: any;
+  @ViewChild('convoblocklist') convoblocklist: any;
   @ViewChild('fileInput') fileInput: ElementRef;
+
   convoId: string | null;
   convoToView: Conversation | null;
   retrieveConvoError: boolean;
@@ -34,7 +36,7 @@ export class ViewConversationPage implements OnInit {
   resultError: boolean;
   message: string;
 
-  constructor(private router: Router,
+  constructor(private location: Location, private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
     private listingService: ListingService,
@@ -42,46 +44,30 @@ export class ViewConversationPage implements OnInit {
     private conversationService: ConversationService,
     private fileUploadService: FileUploadService) { }
 
-  ngOnInit() {
-    console.log('**********************reload the convo baby**************************');
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter ViewConversation');
     this.convoId = this.activatedRoute.snapshot.paramMap.get('convoId');
     this.currentUser = this.sessionService.getCurrentUser();
 
     if (this.convoId != null) {
-      console.log('View conversation: ' + this.convoId);
-
       // eslint-disable-next-line radix
       this.conversationService.getConversationById(parseInt(this.convoId)).subscribe({
         next: (response) => {
           this.convoToView = response;
-          console.log(response);
-          console.log(this.convoToView);
+          console.log('ConvoToView', this.convoToView);
           this.hasLoaded = true;
         },
         error: (error) => {
           console.log('view-conversation.page.ts:' + error);
+          this.location.back();
         },
       });
-
-
-      //Implement bridge with try catch
-      // eslint-disable-next-line radix
-
-      console.log('after service');
-      console.log(this.convoId);
-      console.log(this.convoToView);
-      // console.log(this.convoToView.convoId);
-      // if (this.convoToView.createdBy.username === this.currentUser.username) {
-      //   console.log('Current user created this convo');
-      // } else {
-      //   console.log('Current user is the seller of this listing');
-      // }
-
     }
   }
 
   getConversationListingUrl(): string {
-    console.log('getConversationListingUrl : ' + this.convoToView.convoId);
     return this.sessionService.getImageBaseUrl() + this.convoToView.listing.photos[0];
   }
 
@@ -99,27 +85,13 @@ export class ViewConversationPage implements OnInit {
     this.router.navigate(['/create-transaction/' + this.convoToView.listing.listingId]);
   }
 
-  ionViewWillEnter() {
-    console.log('**********************reload the convo baby**************************');
-    this.conversationService.getConversationById(this.convoToView.convoId).subscribe({
-      next: (response) => {
-        this.convoToView = response;
-        console.log('re-render');
-      },
-      error: (error) => {
-        console.log('problem');
-      },
-    });
-  }
-
   uploadPicture(event: any) {
     this.imageToSend = event.target.files.item(0);
     this.containsImage = true;
     console.log(this.imageToSend);
-    console.log(this.containsImage);
   }
 
-  fetchFullImageUrl(imageUrl: string) {
+  getImage(imageUrl: string) {
     return this.sessionService.getImageBaseUrl() + imageUrl;
   }
 
@@ -137,7 +109,11 @@ export class ViewConversationPage implements OnInit {
     });
     console.log('method called');
     const newMessage = new Message();
-    newMessage.body = this.newMessageBody;
+    if (this.newMessageBody === undefined && this.containsImage) {
+      newMessage.body = 'Sending an image';
+    } else {
+      newMessage.body = this.newMessageBody;
+    }
     newMessage.createdOn = new Date();
     if (this.isCurrentUserTheBuyer()) {
       console.log('message from buyer');
@@ -171,7 +147,7 @@ export class ViewConversationPage implements OnInit {
           // eslint-disable-next-line @typescript-eslint/no-shadow
           next: (response) => {
             this.convoToView = response;
-            console.log(response);
+
             console.log(this.convoToView);
             this.hasLoaded = true;
             this.convoblock.scrollToBottom(300);

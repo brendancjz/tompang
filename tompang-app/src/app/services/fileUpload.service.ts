@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { SessionService } from './session.service';
 
 const httpOptions = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -17,9 +18,10 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class FileUploadService {
-  baseUrl = '/api/File';
+  baseUrl = 'http://' + this.sessionService.ipAddress + ':8080/TompangRws/Resources/File/';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+    private sessionService: SessionService) {
   }
 
   uploadFile(fileToUpload: File | null): Observable<any> {

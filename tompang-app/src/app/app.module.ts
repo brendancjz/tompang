@@ -14,7 +14,7 @@ import { enterAnimation } from './animations/nav-animation';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Camera } from '@awesome-cordova-plugins/camera/ngx';
 import { File as NgxFile } from '@ionic-native/file/ngx';
-import { WebView } from '@awesome-cordova-plugins/ionic-webview/ngx';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,7 +35,8 @@ import { WebView } from '@awesome-cordova-plugins/ionic-webview/ngx';
     BarcodeScanner,
     Camera,
     NgxFile,
-    WebView
+    FileTransfer,
+    FileTransferObject,
   ],
   bootstrap: [AppComponent],
 })

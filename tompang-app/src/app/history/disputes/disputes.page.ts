@@ -16,11 +16,15 @@ export class DisputesPage implements OnInit {
 
   ngOnInit() {
     this.disputes = [];
+  }
+
+  ionViewWillEnter() {
+    console.log('IonViewWillEnter Disputes');
 
     this.disputeService.getUserDisputes().subscribe({
       next: (response) => {
         this.disputes = response;
-        console.log(this.disputes);
+        console.log('Disputes', this.disputes);
       },
       error: (error) => {
         console.log('getAllUserTransactions.ts:' + error);

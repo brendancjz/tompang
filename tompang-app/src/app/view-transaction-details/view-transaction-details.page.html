@@ -1,13 +1,13 @@
 <app-header></app-header>
 <ion-content class="hide-scroll-bar">
   <div
-    *ngIf="!hasLoaded"
+    *ngIf="hasLoaded === false"
     style="text-align: center; margin-top: 20px"
     class="grey-color"
   >
     Loading...
   </div>
-  <div *ngIf="hasLoaded">
+  <div *ngIf="hasLoaded === true">
     <ion-title class="page-name grey-color"> My Purchases </ion-title>
     <hr class="horizontal-rule" />
     <ion-title class="sub-page-name grey-color">
