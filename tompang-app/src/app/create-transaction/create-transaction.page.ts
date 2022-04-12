@@ -70,6 +70,9 @@ export class CreateTransactionPage implements OnInit {
         }
         
 
+
+        
+
         this.hasLoaded = true;
       },
       error: (error) => {
