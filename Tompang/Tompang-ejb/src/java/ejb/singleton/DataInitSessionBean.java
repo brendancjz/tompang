@@ -83,19 +83,19 @@ public class DataInitSessionBean {
             User iggy = (User) em.find(User.class, 3L);
             Listing listing3 = (Listing) em.find(Listing.class, 3L);
             Listing listing4 = (Listing) em.find(Listing.class, 4L);
-            Transaction transaction1 = new Transaction(Double.parseDouble("100"), jan, sean, manager, listing3, 1,sean.getCreditCards().get(0));
+            Transaction transaction1 = new Transaction(Double.parseDouble("600"), jan, sean, manager, listing3, 1,sean.getCreditCards().get(0));
             em.persist(transaction1);
             em.flush();
 
             //same listing 3
             User guojun = (User) em.find(User.class, 5L);
-            Transaction transaction2 = new Transaction(Double.parseDouble("100"), jan, guojun, manager, listing3,1, guojun.getCreditCards().get(0));
+            Transaction transaction2 = new Transaction(Double.parseDouble("600"), jan, guojun, manager, listing3,1, guojun.getCreditCards().get(0));
             transaction2.setIsCompleted(true);
             transaction2.setHasDispute(true);
             em.persist(transaction2);
             em.flush();
                
-            Transaction transaction3 = new Transaction(Double.parseDouble("100"), feb,sean , manager, listing3,1, sean.getCreditCards().get(0));
+            Transaction transaction3 = new Transaction(Double.parseDouble("600"), feb,sean , manager, listing3,1, sean.getCreditCards().get(0));
             transaction3.setIsCompleted(false);
             transaction3.setHasDispute(false);
             em.persist(transaction3);
@@ -150,15 +150,15 @@ public class DataInitSessionBean {
             em.persist(transaction10);
             em.flush();
             
-            Transaction transaction11 = new Transaction(Double.parseDouble("15"), april,manager, (User) em.find(User.class, 11l), (Listing) em.find(Listing.class,25l),1, manager.getCreditCards().get(0));
-            transaction10.setIsCompleted(false);
-            transaction10.setHasDispute(false);
+            Transaction transaction11 = new Transaction(Double.parseDouble("15"), createdOn,manager, (User) em.find(User.class, 11l), (Listing) em.find(Listing.class,25l),1, manager.getCreditCards().get(0));
+            transaction11.setIsCompleted(false);
+            transaction11.setHasDispute(false);
             em.persist(transaction10);
             em.flush();
             
-            Transaction transaction12 = new Transaction(Double.parseDouble("10"), april,(User) em.find(User.class, 4l), (User) em.find(User.class, 10l), (Listing) em.find(Listing.class,26l),1, ((User) em.find(User.class, 4l)).getCreditCards().get(0));
-            transaction10.setIsCompleted(false);
-            transaction10.setHasDispute(false);
+            Transaction transaction12 = new Transaction(Double.parseDouble("10"), jan,(User) em.find(User.class, 4l), (User) em.find(User.class, 10l), (Listing) em.find(Listing.class,26l),1, ((User) em.find(User.class, 4l)).getCreditCards().get(0));
+            transaction12.setIsCompleted(false);
+            transaction12.setHasDispute(false);
             em.persist(transaction10);
             em.flush();
             
