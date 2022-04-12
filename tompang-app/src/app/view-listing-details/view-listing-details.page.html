@@ -64,14 +64,6 @@
         </ion-label>
       </div>
       <div class="details-info">
-        <ion-label style="font-size: 18px" class="grey-color">
-          Quantity: {{listingToView.quantity}}
-        </ion-label>
-        <ion-label *ngIf="listingToView.quantity == 1"  style="font-size: 18px" class="red-color">
-          Hurry! Only one left!
-        </ion-label>
-      </div>
-      <div class="details-info">
         <ion-icon style="margin-right: 5px" name="time-outline"></ion-icon>
         <ion-label style="font-size: 14px" class="grey-color">
           {{listingToView.createdOn.toString().split('T')[0]}}
@@ -115,7 +107,10 @@
       <div class="details-info">
         <ion-icon style="margin-right: 5px" name="bag-outline"></ion-icon>
         <ion-label style="font-size: 14px" class="grey-color">
-          {{listingToView.quantity}} items
+          {{listingToView.quantity}} item(s) remaining
+        </ion-label>
+        <ion-label *ngIf="listingToView.quantity === 1"  style="font-size: 12px;color:red; margin-left: 5px;">
+          HURRY, ONLY ONE LEFT!
         </ion-label>
       </div>
       <div style="margin-left: 10px; margin-right: 10px; display: flex">
@@ -137,7 +132,7 @@
           >Chat</ion-button
         >
         <ion-button
-          *ngIf="listingToView.quantity != 0"
+          *ngIf="listingToView.quantity !== 0"
           style="text-transform: initial; font-size: 16px; width: 110px"
           color="tertiary"
           (click)="makeTransaction()"
