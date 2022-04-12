@@ -14,7 +14,11 @@ import { SessionService } from 'src/app/services/session.service';
 export class MyPurchasesPage implements OnInit {
   transactions: Transaction[];
   transaction: Transaction;
-  userId: number
+  userId: number;
+
+  totalAmountSpent: number | undefined;
+  totalAmountEarned: number | undefined;
+
   constructor(
     private router: Router,
     private listingService: ListingService,
@@ -23,11 +27,30 @@ export class MyPurchasesPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userId = this.sessionService.getCurrentUser().userId;
     this.transactions = [];
+    this.totalAmountEarned = 0;
+    this.totalAmountSpent = 0;
+
+  }
+
+  ionViewWillEnter() {
+    console.log('IonViewWillEnter MyPurchases');
+
+    this.userId = this.sessionService.getCurrentUser().userId;
+
     this.transactionService.getUserTransactions().subscribe({
       next: (response) => {
         this.transactions = response;
+
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
+        for (let i = 0; i < this.transactions.length; i++) {
+          const transaction = this.transactions[i];
+          if (transaction.buyer.userId === this.userId && transaction.isCompleted) {
+            this.totalAmountSpent += transaction.amount;
+          } else if (transaction.buyer.userId !== this.userId && transaction.isCompleted) {
+            this.totalAmountEarned += transaction.amount * 0.97;
+          }
+        }
       },
       error: (error) => {
         console.log('getAllUserTransactions.ts:' + error);
@@ -62,11 +85,11 @@ export class MyPurchasesPage implements OnInit {
   }
 
   checkTransaction(transaction: Transaction): string{
- 
-    if (transaction.buyer.userId == this.userId) {
-        return "Purchased";
+
+    if (transaction.buyer.userId === this.userId) {
+        return 'Purchased';
     } else {
-      return "Sold";
+      return 'Sold';
     }
   }
 }

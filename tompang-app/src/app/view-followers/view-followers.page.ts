@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../models/user';
@@ -15,11 +16,15 @@ export class ViewFollowersPage implements OnInit {
 
   searchTerm: string;
 
-  constructor(private router: Router,
+  constructor(private location: Location, private router: Router,
       private activatedRoute: ActivatedRoute,
       private userService: UserService) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter ViewFollowers');
+
     this.userIdToView = this.activatedRoute.snapshot.paramMap.get('userId');
     this.userFollowers = [];
 
@@ -33,6 +38,7 @@ export class ViewFollowersPage implements OnInit {
       },
       error: (error) => {
         console.log('********** View User Profile.ts: ' + error);
+        this.location.back();
       },
     });
   }

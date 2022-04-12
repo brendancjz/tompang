@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../models/user';
@@ -16,11 +17,15 @@ export class ViewFollowingPage implements OnInit {
 
   searchTerm: string;
 
-  constructor(private router: Router,
+  constructor(private location: Location, private router: Router,
       private activatedRoute: ActivatedRoute,
       private userService: UserService) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter ViewFollowing');
+
     this.userIdToView = this.activatedRoute.snapshot.paramMap.get('userId');
     this.userFollowing = [];
 
@@ -29,11 +34,12 @@ export class ViewFollowingPage implements OnInit {
       next: (response) => {
         this.userToView = response;
         this.userFollowing = this.userToView.following;
-        console.log(this.userFollowing);
+        console.log('User Following ', this.userFollowing);
 
       },
       error: (error) => {
         console.log('********** View User Profile.ts: ' + error);
+        this.location.back();
       },
     });
   }

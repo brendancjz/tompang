@@ -7,6 +7,8 @@ import { ConversationService } from '../services/conversation.service';
 import { ListingService } from '../services/listing.service';
 import { SessionService } from '../services/session.service';
 import { UserService } from '../services/user.service';
+import { AlertController } from '@ionic/angular';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-listing-details',
@@ -32,18 +34,22 @@ export class ViewListingDetailsPage implements OnInit {
   confirmConfirmDeleted: boolean;
 
   constructor(
+    private location: Location,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
     private listingService: ListingService,
     private conversationService: ConversationService,
-    private userService: UserService
+    private userService: UserService,
+    private alertController: AlertController
   ) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter ViewListingDetails');
     this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
     this.currentUser = this.sessionService.getCurrentUser();
-    this.confirmDelete = false;
 
     if (this.listingId != null) {
       this.listingService
@@ -57,52 +63,14 @@ export class ViewListingDetailsPage implements OnInit {
           error: (error) => {
             this.retrieveListingError = true;
             console.log('********** View Listing Details Page.ts: ' + error);
+            this.location.back();
           },
         });
-
-      // eslint-disable-next-line radix
-      // this.listingService.getListingByListingId(parseInt(this.listingId)).subscribe({
-      //   next:(response)=>{
-      //     this.listingToView = response;
-      //   },
-      //   error:(error)=>{
-      //     this.retrieveListingError = true;
-      // 		console.log('********** View Listing Details Page.ts: ' + error);
-      //   }
-      // });
     }
   }
 
-  ionViewWillEnter() {
-    this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
-    this.currentUser = this.sessionService.getCurrentUser();
-
-    if (this.listingId != null) {
-      this.listingService
-        .getListingByListingId(Number(this.listingId))
-        .subscribe({
-          next: (response) => {
-            this.listingToView = response;
-            this.hasLoaded = true;
-            this.checkLikedByUser();
-          },
-          error: (error) => {
-            this.retrieveListingError = true;
-            console.log('********** View Listing Details Page.ts: ' + error);
-          },
-        });
-
-      // eslint-disable-next-line radix
-      // this.listingService.getListingByListingId(parseInt(this.listingId)).subscribe({
-      //   next:(response)=>{
-      //     this.listingToView = response;
-      //   },
-      //   error:(error)=>{
-      //     this.retrieveListingError = true;
-      // 		console.log('********** View Listing Details Page.ts: ' + error);
-      //   }
-      // });
-    }
+  viewUserWhoLikesListing() {
+    this.router.navigate(['/view-users-like-listing/' + this.listingId]);
   }
 
   getPhotoUrl(photo: string) {
@@ -306,11 +274,43 @@ export class ViewListingDetailsPage implements OnInit {
     this.router.navigate(['/edit-listing-page/' + this.listingId]);
   }
 
-  deleteListing() {
+  async deleteListing() {
     console.log('Deleting Listing');
 
-    //Delete listing sean pls help
-    this.confirmConfirmDeleted = true;
+    const alert = await this.alertController.create({
+      header: 'Confirm Delete Listing',
+      message: 'Confirm delete listing <strong>' + this.listingToView.title + '</strong>?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+
+            this.listingService.deleteListing(Number(this.listingId)).subscribe({
+              next:(response)=>{
+                this.confirmDelete = true;
+                this.listingToView = null;
+                this.confirmConfirmDeleted = true;
+                console.log('success');
+              },
+              error:(error)=>{
+                this.resultError = true;
+                this.message = error;
+
+              }
+            });
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   toggleConfirmDeleteListing() {

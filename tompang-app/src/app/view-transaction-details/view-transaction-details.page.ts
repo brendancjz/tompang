@@ -10,6 +10,7 @@ import {
   BarcodeScanner,
   BarcodeScannerOptions,
 } from '@ionic-native/barcode-scanner/ngx';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-transaction-details',
@@ -32,11 +33,13 @@ export class ViewTransactionDetailsPage implements OnInit {
   currentUser: User;
   isSeller: boolean | null;
 
-  scannedQRCode: {};
+  scannedQRCode = {};
   encodedData: any;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   QRScannerOptions: BarcodeScannerOptions;
 
   constructor(
+    private location: Location,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
@@ -50,7 +53,11 @@ export class ViewTransactionDetailsPage implements OnInit {
     };
   }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter for ViewTransactionDetails');
+    this.hasLoaded = false;
     this.transactionId = Number(
       this.activatedRoute.snapshot.paramMap.get('transactionId')
     );
@@ -60,18 +67,17 @@ export class ViewTransactionDetailsPage implements OnInit {
     this.transactionService.getTransactionById(this.transactionId).subscribe({
       next: (response) => {
         this.transactionToView = response;
-        console.log('Found Transaction To View');
-        console.log(this.transactionToView);
+        console.log('TransactionToView: ', this.transactionToView);
 
-        if (this.transactionToView.seller.userId == this.currentUser.userId) {
+        if (this.transactionToView.seller.userId === this.currentUser.userId) {
           this.isSeller = true;
         } else {
           this.isSeller = false;
         }
-        console.log('isSeller: ' + this.isSeller);
       },
       error: (error) => {
         console.log('viewTransaction.ts:' + error);
+        this.location.back();
       },
     });
 
@@ -118,6 +124,7 @@ export class ViewTransactionDetailsPage implements OnInit {
       .scan()
       .then((res) => {
         this.scannedQRCode = res;
+        this.router.navigate([this.scannedQRCode]);
       })
       .catch((err) => {
         console.log(err);
@@ -128,7 +135,7 @@ export class ViewTransactionDetailsPage implements OnInit {
     this.scanner
       .encode(
         this.scanner.Encode.TEXT_TYPE,
-        'localhost:8100/confirm-transaction/' + this.transactionId
+        this.sessionService.ipAddress + ':8100/confirm-transaction/' + this.transactionId
       )
       .then(
         (res) => {

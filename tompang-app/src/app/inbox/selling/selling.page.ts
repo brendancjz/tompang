@@ -21,21 +21,21 @@ export class SellingPage implements OnInit {
   constructor(private location: Location,
     public sessionService: SessionService,
     private userService: UserService,
-    private conversationService: ConversationService) {
+    private conversationService: ConversationService) {}
+
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+    console.log('IonViewWillEnter Selling');
+
     this.conversationService.retrieveSellerConversations().subscribe({
       next: (response) => {
         this.sellingConvos = response;
-        console.log(this.sessionService.getCurrentUser().username);
-        console.log(this.sessionService.getCurrentUser().password);
-        console.log(this.sellingConvos);
       },
       error: (error) => {
         console.log('sellingPage : retrieveSellerConversations.ts:' + error);
         this.sellingConvos = null;
       },
     });
-  }
-
-  ngOnInit() {
   }
 }

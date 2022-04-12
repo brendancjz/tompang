@@ -82,14 +82,20 @@
       </div>
       <div class="details-info">
         <ion-icon style="margin-right: 5px" name="heart-outline"></ion-icon>
-        <ion-label style="font-size: 14px" class="grey-color">
-          {{listingToView.likedByUsers.length}} Likes
+        <ion-label style="font-size: 14px" class="grey-color" (click)="viewUserWhoLikesListing()">
+          {{listingToView.likedByUsers.length}} <span style="color: var(--ion-color-primary)">Likes</span>
         </ion-label>
       </div>
       <div class="details-info">
         <ion-icon style="margin-right: 5px" name="list-outline"></ion-icon>
         <ion-label style="font-size: 14px" class="grey-color">
           {{formatListingCategory()}}
+        </ion-label>
+      </div>
+      <div class="details-info">
+        <ion-icon style="margin-right: 5px" name="earth-outline"></ion-icon>
+        <ion-label style="font-size: 14px" class="grey-color">
+          {{listingToView.city}}, {{listingToView.country}}
         </ion-label>
       </div>
       <div class="details-info">
@@ -101,7 +107,10 @@
       <div class="details-info">
         <ion-icon style="margin-right: 5px" name="bag-outline"></ion-icon>
         <ion-label style="font-size: 14px" class="grey-color">
-          {{listingToView.quantity}} items to buy back
+          {{listingToView.quantity}} item(s) remaining
+        </ion-label>
+        <ion-label *ngIf="listingToView.quantity === 1"  style="font-size: 12px;color:red; margin-left: 5px;">
+          HURRY, ONLY ONE LEFT!
         </ion-label>
       </div>
       <div style="margin-left: 10px; margin-right: 10px; display: flex">
@@ -123,6 +132,7 @@
           >Chat</ion-button
         >
         <ion-button
+          *ngIf="listingToView.quantity !== 0"
           style="text-transform: initial; font-size: 16px; width: 110px"
           color="tertiary"
           (click)="makeTransaction()"
@@ -142,17 +152,11 @@
         <ion-button
           style="text-transform: initial; font-size: 16px; width: 90px"
           color="tertiary"
-          (click)="toggleConfirmDeleteListing()"
+          (click)="deleteListing()"
           *ngIf="!confirmDelete"
           >Delete</ion-button
         >
-        <ion-button
-          style="text-transform: initial; font-size: 16px; width: 140px"
-          color="tertiary"
-          (click)="deleteListing()"
-          *ngIf="confirmDelete"
-          >Confirm Delete</ion-button
-        >
+
       </div>
     </div>
     <div *ngIf="confirmConfirmDeleted" style="text-align: center;margin-top:10px;margin-bottom: 20px;" class="grey-color">

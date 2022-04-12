@@ -24,7 +24,10 @@ export class LikedListingsPage implements OnInit {
     this.currentUser = sessionService.getCurrentUser();
   }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+    console.log('IonViewWillEnter LikedListings');
     this.listingService.getAllAvailableListings().subscribe({
       next: (response) => {
         response.map((listing) => {

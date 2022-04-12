@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from '../services/session.service';
 import { ListingService } from '../services/listing.service';
 import { UserService } from '../services/user.service';
 import { Listing } from '../models/listing';
 import { FileUploadService } from '../services/fileUpload.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-listing-page',
@@ -12,6 +13,9 @@ import { FileUploadService } from '../services/fileUpload.service';
   styleUrls: ['./edit-listing-page.page.scss'],
 })
 export class EditListingPagePage implements OnInit {
+  @ViewChild('fileInput')
+  fileInput: ElementRef;
+
   listingId: string | null;
   listingToView: Listing | null;
   updatedExpectedArrivalDate: string | null;
@@ -34,13 +38,16 @@ export class EditListingPagePage implements OnInit {
   listingUpdateSuccessful: boolean;
 
   constructor(
+    private location: Location,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
     private listingService: ListingService,
     private userService: UserService,
     private fileUploadService: FileUploadService
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.categories = [
       'FOOD',
       'APPAREL',
@@ -54,7 +61,9 @@ export class EditListingPagePage implements OnInit {
     this.countryCityMap = this.initialiseCountriesCities();
   }
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    console.log('IonViewWillEnter EditListing');
+
     this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
 
     if (this.listingId != null) {
@@ -66,12 +75,12 @@ export class EditListingPagePage implements OnInit {
             const eta = this.listingToView.expectedArrivalDate.toString().split('T')[0];
             this.updatedExpectedArrivalDate = eta + 'T00:01:00-04:00';
             this.cities = this.countryCityMap[this.listingToView.country];
-
             this.hasLoaded = true;
           },
           error: (error) => {
             this.retrieveListingError = true;
             console.log('********** View Listing Details Page.ts: ' + error);
+            this.location.back();
           },
         });
     }
@@ -100,6 +109,7 @@ export class EditListingPagePage implements OnInit {
           this.listingToView.photos.push('/uploadedFiles/' + fileName);
           this.imageSuccess = true;
           this.imageSuccessMsg = 'Added Image ' + fileName;
+          this.resetFileInput();
         },
         error: (error) => {
           console.log('********** FileUploadComponent.ts: ' + error);
@@ -107,6 +117,11 @@ export class EditListingPagePage implements OnInit {
         },
       });
     }
+  }
+
+  resetFileInput() {
+    console.log('Reseting file input');
+    this.fileInput.nativeElement.value = '';
   }
 
   removeImage(photo: string) {

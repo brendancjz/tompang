@@ -92,7 +92,7 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
             throw new EmptyListException("List of listings is empty.\n");
         }
 
-        Query query = em.createQuery("SELECT l FROM Listing l WHERE l.createdBy.username = :name");
+        Query query = em.createQuery("SELECT l FROM Listing l WHERE l.createdBy.username = :name AND l.isDisabled = FALSE");
         query.setParameter("name", filteredUsername);
 
         List<Listing> listings = query.getResultList();

@@ -39,4 +39,6 @@
 /TompangRws/web/WEB-INF/web.xml
 /TompangRws/dist/
 /TompangRws/build/
-/TompangRws/src/environments/environment.prod.ts
+
+/tompang-app/src/environments/environment.prod.ts
+/tompang-app/config.xml

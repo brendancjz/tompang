@@ -12,6 +12,7 @@ export class Transaction {
   hasDispute: boolean | undefined;
   isAccepted: boolean | undefined;
   isRejected: boolean | undefined;
+  quantity: number | undefined;
 
   // @ManyToOne(optional = false)
   buyer: User | undefined;

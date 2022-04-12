@@ -13,6 +13,8 @@ import { FooterPageModule } from './footer/footer.module';
 import { enterAnimation } from './animations/nav-animation';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Camera } from '@awesome-cordova-plugins/camera/ngx';
+import { File as NgxFile } from '@ionic-native/file/ngx';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +33,10 @@ import { Camera } from '@awesome-cordova-plugins/camera/ngx';
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     BarcodeScanner,
-    Camera
+    Camera,
+    NgxFile,
+    FileTransfer,
+    FileTransferObject,
   ],
   bootstrap: [AppComponent],
 })

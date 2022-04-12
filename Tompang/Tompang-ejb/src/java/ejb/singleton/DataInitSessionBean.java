@@ -25,8 +25,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -85,72 +83,87 @@ public class DataInitSessionBean {
             User iggy = (User) em.find(User.class, 3L);
             Listing listing3 = (Listing) em.find(Listing.class, 3L);
             Listing listing4 = (Listing) em.find(Listing.class, 4L);
-            Transaction transaction1 = new Transaction(Double.parseDouble("100"), jan, sean, manager, listing3, sean.getCreditCards().get(0));
+            Transaction transaction1 = new Transaction(Double.parseDouble("100"), jan, sean, manager, listing3, 1,sean.getCreditCards().get(0));
             em.persist(transaction1);
             em.flush();
 
             //same listing 3
             User guojun = (User) em.find(User.class, 5L);
-            Transaction transaction2 = new Transaction(Double.parseDouble("100"), jan, guojun, manager, listing3, guojun.getCreditCards().get(0));
+            Transaction transaction2 = new Transaction(Double.parseDouble("100"), jan, guojun, manager, listing3,1, guojun.getCreditCards().get(0));
             transaction2.setIsCompleted(true);
             transaction2.setHasDispute(true);
             em.persist(transaction2);
             em.flush();
                
-            Transaction transaction3 = new Transaction(Double.parseDouble("100"), feb,sean , manager, listing3, sean.getCreditCards().get(0));
+            Transaction transaction3 = new Transaction(Double.parseDouble("100"), feb,sean , manager, listing3,1, sean.getCreditCards().get(0));
             transaction3.setIsCompleted(false);
             transaction3.setHasDispute(false);
             em.persist(transaction3);
             em.flush();
             
            
-            Transaction transaction4 = new Transaction(Double.parseDouble("45"), feb, sean, manager, listing4, sean.getCreditCards().get(0));
+            Transaction transaction4 = new Transaction(Double.parseDouble("45"), feb, sean, manager, listing4, 1,sean.getCreditCards().get(0));
             transaction4.setIsCompleted(false);
             transaction4.setHasDispute(false);
             em.persist(transaction4);
             em.flush();
             
-            Transaction transaction5 = new Transaction(Double.parseDouble("250"), feb, guojun, iggy, (Listing) em.find(Listing.class, 10l), guojun.getCreditCards().get(0));
+            Transaction transaction5 = new Transaction(Double.parseDouble("250"), feb, guojun, iggy, (Listing) em.find(Listing.class, 10l), 1,guojun.getCreditCards().get(0));
             transaction5.setIsCompleted(false);
             transaction5.setHasDispute(true);
             em.persist(transaction5);
             em.flush();
             
-            Transaction transaction6 = new Transaction(Double.parseDouble("250"), createdOn,manager, iggy, (Listing) em.find(Listing.class, 10l), manager.getCreditCards().get(0));
+            Transaction transaction6 = new Transaction(Double.parseDouble("250"), createdOn,manager, iggy, (Listing) em.find(Listing.class, 10l), 1,manager.getCreditCards().get(0));
             transaction6.setIsCompleted(true);
             transaction6.setHasDispute(false);
             em.persist(transaction6);
             em.flush();
             
-            Transaction transaction7 = new Transaction(Double.parseDouble("100"), createdOn,iggy, guojun, (Listing) em.find(Listing.class, 12l), iggy.getCreditCards().get(0));
+            Transaction transaction7 = new Transaction(Double.parseDouble("100"), createdOn,iggy, guojun, (Listing) em.find(Listing.class, 12l), 1,iggy.getCreditCards().get(0));
             transaction7.setIsCompleted(true);
             transaction7.setHasDispute(false);
             em.persist(transaction7);
             em.flush();
             
-            Transaction transaction8 = new Transaction(Double.parseDouble("100"), createdOn,sean, guojun, (Listing) em.find(Listing.class, 12l), sean.getCreditCards().get(0));
+            Transaction transaction8 = new Transaction(Double.parseDouble("100"), createdOn,sean, guojun, (Listing) em.find(Listing.class, 12l),1, sean.getCreditCards().get(0));
             transaction8.setIsCompleted(false);
             transaction8.setHasDispute(true);
             em.persist(transaction8);
             em.flush();
             
-            Transaction extraTransaction = new Transaction(Double.parseDouble("250"), createdOn,sean, iggy, (Listing) em.find(Listing.class, 10l), sean.getCreditCards().get(0));
+            Transaction extraTransaction = new Transaction(Double.parseDouble("250"), createdOn,sean, iggy, (Listing) em.find(Listing.class, 10l),1, sean.getCreditCards().get(0));
             extraTransaction.setIsCompleted(false);
             extraTransaction.setHasDispute(true);
             em.persist(extraTransaction);
             em.flush();
             
-            Transaction transaction9 = new Transaction(Double.parseDouble("600"), april,iggy, manager, (Listing) em.find(Listing.class, 3l), iggy.getCreditCards().get(0));
+            Transaction transaction9 = new Transaction(Double.parseDouble("600"), april,iggy, manager, (Listing) em.find(Listing.class, 3l),1, iggy.getCreditCards().get(0));
             transaction9.setIsCompleted(false);
             transaction9.setHasDispute(false);
             em.persist(transaction9);
             em.flush();
             
-            Transaction transaction10 = new Transaction(Double.parseDouble("600"), april,sean, manager, (Listing) em.find(Listing.class,3l), sean.getCreditCards().get(0));
+            Transaction transaction10 = new Transaction(Double.parseDouble("600"), april,sean, manager, (Listing) em.find(Listing.class,3l),1, sean.getCreditCards().get(0));
             transaction10.setIsCompleted(true);
             transaction10.setHasDispute(true);
             em.persist(transaction10);
             em.flush();
+            
+            Transaction transaction11 = new Transaction(Double.parseDouble("15"), april,manager, (User) em.find(User.class, 11l), (Listing) em.find(Listing.class,25l),1, manager.getCreditCards().get(0));
+            transaction10.setIsCompleted(false);
+            transaction10.setHasDispute(false);
+            em.persist(transaction10);
+            em.flush();
+            
+            Transaction transaction12 = new Transaction(Double.parseDouble("10"), april,(User) em.find(User.class, 4l), (User) em.find(User.class, 10l), (Listing) em.find(Listing.class,26l),1, ((User) em.find(User.class, 4l)).getCreditCards().get(0));
+            transaction10.setIsCompleted(false);
+            transaction10.setHasDispute(false);
+            em.persist(transaction10);
+            em.flush();
+            
+            ;
+            
 
             Dispute dispute = new Dispute("Seller does not want to buy additional product for me.", transaction2);
             dispute.setUserId(5L);
@@ -184,20 +197,6 @@ public class DataInitSessionBean {
             convo.getMessages().add(response);
         }
 
-        try {
-
-            System.out.println(userSessionBean.retrieveAllUsers());
-
-            User user = userSessionBean.getUserByUserId(1L);
-            //userSessionBean.updateUserDetails(user.getUserId(), user.getFirstName(), "User", user.getEmail(), user.getUsername(), user.getDateOfBirth(), user.getContactNumber());
-
-            for (Listing listing : user.getLikedListings()) {
-                System.out.println(listing.getListingId());
-            }
-            System.out.println();
-        } catch (EntityNotFoundException | EmptyListException ex) {
-            System.out.println(ex.getMessage());
-        }
     }
 
     private void initialiseAllUsers() throws CreateNewUserException {
@@ -533,82 +532,82 @@ public class DataInitSessionBean {
 
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/cards.jpeg");
-            listing = new Listing("Japan", "Tokyo", "Pokemon Sun and Moon Cards", "Exclusive Pokemon Sun and Moon Cards!!", "GIFTS", 25.00, expectedArrivalDate2 ,sean, 5, photos);
+            listing = new Listing("Japan", "Tokyo", "Pokemon Sun and Moon Cards", "Exclusive Pokemon Sun and Moon Cards!!", "GIFTS", 25.00, expectedArrivalDate2 ,em.find(User.class, 11l), 5, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/churros.jpeg");
-            listing = new Listing("Japan", "Tokyo", "Oreo Churros", "Limited Edition Japanese Oreo Churros!!", "FOOD", 15.00, expectedArrivalDate3 ,sean, 10, photos);
+            listing = new Listing("Japan", "Tokyo", "Oreo Churros", "Limited Edition Japanese Oreo Churros!!", "FOOD", 15.00, expectedArrivalDate3 ,em.find(User.class, 10l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/conversecdg.jpeg");
-            listing = new Listing("Japan", "Tokyo", "Converse x CDG Highcut", "Converse x CDG Highcut in Olive from Shibuya", "APPAREL", 200.00, expectedArrivalDate3 ,sean, 10, photos);
+            listing = new Listing("Japan", "Tokyo", "Converse x CDG Highcut", "Converse x CDG Highcut in Olive from Shibuya", "APPAREL", 200.00, expectedArrivalDate3 ,em.find(User.class, 7l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/fruittea.jpeg");
-            listing = new Listing("Japan", "Tokyo", "Nongfu Spring Fruit Tea", "Assorted Flavours Nongfu Spring Fruit Tea", "FOOD", 20.00, expectedArrivalDate ,sean, 5, photos);
+            listing = new Listing("Japan", "Tokyo", "Nongfu Spring Fruit Tea", "Assorted Flavours Nongfu Spring Fruit Tea", "FOOD", 20.00, expectedArrivalDate ,em.find(User.class, 8l), 5, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/kimchi.jpeg");
-            listing = new Listing("Korea", "Seoul", "Fresh Korean Kimchi", "Fresh Korean Kimchi 500g", "FOOD", 20.00, expectedArrivalDate ,sean, 10, photos);
+            listing = new Listing("Korea", "Seoul", "Fresh Korean Kimchi", "Fresh Korean Kimchi 500g", "FOOD", 20.00, expectedArrivalDate ,em.find(User.class, 6l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/kitkat.jpeg");
-            listing = new Listing("Japan", "Osaka", "Assorted KitKat", "Japan-only KitKat in many flavours!", "FOOD", 30.00, expectedArrivalDate2 ,sean, 12, photos);
+            listing = new Listing("Japan", "Osaka", "Assorted KitKat", "Japan-only KitKat in many flavours!", "FOOD", 30.00, expectedArrivalDate2 ,em.find(User.class, 9l), 12, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/koreanmask.jpeg");
-            listing = new Listing("Korea", "Seoul", "Korean Facial Masks", "Korean Facial Masks in packs of 5!", "GIFTS", 18.00, expectedArrivalDate ,sean, 15, photos);
+            listing = new Listing("Korea", "Seoul", "Korean Facial Masks", "Korean Facial Masks in packs of 5!", "GIFTS", 18.00, expectedArrivalDate ,em.find(User.class, 15l), 15, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/oreos.jpeg");
-            listing = new Listing("Korea", "Seoul", "Limited Edition Mint Oreos", "Limited Edition Mint Oreos! DO NOT MISS OUT!", "FOOD", 10.00, expectedArrivalDate ,sean, 15, photos);
+            listing = new Listing("Korea", "Seoul", "Limited Edition Mint Oreos", "Limited Edition Mint Oreos! DO NOT MISS OUT!", "FOOD", 10.00, expectedArrivalDate ,em.find(User.class, 14l), 15, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/oreos2.jpeg");
-            listing = new Listing("Korea", "Seoul", "Limited Edition Apple Cider Donut Oreos", "Limited Edition Apple Cider Donut Oreos! DO NOT MISS OUT!", "FOOD", 15.00, expectedArrivalDate ,sean, 10, photos);
+            listing = new Listing("Korea", "Seoul", "Limited Edition Apple Cider Donut Oreos", "Limited Edition Apple Cider Donut Oreos! DO NOT MISS OUT!", "FOOD", 15.00, expectedArrivalDate ,em.find(User.class, 13l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/pringles.jpg");
-            listing = new Listing("Korea", "Seoul", "Trio flavoured Japanese Pringles", "Cheese Burger, Butter Caramel and Sweet Mayo Japanese Pringles! ", "FOOD", 15.00, expectedArrivalDate2 ,sean, 10, photos);
+            listing = new Listing("Korea", "Seoul", "Trio flavoured Japanese Pringles", "Cheese Burger, Butter Caramel and Sweet Mayo Japanese Pringles! ", "FOOD", 15.00, expectedArrivalDate2 ,em.find(User.class, 12l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/reeses.jpeg");
-            listing = new Listing("USA", "California", "Halloween Glow in the Dark Reeses", "Halloween ONLY Glow in the Dark Reeses!!", "FOOD", 15.00, expectedArrivalDate2 ,sean, 10, photos);
+            listing = new Listing("USA", "California", "Halloween Glow in the Dark Reeses", "Halloween ONLY Glow in the Dark Reeses!!", "FOOD", 15.00, expectedArrivalDate2 ,em.find(User.class, 11l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/skittles.jpeg");
-            listing = new Listing("USA", "California", "Limited Edition Lime Squeeze Skittles", "Limited Edition Lime Squeeze Skittles!! Amazing if you enjoy sour candies like I do!!", "FOOD", 10.00, expectedArrivalDate2 ,sean, 10, photos);
+            listing = new Listing("USA", "California", "Limited Edition Lime Squeeze Skittles", "Limited Edition Lime Squeeze Skittles!! Amazing if you enjoy sour candies like I do!!", "FOOD", 10.00, expectedArrivalDate2 ,em.find(User.class, 10l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/soju.jpeg");
-            listing = new Listing("Korea", "Seoul", "Jinro Plum Soju", "Jinro Plum Soju! Way cheaper than Singapore!", "FOOD", 10.00, expectedArrivalDate2 ,sean, 10, photos);
+            listing = new Listing("Korea", "Seoul", "Jinro Plum Soju", "Jinro Plum Soju! Way cheaper than Singapore!", "FOOD", 10.00, expectedArrivalDate2 ,(User) em.find(User.class, 6l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/tokyobanana.jpeg");
-            listing = new Listing("Japan", "Tokyo", "Tokyo Banana", "Tokyo Banana! This favourite needs no introduction!", "FOOD", 20.00, expectedArrivalDate2 ,sean, 10, photos);
+            listing = new Listing("Japan", "Tokyo", "Tokyo Banana", "Tokyo Banana! This favourite needs no introduction!", "FOOD", 20.00, expectedArrivalDate2 ,(User) em.find(User.class, 7l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/twinkies.jpeg");
-            listing = new Listing("USA", "California", "Key Lime Twinkies", "Limited Edition Key Lime Twinkies!! This flavour is limited for a short amount of time only!!", "FOOD", 15.00, expectedArrivalDate2 ,sean, 9, photos);
+            listing = new Listing("USA", "California", "Key Lime Twinkies", "Limited Edition Key Lime Twinkies!! This flavour is limited for a short amount of time only!!", "FOOD", 15.00, expectedArrivalDate2 ,(User) em.find(User.class, 8l), 9, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/birkenstock.jpeg");
-            listing = new Listing("USA", "California", "Birkenstock Arizona", "Birkenstock Arizona in Sandy Grey. Available in US 6,7,8,9", "APPAREL", 150.00, expectedArrivalDate3 ,sean, 9, photos);
+            listing = new Listing("USA", "California", "Birkenstock Arizona", "Birkenstock Arizona in Sandy Grey. Available in US 6,7,8,9", "APPAREL", 150.00, expectedArrivalDate3 ,(User) em.find(User.class, 9l), 9, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             try {

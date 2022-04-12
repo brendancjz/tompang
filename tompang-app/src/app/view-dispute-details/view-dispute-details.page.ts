@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from '../services/session.service';
 import { DisputeService } from '../services/dispute.service';
 import { Dispute } from '../models/dispute';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-dispute-details',
@@ -16,14 +17,18 @@ export class ViewDisputeDetailsPage implements OnInit {
   hasLoaded: boolean;
 
   constructor(
+    private location: Location,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
     private disputeService: DisputeService
   ) {}
 
-  ngOnInit() {
-    console.log('View dispute details page');
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter ViewDisputeDetails');
+
     this.disputeId = this.activatedRoute.snapshot.paramMap.get('disputeId');
 
     if (this.disputeId !== null) {
@@ -31,12 +36,12 @@ export class ViewDisputeDetailsPage implements OnInit {
       this.disputeService.getDisputeById(parseInt(this.disputeId)).subscribe({
         next: (response) => {
           this.disputeToView = response;
-          console.log(this.disputeToView);
           this.hasLoaded = true;
-          console.log('Found Dispute To View');
+          console.log('DisputeToView', this.disputeToView);
         },
         error: (error) => {
           console.log('viewDispute.ts:' + error);
+          this.location.back();
         },
       });
     }

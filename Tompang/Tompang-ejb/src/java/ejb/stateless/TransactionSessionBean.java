@@ -54,6 +54,13 @@ public class TransactionSessionBean implements TransactionSessionBeanLocal {
             transaction.setBuyer(buyer);
             transaction.setListing(listing);
             
+            Integer quantity = listing.getQuantity() - transaction.getQuantity();
+            if(quantity == 0){
+                listing.setIsDisabled(true);
+                listing.setIsOpen(false);
+            } 
+            listing.setQuantity(quantity);
+            
         } catch(EntityNotFoundException ex){
             throw new CreateNewTransactionException();
         }

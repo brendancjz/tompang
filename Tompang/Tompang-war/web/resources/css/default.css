@@ -238,6 +238,7 @@ and open the template in the editor.
     width: 100%;
     overflow-x: auto;
     white-space: nowrap;
+    margin-bottom: 50px;
 }
 
 .viewDataTable {

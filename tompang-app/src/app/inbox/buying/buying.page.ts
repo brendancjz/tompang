@@ -21,9 +21,12 @@ export class BuyingPage implements OnInit {
   constructor(private location: Location,
     public sessionService: SessionService,
     private userService: UserService,
-    private conversationService: ConversationService) {
+    private conversationService: ConversationService) {}
 
-    //Creating a sample Conversation;
+  ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.conversationService.retrieveBuyerConversations().subscribe({
       next: (response) => {
         this.buyingConvos = response;
@@ -36,9 +39,5 @@ export class BuyingPage implements OnInit {
         this.buyingConvos = null;
       },
     });
-
-  }
-
-  ngOnInit() {
   }
 }

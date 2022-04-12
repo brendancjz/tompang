@@ -82,6 +82,24 @@
                     
                     <p:row>
                         <p:column>
+                            <h:outputLabel value="Transaction Accepted: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewTransactionDetailsManagedBean.transactionToView.isAccepted}" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Transaction Rejected: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewTransactionDetailsManagedBean.transactionToView.isRejected}" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
                             <h:outputLabel value="Dispute: " />
                         </p:column>
                         <p:column>

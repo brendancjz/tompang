@@ -20,9 +20,6 @@ export class ConversationItemPage implements OnInit {
 
   getUserProfilePic(convo: Conversation): string {
     //Profile pic should be the user of the latest message sent
-    console.log('getting user profile pics');
-    console.log(convo.createdBy.profilePic);
-    console.log(convo.seller.profilePic);
     if (this.sessionService.getCurrentUser().userId === convo.seller.userId) {
       return this.sessionService.getImageBaseUrl() + convo.createdBy.profilePic;
     } else {

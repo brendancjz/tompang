@@ -7,7 +7,7 @@ import { User } from '../models/user';
   providedIn: 'root',
 })
 export class SessionService {
-  ipAddressBren = IP_ADDRESS;
+  ipAddress = IP_ADDRESS;
 
   constructor() {}
 
@@ -33,6 +33,6 @@ export class SessionService {
 
   getImageBaseUrl() {
     //Change ip address
-    return 'http://' + this.ipAddressBren + ':8080/Tompang-war/';
+    return 'http://' + this.ipAddress + ':8080/Tompang-war';
   }
 }

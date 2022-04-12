@@ -27,6 +27,14 @@ export class EditProfilePage implements OnInit {
   ) {}
 
   ngOnInit() {
+    document.getElementById('back-button').addEventListener(
+      'click',
+      () => {
+        this.resetPage();
+      },
+      { once: true }
+    );
+
     const currentUser = this.sessionService.getCurrentUser();
 
     this.firstName = currentUser.firstName;
@@ -35,15 +43,9 @@ export class EditProfilePage implements OnInit {
     this.contactNumber = currentUser.contactNumber;
     const dobString = currentUser.dateOfBirth.toString().split('T')[0];
     this.dateOfBirth = dobString + 'T00:01:00-04:00';
-
-    document.getElementById('back-button').addEventListener(
-      'click',
-      () => {
-        this.resetPage();
-      },
-      { once: true }
-    );
   }
+
+  ionViewWillEnter() {}
 
   updateUser(): void {
     console.log('Updating user...');

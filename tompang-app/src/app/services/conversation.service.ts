@@ -49,14 +49,14 @@ export class ConversationService {
     return this.httpClient.get<Conversation[]>(this.baseUrl + '/retrieveSellerConversations?username=' + username + '&password=' + password).pipe(catchError(this.handleError));
   }
 
-  getBuyerConversationWithListing(userId: number, listingId: number): Conversation {
-    //Implement bridge
+  // getBuyerConversationWithListing(userId: number, listingId: number): Conversation {
+  //   //Implement bridge
 
-    const sampleConversation = new Conversation(10);
-    sampleConversation.createdBy = this.sessionService.getCurrentUser();
-    sampleConversation.listing = this.listingService.getSampleListing();
-    return sampleConversation;
-  }
+  //   const sampleConversation = new Conversation(10);
+  //   sampleConversation.createdBy = this.sessionService.getCurrentUser();
+  //   sampleConversation.listing = this.listingService.getSampleListing();
+  //   return sampleConversation;
+  // }
 
   getConversationById(convoId: number): Observable<Conversation> {
     //Implement bridge
