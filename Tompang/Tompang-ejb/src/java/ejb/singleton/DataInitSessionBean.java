@@ -91,6 +91,7 @@ public class DataInitSessionBean {
             User guojun = (User) em.find(User.class, 5L);
             Transaction transaction2 = new Transaction(Double.parseDouble("600"), jan, guojun, manager, listing3,1, guojun.getCreditCards().get(0));
             transaction2.setIsCompleted(true);
+            transaction2.setIsAccepted(true);
             transaction2.setHasDispute(true);
             em.persist(transaction2);
             em.flush();
@@ -122,6 +123,7 @@ public class DataInitSessionBean {
             
             Transaction transaction6 = new Transaction(Double.parseDouble("250"), createdOn,manager, iggy, (Listing) em.find(Listing.class, 10l), 1,manager.getCreditCards().get(0));
             transaction6.setIsCompleted(false);
+            transaction6.setIsAccepted(true);
             transaction6.setHasDispute(true);
             em.persist(transaction6);
             em.flush();
@@ -134,6 +136,7 @@ public class DataInitSessionBean {
             
             Transaction transaction7 = new Transaction(Double.parseDouble("100"), createdOn,manager, guojun, (Listing) em.find(Listing.class, 12l), 1,iggy.getCreditCards().get(0));
             transaction7.setIsCompleted(true);
+            transaction7.setIsAccepted(true);
             transaction7.setHasDispute(false);
             em.persist(transaction7);
             em.flush();
@@ -152,12 +155,14 @@ public class DataInitSessionBean {
             
             Transaction transaction10 = new Transaction(Double.parseDouble("600"), april,sean, manager, (Listing) em.find(Listing.class,3l),1, sean.getCreditCards().get(0));
             transaction10.setIsCompleted(true);
+            transaction10.setIsAccepted(true);
             transaction10.setHasDispute(false);
             em.persist(transaction10);
             em.flush();
             
             Transaction transaction11 = new Transaction(Double.parseDouble("15"), createdOn,manager, (User) em.find(User.class, 11l), (Listing) em.find(Listing.class,25l),1, manager.getCreditCards().get(0));
             transaction11.setIsCompleted(false);
+            transaction11.setIsAccepted(true);
             transaction11.setHasDispute(true);
             em.persist(transaction11);
             em.flush();
@@ -176,6 +181,7 @@ public class DataInitSessionBean {
             
             Transaction transaction13 = new Transaction(Double.parseDouble("250"), createdOn,sean, iggy, (Listing) em.find(Listing.class, 10l),1, sean.getCreditCards().get(0));
             transaction13.setIsCompleted(true);
+            transaction13.setIsAccepted(true);
             transaction13.setHasDispute(false);
             em.persist(transaction13);
             em.flush();

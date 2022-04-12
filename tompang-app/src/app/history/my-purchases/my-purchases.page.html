@@ -55,26 +55,25 @@
                       top: 22px;
                     "
                   >
-                    <span
-                      *ngIf="transaction.isAccepted === true && transaction.isCompleted === false"
-                      style="color: var(--ion-color-primary)"
-                      >ACCEPTED</span
-                    >
-                    <span
-                      *ngIf="transaction.isRejected === true && transaction.isCompleted === false"
-                      style="color: red"
-                      >REJECTED</span
-                    >
-                    <span
-                      *ngIf="transaction.hasDispute === true"
-                      style="color: red"
-                      >IN DISPUTE</span
-                    >
-                    <span
-                      *ngIf="transaction.isCompleted === true"
-                      style="color: var(--ion-color-primary)"
-                      >COMPLETED</span
-                    >
+                   
+                   
+                  <ion-chip *ngIf="transaction.isAccepted === true && transaction.isCompleted === false" outline color="primary">
+                    <ion-label>ONGOING</ion-label>
+                  </ion-chip>
+
+                  <ion-chip *ngIf="transaction.isAccepted === false && transaction.isRejected === false && transaction.isCompleted === false" outline color="warning">
+                    <ion-label>OFFERED</ion-label>
+                  </ion-chip>
+                  
+                  <ion-chip *ngIf="transaction.isRejected === true && transaction.isCompleted === false" outline color="danger">
+                    <ion-label>REJECTED</ion-label>
+                  </ion-chip>
+
+                  <ion-chip *ngIf="transaction.isCompleted === true" outline color="success">
+                    <ion-label>COMPLETED</ion-label>
+                  </ion-chip>
+
+                   
                   </div>
                 </ion-text>
               </ion-item-group>
