@@ -1,21 +1,89 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>confirm-transaction</ion-title>
-  </ion-toolbar>
-</ion-header>
-
+<app-header></app-header>
 <ion-content>
-  <h2>Confirm your transaction for the following listing.</h2>
+  <div *ngIf="hasLoaded === true">
+    <ion-title class="page-name grey-color"> My Purchases </ion-title>
+    <hr class="horizontal-rule" />
+    <ion-title class="sub-page-name grey-color">
+      Confirm Transaction
+    </ion-title>
+    <hr class="horizontal-rule" />
 
-  <ion-label style="font-size: 18px" class="grey-color">
-    {{transactionListingTitle}}
-  </ion-label>
+    <div style="margin-left: 16px">
+      <ion-card style="width: 345px">
+        <ion-card-header> Transaction Details </ion-card-header>
 
-  <ion-label style="font-size: 18px" class="grey-color">
-    {{transactionListingQuantity}}
-  </ion-label>
+        <ion-card-content>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            "
+          >
+            <ion-label class="grey-color">Total Amount</ion-label>
+            <ion-text>{{transactionToView.amount}}</ion-text>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            "
+          >
+            <ion-label class="grey-color">Quantity bought</ion-label>
+            <ion-text>{{transactionToView.quantity}}</ion-text>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <div style="margin-left: 16px">
+      <ion-card style="width: 345px">
+        <ion-card-header> Listing Details </ion-card-header>
 
-  <ion-button color="success" (click)="confirmTransaction()" expand="block">
-    Confirm Transaction
-  </ion-button>
+        <ion-card-content>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            "
+          >
+            <ion-label class="grey-color">Title</ion-label>
+            <ion-text>{{transactionToView.listing.title}}</ion-text>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            "
+          >
+            <ion-label class="grey-color">Seller</ion-label>
+            <ion-text>{{seller}}</ion-text>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            "
+          >
+            <ion-label class="grey-color">Buyer</ion-label>
+            <ion-text>{{buyer}}</ion-text>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+  <div class="input-button-div" *ngIf="!confirmSuccess">
+    <ion-button color="success" style="text-transform: capitalize;" (click)="confirmTransaction()">
+      Confirm Transaction
+    </ion-button>
+  </div>
+  <div *ngIf="confirmSuccess" style="text-align: center;margin-top: 10px;">
+    <ion-label class="grey-color" style="text-align: center">
+      Successfully updated the listing.
+    </ion-label>
+  </div>
 </ion-content>
+<app-footer></app-footer>

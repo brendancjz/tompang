@@ -197,7 +197,7 @@
       </div>
       <div style="display: flex; justify-content: center">
         <ion-button
-          *ngIf="isSeller"
+          *ngIf="isSeller && !transactionToView.isCompleted"
           color="danger"
           (click)="generateQRCode()"
           expand="block"
@@ -206,7 +206,7 @@
           Show QR Code
         </ion-button>
         <ion-button
-          *ngIf="!isSeller"
+          *ngIf="!isSeller && !transactionToView.isCompleted"
           color="success"
           (click)="scanQRCode()"
           expand="block"
@@ -216,6 +216,9 @@
         </ion-button>
       </div>
     </div>
+  </div>
+  <div style="height:50px;">
+
   </div>
 </ion-content>
 <app-footer></app-footer>
