@@ -62,7 +62,7 @@
 
         <ion-card-content>
           <ion-card-title style="font-size: 16px"> Status </ion-card-title>
-         
+
           <ion-chip *ngIf="transactionToView.isAccepted" color="success">
             <ion-label>Accepted</ion-label>
           </ion-chip>
@@ -192,7 +192,7 @@
       </div>
       <div style="display: flex; justify-content: center">
         <ion-button
-          *ngIf="isSeller"
+          *ngIf="isSeller && !transactionToView.isCompleted"
           color="danger"
           (click)="generateQRCode()"
           expand="block"
@@ -201,7 +201,7 @@
           Show QR Code
         </ion-button>
         <ion-button
-          *ngIf="!isSeller"
+          *ngIf="!isSeller && !transactionToView.isCompleted"
           color="success"
           (click)="scanQRCode()"
           expand="block"
@@ -211,6 +211,9 @@
         </ion-button>
       </div>
     </div>
+  </div>
+  <div style="height:50px;">
+
   </div>
 </ion-content>
 <app-footer></app-footer>
