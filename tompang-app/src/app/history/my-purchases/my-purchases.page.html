@@ -10,6 +10,9 @@
   <hr class="horizontal-rule" />
   <div>
     <div>
+      <ion-item *ngIf="transactions.length == 0"> 
+        You have no Transactions!
+      </ion-item>
       <ion-list *ngFor="let transaction of transactions">
           <ion-item class="grey-color">
             <div class="transaction-block">

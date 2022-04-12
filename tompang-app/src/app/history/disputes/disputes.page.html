@@ -6,6 +6,9 @@
   </div>
   <hr class="horizontal-rule" />
   <div>
+    <ion-item *ngIf="disputes.length == 0"> 
+      You have no Disputes!
+    </ion-item>
     <ion-list *ngFor="let dispute of disputes">
       <ion-item class="grey-color">
         <div class="transaction-block">
