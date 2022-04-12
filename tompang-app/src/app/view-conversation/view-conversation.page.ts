@@ -9,6 +9,7 @@ import { SessionService } from '../services/session.service';
 import { UserService } from '../services/user.service';
 import { FileUploadService } from '../services/fileUpload.service';
 import { Location } from '@angular/common';
+import { interval, TimeInterval } from 'rxjs';
 
 @Component({
   selector: 'app-view-conversation',
@@ -35,6 +36,7 @@ export class ViewConversationPage implements OnInit {
   resultSuccess: boolean;
   resultError: boolean;
   message: string;
+  interval: any;
 
   constructor(private location: Location, private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -44,10 +46,24 @@ export class ViewConversationPage implements OnInit {
     private conversationService: ConversationService,
     private fileUploadService: FileUploadService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter ViewConversation');
+    this.refreshData();
+    this.interval = setInterval(() => {
+      this.refreshData();
+    }, 1000);
+  }
+
+  ionViewWillLeave() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+  }
+
+  refreshData() {
+    console.log('data is refreshed');
     this.convoId = this.activatedRoute.snapshot.paramMap.get('convoId');
     this.currentUser = this.sessionService.getCurrentUser();
 
