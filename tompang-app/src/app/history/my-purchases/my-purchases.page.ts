@@ -35,7 +35,8 @@ export class MyPurchasesPage implements OnInit {
 
   ionViewWillEnter() {
     console.log('IonViewWillEnter MyPurchases');
-
+    this.totalAmountEarned = 0;
+    this.totalAmountSpent = 0;
     this.userId = this.sessionService.getCurrentUser().userId;
 
     this.transactionService.getUserTransactions().subscribe({
