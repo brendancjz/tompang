@@ -46,9 +46,11 @@ export class MyPurchasesPage implements OnInit {
         for (let i = 0; i < this.transactions.length; i++) {
           const transaction = this.transactions[i];
           if (transaction.buyer.userId === this.userId && transaction.isCompleted) {
+            console.log('Bought', transaction);
             this.totalAmountSpent += transaction.amount;
           } else if (transaction.buyer.userId !== this.userId && transaction.isCompleted) {
-            this.totalAmountEarned += transaction.amount * 0.97;
+            console.log('Sold', transaction);
+            this.totalAmountEarned += transaction.listing.price * 0.97;
           }
         }
       },
