@@ -134,7 +134,6 @@ public class TransactionResource {
         if (createTransactionReq != null) {
             try {
                 User user = userSessionBean.userLogin(createTransactionReq.getUsername(), createTransactionReq.getPassword());
-                System.out.println("FUCK UUUU" + createTransactionReq.getListingId());
                 Long transactionId = transactionSessionBean.createNewTransaction(user.getUserId(), createTransactionReq.getListingId(), createTransactionReq.getTransaction());
 
                 return Response.status(Response.Status.OK).entity(transactionId).build();

@@ -64,6 +64,14 @@
         </ion-label>
       </div>
       <div class="details-info">
+        <ion-label style="font-size: 18px" class="grey-color">
+          Quantity: {{listingToView.quantity}}
+        </ion-label>
+        <ion-label *ngIf="listingToView.quantity == 1"  style="font-size: 18px" class="red-color">
+          Hurry! Only one left!
+        </ion-label>
+      </div>
+      <div class="details-info">
         <ion-icon style="margin-right: 5px" name="time-outline"></ion-icon>
         <ion-label style="font-size: 14px" class="grey-color">
           {{listingToView.createdOn.toString().split('T')[0]}}
@@ -123,6 +131,7 @@
           >Chat</ion-button
         >
         <ion-button
+          *ngIf="listingToView.quantity != 0"
           style="text-transform: initial; font-size: 16px; width: 110px"
           color="tertiary"
           (click)="makeTransaction()"

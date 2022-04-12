@@ -27,16 +27,19 @@ export class CreateTransactionPage implements OnInit {
 
   currentUser: User | null;
   transaction: Transaction;
-
+  
   buyerCreditCard: CreditCard;
   transactionSuccessful: boolean;
+  result: number = 0;
   resultError: boolean;
   message: string;
   resultSuccess: boolean;
 
-  result: number;
+  
 
   hasUserAlreadyBoughtThis: boolean;
+
+  quantities: number[]
 
 
   constructor(private router: Router,
@@ -47,22 +50,26 @@ export class CreateTransactionPage implements OnInit {
     private transactionService: TransactionService) { }
 
   ngOnInit() {
-    this.result = 0;
+    
     this.listingId = this.activatedRoute.snapshot.paramMap.get('listingId');
     this.currentUser = this.sessionService.getCurrentUser();
     this.transaction = new Transaction();
     this.hasUserAlreadyBoughtThis = false;
+    this.quantities = [];
 
     // eslint-disable-next-line radix
     this.listingService.getListingByListingId(parseInt(this.listingId)).subscribe({
       next: (response) => {
         this.listingToView = response;
         this.eta = this.listingToView.expectedArrivalDate.toString().split('T')[0];
-        this.hasLoaded = true;
+        
 
-        //Check if user has alr bought this.
-        //TODO
-        //this.hasUserAlreadyBoughtThis = true / false
+        for(let i = 1; i <= this.listingToView.quantity; i ++){
+          this.quantities.push(i);
+        }
+        
+
+        this.hasLoaded = true;
       },
       error: (error) => {
         this.retrieveListingError = true;
@@ -107,7 +114,7 @@ export class CreateTransactionPage implements OnInit {
         newMessage.sentBy = this.sessionService.getCurrentUser().userId;
         console.log(newMessage);
         // need to check whether a convo has been created before sending it into the convo
-        console.log(this.transactionSuccessful);
+        
         if (this.buyerCreditCard !== undefined) {
           this.transactionSuccessful = true;
         } else {
@@ -274,9 +281,15 @@ export class CreateTransactionPage implements OnInit {
 
       //create transaction error
       error: (error) => {
+        if(this.transaction.creditCard == undefined && this.transaction.quantity == undefined){
+          this.result= 4;
+        } else if(this.transaction.creditCard == undefined) {
+          this.result = 2;
+        } else {
+          this.result = 3;
+        }
         this.resultError = true;
         this.transactionSuccessful = false;
-        this.result = 2;
         this.message = 'Invalid Creation: Unexpected error occured. Try again later.';
         console.log('********** CreateNewTransactionPage: ' + error);
       }

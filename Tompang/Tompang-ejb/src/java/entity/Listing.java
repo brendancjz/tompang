@@ -71,7 +71,7 @@ public class Listing implements Serializable {
     private Integer numOfLikes;
     @Column(nullable = false)
     @NotNull
-    @Positive
+    @PositiveOrZero
     private Integer quantity;
     @Column(nullable = false)
     @NotNull

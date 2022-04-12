@@ -69,7 +69,7 @@ public class ListingResource {
             User user = userSessionBean.userLogin(username, password);
             System.out.println("********** ListingResource.retrieveAllProducts(): User " + user.getUsername() + " login remotely via web service");
 
-            List<Listing> listings = listingSessionBean.retrieveAllListings();
+            List<Listing> listings = listingSessionBean.retrieveAllAvailableListings();
 
             for (Listing listing : listings) {
 

@@ -58,6 +58,9 @@ public class Transaction implements Serializable {
     private Listing listing;
     @OneToOne
     private Dispute dispute;
+    @Column(nullable = false)
+    @NotNull
+    private Integer quantity;
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false)
     private CreditCard creditCard;
@@ -76,13 +79,14 @@ public class Transaction implements Serializable {
         this.isRejected = false;
     }
 
-    public Transaction(Double amount, Date createdOn, User buyer, User seller, Listing listing, CreditCard buyerCard) {
+    public Transaction(Double amount, Date createdOn, User buyer, User seller, Listing listing, Integer quantity, CreditCard buyerCard) {
         this();
         this.amount = amount;
         this.createdOn = createdOn;
         this.buyer = buyer;
         this.seller = seller;
         this.listing = listing;
+        this.quantity = quantity;
         this.creditCard = buyerCard;
         Calendar cal = Calendar.getInstance();
         cal.setTime(createdOn);
@@ -243,5 +247,19 @@ public class Transaction implements Serializable {
      */
     public void setMonth(Integer month) {
         this.month = month;
+    }
+
+    /**
+     * @return the quantity
+     */
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    /**
+     * @param quantity the quantity to set
+     */
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }
