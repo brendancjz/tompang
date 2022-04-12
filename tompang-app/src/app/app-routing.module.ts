@@ -171,10 +171,16 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'view-users-like-listing/:listingId',
+    loadChildren: () => import('./view-users-like-listing/view-users-like-listing.module').then( m => m.ViewUsersLikeListingPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'index',
     pathMatch: 'full',
   },
+
+
 ];
 
 @NgModule({

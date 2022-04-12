@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../models/user';
@@ -16,7 +17,7 @@ export class ViewFollowingPage implements OnInit {
 
   searchTerm: string;
 
-  constructor(private router: Router,
+  constructor(private location: Location, private router: Router,
       private activatedRoute: ActivatedRoute,
       private userService: UserService) { }
 
@@ -38,6 +39,7 @@ export class ViewFollowingPage implements OnInit {
       },
       error: (error) => {
         console.log('********** View User Profile.ts: ' + error);
+        this.location.back();
       },
     });
   }

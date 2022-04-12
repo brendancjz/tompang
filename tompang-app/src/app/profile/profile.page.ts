@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Listing } from '../models/listing';
@@ -29,7 +30,7 @@ export class ProfilePage implements OnInit {
   hasLoaded: boolean | undefined;
   showFollowButton: boolean | undefined;
 
-  constructor(
+  constructor(private location: Location,
     private router: Router,
     public sessionService: SessionService,
     public listingService: ListingService,
@@ -81,6 +82,7 @@ export class ProfilePage implements OnInit {
       },
       error: (error) => {
         console.log('********** View User Profile.ts: ' + error);
+        this.location.back();
       },
     });
   }

@@ -76,12 +76,11 @@ export class CreateListingPage implements OnInit {
           console.log(fileName);
 
           console.log(
-            '********** FileUploadComponent.ts: File uploaded successfully: ' +
-              response.status
+            '********** FileUploadComponent.ts: File uploaded successfully'
           );
 
           //Updating User Listing Images
-          this.listingImages.push('/uploadedFiles' + fileName);
+          this.listingImages.push('/uploadedFiles/' + fileName);
           this.imageSuccess = true;
           this.imageSuccessMsg = 'Added Image ' + fileName;
           this.resetFileInput();

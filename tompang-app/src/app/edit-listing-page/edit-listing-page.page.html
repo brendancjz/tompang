@@ -10,14 +10,17 @@
         >
           <ion-slide
             *ngFor="let photo of listingToView.photos"
-            style="width: 450px; height: 450px"
           >
             <ion-col class="ion-text-left">
               <ion-card>
-                <ion-card-content>
-                  <img src="{{getPhotoUrl(photo)}}" />
-                  <ion-button color="tertiary" style="text-transform: capitalize;" (click)="removeImage(photo)">Remove</ion-button>
-                </ion-card-content>
+                <ion-card-content style="display: flex;flex-direction: column;">
+                  <div>
+                    <img src="{{getPhotoUrl(photo)}}" style="max-height: 350px;" />
+                  </div>
+                  <div>
+                    <ion-button color="tertiary" style="text-transform: capitalize;" (click)="removeImage(photo)">Remove</ion-button>
+                  </div>
+                   </ion-card-content>
               </ion-card>
             </ion-col>
           </ion-slide>

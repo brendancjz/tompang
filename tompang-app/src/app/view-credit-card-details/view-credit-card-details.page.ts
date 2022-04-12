@@ -6,6 +6,7 @@ import { CreditCardService } from '../services/creditCard.service';
 import { SessionService } from '../services/session.service';
 import { AlertController } from '@ionic/angular';
 import { UserService } from '../services/user.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-credit-card-details',
@@ -27,7 +28,7 @@ export class ViewCreditCardDetailsPage implements OnInit {
   errorMessage: string;
 
 
-  constructor(private router: Router,
+  constructor(private location: Location, private router: Router,
     private activatedRoute: ActivatedRoute,
     private sessionService: SessionService,
     private creditCardService: CreditCardService,
@@ -57,6 +58,7 @@ export class ViewCreditCardDetailsPage implements OnInit {
         error: (error) => {
           this.error = true;
           console.log('********** View Credit Card Details.ts: ' + error);
+          this.location.back();
         },
       });
 

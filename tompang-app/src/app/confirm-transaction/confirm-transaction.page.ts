@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Listing } from '../models/listing';
@@ -19,6 +20,7 @@ export class ConfirmTransactionPage implements OnInit {
   transactionId: number | undefined;
 
   constructor(
+    private location: Location,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
     private transactionService: TransactionService
@@ -47,6 +49,7 @@ export class ConfirmTransactionPage implements OnInit {
       },
       error: (error) => {
         console.log('viewTransaction.ts:' + error);
+        this.location.back();
       },
     });
   }

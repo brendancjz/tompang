@@ -8,6 +8,7 @@ import { ListingService } from '../services/listing.service';
 import { SessionService } from '../services/session.service';
 import { UserService } from '../services/user.service';
 import { FileUploadService } from '../services/fileUpload.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-conversation',
@@ -35,7 +36,7 @@ export class ViewConversationPage implements OnInit {
   resultError: boolean;
   message: string;
 
-  constructor(private router: Router,
+  constructor(private location: Location, private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
     private listingService: ListingService,
@@ -60,6 +61,7 @@ export class ViewConversationPage implements OnInit {
         },
         error: (error) => {
           console.log('view-conversation.page.ts:' + error);
+          this.location.back();
         },
       });
     }

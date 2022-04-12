@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from '../services/session.service';
 import { DisputeService } from '../services/dispute.service';
 import { Dispute } from '../models/dispute';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-dispute-details',
@@ -16,6 +17,7 @@ export class ViewDisputeDetailsPage implements OnInit {
   hasLoaded: boolean;
 
   constructor(
+    private location: Location,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
@@ -39,6 +41,7 @@ export class ViewDisputeDetailsPage implements OnInit {
         },
         error: (error) => {
           console.log('viewDispute.ts:' + error);
+          this.location.back();
         },
       });
     }

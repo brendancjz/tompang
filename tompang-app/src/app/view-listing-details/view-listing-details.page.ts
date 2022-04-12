@@ -8,6 +8,7 @@ import { ListingService } from '../services/listing.service';
 import { SessionService } from '../services/session.service';
 import { UserService } from '../services/user.service';
 import { AlertController } from '@ionic/angular';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-listing-details',
@@ -33,6 +34,7 @@ export class ViewListingDetailsPage implements OnInit {
   confirmConfirmDeleted: boolean;
 
   constructor(
+    private location: Location,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
@@ -61,9 +63,14 @@ export class ViewListingDetailsPage implements OnInit {
           error: (error) => {
             this.retrieveListingError = true;
             console.log('********** View Listing Details Page.ts: ' + error);
+            this.location.back();
           },
         });
     }
+  }
+
+  viewUserWhoLikesListing() {
+    this.router.navigate(['/view-users-like-listing/' + this.listingId]);
   }
 
   getPhotoUrl(photo: string) {

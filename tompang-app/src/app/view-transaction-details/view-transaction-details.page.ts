@@ -10,6 +10,7 @@ import {
   BarcodeScanner,
   BarcodeScannerOptions,
 } from '@ionic-native/barcode-scanner/ngx';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-transaction-details',
@@ -38,6 +39,7 @@ export class ViewTransactionDetailsPage implements OnInit {
   QRScannerOptions: BarcodeScannerOptions;
 
   constructor(
+    private location: Location,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
@@ -75,6 +77,7 @@ export class ViewTransactionDetailsPage implements OnInit {
       },
       error: (error) => {
         console.log('viewTransaction.ts:' + error);
+        this.location.back();
       },
     });
 
