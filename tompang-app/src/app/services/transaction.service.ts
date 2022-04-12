@@ -74,10 +74,8 @@ export class TransactionService {
     const currentUser = this.sessionService.getCurrentUser();
     const username = currentUser.username;
     const password = currentUser.password;
-   
     console.log(listingId);
-   
-    let createTransactionReq: CreateTransactionReq = new CreateTransactionReq(
+    const createTransactionReq: CreateTransactionReq = new CreateTransactionReq(
       username,
       password,
       listingId,
@@ -94,7 +92,9 @@ export class TransactionService {
     const username = currentUser.username;
     const password = currentUser.password;
 
-    let updateTransactionReq: UpdateTransactionReq = new UpdateTransactionReq(
+    console.log(username);
+
+    const updateTransactionReq: UpdateTransactionReq = new UpdateTransactionReq(
       username,
       password,
       transactionId
@@ -110,7 +110,7 @@ export class TransactionService {
     const username = currentUser.username;
     const password = currentUser.password;
 
-    let updateTransactionReq: UpdateTransactionReq = new UpdateTransactionReq(
+    const updateTransactionReq: UpdateTransactionReq = new UpdateTransactionReq(
       username,
       password,
       transactionId
@@ -126,7 +126,7 @@ export class TransactionService {
     const username = currentUser.username;
     const password = currentUser.password;
 
-    let updateTransactionReq: UpdateTransactionReq = new UpdateTransactionReq(
+    const updateTransactionReq: UpdateTransactionReq = new UpdateTransactionReq(
       username,
       password,
       transactionId

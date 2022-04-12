@@ -123,8 +123,9 @@ export class ViewTransactionDetailsPage implements OnInit {
     this.scanner
       .scan()
       .then((res) => {
-        //this.router.navigate([this.scannedQRCode]);
-        this.router.navigate(['/confirm-transaction/' + res]);
+
+        console.log('confirm-transaction/' + res.text);
+        this.router.navigate(['/confirm-transaction/' + res.text]);
       })
       .catch((err) => {
         console.log(err);

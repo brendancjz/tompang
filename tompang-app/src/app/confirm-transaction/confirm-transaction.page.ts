@@ -19,6 +19,13 @@ export class ConfirmTransactionPage implements OnInit {
   currentUser: User | undefined;
   transactionId: number | undefined;
 
+  hasLoaded: boolean;
+
+  buyer: string | undefined;
+  seller: string | undefined;
+
+  confirmSuccess: boolean;
+
   constructor(
     private location: Location,
     private activatedRoute: ActivatedRoute,
@@ -27,7 +34,8 @@ export class ConfirmTransactionPage implements OnInit {
   ) {}
 
   ngOnInit() {
-
+    this.hasLoaded = false;
+    this.confirmSuccess = false;
   }
 
   ionViewWillEnter() {
@@ -42,10 +50,11 @@ export class ConfirmTransactionPage implements OnInit {
     this.transactionService.getTransactionById(this.transactionId).subscribe({
       next: (response) => {
         this.transactionToView = response;
-        console.log(this.transactionToView);
+        console.log('TransactToView', this.transactionToView);
+        this.hasLoaded = true;
 
-        this.transactionListingTitle = response.listing.title;
-        this.transactionListingQuantity = response.listing.quantity;
+        this.buyer = response.buyer.username;
+        this.seller = response.seller.username;
       },
       error: (error) => {
         console.log('viewTransaction.ts:' + error);
@@ -57,7 +66,7 @@ export class ConfirmTransactionPage implements OnInit {
   confirmTransaction() {
     this.transactionService.completeTransaction(this.transactionId).subscribe({
       next: (response) => {
-
+        this.confirmSuccess = true;
       }, error: (error) => {
         console.log('completeTransaction.ts:' + error);
       },

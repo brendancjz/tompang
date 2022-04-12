@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { ConfirmTransactionPageRoutingModule } from './confirm-transaction-routing.module';
 
 import { ConfirmTransactionPage } from './confirm-transaction.page';
+import { HeaderPageModule } from '../header/header.module';
+import { FooterPageModule } from '../footer/footer.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ConfirmTransactionPageRoutingModule
+    ConfirmTransactionPageRoutingModule,
+    HeaderPageModule,
+    FooterPageModule
   ],
   declarations: [ConfirmTransactionPage]
 })
