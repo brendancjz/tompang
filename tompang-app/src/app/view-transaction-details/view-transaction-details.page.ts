@@ -123,8 +123,8 @@ export class ViewTransactionDetailsPage implements OnInit {
     this.scanner
       .scan()
       .then((res) => {
-        this.scannedQRCode = res;
-        this.router.navigate([this.scannedQRCode]);
+        //this.router.navigate([this.scannedQRCode]);
+        this.router.navigate(['/confirm-transaction/' + res]);
       })
       .catch((err) => {
         console.log(err);
@@ -132,27 +132,23 @@ export class ViewTransactionDetailsPage implements OnInit {
   }
 
   generateQRCode() {
-    this.scanner
-      .encode(
-        this.scanner.Encode.TEXT_TYPE,
-        this.sessionService.ipAddress + ':8100/confirm-transaction/' + this.transactionId
-      )
-      .then(
-        (res) => {
-          console.log('generated QR: ' + res);
-          // this.router.navigate(['/view-listing-details/' + .listingId]);
-          this.encodedData = res;
+    this.scanner.encode(this.scanner.Encode.TEXT_TYPE, this.transactionId).then(
+      (res) => {
+        console.log('generated QR: ' + res);
+        this.router.navigate(['/view-conversation/' + 1]);
+        // this.router.navigate(['/view-listing-details/' + .listingId]);
+        this.encodedData = res;
 
-          this.transactionService
-            .completeTransaction(this.transactionId)
-            .subscribe({
-              next: (response) => {},
-            });
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+        this.transactionService
+          .completeTransaction(this.transactionId)
+          .subscribe({
+            next: (response) => {},
+          });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   doValidation() {
