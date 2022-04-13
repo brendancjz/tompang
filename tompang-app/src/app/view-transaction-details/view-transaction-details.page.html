@@ -15,7 +15,7 @@
     </ion-title>
     <hr class="horizontal-rule" />
 
-    <div style="margin-left: 16px">
+    <div style="margin-left: 16px" *ngIf="!isSeller">
       <ion-card style="width: 345px">
         <ion-card-header> Payment Details </ion-card-header>
 
@@ -56,6 +56,51 @@
           >
             <ion-label style="color: black">Total Paid</ion-label>
             <ion-text>S${{transactionToView.amount}}</ion-text>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <div style="margin-left: 16px" *ngIf="isSeller">
+      <ion-card style="width: 345px">
+        <ion-card-header> Earning Details </ion-card-header>
+
+        <ion-card-content>
+          <ion-card-title style="font-size: 16px"> Earning </ion-card-title>
+
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            "
+          >
+            <ion-label class="grey-color">Listing Cost</ion-label>
+            <ion-text
+              >S${{(transactionToView.amount).toFixed(2)}}</ion-text
+            >
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            "
+          >
+            <ion-label class="grey-color">Platform Fee</ion-label>
+            <ion-text
+              >${{(transactionToView.amount * 0.03).toFixed(2)}}</ion-text
+            >
+          </div>
+          <hr class="horizontal-rule" />
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            "
+          >
+            <ion-label style="color: black">Total Earned</ion-label>
+            <ion-text>S${{(transactionToView.amount * 0.97).toFixed(2)}}</ion-text>
           </div>
         </ion-card-content>
       </ion-card>
