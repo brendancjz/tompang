@@ -15,6 +15,7 @@ import entity.Listing;
 import entity.Message;
 import entity.Transaction;
 import entity.User;
+import enumeration.CategoryEnum;
 import exception.CreateNewCreditCardException;
 import exception.CreateNewListingException;
 import exception.CreateNewUserException;
@@ -454,7 +455,7 @@ public class DataInitSessionBean {
             User manager = (User) em.find(User.class, 1L);
             List<String> photos1 = new ArrayList<>();
             photos1.add("/uploadedFiles/japanese_biscuits.jpeg");
-            Listing listing = new Listing("Japan", "Osaka", "Japan Biscuit", "Lovely japanese biscuits!", "FOOD", 35.00, expectedArrivalDate, manager, 5, photos1);
+            Listing listing = new Listing("Japan", "Osaka", "Japan Biscuit", "Lovely japanese biscuits!", CategoryEnum.FOOD, 35.00, expectedArrivalDate, manager, 5, photos1);
             this.listingSessionBean.createNewListing(listing, 1L);
 
             List<String> photosKeyboard = new ArrayList<>();
@@ -463,7 +464,7 @@ public class DataInitSessionBean {
             photosKeyboard.add("/uploadedFiles/keyboard_3.jpg");
             listing = new Listing("USA", "Washington", "Mechanical Keyboard Pokemon Style", "Work on a minimalist keyboard that places every key, command, and shortcut at your fingertips.\n"
                     + "The minimalist form factor aligns your shoulders and allows you to place your mouse closer to your keyboard for less hand reaching.",
-                    "ELECTRONICS", 65.00, expectedArrivalDate2, manager, 3, photosKeyboard);
+                    CategoryEnum.ELECTRONICS, 65.00, expectedArrivalDate2, manager, 3, photosKeyboard);
             this.listingSessionBean.createNewListing(listing, 1L);
 
             List<String> photosHeadphone = new ArrayList<>();
@@ -473,14 +474,14 @@ public class DataInitSessionBean {
             photosHeadphone.add("/uploadedFiles/headphone_4.jpg");
 
             listing = new Listing("USA", "Michigan", "Noise Cancelling Wireless Bluetooth Headphones", "I'm heading over to Michigan for business. Office is near the official Bose store. Reach out if you would like to buy a pair!",
-                    "ELECTRONICS", 600.00, expectedArrivalDate3, manager, 2, photosHeadphone);
+                    CategoryEnum.ELECTRONICS, 600.00, expectedArrivalDate3, manager, 2, photosHeadphone);
             this.listingSessionBean.createNewListing(listing, 1L);
 
             List<String> photosChampionTee = new ArrayList<>();
             photosChampionTee.add("/uploadedFiles/champion_tee_1.jpg");
             photosChampionTee.add("/uploadedFiles/champion_tee_2.jpg");
             listing = new Listing("Korea", "Tokyo", "Soft Champion T-Shirt", "I'm heading over to Michigan for business. Office is near the official Champion store. Reach out if you would like to buy a piece or two!",
-                    "APPAREL", 45.00, expectedArrivalDate5, manager, 5, photosChampionTee);
+                    CategoryEnum.APPAREL, 45.00, expectedArrivalDate5, manager, 5, photosChampionTee);
             this.listingSessionBean.createNewListing(listing, 1L);
 
             List<String> photosChampionShorts = new ArrayList<>();
@@ -488,13 +489,13 @@ public class DataInitSessionBean {
             photosChampionShorts.add("/uploadedFiles/champion_shorts_2.jpg");
             photosChampionShorts.add("/uploadedFiles/champion_shorts_3.jpg");
             listing = new Listing("Korea", "Tokyo", "Soft Champion Shorts", "I'm heading over to Michigan for business. Office is near the official Champion store. Reach out if you would like to buy a pair or two!",
-                    "APPAREL", 35.00, expectedArrivalDate5, manager, 4, photosChampionShorts);
+                    CategoryEnum.APPAREL, 35.00, expectedArrivalDate5, manager, 4, photosChampionShorts);
             this.listingSessionBean.createNewListing(listing, 1L);
 
             User admin = (User) em.find(User.class, 2L);
             List<String> photos2 = new ArrayList<>();
             photos2.add("/uploadedFiles/tteokbokki.jpg");
-            listing = new Listing("Korea", "Seoul", "Tteokbokki", "Authentic spicy rice cakes!", "FOOD", 15.00, expectedArrivalDate, admin, 5, photos2);
+            listing = new Listing("Korea", "Seoul", "Tteokbokki", "Authentic spicy rice cakes!", CategoryEnum.FOOD, 15.00, expectedArrivalDate, admin, 5, photos2);
             this.listingSessionBean.createNewListing(listing, 2L);
 
             List<String> photosShoes = new ArrayList<>();
@@ -503,129 +504,129 @@ public class DataInitSessionBean {
             photosShoes.add("/uploadedFiles/adidas_shoes_3.jpg");
             listing = new Listing("Malaysia", "George Town", "Adidas Alphatorsion 2.0 - Women Running Shoes", "VERSATILE RUNNING SHOES THAT SUPPORT ALL YOUR WORKOUT GOALS.\n"
                     + " Diversify your training and get a leg up on the competition. Box jumps, bear crawls, burpees? Take it all in stride and push towards excellence in these adidas running shoes.",
-                    "FOOTWEAR", 150.00, expectedArrivalDate2, admin, 2, photosShoes);
+                    CategoryEnum.FOOTWEAR, 150.00, expectedArrivalDate2, admin, 2, photosShoes);
             this.listingSessionBean.createNewListing(listing, 2L);
 
             User iggy = (User) em.find(User.class, 3L);
             List<String> photos3 = new ArrayList<>();
             photos3.add("/uploadedFiles/gummy.jpg");
-            listing = new Listing("Japan", "Chiba", "Gummy Candy", "Gluten Tag!", "FOOD", 7.00, expectedArrivalDate3, iggy, 10, photos3);
+            listing = new Listing("Japan", "Chiba", "Gummy Candy", "Gluten Tag!", CategoryEnum.FOOD, 7.00, expectedArrivalDate3, iggy, 10, photos3);
             this.listingSessionBean.createNewListing(listing, 3L);
 
             List<String> photosSunblock = new ArrayList<>();
             photosSunblock.add("/uploadedFiles/sunblock_1.jpg");
             photosSunblock.add("/uploadedFiles/sunblock_2.jpg");
-            listing = new Listing("Japan", "Kawasaki", "Anessa UV Sunscreen Skin Care", "Sunscreen skin care 60ml authentic from Japan. SPF50+ moisturiser", "GIFTS", 25.00, expectedArrivalDate4, iggy, 8, photosSunblock);
+            listing = new Listing("Japan", "Kawasaki", "Anessa UV Sunscreen Skin Care", "Sunscreen skin care 60ml authentic from Japan. SPF50+ moisturiser", CategoryEnum.GIFTS, 25.00, expectedArrivalDate4, iggy, 8, photosSunblock);
             this.listingSessionBean.createNewListing(listing, 3L);
 
             List<String> photosBagpack = new ArrayList<>();
             photosBagpack.add("/uploadedFiles/bagpack_1.jpg");
             photosBagpack.add("/uploadedFiles/bagpack_2.jpg");
-            listing = new Listing("USA", "Colorado", "Wandrd Prvke Bagpack", "Two options, 21L or 31L. Let me know ASAP and I can only buy back 2 due to limited luggage space.", "GIFTS", 250.00, expectedArrivalDate5, iggy, 2, photosBagpack);
+            listing = new Listing("USA", "Colorado", "Wandrd Prvke Bagpack", "Two options, 21L or 31L. Let me know ASAP and I can only buy back 2 due to limited luggage space.",CategoryEnum.GIFTS, 250.00, expectedArrivalDate5, iggy, 2, photosBagpack);
             this.listingSessionBean.createNewListing(listing, 3L);
 
             List<String> photosChain = new ArrayList<>();
             photosChain.add("/uploadedFiles/chain_1.jpg");
-            listing = new Listing("Korea", "Busan", "Stainless Steel Bracelet", "There are these cool bracelet nearby my area in Korea right now. Anybody wants one?", "ACCESSORIES", 25.00, expectedArrivalDate5, iggy, 12, photosChain);
+            listing = new Listing("Korea", "Busan", "Stainless Steel Bracelet", "There are these cool bracelet nearby my area in Korea right now. Anybody wants one?", CategoryEnum.ACCESSORIES, 25.00, expectedArrivalDate5, iggy, 12, photosChain);
             this.listingSessionBean.createNewListing(listing, 4L);
 
             User guojun = (User) em.find(User.class, 5L);
             List<String> photos = new ArrayList<>();
             photos.add("/uploadedFiles/bathing_ape_bape.jpg");
             photos.add("/uploadedFiles/bathing_ape_bape_sizing_chart.jpg");
-            listing = new Listing("Korea", "Seoul", "Black Bape T-Shirt", "Going to Korea for a business trip. Will pass by their local Bathing Ape store. Let's chat if you're keen to buy!", "APPAREL", 100.00, expectedArrivalDate3, guojun, 3, photos);
+            listing = new Listing("Korea", "Seoul", "Black Bape T-Shirt", "Going to Korea for a business trip. Will pass by their local Bathing Ape store. Let's chat if you're keen to buy!", CategoryEnum.APPAREL, 100.00, expectedArrivalDate3, guojun, 3, photos);
             this.listingSessionBean.createNewListing(listing, 5L);
             
             User sean = (User) em.find(User.class, 2L);
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/acnestudios.jpeg");
             photos.add("/uploadedFiles/acnestudiossizechart.jpeg");
-            listing = new Listing("USA", "New York", "Acne Studios T-Shirt", "Rare Acne Studios Tee, only in NYC", "APPAREL", 250.00, expectedArrivalDate3,sean, 1, photos);
+            listing = new Listing("USA", "New York", "Acne Studios T-Shirt", "Rare Acne Studios Tee, only in NYC", CategoryEnum.APPAREL, 250.00, expectedArrivalDate3,sean, 1, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/bananamilk.jpeg");
-            listing = new Listing("Korea", "Seoul", "Binggrae Banana Milk", "Binggrae Banana Flavoured Milk", "FOOD", 15.00, expectedArrivalDate2 ,sean, 10, photos);
+            listing = new Listing("Korea", "Seoul", "Binggrae Banana Milk", "Binggrae Banana Flavoured Milk", CategoryEnum.FOOD, 15.00, expectedArrivalDate2 ,sean, 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
 
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/cards.jpeg");
-            listing = new Listing("Japan", "Tokyo", "Pokemon Sun and Moon Cards", "Exclusive Pokemon Sun and Moon Cards!!", "GIFTS", 25.00, expectedArrivalDate2 ,em.find(User.class, 11l), 5, photos);
+            listing = new Listing("Japan", "Tokyo", "Pokemon Sun and Moon Cards", "Exclusive Pokemon Sun and Moon Cards!!", CategoryEnum.GIFTS, 25.00, expectedArrivalDate2 ,em.find(User.class, 11l), 5, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/churros.jpeg");
-            listing = new Listing("Japan", "Tokyo", "Oreo Churros", "Limited Edition Japanese Oreo Churros!!", "FOOD", 15.00, expectedArrivalDate3 ,em.find(User.class, 10l), 10, photos);
+            listing = new Listing("Japan", "Tokyo", "Oreo Churros", "Limited Edition Japanese Oreo Churros!!", CategoryEnum.FOOD, 15.00, expectedArrivalDate3 ,em.find(User.class, 10l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/conversecdg.jpeg");
-            listing = new Listing("Japan", "Tokyo", "Converse x CDG Highcut", "Converse x CDG Highcut in Olive from Shibuya", "APPAREL", 200.00, expectedArrivalDate3 ,em.find(User.class, 7l), 10, photos);
+            listing = new Listing("Japan", "Tokyo", "Converse x CDG Highcut", "Converse x CDG Highcut in Olive from Shibuya", CategoryEnum.APPAREL, 200.00, expectedArrivalDate3 ,em.find(User.class, 7l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/fruittea.jpeg");
-            listing = new Listing("Japan", "Tokyo", "Nongfu Spring Fruit Tea", "Assorted Flavours Nongfu Spring Fruit Tea", "FOOD", 20.00, expectedArrivalDate ,em.find(User.class, 8l), 5, photos);
+            listing = new Listing("Japan", "Tokyo", "Nongfu Spring Fruit Tea", "Assorted Flavours Nongfu Spring Fruit Tea", CategoryEnum.FOOD, 20.00, expectedArrivalDate ,em.find(User.class, 8l), 5, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/kimchi.jpeg");
-            listing = new Listing("Korea", "Seoul", "Fresh Korean Kimchi", "Fresh Korean Kimchi 500g", "FOOD", 20.00, expectedArrivalDate ,em.find(User.class, 6l), 10, photos);
+            listing = new Listing("Korea", "Seoul", "Fresh Korean Kimchi", "Fresh Korean Kimchi 500g", CategoryEnum.FOOD, 20.00, expectedArrivalDate ,em.find(User.class, 6l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/kitkat.jpeg");
-            listing = new Listing("Japan", "Osaka", "Assorted KitKat", "Japan-only KitKat in many flavours!", "FOOD", 30.00, expectedArrivalDate2 ,em.find(User.class, 9l), 12, photos);
+            listing = new Listing("Japan", "Osaka", "Assorted KitKat", "Japan-only KitKat in many flavours!", CategoryEnum.FOOD, 30.00, expectedArrivalDate2 ,em.find(User.class, 9l), 12, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/koreanmask.jpeg");
-            listing = new Listing("Korea", "Seoul", "Korean Facial Masks", "Korean Facial Masks in packs of 5!", "GIFTS", 18.00, expectedArrivalDate ,em.find(User.class, 15l), 15, photos);
+            listing = new Listing("Korea", "Seoul", "Korean Facial Masks", "Korean Facial Masks in packs of 5!", CategoryEnum.GIFTS, 18.00, expectedArrivalDate ,em.find(User.class, 15l), 15, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/oreos.jpeg");
-            listing = new Listing("Korea", "Seoul", "Limited Edition Mint Oreos", "Limited Edition Mint Oreos! DO NOT MISS OUT!", "FOOD", 10.00, expectedArrivalDate ,em.find(User.class, 14l), 15, photos);
+            listing = new Listing("Korea", "Seoul", "Limited Edition Mint Oreos", "Limited Edition Mint Oreos! DO NOT MISS OUT!", CategoryEnum.FOOD, 10.00, expectedArrivalDate ,em.find(User.class, 14l), 15, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/oreos2.jpeg");
-            listing = new Listing("Korea", "Seoul", "Limited Edition Apple Cider Donut Oreos", "Limited Edition Apple Cider Donut Oreos! DO NOT MISS OUT!", "FOOD", 15.00, expectedArrivalDate ,em.find(User.class, 13l), 10, photos);
+            listing = new Listing("Korea", "Seoul", "Limited Edition Apple Cider Donut Oreos", "Limited Edition Apple Cider Donut Oreos! DO NOT MISS OUT!", CategoryEnum.FOOD, 15.00, expectedArrivalDate ,em.find(User.class, 13l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/pringles.jpg");
-            listing = new Listing("Korea", "Seoul", "Trio flavoured Japanese Pringles", "Cheese Burger, Butter Caramel and Sweet Mayo Japanese Pringles! ", "FOOD", 15.00, expectedArrivalDate2 ,em.find(User.class, 12l), 10, photos);
+            listing = new Listing("Korea", "Seoul", "Trio flavoured Japanese Pringles", "Cheese Burger, Butter Caramel and Sweet Mayo Japanese Pringles! ", CategoryEnum.FOOD, 15.00, expectedArrivalDate2 ,em.find(User.class, 12l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/reeses.jpeg");
-            listing = new Listing("USA", "California", "Halloween Glow in the Dark Reeses", "Halloween ONLY Glow in the Dark Reeses!!", "FOOD", 15.00, expectedArrivalDate2 ,em.find(User.class, 11l), 10, photos);
+            listing = new Listing("USA", "California", "Halloween Glow in the Dark Reeses", "Halloween ONLY Glow in the Dark Reeses!!", CategoryEnum.FOOD, 15.00, expectedArrivalDate2 ,em.find(User.class, 11l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/skittles.jpeg");
-            listing = new Listing("USA", "California", "Limited Edition Lime Squeeze Skittles", "Limited Edition Lime Squeeze Skittles!! Amazing if you enjoy sour candies like I do!!", "FOOD", 10.00, expectedArrivalDate2 ,em.find(User.class, 10l), 10, photos);
+            listing = new Listing("USA", "California", "Limited Edition Lime Squeeze Skittles", "Limited Edition Lime Squeeze Skittles!! Amazing if you enjoy sour candies like I do!!", CategoryEnum.FOOD, 10.00, expectedArrivalDate2 ,em.find(User.class, 10l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/soju.jpeg");
-            listing = new Listing("Korea", "Seoul", "Jinro Plum Soju", "Jinro Plum Soju! Way cheaper than Singapore!", "FOOD", 10.00, expectedArrivalDate2 ,(User) em.find(User.class, 6l), 10, photos);
+            listing = new Listing("Korea", "Seoul", "Jinro Plum Soju", "Jinro Plum Soju! Way cheaper than Singapore!", CategoryEnum.FOOD, 10.00, expectedArrivalDate2 ,(User) em.find(User.class, 6l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/tokyobanana.jpeg");
-            listing = new Listing("Japan", "Tokyo", "Tokyo Banana", "Tokyo Banana! This favourite needs no introduction!", "FOOD", 20.00, expectedArrivalDate2 ,(User) em.find(User.class, 7l), 10, photos);
+            listing = new Listing("Japan", "Tokyo", "Tokyo Banana", "Tokyo Banana! This favourite needs no introduction!", CategoryEnum.FOOD, 20.00, expectedArrivalDate2 ,(User) em.find(User.class, 7l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/twinkies.jpeg");
-            listing = new Listing("USA", "California", "Key Lime Twinkies", "Limited Edition Key Lime Twinkies!! This flavour is limited for a short amount of time only!!", "FOOD", 15.00, expectedArrivalDate2 ,(User) em.find(User.class, 8l), 9, photos);
+            listing = new Listing("USA", "California", "Key Lime Twinkies", "Limited Edition Key Lime Twinkies!! This flavour is limited for a short amount of time only!!", CategoryEnum.FOOD, 15.00, expectedArrivalDate2 ,(User) em.find(User.class, 8l), 9, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/birkenstock.jpeg");
-            listing = new Listing("USA", "California", "Birkenstock Arizona", "Birkenstock Arizona in Sandy Grey. Available in US 6,7,8,9", "APPAREL", 150.00, expectedArrivalDate3 ,(User) em.find(User.class, 9l), 9, photos);
+            listing = new Listing("USA", "California", "Birkenstock Arizona", "Birkenstock Arizona in Sandy Grey. Available in US 6,7,8,9",CategoryEnum.APPAREL, 150.00, expectedArrivalDate3 ,(User) em.find(User.class, 9l), 9, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
             
             try {

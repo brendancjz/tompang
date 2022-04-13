@@ -168,9 +168,6 @@ public class UserResource {
             User user = userSessionBean.userLogin(username, password);
             System.out.println("********** UserResource.userLogin(): User " + user.getUsername() + " login remotely via web service");
 
-            //user.setPassword(null);
-            user.setSalt(null);
-            
             if (user.getCreditCards() != null) {
                 for (CreditCard creditCard : user.getCreditCards()) {
                     creditCard.setUser(null);

@@ -8,6 +8,7 @@ package jsf.managedbean;
 import ejb.stateless.ListingSessionBeanLocal;
 import entity.Listing;
 import entity.User;
+import enumeration.CategoryEnum;
 import exception.CreateNewListingException;
 import exception.EntityNotFoundException;
 import java.io.File;
@@ -47,8 +48,8 @@ public class CreateListingManagedBean implements Serializable {
     private HashMap<String, String> countries;
     private HashMap<String, String> cities;
 
-    private String category;
-    private HashMap<String, String> categories;
+    private CategoryEnum category;
+    private HashMap<String, CategoryEnum> categories;
 
     private String title;
     private Double price;
@@ -160,12 +161,12 @@ public class CreateListingManagedBean implements Serializable {
 
     private void initialiseCategories() {
         categories = new HashMap<>();
-        categories.put("FOOD", "FOOD");
-        categories.put("APPAREL", "APPAREL");
-        categories.put("ACCESSORIES", "ACCESSORIES");
-        categories.put("FOOTWEAR", "FOOTWEAR");
-        categories.put("GIFTS", "GIFTS");
-        categories.put("ELECTRONICS", "ELECTRONICS");
+        categories.put("FOOD", CategoryEnum.FOOD);
+        categories.put("APPAREL", CategoryEnum.APPAREL);
+        categories.put("ACCESSORIES", CategoryEnum.ACCESSORIES);
+        categories.put("FOOTWEAR", CategoryEnum.FOOTWEAR);
+        categories.put("GIFTS", CategoryEnum.GIFTS);
+        categories.put("ELECTRONICS", CategoryEnum.ELECTRONICS);
     }
 
     private void initialiseDataCountriesAndCities() {
@@ -311,19 +312,19 @@ public class CreateListingManagedBean implements Serializable {
         this.expectedArrivalDate = expectedArrivalDate;
     }
 
-    public String getCategory() {
+    public CategoryEnum getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(CategoryEnum category) {
         this.category = category;
     }
 
-    public HashMap<String, String> getCategories() {
+    public HashMap<String, CategoryEnum> getCategories() {
         return categories;
     }
 
-    public void setCategories(HashMap<String, String> categories) {
+    public void setCategories(HashMap<String, CategoryEnum> categories) {
         this.categories = categories;
     }
 

@@ -22,7 +22,7 @@
                                 <p:graphicImage value="#{listing.photos.get(0)}" width="100%"/>
                             </p:panel>
                             <div class="">
-                                <div class="listing-title">#{listing.title}<span class="listing-likes">Likes: #{listing.numOfLikes} </span></div>
+                                <div class="listing-title">#{listing.title}<span class="listing-likes">Likes: #{listing.likedByUsers.size()} </span></div>
                                 <h:outputText value="#{listing.price}" styleClass="listing-price">
                                     <f:convertNumber currencySymbol="$" type="currency"/>
                                 </h:outputText>

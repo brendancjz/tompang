@@ -30,7 +30,7 @@ public class Dispute implements Serializable {
     private String description;
     @Column(nullable = false)
     @NotNull
-    private boolean isResolved;
+    private Boolean isResolved;
     @OneToOne(mappedBy = "dispute")
     private Transaction transaction;
     @Column(nullable = false)
