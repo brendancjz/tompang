@@ -7,6 +7,7 @@ export class Conversation {
   isOpen: boolean | undefined;
   buyerUnread: number | undefined;
   sellerUnread: number | undefined;
+  lastMessageDate: Date | undefined;
 
   // @ManyToOne
   createdBy: User | undefined;

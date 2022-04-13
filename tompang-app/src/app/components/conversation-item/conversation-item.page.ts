@@ -29,8 +29,7 @@ export class ConversationItemPage implements OnInit {
 
   getLatestMessageDateOfConvo(convo: Conversation): string {
     //Code to get the latest message
-
-    return '12/03/2022';
+    return convo.lastMessageDate.toString().split('T')[0];
   }
 
   getListingTitleOfConvo(convo: Conversation): string {

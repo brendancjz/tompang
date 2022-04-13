@@ -33,6 +33,10 @@ export class BuyingPage implements OnInit {
         console.log(this.sessionService.getCurrentUser().username);
         console.log(this.sessionService.getCurrentUser().password);
         console.log(this.buyingConvos);
+        for(let i=0; i<this.buyingConvos.length; i++) {
+          let size = this.buyingConvos[i].messages.length;
+          this.buyingConvos[i].lastMessageDate = this.buyingConvos[i].messages[size-1].createdOn;
+        }
       },
       error: (error) => {
         console.log('buyingPage : retrieveBuyerConversations.ts:' + error);

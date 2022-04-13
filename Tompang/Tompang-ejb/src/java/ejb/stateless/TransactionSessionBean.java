@@ -56,7 +56,7 @@ public class TransactionSessionBean implements TransactionSessionBeanLocal {
             
             Integer quantity = listing.getQuantity() - transaction.getQuantity();
             if(quantity == 0){
-                listing.setIsDisabled(true);
+//                listing.setIsDisabled(true);
                 listing.setIsOpen(false);
             } 
             listing.setQuantity(quantity);

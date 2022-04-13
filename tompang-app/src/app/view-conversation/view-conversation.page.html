@@ -38,8 +38,8 @@
           <div style="display:flex;flex-direction: column;align-items: flex-end;">
             <ion-item lines="none" *ngIf="message.sentBy === currentUser.userId" style="float: right;">{{message.body}}
             </ion-item>
-            <img *ngIf="message.containsImage && message.sentBy === currentUser.userId" src="{{getImage(message.imageUrl)}}"
-              style="float: right; width: 50%;" />
+            <img *ngIf="message.containsImage && message.sentBy === currentUser.userId"
+              src="{{getImage(message.imageUrl)}}" style="float: right; width: 50%;" />
 
           </div>
           <img *ngIf="message.sentBy !== currentUser.userId" src="{{getUserProfilePic(2)}}"
@@ -47,9 +47,9 @@
           <div style="display:flex;flex-direction: column;">
             <ion-item lines="none" *ngIf="message.sentBy !== currentUser.userId" style="float: left;">{{message.body}}
             </ion-item>
-            <br *ngIf="message.containsImage && message.sentBy !== currentUser.userId"/>
-            <img *ngIf="message.containsImage && message.sentBy !== currentUser.userId" src="{{getImage(message.imageUrl)}}"
-              style="float: left; width: 50%;" />
+            <br *ngIf="message.containsImage && message.sentBy !== currentUser.userId" />
+            <img *ngIf="message.containsImage && message.sentBy !== currentUser.userId"
+              src="{{getImage(message.imageUrl)}}" style="float: left; width: 50%;" />
           </div>
 
         </div>
@@ -60,9 +60,9 @@
           <div style="display:flex;flex-direction: column;">
             <ion-item lines="none" *ngIf="message.sentBy !== currentUser.userId" style="float: left;">{{message.body}}
             </ion-item>
-            <br *ngIf="message.containsImage && message.sentBy !== currentUser.userId"/>
-            <img *ngIf="message.containsImage && message.sentBy !== currentUser.userId" src="{{getImage(message.imageUrl)}}"
-              style="float: left; width: 50%;" />
+            <br *ngIf="message.containsImage && message.sentBy !== currentUser.userId" />
+            <img *ngIf="message.containsImage && message.sentBy !== currentUser.userId"
+              src="{{getImage(message.imageUrl)}}" style="float: left; width: 50%;" />
           </div>
 
 
@@ -71,38 +71,43 @@
           <div style="display:flex;flex-direction: column;align-items: flex-end;">
             <ion-item lines="none" *ngIf="message.sentBy === currentUser.userId" style="float: right;">{{message.body}}
             </ion-item>
-            <br *ngIf="message.containsImage && message.sentBy === currentUser.userId"/>
-            <img *ngIf="message.containsImage && message.sentBy === currentUser.userId" src="{{getImage(message.imageUrl)}}"
-              style="float: right; width: 50%;" />
+            <br *ngIf="message.containsImage && message.sentBy === currentUser.userId" />
+            <img *ngIf="message.containsImage && message.sentBy === currentUser.userId"
+              src="{{getImage(message.imageUrl)}}" style="float: right; width: 50%;" />
           </div>
         </div>
       </ion-list>
     </div>
     <div style="height: 10vh;">
       <hr class="horizontal-rule" />
-      <form (ngSubmit)="addMessage()">
-        <div class="form-input">
-          <ion-input
-            style="width: 90%; min-height: 100px; max-height: 150px; overflow:hidden; overflow-wrap: break-word; height: 70px; padding:10px;"
-            class="grey-color" placeholder="Send Message..." [(ngModel)]="newMessageBody" name="newMessageBody"
-            required>
-          </ion-input>
+      <div *ngIf="convoToView.listing.isDisabled === false">
+        <form (ngSubmit)="addMessage()">
+          <div class="form-input">
+            <ion-input
+              style="width: 90%; min-height: 100px; max-height: 150px; overflow:hidden; overflow-wrap: break-word; height: 70px; padding:10px;"
+              class="grey-color" placeholder="Send Message..." [(ngModel)]="newMessageBody" name="newMessageBody"
+              required>
+            </ion-input>
 
-        </div>
-        <div>
-          <input id="fileInput" style="float: right; margin: 10px auto;" #fileInput type="file"
-            accept="image/png, image/gif, image/jpeg" (change)="uploadPicture($event)">
-          <label for="fileInput" icon-only ion-button>
+          </div>
+          <div>
+            <input id="fileInput" style="float: right; margin: 10px auto;" #fileInput type="file"
+              accept="image/png, image/gif, image/jpeg" (change)="uploadPicture($event)">
+            <label for="fileInput" icon-only ion-button>
               <ion-icon style="font-size: 35px;" name="add-circle-outline"></ion-icon>
-          </label>
-          <ion-button style="text-transform: initial;font-size: 16px;height: 30px; float: right;" color="tertiary"
-            type="submit">
-            Send</ion-button>
-        </div>
+            </label>
+            <ion-button style="text-transform: initial;font-size: 16px;height: 30px; float: right;" color="tertiary"
+              type="submit">
+              Send</ion-button>
+          </div>
 
-      </form>
-
-
+        </form>
+      </div>
+      
+      <div *ngIf="convoToView.listing.isDisabled === true" style="text-align: center;">
+        <hr class="horizontal-rule" />
+        <ion-label>Listing has already been deleted by seller.</ion-label>
+      </div>
 
     </div>
   </div>

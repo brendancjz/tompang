@@ -27,13 +27,14 @@ export class NotificationsPage implements OnInit {
     private conversationService: ConversationService,
     private listingService: ListingService,
     private transactionService: TransactionService,
-    public toastController: ToastController) {}
+    public toastController: ToastController) { }
 
   ngOnInit() {
     this.notifications = [];
   }
 
   ionViewWillEnter() {
+    this.notifications = [];
     console.log('IonViewWillEnter Offers');
 
     this.transactionService.getUserTransactions().subscribe({
@@ -54,6 +55,17 @@ export class NotificationsPage implements OnInit {
     });
 
     console.log('Offers', this.notifications);
+  }
+
+  noActiveNotifications() {
+    let allDisabled: Boolean = true;
+    for (let i = 0; i < this.notifications.length; i++) {
+      if (!this.notifications[i].listing.isDisabled) {
+        allDisabled = false;
+        break;
+      }
+    }
+    return allDisabled;
   }
 
   rejectOffer(transaction: Transaction) {
@@ -147,7 +159,7 @@ export class NotificationsPage implements OnInit {
             // eslint-disable-next-line @typescript-eslint/prefer-for-of
             for (let i = 0; i < this.allTransactions.length; i++) {
               if (this.allTransactions[i].seller.userId === this.sessionService.getCurrentUser().userId &&
-              !this.allTransactions[i].isAccepted && !this.allTransactions[i].isRejected) {
+                !this.allTransactions[i].isAccepted && !this.allTransactions[i].isRejected) {
                 console.log('pushed');
                 this.notifications.push(this.allTransactions[i]);
               }

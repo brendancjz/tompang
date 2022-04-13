@@ -31,6 +31,10 @@ export class SellingPage implements OnInit {
     this.conversationService.retrieveSellerConversations().subscribe({
       next: (response) => {
         this.sellingConvos = response;
+        for(let i=0; i<this.sellingConvos.length; i++) {
+          let size = this.sellingConvos[i].messages.length;
+          this.sellingConvos[i].lastMessageDate = this.sellingConvos[i].messages[size-1].createdOn;
+        }
       },
       error: (error) => {
         console.log('sellingPage : retrieveSellerConversations.ts:' + error);

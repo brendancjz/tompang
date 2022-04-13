@@ -11,36 +11,40 @@
   <hr class="horizontal-rule" />
   <div *ngIf="notifications !== null">
     <ion-list *ngFor="let notification of notifications">
-      <ion-item class="grey-color">
-        <div class="notification-block">
-          <div style="display: flex;align-items: center;">
-            <ion-icon name="alert-circle-outline" style="font-size: 30px;margin-right: 20px;"></ion-icon>
-            <ion-item-group style="display:flex;flex-direction:column;justify-content:center;height: 65px;">
-              <ion-label style="font-size: 16px;margin-bottom: 5px;">Offer from {{notification.buyer.username}}!
-              </ion-label>
-              <ion-text style="font-size: 12px;">
-                {{notification.listing.title}}
-              </ion-text>
-            </ion-item-group>
+      <div *ngIf="notification.listing.isDisabled === false">
+        <ion-item class="grey-color">
+          <div class="notification-block">
+            <div style="display: flex;align-items: center;">
+              <ion-icon name="alert-circle-outline" style="font-size: 30px;margin-right: 20px;"></ion-icon>
+              <ion-item-group style="display:flex;flex-direction:column;justify-content:center;height: 65px;">
+                <ion-label style="font-size: 16px;margin-bottom: 5px;">Offer from {{notification.buyer.username}}!
+                </ion-label>
+                <ion-text style="font-size: 12px;">
+                  {{notification.listing.title}}
+                </ion-text>
+              </ion-item-group>
+            </div>
+            <div style="display: flex;">
+              <ion-popover></ion-popover>
+              <ion-button color="tertiary" class="button-icon" icon-only (click)="acceptOffer(notification)">
+                <ion-icon name="checkmark-outline"></ion-icon>
+              </ion-button>
+              <ion-button color="tertiary" class="button-icon" icon-only (click)="rejectOffer(notification)">
+                <ion-icon name="close-outline"></ion-icon>
+              </ion-button>
+            </div>
           </div>
-          <div style="display: flex;">
-            <ion-popover></ion-popover>
-            <ion-button color="tertiary" class="button-icon" icon-only (click)="acceptOffer(notification)">
-              <ion-icon name="checkmark-outline"></ion-icon>
-            </ion-button>
-            <ion-button color="tertiary" class="button-icon" icon-only (click)="rejectOffer(notification)">
-              <ion-icon name="close-outline"></ion-icon>
-            </ion-button>
-          </div>
-
-        </div>
-      </ion-item>
+        </ion-item>
+      </div>
     </ion-list>
   </div>
-  <br/>
-  <br/>
-  <br/>
+  <br />
+  <br />
+  <br />
   <div *ngIf="notifications.length === 0" style="text-align: center;">
+    <ion-text class="grey-color">You have no offers currently.</ion-text>
+  </div>
+  <div *ngIf="noActiveNotifications() && notifications.length > 0" style="text-align: center;">
     <ion-text class="grey-color">You have no offers currently.</ion-text>
   </div>
 

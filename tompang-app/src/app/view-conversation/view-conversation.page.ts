@@ -53,7 +53,7 @@ export class ViewConversationPage implements OnInit {
     this.refreshData();
     this.interval = setInterval(() => {
       this.refreshData();
-    }, 1000);
+    }, 10000);
   }
 
   ionViewWillLeave() {
