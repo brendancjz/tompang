@@ -9,6 +9,7 @@ import { ViewTransactionDetailsPageRoutingModule } from './view-transaction-deta
 import { ViewTransactionDetailsPage } from './view-transaction-details.page';
 import { HeaderPageModule } from '../header/header.module';
 import { FooterPageModule } from '../footer/footer.module';
+import { QrCodeModule } from 'ng-qrcode';
 
 @NgModule({
   imports: [
@@ -17,8 +18,9 @@ import { FooterPageModule } from '../footer/footer.module';
     IonicModule,
     ViewTransactionDetailsPageRoutingModule,
     HeaderPageModule,
-    FooterPageModule
+    FooterPageModule,
+    QrCodeModule,
   ],
-  declarations: [ViewTransactionDetailsPage]
+  declarations: [ViewTransactionDetailsPage],
 })
 export class ViewTransactionDetailsPageModule {}
