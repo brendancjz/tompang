@@ -8,6 +8,7 @@ package jsf.managedbean;
 import ejb.stateless.ListingSessionBeanLocal;
 import entity.Listing;
 import entity.User;
+import enumeration.CategoryEnum;
 import exception.CreateNewListingException;
 import exception.EntityNotFoundException;
 import java.io.File;
@@ -47,8 +48,8 @@ public class CreateListingManagedBean implements Serializable {
     private HashMap<String, String> countries;
     private HashMap<String, String> cities;
 
-    private String category;
-    private HashMap<String, String> categories;
+    private CategoryEnum category;
+    private HashMap<String, CategoryEnum> categories;
 
     private String title;
     private Double price;
@@ -68,6 +69,7 @@ public class CreateListingManagedBean implements Serializable {
     }
 
     public void createListing(AjaxBehaviorEvent event) {
+        System.out.println("*** CreateListingManagedBean.createListing()");
         try {
             System.out.println("Country:" + country);
             System.out.println("City: " + city);
@@ -106,6 +108,7 @@ public class CreateListingManagedBean implements Serializable {
     }
 
     public void handleFileUpload(FileUploadEvent event) {
+        System.out.println("*** CreateListingManagedBean.handleFileUpload()");
         try {
             String newFilePath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("alternatedocroot_1")
                     + System.getProperty("file.separator") + event.getFile().getFileName();
@@ -160,12 +163,12 @@ public class CreateListingManagedBean implements Serializable {
 
     private void initialiseCategories() {
         categories = new HashMap<>();
-        categories.put("FOOD", "FOOD");
-        categories.put("APPAREL", "APPAREL");
-        categories.put("ACCESSORIES", "ACCESSORIES");
-        categories.put("FOOTWEAR", "FOOTWEAR");
-        categories.put("GIFTS", "GIFTS");
-        categories.put("ELECTRONICS", "ELECTRONICS");
+        categories.put("FOOD", CategoryEnum.FOOD);
+        categories.put("APPAREL", CategoryEnum.APPAREL);
+        categories.put("ACCESSORIES", CategoryEnum.ACCESSORIES);
+        categories.put("FOOTWEAR", CategoryEnum.FOOTWEAR);
+        categories.put("GIFTS", CategoryEnum.GIFTS);
+        categories.put("ELECTRONICS", CategoryEnum.ELECTRONICS);
     }
 
     private void initialiseDataCountriesAndCities() {
@@ -311,19 +314,19 @@ public class CreateListingManagedBean implements Serializable {
         this.expectedArrivalDate = expectedArrivalDate;
     }
 
-    public String getCategory() {
+    public CategoryEnum getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(CategoryEnum category) {
         this.category = category;
     }
 
-    public HashMap<String, String> getCategories() {
+    public HashMap<String, CategoryEnum> getCategories() {
         return categories;
     }
 
-    public void setCategories(HashMap<String, String> categories) {
+    public void setCategories(HashMap<String, CategoryEnum> categories) {
         this.categories = categories;
     }
 

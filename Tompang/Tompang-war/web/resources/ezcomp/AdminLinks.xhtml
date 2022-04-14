@@ -3,15 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
-
     <cc:interface>
-        
     </cc:interface>
 
     <cc:implementation>
-
         <nav>
-
             <h:panelGroup rendered="#{sessionScope.isLogin == true}">
                 <div class="sidebarSection">
                     <h:outputText class="sidebarSectionTitle" value="Administrative Links" />
@@ -22,9 +18,7 @@
                     <h:link class="sidebarSectionTextLink" id="viewAllDisputes" outcome="/adminPages/viewAllDisputes.xhtml">View All Disputes</h:link>
                     <h:link class="sidebarSectionTextLink" id="viewAnalytics" outcome="/adminPages/viewAnalytics.xhtml">View Analytics </h:link>
                 </div>
-
             </h:panelGroup>
         </nav>
-
     </cc:implementation>
 </html>

@@ -8,14 +8,14 @@
     Loading...
   </div>
   <div *ngIf="hasLoaded === true">
-    <ion-title class="page-name grey-color"> My  Transactions </ion-title>
+    <ion-title class="page-name grey-color"> My Transactions </ion-title>
     <hr class="horizontal-rule" />
     <ion-title class="sub-page-name grey-color">
       Transaction ID: {{transactionId}}
     </ion-title>
     <hr class="horizontal-rule" />
 
-    <div style="margin-left: 16px">
+    <div style="margin-left: 16px" *ngIf="!isSeller">
       <ion-card style="width: 345px">
         <ion-card-header> Payment Details </ion-card-header>
 
@@ -30,7 +30,9 @@
             "
           >
             <ion-label class="grey-color">Product Cost</ion-label>
-            <ion-text>S${{(transactionToView.amount * 0.97).toFixed(2)}}</ion-text>
+            <ion-text
+              >S${{(transactionToView.amount * 0.97).toFixed(2)}}</ion-text
+            >
           </div>
           <div
             style="
@@ -40,7 +42,9 @@
             "
           >
             <ion-label class="grey-color">Platform Fee</ion-label>
-            <ion-text>${{(transactionToView.amount * 0.03).toFixed(2)}}</ion-text>
+            <ion-text
+              >${{(transactionToView.amount * 0.03).toFixed(2)}}</ion-text
+            >
           </div>
           <hr class="horizontal-rule" />
           <div
@@ -56,22 +60,73 @@
         </ion-card-content>
       </ion-card>
     </div>
+    <div style="margin-left: 16px" *ngIf="isSeller">
+      <ion-card style="width: 345px">
+        <ion-card-header> Earning Details </ion-card-header>
+
+        <ion-card-content>
+          <ion-card-title style="font-size: 16px"> Earning </ion-card-title>
+
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            "
+          >
+            <ion-label class="grey-color">Listing Cost</ion-label>
+            <ion-text
+              >S${{(transactionToView.amount).toFixed(2)}}</ion-text
+            >
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            "
+          >
+            <ion-label class="grey-color">Platform Fee</ion-label>
+            <ion-text
+              >${{(transactionToView.amount * 0.03).toFixed(2)}}</ion-text
+            >
+          </div>
+          <hr class="horizontal-rule" />
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            "
+          >
+            <ion-label style="color: black">Total Earned</ion-label>
+            <ion-text>S${{(transactionToView.amount * 0.97).toFixed(2)}}</ion-text>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
     <div style="margin-left: 16px">
       <ion-card style="width: 345px">
         <ion-card-header> Transaction Details </ion-card-header>
 
         <ion-card-content>
           <ion-card-title style="font-size: 16px"> Status </ion-card-title>
-          <ion-chip *ngIf="isSeller && !transactionToView.isAccepted && !transactionToView.isRejected" color="warning">
+          <ion-chip
+            *ngIf="isSeller && !transactionToView.isAccepted && !transactionToView.isRejected"
+            color="warning"
+          >
             <ion-label>Offered</ion-label>
-          </ion-chip>       
+          </ion-chip>
           <ion-chip *ngIf="transactionToView.isAccepted" color="success">
             <ion-label>Accepted</ion-label>
           </ion-chip>
           <ion-chip *ngIf="transactionToView.isRejected" color="danger">
             <ion-label>Rejected</ion-label>
           </ion-chip>
-          <ion-chip *ngIf="!isSeller && !transactionToView.isAccepted && !transactionToView.isRejected" color="warning">
+          <ion-chip
+            *ngIf="!isSeller && !transactionToView.isAccepted && !transactionToView.isRejected"
+            color="warning"
+          >
             <ion-label>Waiting for Seller</ion-label>
           </ion-chip>
           <div
@@ -81,12 +136,20 @@
               justify-content: space-between;
             "
           >
-          <ion-chip *ngIf="transactionToView.isCompleted" outline color="success">
-            <ion-label>Transaction Completed</ion-label>
-          </ion-chip>
-          <ion-chip *ngIf="!transactionToView.isCompleted" outline color="warning">
-            <ion-label>Transaction Ongoing</ion-label>
-          </ion-chip>
+            <ion-chip
+              *ngIf="transactionToView.isCompleted"
+              outline
+              color="success"
+            >
+              <ion-label>Transaction Completed</ion-label>
+            </ion-chip>
+            <ion-chip
+              *ngIf="!transactionToView.isCompleted"
+              outline
+              color="warning"
+            >
+              <ion-label>Transaction Ongoing</ion-label>
+            </ion-chip>
           </div>
           <div
             style="
@@ -95,12 +158,20 @@
               justify-content: space-between;
             "
           >
-          <ion-chip *ngIf="transactionToView.hasDispute && !transactionToView.dispute.isResolved" outline color="danger">
-            <ion-label>Dispute Ongoing</ion-label>
-          </ion-chip>
-          <ion-chip *ngIf="transactionToView.hasDispute && transactionToView.dispute.isResolved" outline color="success">
-            <ion-label>Dispute Resolved</ion-label>
-          </ion-chip>
+            <ion-chip
+              *ngIf="transactionToView.hasDispute && !transactionToView.dispute.isResolved"
+              outline
+              color="danger"
+            >
+              <ion-label>Dispute Ongoing</ion-label>
+            </ion-chip>
+            <ion-chip
+              *ngIf="transactionToView.hasDispute && transactionToView.dispute.isResolved"
+              outline
+              color="success"
+            >
+              <ion-label>Dispute Resolved</ion-label>
+            </ion-chip>
           </div>
           <hr class="horizontal-rule" />
           <div
@@ -199,12 +270,13 @@
         <ion-button
           *ngIf="isSeller && !transactionToView.isCompleted"
           color="danger"
-          (click)="generateQRCode()"
+          (click)="showQRCode()"
           expand="block"
           style="width: 200px"
         >
           Show QR Code
         </ion-button>
+
         <ion-button
           *ngIf="!isSeller && !transactionToView.isCompleted"
           color="success"
@@ -215,10 +287,14 @@
           Scan QR Code
         </ion-button>
       </div>
+      <div
+        *ngIf="showQrCode"
+        style="display: flex; align-items: center; justify-content: center"
+      >
+        <qr-code value="{{transactionId}}" size="300"></qr-code>
+      </div>
     </div>
   </div>
-  <div style="height:50px;">
-
-  </div>
+  <div style="height: 50px"></div>
 </ion-content>
 <app-footer></app-footer>

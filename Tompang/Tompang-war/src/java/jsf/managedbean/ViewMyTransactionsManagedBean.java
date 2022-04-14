@@ -48,13 +48,14 @@ public class ViewMyTransactionsManagedBean implements Serializable {
      */
     public ViewMyTransactionsManagedBean() {
         this.user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
-        this.transactions = new ArrayList<Transaction>();
+        this.transactions = new ArrayList<>();
         this.dispute = new Dispute();
         
     }
     
     @PostConstruct
     public void postConstruct() {
+        System.out.println("******* ViewMyTransactionsManagedBean.postConstruct()");
         this.setTransactions(transactionSessionBean.retrieveTransactionsByUserId(getUser().getUserId()));
     }
     
@@ -65,7 +66,7 @@ public class ViewMyTransactionsManagedBean implements Serializable {
     }
     
     public void doRaiseDispute(){
-        
+        System.out.println("*** ViewMyTransactionsManagedBean.doRaiseDispute()");
         try{
             disputeSessionBean.createNewDispute(transactionIdOfDispute, dispute, this.user.getUserId());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Dispute raised successfully", null));

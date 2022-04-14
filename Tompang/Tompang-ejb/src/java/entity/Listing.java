@@ -5,6 +5,7 @@
  */
 package entity;
 
+import enumeration.CategoryEnum;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -22,7 +23,6 @@ import javax.persistence.Temporal;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
 /**
@@ -50,7 +50,7 @@ public class Listing implements Serializable {
     private String description;
     @Column(nullable = false)
     @NotNull
-    private String category;
+    private CategoryEnum category;
     @Column(nullable = false)
     @NotNull
     @Digits(integer=6, fraction=2)
@@ -65,10 +65,6 @@ public class Listing implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     @Future
     private Date expectedArrivalDate;
-    @Column(nullable = false)
-    @NotNull
-    @PositiveOrZero
-    private Integer numOfLikes;
     @Column(nullable = false)
     @NotNull
     @PositiveOrZero
@@ -97,12 +93,11 @@ public class Listing implements Serializable {
         this.createdOn = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         this.conversations = new ArrayList<>();
         this.photos = new ArrayList<>();
-        this.numOfLikes = 0;
         this.isOpen = true;
         this.isDisabled = false;
     }
 
-    public Listing(String country, String city, String title, String description, String category, Double price, Date expectedArrivalDate, User createdBy, Integer quantity, List<String> photos) {
+    public Listing(String country, String city, String title, String description, CategoryEnum category, Double price, Date expectedArrivalDate, User createdBy, Integer quantity, List<String> photos) {
         this();
         this.country = country;
         this.city = city;
@@ -116,11 +111,11 @@ public class Listing implements Serializable {
         this.photos = photos;
     }
 
-    public String getCategory() {
+    public CategoryEnum getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(CategoryEnum category) {
         this.category = category;
     }
 
@@ -154,10 +149,6 @@ public class Listing implements Serializable {
 
     public Date getExpectedArrivalDate() {
         return expectedArrivalDate;
-    }
-
-    public Integer getNumOfLikes() {
-        return numOfLikes;
     }
 
     public Integer getQuantity() {
@@ -218,10 +209,6 @@ public class Listing implements Serializable {
 
     public void setExpectedArrivalDate(Date expectedArrivalDate) {
         this.expectedArrivalDate = expectedArrivalDate;
-    }
-
-    public void setNumOfLikes(Integer numOfLikes) {
-        this.numOfLikes = numOfLikes;
     }
 
     public void setQuantity(Integer quantity) {

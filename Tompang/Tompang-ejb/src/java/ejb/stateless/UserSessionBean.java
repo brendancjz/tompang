@@ -100,21 +100,6 @@ public class UserSessionBean implements UserSessionBeanLocal {
     }
 
     @Override
-    public void associateListingToUserLikedListings(Long userId, Long listingId) throws EntityNotFoundException {
-        User user = this.getUserByUserId(userId);
-        Listing listing = listingSessionBean.getListingByListingId(listingId);
-        user.getLikedListings().add(listing);
-        listing.getLikedByUsers().add(user);
-    }
-
-    @Override
-    public void dissociateListingToUserLikedListings(Long userId, Long listingId) throws EntityNotFoundException {
-        User user = this.getUserByUserId(userId);
-        Listing listing = listingSessionBean.getListingByListingId(listingId);
-        user.getLikedListings().remove(listing);
-    }
-
-    @Override
     public User getUserByUserId(Long userId) throws EntityNotFoundException {
         User user = em.find(User.class, userId);
 

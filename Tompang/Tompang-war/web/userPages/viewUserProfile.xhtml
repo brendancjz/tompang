@@ -9,39 +9,29 @@
 
     <ui:define name="content">
         <div  style="background-color: #0190e9; padding: 0 0 15px 20px; margin-bottom: 10px; width: 100%;">
-                    <p style="color: white; font-size: 40px; padding-top: 10px">#{userProfileManagedBean.userToView.getUsername()}</p>
-                    <h:graphicImage style="border-radius: 70px;width: 140px;height: 120px;margin-top: 20px" value="#{userProfileManagedBean.userToView.getProfilePic()}"/>
-                    
-                    <p:commandButton class="blue-button" update="viewFollowing" oncomplete="PF('dialogViewFollowing').show()" title="#{userProfileManagedBean.userToViewFollowing.size()} Following" />
-                    
-                    <p:commandButton class="blue-button" update="viewFollowers" oncomplete="PF('dialogViewFollowers').show()" title="#{userProfileManagedBean.userToViewFollowers.size()} Followers" />
-                    
-                    <div>
-                        <h:form>
-                            <h:commandButton class="white-button" rendered="#{userProfileManagedBean.currentUser != userProfileManagedBean.userToView and !userProfileManagedBean.currentUser.following.contains(userProfileManagedBean.userToView)}" value="Follow">
-                                <f:attribute name="user" value="#{userProfileManagedBean.userToView}" />
-                                <f:ajax event="click" execute="@this" render="@all" listener="#{userProfileManagedBean.followUser}" />
-                            </h:commandButton>
-                            <h:commandButton class="white-button" rendered="#{userProfileManagedBean.currentUser != userProfileManagedBean.userToView and userProfileManagedBean.currentUser.following.contains(userProfileManagedBean.userToView)}" value="Unfollow">
-                                <f:attribute name="user" value="#{userProfileManagedBean.userToView}" />
-                                <f:ajax event="click" execute="@this" render="@all" listener="#{userProfileManagedBean.unfollowUser}" />
-                            </h:commandButton>
-                            <h:commandButton class="white-button" value="Message" style="margin-left: 10px;" rendered="#{userProfileManagedBean.currentUser != userProfileManagedBean.userToView}">
-                                <f:attribute name="user" value="#{userProfileManagedBean.userToView}" />
-                                <f:ajax event="click" execute="@this" render="@all" listener="#{userProfileManagedBean.unfollowUser}" />
-                            </h:commandButton>
-                        </h:form>
-                    
-                   </div>
+            <p style="color: white; font-size: 40px; padding-top: 10px">#{userProfileManagedBean.userToView.getUsername()}</p>
+            <h:graphicImage style="border-radius: 70px;width: 140px;height: 120px;margin-top: 20px" value="#{userProfileManagedBean.userToView.getProfilePic()}"/>
+            <p:commandButton class="blue-button" update="viewFollowing" oncomplete="PF('dialogViewFollowing').show()" title="#{userProfileManagedBean.userToViewFollowing.size()} Following" />
+            <p:commandButton class="blue-button" update="viewFollowers" oncomplete="PF('dialogViewFollowers').show()" title="#{userProfileManagedBean.userToViewFollowers.size()} Followers" />
+            <div>
+                <h:form>
+                    <h:commandButton class="white-button" rendered="#{userProfileManagedBean.currentUser != userProfileManagedBean.userToView and !userProfileManagedBean.currentUser.following.contains(userProfileManagedBean.userToView)}" value="Follow">
+                        <f:attribute name="user" value="#{userProfileManagedBean.userToView}" />
+                        <f:ajax event="click" execute="@this" render="@all" listener="#{userProfileManagedBean.followUser}" />
+                    </h:commandButton>
+                    <h:commandButton class="white-button" rendered="#{userProfileManagedBean.currentUser != userProfileManagedBean.userToView and userProfileManagedBean.currentUser.following.contains(userProfileManagedBean.userToView)}" value="Unfollow">
+                        <f:attribute name="user" value="#{userProfileManagedBean.userToView}" />
+                        <f:ajax event="click" execute="@this" render="@all" listener="#{userProfileManagedBean.unfollowUser}" />
+                    </h:commandButton>
+                </h:form>
+            </div>
         </div>
-        
         <h1> #{userProfileManagedBean.userToView.getUsername()} Listings </h1>
         <br></br>
         <h:form id="form">
             <p:dataView var="listing" value="#{userProfileManagedBean.userToView.getCreatedListings()}" rows="12" paginator="true"
                         rowsPerPageTemplate="6,12,16" layout="grid"
                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-
                 <p:dataViewGridItem>
                     <div class="">
                         <div class="listing-grid-item-content">
@@ -49,18 +39,16 @@
                                 <p:graphicImage value="#{listing.photos.get(0)}" width="100%"/>
                             </p:panel>
                             <div class="">
-                                <div class="listing-title">#{listing.title}<span class="listing-likes">Likes: #{listing.numOfLikes} </span></div>
+                                <div class="listing-title">#{listing.title}<span class="listing-likes">Likes: #{listing.likedByUsers.size()} </span></div>
                                 <h:outputText value="#{listing.price}" styleClass="listing-price">
                                     <f:convertNumber currencySymbol="$" type="currency"/>
                                 </h:outputText>
                                 <div class="listing-category">#{listing.category}</div>
                                 <hr />
                                 <div class="listing-createdby">Created by: #{listing.createdBy.username}</div>
-                                
                             </div>
                         </div>
                         <div class="listing-grid-item-bottom">
-
                             <h:commandButton rendered="#{!shopManagedBean.userLikedListings.contains(listing)}" class="blue-button" value="Like!">
                                 <f:attribute name="listing" value="#{listing}" />
                                 <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.likeListing}" />
@@ -76,34 +64,39 @@
                         </div>
                     </div>
                 </p:dataViewGridItem>
-
             </p:dataView>
         </h:form>
-        
         <h:form id="viewFollowers" >
             <p:growl for="viewFollowers" showDetail="true" />
             <p:dialog id="dialogViewFollowers" widgetVar="dialogViewFollowers" header="#{userProfileManagedBean.userToView.getUsername()}'s Followers" closable="true">
                 <p:dataList var="follower" value="#{userProfileManagedBean.userToView.getFollowers()}" type="definition">
-<!--                    class style not applying-->
-                    <div class="follower-following">
+                    <div style="width: 250px; display: flex; align-items: center; justify-content: space-between;">
                         <p:graphicImage value="#{follower.getProfilePic()}" width="70px" height="70px" />
-                        <span>#{follower.getUsername()}</span>
+                        <h:form>
+                            <h:commandButton value="#{follower.username}">
+                                <f:attribute name="user" value="#{follower}" />
+                                <f:ajax event="click" execute="@this" render="@all" listener="#{userProfileManagedBean.viewUserProfile}" />
+                            </h:commandButton>
+                        </h:form>
                     </div>
                 </p:dataList>
-
             </p:dialog>
         </h:form>
-        
         <h:form id="viewFollowing" >
             <p:growl for="viewFollowing" showDetail="true" />
             <p:dialog id="dialogViewFollowing" widgetVar="dialogViewFollowing" header="#{userProfileManagedBean.userToView.getUsername()}'s Following" closable="true">
-                <p:dataList var="following" value="#{userProfileManagedBean.userToView.getFollowing()}">
+                <p:dataList var="following" value="#{userProfileManagedBean.userToView.getFollowing()}"  type="definition">
+                    <div style="width: 250px; display: flex; align-items: center; justify-content: space-between;">
                         <p:graphicImage value="#{following.getProfilePic()}" width="70px" height="70px" />
-                        <h2>#{following.getUsername()}</h2>
+                        <h:form>
+                            <h:commandButton value="#{following.username}">
+                                <f:attribute name="user" value="#{following}" />
+                                <f:ajax event="click" execute="@this" render="@all" listener="#{userProfileManagedBean.viewUserProfile}" />
+                            </h:commandButton>
+                        </h:form>
+                    </div>
                 </p:dataList>
-
             </p:dialog>
         </h:form>
     </ui:define>
-
 </ui:composition>

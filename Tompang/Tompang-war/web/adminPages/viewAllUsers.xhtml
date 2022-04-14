@@ -10,15 +10,12 @@
     <ui:define name="content">
         <h1> View all Users </h1>
         <br></br>
-        <!--<ezcomp:Breadcrumb pageName="ViewAllUsers"/>-->
         <div class="dataTableDiv">
             <h:form class="viewDataTable" id="listOfUsers">
                 <p:growl id="messages" redisplay="false"  />
-
                 <p:dataTable id="usersTable" widgetVar="usersTable" value="#{viewAllUsersManagedBean.listOfUsers}" var="user" rowKey="#{user.userId}" rowIndexVar="row"
                              filteredValue="#{viewAllUsersManagedBean.filteredUsers}"
                              rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
-
                     <f:facet name="header">
                         <p:outputPanel style="text-align: right;">
                             <h:outputText value="Search all fields:" />
@@ -80,17 +77,13 @@
                     <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>
-
             </h:form>
-
             <ezcomp:ViewUserDetails id="ccViewUserDetails" />
             <h:form id="formUpdateUserDetails">
                 <p:messages />
                 <p:growl for="formUpdateUserDetails" showDetail="true" globalOnly="true"/>
                 <p:dialog id="dialogUpdateUserDetails" widgetVar="dialogUpdateUserDetails" header="Update User Details" closable="true">
-
                     <p:panelGrid>
-
                         <p:row>
                             <p:column>
                                 <h:outputLabel value="User ID: " />
@@ -151,15 +144,8 @@
                             </p:column>
                         </p:row>
                     </p:panelGrid>
-
-                    <!--                <div style="width: 20%; min-width: 500px;">
-                                        
-                                    </div>-->
-
                 </p:dialog>
-
             </h:form>
         </div>
     </ui:define>
-
 </ui:composition>

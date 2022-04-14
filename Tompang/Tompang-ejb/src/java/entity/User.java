@@ -75,10 +75,7 @@ public class User implements Serializable {
     @Column(nullable = false)
     @NotNull
     private Boolean isDisabled;
-    @Column(columnDefinition = "CHAR(32) NOT NULL")
-    @NotNull
-    private String salt;
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<CreditCard> creditCards;
     @OneToMany(mappedBy = "createdBy")
     private List<Conversation> conversations;
@@ -107,7 +104,6 @@ public class User implements Serializable {
         this.likedListings = new ArrayList<>();
         this.joinedOn = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         this.isDisabled = false;
-        this.salt = "";
     }
 
     public User(String firstName, String lastName, String email, String username, String password, Date dateOfBirth, String profilePic, Long contactNumber, Boolean isAdmin) {
@@ -265,20 +261,6 @@ public class User implements Serializable {
 
     public void setLikedListings(List<Listing> likedListings) {
         this.likedListings = likedListings;
-    }
-
-    /**
-     * @return the salt
-     */
-    public String getSalt() {
-        return salt;
-    }
-
-    /**
-     * @param salt the salt to set
-     */
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 
     @Override

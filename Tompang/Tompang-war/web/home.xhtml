@@ -10,10 +10,8 @@
     <ui:define name="content">
         <p style="font-size: 22px; font-weight: bold">Welcome #{profileManagedBean.getUsername()} </p> &nbsp;
         <h1> Home Page </h1>
-        <br></br>
-
+        <br />
         <div class="stats-div">
-
             <div class="statistics">
                 <h2>Users</h2>
                 <p style="font-size: 26px;">#{viewAllUsersManagedBean.getNumberOfUsers()}</p>
@@ -22,8 +20,6 @@
                 <h2>Listings</h2>
                 <p style="font-size: 26px;">#{viewAllListingsManagedBean.getNumberOfListings()}</p>
             </div>
-
         </div>
     </ui:define>
-
 </ui:composition>

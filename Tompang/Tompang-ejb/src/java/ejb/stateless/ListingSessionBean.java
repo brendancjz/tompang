@@ -8,6 +8,7 @@ package ejb.stateless;
 import entity.Listing;
 import entity.Transaction;
 import entity.User;
+import enumeration.CountryEnum;
 import exception.CreateNewListingException;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
@@ -35,6 +36,9 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
     @Override
     public Long createNewListing(Listing listing, Long userId) throws CreateNewListingException {
         try {
+            
+            System.out.println("Creating new listing");
+            
             User user = userSessionBeanLocal.getUserByUserId(userId);
             if (!user.getCreatedListings().contains(listing)) {
                 user.getCreatedListings().add(listing);
@@ -136,21 +140,8 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
         
         if (user.getLikedListings().contains(listing)) {
             user.getLikedListings().remove(listing);
+            System.out.println("Removed listing from user liked listings");
         }
-    }
-    
-    @Override
-    public void incrementListingLikes(Long listingId) throws EntityNotFoundException {
-        Listing listing = this.getListingByListingId(listingId);
-
-        listing.setNumOfLikes(listing.getNumOfLikes() + 1);
-    }
-
-    @Override
-    public void decrementListingLikes(Long listingId) throws EntityNotFoundException {
-        Listing listing = this.getListingByListingId(listingId);
-
-        listing.setNumOfLikes(listing.getNumOfLikes() - 1);
     }
 
     @Override
@@ -173,7 +164,7 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
 
         listing.setCountry(country);
         listing.setCity(city);
-        listing.setTitle(country);
+        listing.setTitle(title);
         listing.setDescription(description);
         listing.setPrice(price);
         listing.setExpectedArrivalDate(expectedArrivalDate);
@@ -194,7 +185,6 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
         listing.setExpectedArrivalDate(listingToUpdate.getExpectedArrivalDate());
         listing.setIsDisabled(listingToUpdate.getIsDisabled());
         listing.setIsOpen(listingToUpdate.getIsOpen());
-        listing.setNumOfLikes(listingToUpdate.getNumOfLikes());
         listing.setPhotos(listingToUpdate.getPhotos());
         listing.setPrice(listingToUpdate.getPrice());
         listing.setQuantity(listingToUpdate.getQuantity());

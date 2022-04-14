@@ -19,9 +19,6 @@ import javax.faces.view.ViewScoped;
 public class ViewDisputeDetailsManagedBean implements Serializable{
     
     private Dispute dispute;
-    
-  
-
     /**
      * Creates a new instance of ViewDisputeDetailsManagedBean
      */

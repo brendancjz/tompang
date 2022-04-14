@@ -48,6 +48,7 @@ public class ConversationManagedBean implements Serializable {
 
     @PostConstruct
     public void postConstruct() {
+        System.out.println("******* ConversationManagedBean.postConstruct()");
         try {
             newMessage = null;
             conversationToView = (Conversation) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conversation");
@@ -62,6 +63,7 @@ public class ConversationManagedBean implements Serializable {
     }
 
     public List<Message> retrieveAllBuyerMessages() {
+        System.out.println("*** ConversationManagedBean.retrieveAllBuyerMessages()");
         List<Message> buyerMessages = conversationToView.getMessages();
         for (int i = 0; i < buyerMessages.size(); i++) {
             Message m = buyerMessages.get(i);
@@ -75,6 +77,7 @@ public class ConversationManagedBean implements Serializable {
     }
 
     public List<Message> retrieveAllSellerMessages() {
+        System.out.println("*** ConversationManagedBean.retrieveAllSellerMessages()");
         List<Message> buyerMessages = conversationToView.getMessages();
         for (int i = 0; i < buyerMessages.size(); i++) {
             Message m = buyerMessages.get(i);
@@ -93,6 +96,7 @@ public class ConversationManagedBean implements Serializable {
     }
 
     public void createNewMessage() {
+        System.out.println("*** ConversationManagedBean.createNewMessage()");
         try {
             Message message = new Message();
             User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
@@ -102,24 +106,23 @@ public class ConversationManagedBean implements Serializable {
                 message = new Message(newMessage, false, user.getUserId(), false);
             }
             Long messageId = getMessageSessionBean().createNewMessage(message);
-
             getConversationSessionBean().addMessage(conversationToView.getConvoId(), getMessageSessionBean().getMessageByMessageId(messageId));
-
             Conversation updatedConvo = getConversationSessionBean().getConversationByConvoId(conversationToView.getConvoId());
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("conversation", updatedConvo);
             this.postConstruct();
+            
         } catch (EntityNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
     public void acceptOffer() {
-        // need to update transaction isAccepted to be true
+        System.out.println("*** ConversationManagedBean.acceptOffer()");
         try {
             conversationSessionBean.updateMessageAndTransaction(conversationToView.getConvoId());
             conversationToView = conversationSessionBean.getConversationByConvoId(conversationToView.getConvoId());
-            System.out.println("ACCEPTED");
-            for(int i=0; i<conversationToView.getMessages().size(); i++) {
+            
+            for(int i = 0; i<conversationToView.getMessages().size(); i++) {
                 System.out.println(conversationToView.getMessages().get(i));
             }
         } catch (EntityNotFoundException ex) {

@@ -63,7 +63,7 @@
                                   #{conversationManagedBean.conversationToView.listing.expectedArrivalDate.toString().substring(24)}" />
 
                     <h:outputText style="font-weight: bold;" value="Number Of Likes"/>
-                    <h:outputText value="#{conversationManagedBean.conversationToView.listing.numOfLikes}"/>
+                    <h:outputText value="#{conversationManagedBean.conversationToView.listing.likedByUsers.size()}"/>
 
                     <h:outputText style="font-weight: bold;" value="Description"/>
                     <h:outputText value="#{conversationManagedBean.conversationToView.listing.description}"/>
@@ -73,7 +73,6 @@
         </h:form>
         <hr />
         <div class="convo-block">
-
             <div class="convo-history" style="overflow-y: scroll">
                 <h:form id="convoBlock">
                     <p:repeat value="#{conversationManagedBean.conversationToView.messages}" var="message">
@@ -146,12 +145,8 @@
                             <f:ajax event="click" execute="@form:convoNewMessage" render="@form:convoNewMessage @form:convoBlock" listener="#{conversationManagedBean.createNewMessage}" />
                         </h:commandButton>
                     </div>
-
-
                 </h:form>
             </div>
         </div>
-
     </ui:define>
-
 </ui:composition>

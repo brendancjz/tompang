@@ -19,7 +19,6 @@ import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 
 import javax.inject.Inject;
@@ -48,7 +47,7 @@ public class ViewAllUsersManagedBean implements Serializable {
 
     @PostConstruct
     public void retrieveAllUsers() {
-        System.out.println("Post Construct of ViewAllUsersManagedBean called.");
+        System.out.println("******* ViewAllUsersManagedBean.retrieveAllUsers()");
         try {
             listOfUsers = userSessionBean.retrieveAllUsers();
         } catch (EmptyListException ex) {
@@ -57,13 +56,14 @@ public class ViewAllUsersManagedBean implements Serializable {
     }
 
     public void viewUserDetails(ActionEvent event) throws IOException {
+        System.out.println("*** ViewAllUsersManagedBean.viewUserDetails()");
         Long userIdToView = (Long) event.getComponent().getAttributes().get("userId");
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("userIdToView", userIdToView);
         FacesContext.getCurrentInstance().getExternalContext().redirect("viewUserDetails.xhtml");
     }
 
     public void deleteUser(ActionEvent event) {
-        System.out.println("Deleting User in ViewAllUsersManagedBean");
+        System.out.println("*** ViewAllUsersManagedBean.deleteUser()");
         try {
             User userEntityToDelete = (User) event.getComponent().getAttributes().get("userEntityToDelete");
             userSessionBean.deleteUser(userEntityToDelete.getUserId());
@@ -98,14 +98,15 @@ public class ViewAllUsersManagedBean implements Serializable {
     }
 
     public void updateUser(ActionEvent event) {
+        System.out.println("*** ViewAllUsersManagedBean.updateUser()");
         User user = (User) event.getComponent().getAttributes().get("user");
         this.userToUpdate = user;
     }
 
     public void saveUser(ActionEvent event) {
+        System.out.println("*** ViewAllUsersManagedBean.saveUser()");
         try {
             userSessionBean.updateUserDetails(userToUpdate);
-            System.out.println("Updated user details.");
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "User updated successfully", null));
             
         } catch (EntityNotFoundException ex) {

@@ -69,9 +69,9 @@ public class ViewAllListingsManagedBean implements Serializable {
 
     @PostConstruct
     public void retrieveAllListings() {
+        System.out.println("******* ViewAllListingsManagedBean.retrieveAllListings()");
         listings = new ArrayList<>();
         
-        System.out.println("PostConstruct for ViewAllListingManagedBean called.");
         try {
             //This is for when admin wishes to view User's Listings from the View User Details
             filteredUsername = (String)FacesContext.getCurrentInstance().getExternalContext().getFlash().get("username");
@@ -91,9 +91,8 @@ public class ViewAllListingsManagedBean implements Serializable {
     }
     
     public void deleteListing(ActionEvent event) {
+        System.out.println("*** ViewAllListingsManagedBean.deleteListing()");
         try {
-            System.out.println("Deleting Listing in ViewAllListingsManagedBean");
-            
             Listing listingToDelete = (Listing) event.getComponent().getAttributes().get("listingToDelete");
             
             listingSessionBean.deleteListing(listingToDelete.getListingId());
@@ -119,6 +118,7 @@ public class ViewAllListingsManagedBean implements Serializable {
     }
     
     public void removePhotoFromListingToUpdate(AjaxBehaviorEvent event) {
+        System.out.println("*** ViewAllListingsManagedBean.removePhotoFromListingToUpdate()");
         System.out.println(this.listingToUpdate.getPhotos().size());
         String photoToRemove = (String) event.getComponent().getAttributes().get("photo");
         this.listingToUpdate.getPhotos().remove(photoToRemove);
@@ -128,6 +128,7 @@ public class ViewAllListingsManagedBean implements Serializable {
     }
     
     public void saveListing(ActionEvent event) {
+        System.out.println("*** ViewAllListingsManagedBean.saveListing()");
         try {
             
             if (data.get(listingToUpdate.getCountry()).containsKey(listingToUpdate.getCity())) {
@@ -146,6 +147,7 @@ public class ViewAllListingsManagedBean implements Serializable {
     }
     
     public void handleFileUpload(FileUploadEvent event) {
+        System.out.println("*** ViewAllListingsManagedBean.handleFileUpload()");
         try {
             String newFilePath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("alternatedocroot_1")
                     + System.getProperty("file.separator") + event.getFile().getFileName();

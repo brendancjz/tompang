@@ -33,6 +33,7 @@ export class ViewTransactionDetailsPage implements OnInit {
   currentUser: User;
   isSeller: boolean | null;
 
+  showQrCode: boolean | null;
   scannedQRCode = {};
   encodedData: any;
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -56,6 +57,8 @@ export class ViewTransactionDetailsPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
+    this.showQrCode = false;
+    console.log(this.showQrCode);
     console.log('ionViewWillEnter for ViewTransactionDetails');
     this.hasLoaded = false;
     this.transactionId = Number(
@@ -119,11 +122,14 @@ export class ViewTransactionDetailsPage implements OnInit {
       });
   }
 
+  showQRCode() {
+    this.showQrCode = !this.showQrCode;
+  }
+
   scanQRCode() {
     this.scanner
       .scan()
       .then((res) => {
-
         console.log('confirm-transaction/' + res.text);
         this.router.navigate(['/confirm-transaction/' + res.text]);
       })

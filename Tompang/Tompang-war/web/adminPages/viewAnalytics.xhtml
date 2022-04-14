@@ -8,14 +8,10 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        <div class="card">
-
+        <div>
             <p:barChart model="#{viewAnalyticsManagedBean.barModel}" style="width: 100%; height: 400px;"/>
         </div>
-
-
-        <div class="card">
-
+        <div>
             <p:tabView>
                 <p:tab title="Revenue">
                     <p class="p-m-0">
@@ -27,10 +23,8 @@
                         #{viewAnalyticsManagedBean.totalRevenue * 0.03}
                     </p>
                 </p:tab>
-
             </p:tabView>
         </div>
         <div style="height: 100px"></div>
     </ui:define>
-
 </ui:composition>

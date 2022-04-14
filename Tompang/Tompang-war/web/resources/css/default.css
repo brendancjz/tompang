@@ -22,6 +22,13 @@ and open the template in the editor.
     height: 10vh;
 }
 
+.white .ui-menuitem-text{
+    color: white;
+}
+.black .ui-menuitem-text{
+    color: black;
+}
+
 #footer {
     position: fixed;
     left: 0;
@@ -271,13 +278,7 @@ and open the template in the editor.
     height: 72%;
 }
 .convo-message {
-    
-}
 
-.follower-following {
-    display: flex;
-    flex-direction: row;
-    align-content: center
 }
 
 .profile-details {

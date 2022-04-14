@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 export enum CategoryEnum
 {
-    FOOD,
     APPAREL,
     ACCESSORIES,
+    ELECTRONICS,
+    FOOD,
     FOOTWEAR,
     GIFTS,
-    ELECTRONICS
+
 }

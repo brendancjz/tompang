@@ -39,10 +39,6 @@ public interface UserSessionBeanLocal {
 
     public List<User> retrieveAllNotDisabledUsers() throws EmptyListException;
 
-    public void associateListingToUserLikedListings(Long userId, Long listingId) throws EntityNotFoundException;
-
-    public void dissociateListingToUserLikedListings(Long userId, Long listingId) throws EntityNotFoundException;
-
     public void removeListingFromUserLikedListings(Long listingId) throws EmptyListException, EntityNotFoundException;
 
     public void updateUserDetails(User userToUpdate) throws EntityNotFoundException;

@@ -18,12 +18,14 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import javax.validation.constraints.Past;
 import org.primefaces.event.FileUploadEvent;
@@ -68,12 +70,12 @@ public class ProfileManagedBean implements Serializable {
     private CreditCard creditCardToDelete;
 
     public ProfileManagedBean() {
-        System.out.println("ProfileManagedBean");
-        newCreditCard = new CreditCard();
-        initialise();
     }
 
+    @PostConstruct
     private void initialise() {
+        System.out.println("******* ProfileManagedBean.initialise()");
+        newCreditCard = new CreditCard();
         user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
         username = user.getUsername();
         email = user.getEmail();
@@ -88,10 +90,10 @@ public class ProfileManagedBean implements Serializable {
         setCreditCards(user.getCreditCards());
 
         profileContent = "EDIT_PROFILE";
-
     }
 
     public void update() {
+        System.out.println("*** ProfileManagedBean.update()");
         try {
             userSessionBean.updateUserDetails(user.getUserId(), firstName, lastName, email, username, dob, getProfilePic(), contactNum);
             User updatedUser = userSessionBean.getUserByUserId(user.getUserId());
@@ -105,7 +107,7 @@ public class ProfileManagedBean implements Serializable {
     }
 
     public void changePassword() {
-        System.out.println("Change Password.");
+        System.out.println("*** ProfileManagedBean.changePassword()");
         try {
             if (user.getPassword().equals(currPassword)) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "User successfully changed password.", null));
@@ -126,7 +128,7 @@ public class ProfileManagedBean implements Serializable {
     }
 
     public void deleteCreditCard() {
-        System.out.println("delete credit card");
+        System.out.println("*** ProfileManagedBean.deleteCreditCard()");
         if (getCreditCards().contains(creditCardToDelete)) {
             getCreditCards().remove(creditCardToDelete);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Credit Card deleted successfully!", null));
@@ -136,6 +138,7 @@ public class ProfileManagedBean implements Serializable {
     }
 
     public void addCreditCard(ActionEvent event) {
+        System.out.println("*** ProfileManagedBean.addCreditCard()");
         try {
             creditCardSessionBean.createNewCreditCard(this.newCreditCard, this.user.getUserId());
             this.user = userSessionBean.getUserByUserId(this.user.getUserId());
@@ -150,6 +153,7 @@ public class ProfileManagedBean implements Serializable {
     }
 
     public void handleFileUpload(FileUploadEvent event) {
+        System.out.println("*** ProfileManagedBean.handleFileUpload()");
         try {
             String newFilePath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("alternatedocroot_1")
                     + System.getProperty("file.separator") + event.getFile().getFileName();
@@ -188,6 +192,15 @@ public class ProfileManagedBean implements Serializable {
         }
     }
     
+    public void viewUserProfile(AjaxBehaviorEvent event) throws IOException {
+        System.out.println("*** ProfileManagedBean.viewUserProfile()");
+        User user = (User) event.getComponent().getAttributes().get("user");
+        System.out.print(user.getUsername());
+        
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userToView", user);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("userPages/viewUserProfile.xhtml");
+    }
+    
     public String getFormattedCCNumber(Long ccNumber) {
         String number = Long.toString(ccNumber);
         String formattedNumber = number.substring(0,4) + " " + number.substring(4,8) + " " + number.substring(8,12) + " " + number.substring(12,16);
@@ -200,10 +213,6 @@ public class ProfileManagedBean implements Serializable {
 
     public void toggleChangePassword() {
         profileContent = "CHANGE_PASSWORD";
-    }
-
-    public void toggleMyListing() {
-        profileContent = "MY_LISTINGS";
     }
 
     public void toggleViewCreditCards() {

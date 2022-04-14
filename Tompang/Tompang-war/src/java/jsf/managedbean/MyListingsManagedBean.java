@@ -41,22 +41,20 @@ public class MyListingsManagedBean {
     
     @PostConstruct
     public void retrieveMyListings() {
-        System.out.println("Post Construct of MyListingsManagedBean called.");
+        System.out.println("******* MyListingsManagedBean.retrieveMyListings()");
         User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
         this.userLikedListings = user.getLikedListings();
         myListings = user.getCreatedListings();
     }
 
     public void likeListing(AjaxBehaviorEvent event) {
+        System.out.println("*** MyListingsManagedBean.likeListing()");
         try {
-            System.out.println("Like Listing method called.");
             Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
             User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
             
-            listingSessionBean.incrementListingLikes(listing.getListingId());
-            userSessionBean.associateListingToUserLikedListings(user.getUserId(), listing.getListingId());
-            
-            //Update user in session scope
+            listingSessionBean.likeListing(user.getUserId(),listing.getListingId());
+
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", userSessionBean.getUserByUserId(user.getUserId()));
             this.retrieveMyListings(); 
         } catch (EntityNotFoundException ex) {
@@ -65,14 +63,12 @@ public class MyListingsManagedBean {
     }
     
     public void dislikeListing(AjaxBehaviorEvent event) {
+        System.out.println("*** MyListingsManagedBean.dislikeListing()");
         try {
-            System.out.println("Dislike Listing method called.");
             Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
             User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
-            listingSessionBean.decrementListingLikes(listing.getListingId());
-            userSessionBean.dissociateListingToUserLikedListings(user.getUserId(), listing.getListingId());
-           
-            //Update user in session scope
+            listingSessionBean.unlikeListing(listing.getListingId(), user.getUserId());
+
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", userSessionBean.getUserByUserId(user.getUserId()));
             this.retrieveMyListings(); 
         } catch (EntityNotFoundException ex) {
@@ -83,9 +79,10 @@ public class MyListingsManagedBean {
     }
     
     public void viewListing(AjaxBehaviorEvent event) throws IOException {
+        System.out.println("*** MyListingsManagedBean.viewListing()");
         Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listingToView", listing);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("userPages/viewListingDetails.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("viewListingDetails.xhtml");
     }
     
     public List<Listing> getMyListings() {

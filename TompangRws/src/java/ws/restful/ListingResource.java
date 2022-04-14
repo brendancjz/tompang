@@ -212,7 +212,9 @@ public class ListingResource {
         if (createListingReq != null) {
             try {
                 User user = userSessionBean.userLogin(createListingReq.getUsername(), createListingReq.getPassword());
-
+                
+                System.out.println("Create listing");
+                System.out.println(createListingReq.getListing().getCountry().toString());
                 Long listingId = listingSessionBean.createNewListing(createListingReq.getListing(), user.getUserId());
 
                 return Response.status(Response.Status.OK).entity(listingId).build();
@@ -235,16 +237,6 @@ public class ListingResource {
         if (updateListingReq != null) {
             try {
                 User user = userSessionBean.userLogin(updateListingReq.getUsername(), updateListingReq.getPassword());
-                
-                System.out.println(updateListingReq.getListing().getPrice());
-                System.out.println(updateListingReq.getListing().getPhotos());
-                System.out.println(updateListingReq.getListing().getNumOfLikes());
-                System.out.println(updateListingReq.getListing().getCity());
-                System.out.println(updateListingReq.getListing().getCategory());
-                System.out.println(updateListingReq.getListing().getCreatedBy() == null);
-                System.out.println(updateListingReq.getListing().getDescription());
-                System.out.println(updateListingReq.getListing().getExpectedArrivalDate() == null);
-                
                 
                 listingSessionBean.updateListingDetails(updateListingReq.getListing());
                 

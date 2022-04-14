@@ -13,10 +13,15 @@
         
         <h:form rendered="#{!checkOutManagedBean.successfulCheckout}">
             <p:outputLabel  value="Credit Card: " style="font-weight: bold;" />
-            <p:selectOneMenu id="selCreditCard" value="#{checkOutManagedBean.creditCardId}" required="true">
+            <p:selectOneMenu id="selCreditCard" value="#{checkOutManagedBean.creditCardNum}" required="true">
                 <f:selectItem itemValue="" itemLabel="[Select One]" />
                 <f:selectItems value="#{checkOutManagedBean.creditCardNumbers}" />
-<!--                <p:ajax event="change" process="@form" update="@form"  />-->
+            </p:selectOneMenu>
+            <br/>
+            <p:outputLabel  value="Select Quantity: " style="font-weight: bold;" />
+            <p:selectOneMenu id="selQuantity" value="#{checkOutManagedBean.selectedQuantity}" required="true">
+                <f:selectItem itemValue="" itemLabel="[Select One]" />
+                <f:selectItems value="#{checkOutManagedBean.quantitiesAvailable}" />
             </p:selectOneMenu>
             <br></br>
             <h:commandButton class="blue-button" type="Submit" value="Checkout" actionListener="#{checkOutManagedBean.checkOut}"/>

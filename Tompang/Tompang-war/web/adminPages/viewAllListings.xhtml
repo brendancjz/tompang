@@ -15,21 +15,19 @@
             <h1 style="font-size: 24px"> View User Listings: #{viewAllListingsManagedBean.filteredUsername} </h1>
         </p:outputPanel>
         <br></br>
-        <!--<ezcomp:Breadcrumb pageName="ViewAllListings"/>-->
         <div class="dataTableDiv">
             <h:form class="viewDataTable"  id="listOfListings">
                 <p:growl id="messages" redisplay="false"  />
-
                 <p:dataTable id="listingsTable" widgetVar="listingsTable" value="#{viewAllListingsManagedBean.listings}" var="listing" rowKey="#{listing.listingId}" rowIndexVar="row"
                              filteredValue="#{viewAllListingsManagedBean.filteredListings}"
                              rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
-
                     <f:facet name="header">
                         <p:outputPanel style="text-align: right;">
                             <h:outputText value="Search all fields:" />
                             <p:inputText id="globalFilter" onkeyup="PF('listingsTable').filter()" style="width:200px" placeholder="Enter keyword"/>
                         </p:outputPanel>
                     </f:facet>
+                    
                     <p:column headerText="ID" width="4%" sortBy="#{listing.listingId}" filterBy="#{listing.listingId}" filterStyle="display:none;">
                         <h:outputText value="#{listing.listingId}" />
                     </p:column>
@@ -85,15 +83,12 @@
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>
             </h:form>
-
         </div>
         <ezcomp:ViewListingDetails id="ccViewListingDetails" />
         <h:form id="formUpdateListingDetails" >
             <p:growl for="formUpdateListingDetails" showDetail="true" />
             <p:dialog id="dialogUpdateListingDetails" widgetVar="dialogUpdateListingDetails" header="Update Listing Details" closable="true" style="height: 700px;">
-
                 <p:panelGrid>
-
                     <p:row>
                         <p:column>
                             <h:outputLabel value="Listing ID: " />
@@ -208,10 +203,7 @@
                                 <p:panel header="Photo(s) Upload" style="margin-top:10px;padding: 0.5em;width: 650px;">
                                     <p:fileUpload listener="#{viewAllListingsManagedBean.handleFileUpload}" multiple="true" update="@form:displayPhotosForm:displayPhotosView" />
                                 </p:panel>
-
                                 <br/>
-
-
                                 <p:panel header="Photo Files" visible="#{viewAllListingsManagedBean.listingToUpdate.photos.size() > 0}" style="width: 650px;">
                                     <h:form id="displayPhotosForm">
                                         <p:messages />
@@ -228,28 +220,17 @@
                                         </p:dataView>
                                     </h:form>
                                 </p:panel>
-
-
                             </p:column>
                         </h:form>
-
                     </p:row>
-
                     <p:row>
                         <p:column colspan="3">
                             <p:commandButton id="updateListing" value="Save" icon="pi pi-save" update="@form listOfListings:listingsTable" actionListener="#{viewAllListingsManagedBean.saveListing}" oncomplete="PF('dialogUpdateListingDetails').show();" />
                         </p:column>
                     </p:row>
                 </p:panelGrid>
-
-                <!--                <div style="width: 20%; min-width: 500px;">
-                                    
-                                </div>-->
-
             </p:dialog>
-
         </h:form>
     </ui:define>
-
 </ui:composition>
 

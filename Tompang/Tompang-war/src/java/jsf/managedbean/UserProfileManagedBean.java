@@ -49,6 +49,7 @@ public class UserProfileManagedBean {
     
     @PostConstruct
     public void retrieveUser() {
+        System.out.println("******* UserProfileManagedBean.retrieveUser()");
         try {
             currentUser = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
             userToView = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userToView");
@@ -61,6 +62,7 @@ public class UserProfileManagedBean {
     }
     
     public void retrieveUserListings(AjaxBehaviorEvent event) {
+        System.out.println("*** UserProfileManagedBean.retrieveUserListings()");
         try {
             User user = (User) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
             this.userListings = listingSessionBeanLocal.retrieveUserListings(user.getUsername());
@@ -70,6 +72,7 @@ public class UserProfileManagedBean {
     }
         
     public void viewProfile(AjaxBehaviorEvent event) throws IOException {
+        System.out.println("*** UserProfileManagedBean.viewProfile()");
         User user = (User) event.getComponent().getAttributes().get("user");
         username = user.getUsername();
         System.out.print(user.getUsername());
@@ -80,6 +83,7 @@ public class UserProfileManagedBean {
     }
     
     public void followUser(AjaxBehaviorEvent event) {
+        System.out.println("*** UserProfileManagedBean.followUser()");
         try {
             User userToFollow = (User) event.getComponent().getAttributes().get("user");
             User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
@@ -96,6 +100,7 @@ public class UserProfileManagedBean {
     }
     
     public void unfollowUser(AjaxBehaviorEvent event) {
+        System.out.println("*** UserProfileManagedBean.unfollowUser()");
         try {
             User userToUnfollow = (User) event.getComponent().getAttributes().get("user");
             User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
@@ -109,6 +114,15 @@ public class UserProfileManagedBean {
         } catch (EntityNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+    
+    public void viewUserProfile(AjaxBehaviorEvent event) throws IOException {
+        System.out.println("*** UserProfileManagedBean.viewUserProfile()");
+        User user = (User) event.getComponent().getAttributes().get("user");
+        System.out.print(user.getUsername());
+        
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userToView", user);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("viewUserProfile.xhtml");
     }
     
     public List<Listing> getMyListings() {
