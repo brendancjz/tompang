@@ -122,9 +122,11 @@
                         </p:column>
                     </p:row>
                 </p:panelGrid>
-                <h:commandButton style="margin-top: 10px;" class="blue-button" value="View User Listings" actionListener="#{viewUserDetailsManagedBean.viewUserListings}">
-                    <f:attribute name="username" value="#{viewUserDetailsManagedBean.userEntityToView.username}" />
+                <h:commandButton style="margin-top: 10px;" class="blue-button" value="View User Profile">
+                    <f:attribute name="user" value="#{viewUserDetailsManagedBean.userEntityToView}" />
+                    <f:ajax event="click" execute="@this" render="@all" listener="#{viewUserDetailsManagedBean.viewUserProfile}" />
                 </h:commandButton>
+           
             </p:dialog>
         </h:form>
     </cc:implementation>
