@@ -16,6 +16,12 @@ Tompang is a mobile application acting as a marketplace for Singaporean traveler
 <br />
 <a href="https://youtu.be/9AliJYcd-K8">Tompang's Demo Video</a>
 
+## App Features
+<div>
+  <img src="https://github.com/brendancjz/tompang/blob/main/featureScreenshots/Tompang-Marketplace.jpg">  
+</div>
+
+
 ## Getting Started Running Locally
 
 ### Clone this repository
