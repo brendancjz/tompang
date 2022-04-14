@@ -53,6 +53,7 @@ public class TransactionSessionBean implements TransactionSessionBeanLocal {
             
             transaction.setBuyer(buyer);
             transaction.setListing(listing);
+           
             
             System.out.println("Listing Quantity: " + listing.getQuantity());
             System.out.println("Transaction Quantity: " + transaction.getQuantity());
@@ -99,6 +100,7 @@ public class TransactionSessionBean implements TransactionSessionBeanLocal {
     @Override
     public void updateTransactionIsCompleted(Long transactionId, Boolean isCompleted) throws EntityNotFoundException {
         Transaction transaction = this.getTransactionByTransactionId(transactionId);
+        transaction.getSeller().setWalletAmount(transaction.getSeller().getWalletAmount() + transaction.getAmount());
         
         transaction.setIsCompleted(isCompleted);
     }

@@ -179,6 +179,10 @@ const routes: Routes = [
     redirectTo: 'index',
     pathMatch: 'full',
   },
+  {
+    path: 'manage-wallet',
+    loadChildren: () => import('./settings/manage-wallet/manage-wallet.module').then( m => m.ManageWalletPageModule)
+  },
 
 
 ];

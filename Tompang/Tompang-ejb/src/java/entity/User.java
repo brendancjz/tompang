@@ -91,6 +91,10 @@ public class User implements Serializable {
     private List<User> following;
     @OneToMany
     private List<Listing> likedListings;
+    @Column(nullable = false)
+    @NotNull
+    private Double walletAmount;
+    
 
     
     public User() {
@@ -104,6 +108,7 @@ public class User implements Serializable {
         this.likedListings = new ArrayList<>();
         this.joinedOn = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         this.isDisabled = false;
+        this.walletAmount = 0.0;
     }
 
     public User(String firstName, String lastName, String email, String username, String password, Date dateOfBirth, String profilePic, Long contactNumber, Boolean isAdmin) {
@@ -299,5 +304,19 @@ public class User implements Serializable {
      */
     public void setFollowers(List<User> followers) {
         this.followers = followers;
+    }
+
+    /**
+     * @return the walletAmount
+     */
+    public Double getWalletAmount() {
+        return walletAmount;
+    }
+
+    /**
+     * @param walletAmount the walletAmount to set
+     */
+    public void setWalletAmount(Double walletAmount) {
+        this.walletAmount = walletAmount;
     }
 }

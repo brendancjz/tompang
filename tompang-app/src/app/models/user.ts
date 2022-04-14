@@ -16,6 +16,7 @@ export class User {
   joinedOn: Date | undefined;
   isAdmin: boolean | undefined;
   isDisabled: boolean | undefined;
+  walletAmount: number | undefined;
 
   // @OneToMany
   creditCards: CreditCard[] | undefined;
