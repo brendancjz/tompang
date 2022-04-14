@@ -51,6 +51,17 @@
         </div>
       </ion-tab-button>
     </ion-tab-bar>
+    <ion-tab-bar id="manage-wallet-tab" slot="top">
+      <ion-tab-button routerLink="/manage-wallet">
+        <div class="button-div">
+          <div style="display: flex; justify-content: space-between;align-items: center;">
+            <ion-icon class="button-icon" slot="start" [ios]="'wallet-outline'" [md]="'wallet-outline'"></ion-icon>
+            <ion-text class="button-text">Manage Wallet</ion-text>
+          </div>
+          <ion-icon name="chevron-forward-sharp"></ion-icon>
+        </div>
+      </ion-tab-button>
+    </ion-tab-bar>
     <ion-tab-bar id="logout-tab" slot="top">
       <ion-tab-button (click)="userLogout()">
         <div class="button-div">

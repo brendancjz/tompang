@@ -44,7 +44,8 @@ export class User {
     email?: string,
     dateOfBirth?: Date,
     profilePic?: string,
-    contactNumber?: number
+    contactNumber?: number,
+    walletAmount?: number
   ) {
     this.userId = userId;
     this.firstName = firstName;
@@ -58,6 +59,7 @@ export class User {
     this.joinedOn = new Date();
     this.isAdmin = false;
     this.isDisabled = false;
+    this.walletAmount = walletAmount;
 
     this.creditCards = [];
   }

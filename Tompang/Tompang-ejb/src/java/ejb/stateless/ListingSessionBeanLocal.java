@@ -7,7 +7,6 @@ package ejb.stateless;
 
 import entity.Listing;
 import entity.Transaction;
-import enumeration.CountryEnum;
 import exception.CreateNewListingException;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;
@@ -31,10 +30,6 @@ public interface ListingSessionBeanLocal {
     void updateListingDetails(Long listingId, String country, String city, String title, String description, double price, Date expectedArrivalDate, int quantity, boolean isOpen, List<String> photos) throws EntityNotFoundException;
 
     void deleteListing(Long listingId) throws EntityNotFoundException;
-
-//    void associateUserWithListing(User user, long listingId) throws EntityNotFoundException;
-
-//    void associateConversationWithListing(Conversation conversation, long listingId) throws EntityNotFoundException;
             
     void associateTransactionWithListing(Transaction transaction, Long listingId) throws EntityNotFoundException;
 

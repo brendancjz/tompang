@@ -142,6 +142,7 @@ public class UserSessionBean implements UserSessionBeanLocal {
         user.setDateOfBirth(userToUpdate.getDateOfBirth());
         user.setProfilePic(userToUpdate.getProfilePic());
         user.setContactNumber(userToUpdate.getContactNumber());
+        user.setWalletAmount(userToUpdate.getWalletAmount());
         
     }
 

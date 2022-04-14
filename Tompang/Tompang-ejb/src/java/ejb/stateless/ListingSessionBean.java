@@ -8,7 +8,6 @@ package ejb.stateless;
 import entity.Listing;
 import entity.Transaction;
 import entity.User;
-import enumeration.CountryEnum;
 import exception.CreateNewListingException;
 import exception.EmptyListException;
 import exception.EntityNotFoundException;

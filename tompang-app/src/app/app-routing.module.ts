@@ -90,6 +90,10 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'manage-wallet',
+    loadChildren: () => import('./settings/manage-wallet/manage-wallet.module').then( m => m.ManageWalletPageModule)
+  },
+  {
     path: 'view-listing-details/:listingId',
     loadChildren: () =>
       import('./view-listing-details/view-listing-details.module').then(
@@ -178,10 +182,6 @@ const routes: Routes = [
     path: '**',
     redirectTo: 'index',
     pathMatch: 'full',
-  },
-  {
-    path: 'manage-wallet',
-    loadChildren: () => import('./settings/manage-wallet/manage-wallet.module').then( m => m.ManageWalletPageModule)
   },
 
 
