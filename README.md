@@ -4,6 +4,12 @@
   <img src="https://github.com/brendancjz/tompang/blob/main/Tompang/Tompang-war/web/resources/images/tompang_logo_white.png" width="200">  
 </div>
 
+## What is Tompang?
+
+Tompang is a mobile application acting as a marketplace for Singaporean travelers. During their overseas trips, travelers can offer to buy back overseas products for interested buyers in Singapore. This project allows travelers to earn some extra income while they are on their trip. At the same time, it also offers Singaporeans the opportunity to either
+   - purchase products from overseas without bearing expensive shipping costs or
+   - purchase products that they would not have been able to purchase directly from Singapore.
+
 ## Getting Started Running Locally
 
 ### Clone this repository
