@@ -6,7 +6,6 @@ import { User } from '../models/user';
 import { ConversationService } from '../services/conversation.service';
 import { ListingService } from '../services/listing.service';
 import { SessionService } from '../services/session.service';
-import { UserService } from '../services/user.service';
 import { AlertController } from '@ionic/angular';
 import { Location } from '@angular/common';
 
@@ -40,7 +39,6 @@ export class ViewListingDetailsPage implements OnInit {
     public sessionService: SessionService,
     private listingService: ListingService,
     private conversationService: ConversationService,
-    private userService: UserService,
     private alertController: AlertController
   ) {}
 

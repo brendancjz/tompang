@@ -39,24 +39,17 @@ export class ConversationService {
     const password = currentUser.password;
     console.log(username);
     console.log(password);
-    return this.httpClient.get<Conversation[]>(this.baseUrl + '/retrieveBuyerConversations?username=' + username + '&password=' + password).pipe(catchError(this.handleError));
+    return this.httpClient.get<Conversation[]>(this.baseUrl +
+      '/retrieveBuyerConversations?username=' + username + '&password=' + password).pipe(catchError(this.handleError));
   }
 
   retrieveSellerConversations(): Observable<Conversation[]> {
     const currentUser = this.sessionService.getCurrentUser();
     const username = currentUser.username;
     const password = currentUser.password;
-    return this.httpClient.get<Conversation[]>(this.baseUrl + '/retrieveSellerConversations?username=' + username + '&password=' + password).pipe(catchError(this.handleError));
+    return this.httpClient.get<Conversation[]>(this.baseUrl +
+      '/retrieveSellerConversations?username=' + username + '&password=' + password).pipe(catchError(this.handleError));
   }
-
-  // getBuyerConversationWithListing(userId: number, listingId: number): Conversation {
-  //   //Implement bridge
-
-  //   const sampleConversation = new Conversation(10);
-  //   sampleConversation.createdBy = this.sessionService.getCurrentUser();
-  //   sampleConversation.listing = this.listingService.getSampleListing();
-  //   return sampleConversation;
-  // }
 
   getConversationById(convoId: number): Observable<Conversation> {
     //Implement bridge
@@ -64,20 +57,22 @@ export class ConversationService {
     const username = currentUser.username;
     const password = currentUser.password;
     console.log(convoId);
-    return this.httpClient.get<Conversation>(this.baseUrl + '/retrieveConversation/' + convoId + '?username=' + username + '&password=' + password).pipe(catchError(this.handleError));
+    return this.httpClient.get<Conversation>(this.baseUrl +
+      '/retrieveConversation/' + convoId + '?username=' + username + '&password=' + password).pipe(catchError(this.handleError));
   }
 
   addMessage(newMessage: Message, convoId: number) {
     console.log('service method called');
     console.log(convoId);
-    let newMessageReq: NewMessageReq = new NewMessageReq(newMessage, convoId);
+    const newMessageReq: NewMessageReq = new NewMessageReq(newMessage, convoId);
     return this.httpClient.put<number>(this.baseUrl, newMessageReq, httpOptions).pipe(catchError(this.handleError));
   }
 
   createConversation(newConversation: Conversation, listingId: number, userId: number) {
     console.log(' create convo service method called');
-    let newConversationReq: NewConversationReq = new NewConversationReq(newConversation, listingId, userId);
-    return this.httpClient.put<number>(this.baseUrl + '/createConversation', newConversationReq, httpOptions).pipe(catchError(this.handleError));
+    const newConversationReq: NewConversationReq = new NewConversationReq(newConversation, listingId, userId);
+    return this.httpClient.put<number>(this.baseUrl +
+      '/createConversation', newConversationReq, httpOptions).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {

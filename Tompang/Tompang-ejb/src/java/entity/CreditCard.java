@@ -51,10 +51,14 @@ public class CreditCard implements Serializable {
     @Future
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date expiryDate;
+    @Column(nullable = false)
+    @NotNull
+    private Boolean isDisabled;
     @ManyToOne
     private User user;
 
     public CreditCard() {
+        this.isDisabled = false;
     }
 
     public CreditCard(String ccBrand, String ccName, Long ccNumber, Integer ccCIV, Date expiryDate) {
@@ -64,6 +68,14 @@ public class CreditCard implements Serializable {
         this.ccNumber = ccNumber;
         this.ccCIV = ccCIV;
         this.expiryDate = expiryDate;
+    }
+
+    public Boolean getIsDisabled() {
+        return isDisabled;
+    }
+
+    public void setIsDisabled(Boolean isDisabled) {
+        this.isDisabled = isDisabled;
     }
 
     public String getCcBrand() {

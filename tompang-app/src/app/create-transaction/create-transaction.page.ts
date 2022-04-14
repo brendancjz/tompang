@@ -31,7 +31,7 @@ export class CreateTransactionPage implements OnInit {
 
   buyerCreditCard: CreditCard;
   transactionSuccessful: boolean;
-  result: number = 0;
+  result = 0;
   resultError: boolean;
   message: string;
   resultSuccess: boolean;
@@ -40,7 +40,7 @@ export class CreateTransactionPage implements OnInit {
 
   hasUserAlreadyBoughtThis: boolean;
 
-  quantities: number[]
+  quantities: number[];
 
 
   constructor(private location: Location, private router: Router,
@@ -68,10 +68,6 @@ export class CreateTransactionPage implements OnInit {
         for(let i = 1; i <= this.listingToView.quantity; i ++){
           this.quantities.push(i);
         }
-
-
-
-
 
         this.hasLoaded = true;
       },
@@ -154,20 +150,6 @@ export class CreateTransactionPage implements OnInit {
                     this.resultSuccess = true;
                     this.resultError = false;
                     this.message = 'New Message ' + newMessageId + ' created successfully';
-                    // this.conversationService.getConversationById(convo.convoId).subscribe({
-                    //   next: (response) => {
-                    //     // this.convoToView = response;
-                    //     console.log(response);
-                    //     // console.log(this.convoToView);
-                    //     this.hasLoaded = true;
-                    //     console.log("PASS");
-                    //     // document.getElementById("divExample").style.bottom = '0';
-                    //   },
-                    //   error: (error) => {
-                    //     console.log('view-conversation.page.ts:' + error);
-                    //     console.log("FAIL");
-                    //   },
-                    // });
                   },
                   //add message error
                   error: (error) => {
@@ -178,8 +160,6 @@ export class CreateTransactionPage implements OnInit {
                     console.log('********** createNewMessage: ' + error);
                   }
                 });
-                //********************************************** need add message to convo and send no need navigate
-                // this.router.navigate(['/view-conversation/' + convo.convoId]);
               }
             }
             if (convoNotFound) {
@@ -204,7 +184,6 @@ export class CreateTransactionPage implements OnInit {
                   this.resultSuccess = true;
                   this.resultError = false;
                   this.message = 'New Conversation ' + newConversationId + ' created successfully';
-                  //***************************** need add message to convo and send no need navigate
                   this.conversationService.addMessage(newMessage, newConversationId).subscribe({
                     // eslint-disable-next-line @typescript-eslint/no-shadow
                     next: (response) => {
@@ -221,7 +200,6 @@ export class CreateTransactionPage implements OnInit {
                       console.log('********** createNewMessage: ' + error);
                     }
                   });
-                  // this.router.navigate(['/view-conversation/' + newConversationId]);
                 },
                 error: (error) => {
                   this.resultError = true;
@@ -252,7 +230,6 @@ export class CreateTransactionPage implements OnInit {
                 this.resultSuccess = true;
                 this.resultError = false;
                 this.message = 'New Conversation ' + newConversationId + ' created successfully';
-                //********************************************************* need add message to convo and send no need navigate
                 this.conversationService.addMessage(newMessage, newConversationId).subscribe({
                   // eslint-disable-next-line @typescript-eslint/no-shadow
                   next: (response) => {
@@ -270,7 +247,6 @@ export class CreateTransactionPage implements OnInit {
                     console.log('********** createNewMessage: ' + error);
                   }
                 });
-                // this.router.navigate(['/view-conversation/' + newConversationId]);
               },
               // eslint-disable-next-line @typescript-eslint/no-shadow
               error: (error) => {
@@ -286,9 +262,9 @@ export class CreateTransactionPage implements OnInit {
 
       //create transaction error
       error: (error) => {
-        if(this.transaction.creditCard == undefined && this.transaction.quantity == undefined){
+        if(this.transaction.creditCard === undefined && this.transaction.quantity === undefined){
           this.result= 4;
-        } else if(this.transaction.creditCard == undefined) {
+        } else if(this.transaction.creditCard === undefined) {
           this.result = 2;
         } else {
           this.result = 3;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DisputeService } from 'src/app/services/dispute.service';
 import { Dispute } from 'src/app/models/dispute';
 import { Router } from '@angular/router';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-disputes',
@@ -12,7 +13,8 @@ export class DisputesPage implements OnInit {
   disputes: Dispute[];
 
   constructor(private router: Router,
-    private disputeService: DisputeService) { }
+    private disputeService: DisputeService,
+    private sessionService: SessionService) { }
 
   ngOnInit() {
     this.disputes = [];
@@ -36,6 +38,15 @@ export class DisputesPage implements OnInit {
     this.router.navigate([
       '/view-dispute-details/' + disputeId,
     ]);
+  }
+
+  checkDispute(dispute: Dispute): string{
+
+    if (dispute.transaction.buyer.userId === dispute.userId) {
+        return 'Purchased on ';
+    } else {
+      return 'Sold on ';
+    }
   }
 
   formatListingTitle(dispute: Dispute) {

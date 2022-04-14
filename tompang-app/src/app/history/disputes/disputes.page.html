@@ -6,12 +6,12 @@
   </div>
   <hr class="horizontal-rule" />
   <div>
-    <ion-item *ngIf="disputes.length == 0"> 
+    <ion-item *ngIf="disputes.length === 0">
       You have no Disputes!
     </ion-item>
     <ion-list *ngFor="let dispute of disputes">
       <ion-item class="grey-color">
-        <div class="transaction-block">
+        <div class="dispute-block">
           <div style="display: flex; align-items: center">
             <ion-icon
               name="hand-right-outline"
@@ -25,24 +25,24 @@
               <ion-label style="font-size: 16px; margin-bottom: 5px">
                 Dispute for {{formatListingTitle(dispute)}}
               </ion-label>
-              <ion-text style="font-size: 12px; margin-bottom: 15px">
-                Purchased on {{formatTransactionDate(dispute)}}
-                <div style="display: flex;flex-direction: column;justify-content: center;height:15px;margin-left: 170px;position:absolute;top: 22px;">
-                  <span *ngIf="dispute.isResolved === true"
-                  style="color:var(--ion-color-primary);">RESOLVED</span>
-                  <span *ngIf="dispute.isResolved === false"
-                  style="color: red;">NOT RESOLVED</span>
+              <ion-text style="font-size: 12px; margin-bottom: 25px">
+                {{checkDispute(dispute)}}{{formatTransactionDate(dispute)}}
+                <div style="display: flex;flex-direction: column;justify-content: center;height:15px;margin-left: 160px;position:absolute;top: 30px;">
+                  <ion-chip *ngIf="dispute.isResolved === false" outline color="primary" style="padding: 15px;">
+                    <ion-label>ONGOING</ion-label>
+                  </ion-chip>
+                  <ion-chip *ngIf="dispute.isResolved === true" outline color="success" style="padding: 15px;">
+                    <ion-label>RESOLVED</ion-label>
+                  </ion-chip>
                 </div>
               </ion-text>
             </ion-item-group>
-            <div>
-              <ion-button color="tertiary" class="button-icon" icon-only (click)="viewDispute(dispute.disputeId)">
-                <ion-icon name="chevron-forward-outline"></ion-icon>
-              </ion-button>
-            </div>
           </div>
-
-          <div></div>
+          <div>
+            <ion-button color="tertiary" class="button-icon" icon-only (click)="viewDispute(dispute.disputeId)">
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-button>
+          </div>
         </div>
       </ion-item>
     </ion-list>

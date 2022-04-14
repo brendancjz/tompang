@@ -1,11 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-// import { ImagePicker } from '@ionic-native/image-picker';
-
 import { SessionService } from '../../services/session.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 import { FileUploadService } from 'src/app/services/fileUpload.service';
-import { PhotoService } from 'src/app/services/photo.service';
 import { Camera } from '@awesome-cordova-plugins/camera/ngx';
 import { FileTransfer, FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer/ngx';
 import { CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
@@ -35,7 +32,6 @@ export class ChangeProfilePicPage implements OnInit {
   constructor(public sessionService: SessionService,
     private userService: UserService,
     private fileUploadService: FileUploadService,
-    private photoService: PhotoService,
     private camera: Camera,
     private transfer: FileTransfer) { }
 
@@ -174,11 +170,8 @@ export class ChangeProfilePicPage implements OnInit {
       console.log('Uploaded Successfully', data);
       this.imageFileName = this.imageURI.split('/cache/')[1];
       this.fileName = this.imageFileName;
-      console.log('FILE NAME', this.fileName);
-
       //Updating User
       this.currentProfilePic = '/uploadedFiles/' + this.fileName;
-
       const updatedUser = new User(
         this.currentUser.userId,
         this.currentUser.firstName,

@@ -101,7 +101,7 @@ public class UserResource {
                     buyerTransaction.setBuyer(null);
                     buyerTransaction.setSeller(null);
                     buyerTransaction.setDispute(null);
-                    buyerTransaction.setCreditCard(null);
+                    buyerTransaction.setBuyerCard(null);
                 }
             }
 
@@ -111,7 +111,7 @@ public class UserResource {
                     sellerTransaction.setBuyer(null);
                     sellerTransaction.setSeller(null);
                     sellerTransaction.setDispute(null);
-                    sellerTransaction.setCreditCard(null);
+                    sellerTransaction.setBuyerCard(null);
                 }
             }
 
@@ -197,7 +197,7 @@ public class UserResource {
                     buyerTransaction.setBuyer(null);
                     buyerTransaction.setSeller(null);
                     buyerTransaction.setDispute(null);
-                    buyerTransaction.setCreditCard(null);
+                    buyerTransaction.setBuyerCard(null);
                 }
             }
 
@@ -207,7 +207,7 @@ public class UserResource {
                     sellerTransaction.setBuyer(null);
                     sellerTransaction.setSeller(null);
                     sellerTransaction.setDispute(null);
-                    sellerTransaction.setCreditCard(null);
+                    sellerTransaction.setBuyerCard(null);
                 }
             }
 

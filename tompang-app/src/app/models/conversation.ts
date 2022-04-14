@@ -23,7 +23,7 @@ export class Conversation {
         this.isOpen = true;
         this.buyerUnread = 0;
         this.sellerUnread = 0;
-        this.messages = new Array();
+        this.messages = [];
       }
 }
 

@@ -7,7 +7,7 @@
   </div>
   <div>
     <ion-searchbar class="grey-color" placeholder="Search Tompang" [(ngModel)]="searchTerm" showCancelButton="focus" animated></ion-searchbar>
-    <ion-item *ngIf="myLikedListings.length == 0"> 
+    <ion-item *ngIf="myLikedListings.length === 0">
       You have no Liked Listings!
     </ion-item>
     <ion-grid>

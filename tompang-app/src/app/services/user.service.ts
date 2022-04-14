@@ -65,7 +65,7 @@ export class UserService {
     const currentUser = this.sessionService.getCurrentUser();
     const username = currentUser.username;
     const password = currentUser.password;
-    let updateUserReq: UpdateUserReq = new UpdateUserReq(
+    const updateUserReq: UpdateUserReq = new UpdateUserReq(
       username,
       password,
       updatedUser
@@ -81,7 +81,7 @@ export class UserService {
     const username = currentUser.username;
     const password = currentUser.password;
 
-    let updateUserReq: UpdateUserReq = new UpdateUserReq(
+    const updateUserReq: UpdateUserReq = new UpdateUserReq(
       username,
       password,
       null,
@@ -133,7 +133,7 @@ export class UserService {
     const password = currentUser.password;
     const userId = currentUser.userId;
 
-    let createCreditCardReq: CreateCreditCardReq = new CreateCreditCardReq(
+    const createCreditCardReq: CreateCreditCardReq = new CreateCreditCardReq(
       username,
       password,
       creditCard
@@ -200,24 +200,6 @@ export class UserService {
     );
 
     return manager;
-  }
-
-  // userLogin(
-  //   username: string | undefined,
-  //   password: string | undefined
-  // ): User | null {
-  //   //incomplete implementation.
-  //   const manager = this.getSampleUser();
-  //   if (manager.username === username && manager.password === password) {
-  //     return manager;
-  //   } else {
-  //     return null;
-  //   }
-  // }
-
-  isListingLikedByUser(userId: number, listingId: number) {
-    //To implement
-    return true;
   }
 
   follow(followingUserId: number) {

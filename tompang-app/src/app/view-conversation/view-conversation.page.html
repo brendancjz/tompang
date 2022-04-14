@@ -29,7 +29,7 @@
 
     </div>
     <br />
-    <div id="convoblock" #convoblock style="height: 40vh; overflow-y: scroll;">
+    <div id="convoblock" #convoblock style="height: 50vh; overflow-y: scroll;">
       <ion-list id="convoblocklist" #convoblocklist *ngFor="let message of convoToView.messages">
         <div *ngIf="!isCurrentUserTheBuyer()">
 
@@ -103,7 +103,7 @@
 
         </form>
       </div>
-      
+
       <div *ngIf="convoToView.listing.isDisabled === true" style="text-align: center;">
         <hr class="horizontal-rule" />
         <ion-label>Listing has already been deleted by seller.</ion-label>

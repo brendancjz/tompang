@@ -98,7 +98,7 @@ public class ListingResource {
                         transaction.setBuyer(null);
                         transaction.setSeller(null);
                         transaction.setDispute(null);
-                        transaction.setCreditCard(null);
+                        transaction.setBuyerCard(null);
                     }
                 }
 
@@ -171,7 +171,7 @@ public class ListingResource {
                         transaction.setBuyer(null);
                         transaction.setSeller(null);
                         transaction.setDispute(null);
-                        transaction.setCreditCard(null);
+                        transaction.setBuyerCard(null);
                     }
                 }
 
@@ -293,7 +293,7 @@ public class ListingResource {
                     transaction.setBuyer(null);
                     transaction.setSeller(null);
                     transaction.setDispute(null);
-                    transaction.setCreditCard(null);
+                    transaction.setBuyerCard(null);
                 }
             }
 

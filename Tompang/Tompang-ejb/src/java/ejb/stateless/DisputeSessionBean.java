@@ -73,10 +73,8 @@ public class DisputeSessionBean implements DisputeSessionBeanLocal {
     
     @Override
     public List<Dispute> retrieveUserDisputes(Long userId) {
-        Query query = em.createQuery("SELECT d FROM Dispute d WHERE d.transaction.buyer.userId =?1 "
-                + "OR d.transaction.seller.userId = ?2");
+        Query query = em.createQuery("SELECT d FROM Dispute d WHERE d.userId =?1");
         query.setParameter(1, userId);
-        query.setParameter(2, userId);
         
         return query.getResultList();
     }

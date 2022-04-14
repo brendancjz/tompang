@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreditCard } from '../models/creditCard';
 import { User } from '../models/user';
-import { CreditCardService } from '../services/creditCard.service';
 import { SessionService } from '../services/session.service';
 import { AlertController } from '@ionic/angular';
 import { UserService } from '../services/user.service';
@@ -31,7 +30,6 @@ export class ViewCreditCardDetailsPage implements OnInit {
   constructor(private location: Location, private router: Router,
     private activatedRoute: ActivatedRoute,
     private sessionService: SessionService,
-    private creditCardService: CreditCardService,
     public alertController: AlertController,
     private userService: UserService) { }
 
@@ -87,7 +85,7 @@ export class ViewCreditCardDetailsPage implements OnInit {
     this.userService.deleteCreditCard(parseInt(this.ccId)).subscribe({
       next:(response)=>{
         this.successfulDeletion = true;
-        // this.ccId = null; Can we redirect back to view all credit cards page?
+
       },
       error:(error)=>{
         this.error = true;

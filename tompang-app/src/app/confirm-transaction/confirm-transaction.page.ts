@@ -66,6 +66,7 @@ export class ConfirmTransactionPage implements OnInit {
   confirmTransaction() {
     this.transactionService.completeTransaction(this.transactionId).subscribe({
       next: (response) => {
+        console.log('Transaction confirmed.');
         this.confirmSuccess = true;
       }, error: (error) => {
         console.log('completeTransaction.ts:' + error);

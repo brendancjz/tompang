@@ -18,6 +18,8 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -130,8 +132,14 @@ public class ProfileManagedBean implements Serializable {
     public void deleteCreditCard() {
         System.out.println("*** ProfileManagedBean.deleteCreditCard()");
         if (getCreditCards().contains(creditCardToDelete)) {
-            getCreditCards().remove(creditCardToDelete);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Credit Card deleted successfully!", null));
+            try {
+                getCreditCards().remove(creditCardToDelete);
+                
+                creditCardSessionBean.deleteCreditCard(creditCardToDelete.getCcId(), user.getUserId());
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Credit Card deleted successfully!", null));
+            } catch (EntityNotFoundException ex) {
+                System.out.println(ex.getMessage());
+            }
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "An error has occured while deleting the Credit Card", null));
         }

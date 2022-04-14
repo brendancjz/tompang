@@ -65,7 +65,7 @@ export class ListingService {
     const currentUser = this.sessionService.getCurrentUser();
     const username = currentUser.username;
     const password = currentUser.password;
-    return this.httpClient.delete<any>(this.baseUrl + "/" + listingId + "?username=" + username + "&password=" + password).pipe
+    return this.httpClient.delete<any>(this.baseUrl + '/' + listingId + '?username=' + username + '&password=' + password).pipe
     (
       catchError(this.handleError)
     );
@@ -85,10 +85,6 @@ export class ListingService {
       )
       .pipe(catchError(this.handleError));
   }
-
-  // getUserLikedListings(user: User): Listing[] {
-  //   return this.getSampleListings();
-  // }
 
   getListingByListingId(listingId: number): Observable<Listing> {
     const currentUser = this.sessionService.getCurrentUser();

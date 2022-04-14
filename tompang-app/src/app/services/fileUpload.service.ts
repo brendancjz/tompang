@@ -38,11 +38,6 @@ export class FileUploadService {
         (
           catchError(this.handleError)
         );
-
-      // return this.httpClient.post<any>(this.baseUrl + '/upload', formData, httpOptions).pipe
-      // (
-      //   catchError(this.handleError)
-      // );
     }
     else {
       return new Observable();
@@ -58,8 +53,6 @@ export class FileUploadService {
       errorMessage = 'An unknown error has occurred: ' + error.error.message;
     }
     else {
-
-      //I added this because 200 shouldnt be here but it is somehow. Help
       if (`${error.status}` === '200') {
         console.log('200 OK File Upload');
         return new Observable();
