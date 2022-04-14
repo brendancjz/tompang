@@ -73,7 +73,7 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
 
     @Override
     public List<Listing> retrieveAllAvailableListings() throws EmptyListException {
-        Query query = em.createQuery("SELECT l FROM Listing l WHERE l.isDisabled = false AND l.isOpen = true OR l.quantity > 0");
+        Query query = em.createQuery("SELECT l FROM Listing l WHERE l.isDisabled = false AND l.isOpen = true AND l.quantity > 0");
 
         List<Listing> listings = query.getResultList();
 
@@ -96,7 +96,7 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
             throw new EmptyListException("List of listings is empty.\n");
         }
 
-        Query query = em.createQuery("SELECT l FROM Listing l WHERE l.createdBy.username = :name AND l.isDisabled = FALSE");
+        Query query = em.createQuery("SELECT l FROM Listing l WHERE l.createdBy.username = :name AND l.isDisabled = false");
         query.setParameter("name", filteredUsername);
 
         List<Listing> listings = query.getResultList();
