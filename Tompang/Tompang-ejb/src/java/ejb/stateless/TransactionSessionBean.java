@@ -153,7 +153,7 @@ public class TransactionSessionBean implements TransactionSessionBeanLocal {
         List<Double> monthList = new ArrayList<Double>();
         
         for(int i = 0; i < 12; i++){
-            Query query = em.createQuery("Select t.amount FROM Transaction t WHERE t.month = ?1");
+            Query query = em.createQuery("Select t.amount FROM Transaction t WHERE t.month = ?1 AND t.isCompleted = true");
             query.setParameter(1, i);
             monthList = query.getResultList();
             Double totalAmount = 0.0;

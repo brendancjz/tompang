@@ -7,6 +7,7 @@ package ejb.singleton;
 
 import ejb.stateless.CreditCardSessionBeanLocal;
 import ejb.stateless.ListingSessionBeanLocal;
+import ejb.stateless.TransactionSessionBeanLocal;
 import ejb.stateless.UserSessionBeanLocal;
 import entity.Conversation;
 import entity.CreditCard;
@@ -44,11 +45,14 @@ import javax.persistence.PersistenceContext;
 public class DataInitSessionBean {
 
     @EJB
+    private TransactionSessionBeanLocal transactionSessionBean;
+
+    @EJB
     private CreditCardSessionBeanLocal creditCardSessionBean;
 
     @EJB
     private ListingSessionBeanLocal listingSessionBean;
-
+   
     @EJB
     private UserSessionBeanLocal userSessionBean;
 
@@ -96,6 +100,11 @@ public class DataInitSessionBean {
             transaction2.setHasDispute(true);
             em.persist(transaction2);
             em.flush();
+            try{
+            transactionSessionBean.updateTransactionIsCompleted(transaction2.getTransactionId(), true);
+            }catch(EntityNotFoundException ex){
+                
+            }
             
             Dispute dispute = new Dispute("Seller does not want to buy additional product for me.", transaction2);
             dispute.setUserId(5L);
@@ -141,6 +150,11 @@ public class DataInitSessionBean {
             transaction7.setHasDispute(false);
             em.persist(transaction7);
             em.flush();
+            try{
+            transactionSessionBean.updateTransactionIsCompleted(transaction7.getTransactionId(), true);
+            }catch(EntityNotFoundException ex){
+                
+            }
             
             Transaction transaction8 = new Transaction(Double.parseDouble("100"), createdOn,sean, guojun, (Listing) em.find(Listing.class, 12l),1, sean.getCreditCards().get(0));
             transaction8.setIsCompleted(false);
@@ -160,6 +174,11 @@ public class DataInitSessionBean {
             transaction10.setHasDispute(false);
             em.persist(transaction10);
             em.flush();
+            try{
+            transactionSessionBean.updateTransactionIsCompleted(transaction10.getTransactionId(), true);
+            }catch(EntityNotFoundException ex){
+                
+            }
             
             Transaction transaction11 = new Transaction(Double.parseDouble("15"), createdOn,manager, (User) em.find(User.class, 11l), (Listing) em.find(Listing.class,25l),1, manager.getCreditCards().get(0));
             transaction11.setIsCompleted(false);
@@ -186,6 +205,11 @@ public class DataInitSessionBean {
             transaction13.setHasDispute(false);
             em.persist(transaction13);
             em.flush();
+            try{
+            transactionSessionBean.updateTransactionIsCompleted(transaction13.getTransactionId(), true);
+            }catch(EntityNotFoundException ex){
+                
+            }
             
 
             
