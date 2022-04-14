@@ -53,10 +53,12 @@ public class LoginManagedBean {
         try {
             User user = (User) userSessionBean.retrieveUserByUsername(username);
 
-            if (user.getPassword().equals(password)) {
+            if (user.getPassword().equals(password) && user.getIsAdmin()) {
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isLogin", true);
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", user);
                 FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/home.xhtml");
+            } else if (user.getPassword().equals(password) && !user.getIsAdmin()){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "User is not an admin.", null));
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Incorrect username or password.", null));
             }
