@@ -8,7 +8,7 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        <h1> Shopping Page </h1>
+        <h1> Marketplace </h1>
         <br></br>
         <h:form id="form">
             <p:dataView var="listing" value="#{shopManagedBean.listings}" rows="12" paginator="true"
@@ -29,10 +29,8 @@
                                 <div class="listing-category">#{listing.category}</div>
                                 <hr />
                                 <div class="listing-createdby">
-                                    Created by: <h:link outcome="/userPages/userListings.xhtml">
-                                        <f:param name="username" value="#{listing.createdBy.username}" /> 
-                                        #{listing.createdBy.username}
-                                    </h:link></div>
+                                    Created by: #{listing.createdBy.username} 
+                                </div>
                             </div>
                         </div>
                         <div class="listing-grid-item-bottom" style="margin-top: 10px;">
@@ -50,8 +48,8 @@
                                 <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.viewListing}" />
                             </h:commandButton>
                             <h:commandButton class="blue-button" value="View User">
-                                    <f:attribute name="user" value="#{listing.createdBy}" />
-                                    <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.viewUserProfile}" />
+                                <f:attribute name="user" value="#{listing.createdBy}" />
+                                <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.viewUserProfile}" />
                             </h:commandButton>
                         </div>
                     </div>

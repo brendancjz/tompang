@@ -202,10 +202,6 @@ public class ProfileManagedBean implements Serializable {
         profileContent = "CHANGE_PASSWORD";
     }
 
-    public void toggleMyListing() {
-        profileContent = "MY_LISTINGS";
-    }
-
     public void toggleViewCreditCards() {
         profileContent = "VIEW_CREDIT_CARDS";
     }

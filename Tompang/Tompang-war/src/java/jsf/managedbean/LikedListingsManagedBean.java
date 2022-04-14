@@ -67,7 +67,7 @@ public class LikedListingsManagedBean {
             System.out.println("Dislike Listing method called.");
             Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
             User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
-            listingSessionBean.unlikeListing(user.getUserId(),listing.getListingId());
+            listingSessionBean.unlikeListing(listing.getListingId(), user.getUserId());
             
             //Update user in session scope
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", userSessionBean.getUserByUserId(user.getUserId()));

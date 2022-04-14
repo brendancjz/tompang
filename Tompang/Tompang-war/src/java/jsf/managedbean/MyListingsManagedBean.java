@@ -68,7 +68,7 @@ public class MyListingsManagedBean {
             System.out.println("Dislike Listing method called.");
             Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
             User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
-            listingSessionBean.unlikeListing(user.getUserId(), listing.getListingId());
+            listingSessionBean.unlikeListing(listing.getListingId(), user.getUserId());
 
             //Update user in session scope
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", userSessionBean.getUserByUserId(user.getUserId()));
@@ -83,7 +83,7 @@ public class MyListingsManagedBean {
     public void viewListing(AjaxBehaviorEvent event) throws IOException {
         Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listingToView", listing);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("userPages/viewListingDetails.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("viewListingDetails.xhtml");
     }
     
     public List<Listing> getMyListings() {

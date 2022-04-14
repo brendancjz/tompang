@@ -111,6 +111,14 @@ public class UserProfileManagedBean {
         }
     }
     
+    public void viewUserProfile(AjaxBehaviorEvent event) throws IOException {
+        User user = (User) event.getComponent().getAttributes().get("user");
+        System.out.print(user.getUsername());
+        
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userToView", user);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("viewUserProfile.xhtml");
+    }
+    
     public List<Listing> getMyListings() {
         return myListings;
     }

@@ -140,6 +140,7 @@ public class ListingSessionBean implements ListingSessionBeanLocal {
         
         if (user.getLikedListings().contains(listing)) {
             user.getLikedListings().remove(listing);
+            System.out.println("Removed listing from user liked listings");
         }
     }
 

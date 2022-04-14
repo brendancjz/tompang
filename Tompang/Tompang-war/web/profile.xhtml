@@ -19,9 +19,6 @@
                 <h:commandLink class="sidebarSectionTextLink" id="changePassword" value="Change Password">
                     <f:ajax event="click" execute="@this" render="@all" listener="#{profileManagedBean.toggleChangePassword}" />
                 </h:commandLink>
-                <h:commandLink class="sidebarSectionTextLink" id="myListings" value="My Listings">
-                    <f:ajax event="click" execute="@this" render="@all" listener="#{profileManagedBean.toggleMyListing}" />
-                </h:commandLink>
                 <h:commandLink class="sidebarSectionTextLink" id="creditCards" value="Credit Cards">
                     <f:ajax event="click" execute="@this" render="@all" listener="#{profileManagedBean.toggleViewCreditCards}" />
                 </h:commandLink>
@@ -140,52 +137,6 @@
                 </div>
             </h:panelGroup>
 
-            <h:panelGroup rendered="#{profileManagedBean.profileContent eq 'MY_LISTINGS'}">
-                <h2>My Listings</h2>
-                <p:dataView var="listing" value="#{myListingsManagedBean.myListings}" rows="12" paginator="true"
-                            rowsPerPageTemplate="6,12,16" layout="grid"
-                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-
-                    <p:dataViewGridItem>
-                        <div class="">
-                            <div class="listing-grid-item-content">
-                                <p:panel rendered="#{!listing.photos.isEmpty()}">
-                                    <p:graphicImage value="#{listing.photos.get(0)}" width="100%"/>
-                                </p:panel>
-                                <div class="">
-                                    <div class="listing-title">#{listing.title}<span class="listing-likes">Likes: #{listing.numOfLikes} </span></div>
-                                    <h:outputText value="#{listing.price}" styleClass="listing-price">
-                                        <f:convertNumber currencySymbol="$" type="currency"/>
-                                    </h:outputText>
-                                    <div class="listing-category">#{listing.category}</div>
-                                    <hr />
-                                    <div class="listing-createdby">Created by: #{listing.createdBy.username}</div>
-
-                                </div>
-                            </div>
-                            <div class="listing-grid-item-bottom">
-
-                                <h:commandButton rendered="#{!myListingsManagedBean.userLikedListings.contains(listing)}" class="blue-button" value="Like!">
-                                    <f:attribute name="listing" value="#{listing}" />
-                                    <f:ajax event="click" execute="@this" render="@all" listener="#{myListingsManagedBean.likeListing}" />
-                                </h:commandButton>  
-                                <h:commandButton rendered="#{myListingsManagedBean.userLikedListings.contains(listing)}" class="blue-button" value="Unlike">
-                                    <f:attribute name="listing" value="#{listing}" />
-                                    <f:ajax event="click" execute="@this" render="@all" listener="#{myListingsManagedBean.dislikeListing}" />
-                                </h:commandButton>  
-                                <h:commandButton class="blue-button" value="View Listing">
-                                    <f:attribute name="listing" value="#{listing}" />
-                                    <f:ajax event="click" execute="@this" render="@all" listener="#{myListingsManagedBean.viewListing}" />
-                                </h:commandButton>
-                            </div>
-                        </div>
-                    </p:dataViewGridItem>
-
-                </p:dataView>
-                <div style="height: 200px;">
-
-                </div>
-            </h:panelGroup>
             <h:panelGroup rendered="#{profileManagedBean.profileContent eq 'VIEW_CREDIT_CARDS'}">
                 <h2>Credit Cards</h2>
                 <h:form id="formAllCreditCards">
