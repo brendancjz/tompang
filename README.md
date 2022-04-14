@@ -18,19 +18,10 @@ Use `gh repo clone brendancjz/tompang` to get the files within this repository o
 
 3. Change username or password in glassfish-resources.xml to your own
 
-4. Update your `alternatedocroot_1` `value` in `glassfish-web.xml`. `FILES > Tompang-war > web > WEB-INF > glassfish-web.xml`
+4. Create and update your `alternatedocroot_1` `value` in `glassfish-web.xml`. `FILES > Tompang-war > web > WEB-INF > glassfish-web.xml`
 
-  For Windows,
-```<property name="alternatedocroot_1" value="from=/uploadedFiles/* dir=C:/glassfish-5.1.0-uploadedfiles"/>```
-  For Mac,
-``<mac command>``
-5. Update your `alternatedocroot_1` `value` in `web.xml` as well. `FILES > Tompang-war > web > WEB-INF > web.xml`
+5. Create and update your `alternatedocroot_1` `value` in `web.xml` as well. `FILES > Tompang-war > web > WEB-INF > web.xml`
 
-  For Windows,
-``<context-param>
-    <param-name>alternatedocroot_1</param-name>
-    <param-value>C:/glassfish-5.1.0-uploadedfiles/uploadedFiles</param-value>
- </context-param>``
- For Mac,
- <mac command>
 6. Start glassfish server. Open Tompang project, including required projects. Add the corresponding Libraries. Clean and Build > Deploy  
+
+7. In `tompang-app`, install relevant plugins with `npm install`. Create `environment.prod.ts` in `environments` with `IP_ADDRESS`. To run, `ionic serve`.
