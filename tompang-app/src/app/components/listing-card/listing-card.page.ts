@@ -73,11 +73,10 @@ export class ListingCardPage implements OnInit {
   likeListing(listing: Listing): void {
     this.listingService.likeListing(listing).subscribe({
       next: (response) => {
-        console.log('listing liked!');
+        console.log('Successfully liked listing.');
       },
       error: (error) => {
         console.log('view-listing-card.page.ts:' + error);
-        console.log('FAIL');
       },
     });
     this.listingIsLiked = true;
@@ -87,11 +86,10 @@ export class ListingCardPage implements OnInit {
   unlikeListing(listing: Listing): void {
     this.listingService.unlikeListing(listing).subscribe({
       next: (response) => {
-        console.log('listing unliked!');
+        console.log('Successfully unliked listing.');
       },
       error: (error) => {
         console.log('view-listing-card.page.ts:' + error);
-        console.log('FAIL');
       },
     });
     this.listingIsLiked = false;

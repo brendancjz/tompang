@@ -41,11 +41,6 @@ export class ChangePasswordPage implements OnInit {
   ionViewWillEnter() {}
 
   updateUserPassword(): void {
-    console.log('Changing password...');
-    console.log('Current Password: ' + this.currentPassword);
-    console.log('New Password: ' + this.newPassword);
-    console.log('Repeat Password: ' + this.repeatPassword);
-
     this.resultError = false;
     this.doValidation();
     if(this.resultError) {
@@ -62,9 +57,7 @@ export class ChangePasswordPage implements OnInit {
         this.message = 'User password updated successfully';
 
         this.currentUser.password = this.newPassword;
-        console.log('Updated current user this password');
         this.sessionService.setCurrentUser(this.currentUser);
-
         this.resetPage();
       },
       error: (error) => {

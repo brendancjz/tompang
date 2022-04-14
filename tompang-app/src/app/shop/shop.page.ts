@@ -57,20 +57,20 @@ export class ShopPage implements OnInit {
 
     this.listingService.getMostLikedListings().subscribe({
       next: (response) => {
-        this.mostLikedListings = response; //Top 5 listings
+        response.sort((l1, l2) => {
+          if (l1.likedByUsers.length > l2.likedByUsers.length) {
+            return -1;
+          } else if (l1.likedByUsers.length < l2.likedByUsers.length) {
+            return 1;
+          } else {
+            return 1;
+          }
+        });
 
-        this.mostLikedListings
-          .sort((l1, l2) => {
-            if (l1.likedByUsers.length > l2.likedByUsers.length) {
-              return -1;
-            } else if (l1.likedByUsers.length < l2.likedByUsers.length) {
-              return 1;
-            } else {
-              return 1;
-            }
-          })
-          .slice(5);
-        //slicing not working.. will fix tmr
+        for (let i = 0; i < 5; i++) {
+          this.mostLikedListings.push(response[i]);
+        }
+
       },
       error: (error) => {
         console.log('getMostLikedListings.ts:' + error);

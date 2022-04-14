@@ -4,7 +4,7 @@ export class UpdateTransactionReq {
   username: string | undefined;
   password: string | undefined;
   transactionId: number| undefined;
- 
+
   constructor(
     username?: string,
     password?: string,
@@ -12,6 +12,6 @@ export class UpdateTransactionReq {
   ) {
     this.username = username;
     this.password = password;
-    this.transactionId = transactionId
+    this.transactionId = transactionId;
   }
 }

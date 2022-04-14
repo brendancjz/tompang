@@ -94,6 +94,11 @@ public class CreditCardSessionBean implements CreditCardSessionBeanLocal {
         if (user.getCreditCards().contains(cc)) {
             user.getCreditCards().remove(cc);
         }
+        
+        //TODO
+        //Check if any transaction has sellerCard or buyerCard
+        //Set to disabled instead of deleting
+        
         em.remove(cc);
     }
     

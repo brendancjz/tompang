@@ -11,3 +11,10 @@ ion-title.sub-page-name {
 ion-button.button-icon {
   --box-shadow: none;
 }
+
+.dispute-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}

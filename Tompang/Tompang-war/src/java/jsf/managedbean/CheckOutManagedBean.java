@@ -115,7 +115,7 @@ public class CheckOutManagedBean implements Serializable {
             this.getTransaction().setCreatedOn(new Date());
             this.getTransaction().setListing(getListing());
             this.getTransaction().setSeller(getListing().getCreatedBy());
-            this.getTransaction().setCreditCard(creditCardSessionBean.getCreditCardByCCNumber(getCreditCardNum()));
+            this.getTransaction().setBuyerCard(creditCardSessionBean.getCreditCardByCCNumber(getCreditCardNum()));
             this.getTransaction().setQuantity(selectedQuantity);
             Long transactionId = transactionSessionBean.createNewTransaction(getUser().getUserId(), getListing().getListingId(), getTransaction());
             Conversation convo;

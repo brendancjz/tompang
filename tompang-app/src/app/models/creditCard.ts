@@ -5,6 +5,7 @@ export class CreditCard {
   ccNumber: number | undefined;
   ccCIV: number | undefined;
   expiryDate: Date | undefined;
+  isDisabled: boolean | undefined;
 
     constructor(ccId?: number, ccBrand?: string, ccName?: string, ccNumber?: number, ccCIV?: number,
       expiryDate?: Date) {
@@ -14,5 +15,6 @@ export class CreditCard {
         this.ccNumber = ccNumber;
         this.ccCIV = ccCIV;
         this.expiryDate = expiryDate;
+        this.isDisabled = false;
       }
 }

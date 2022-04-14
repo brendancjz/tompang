@@ -13,7 +13,7 @@
         </div>
       </ion-item>
     </div>
-    <div *ngIf=" result != 1">
+    <div *ngIf=" result !== 1">
       <form (ngSubmit)="createTransaction()" *ngIf="!transactionSuccessful">
         <div class="form-input">
           <ion-item lines="none">
@@ -35,14 +35,14 @@
                   [value]="quantity"
                   >{{quantity}}</ion-select-option
                 ></ion-select>
-              </ion-item>  
+              </ion-item>
         </div>
         <div class="form-input input-button-div">
           <ion-button style="text-transform: initial;font-size: 16px;height: 50px;" color="tertiary" type="submit">Confirm Purchase</ion-button>
         </div>
       </form>
     </div>
-      <div *ngIf="result == 1" style="display: flex;flex-direction: column;justify-content: center;">
+      <div *ngIf="result === 1" style="display: flex;flex-direction: column;justify-content: center;">
         <ion-label style="text-align: center;" class="grey-color">Successfully requested to purchase this listing!</ion-label>
         <ion-label class="grey-color" style="text-align: center;">
           Expected arrivel date is {{eta}}.
@@ -51,17 +51,17 @@
           Go to History > My Purchases for updates.
         </ion-label>
       </div>
-      <div *ngIf="result == 2 || result == 4" style="display: flex;flex-direction: column;justify-content: center;">
+      <div *ngIf="result === 2 || result === 4" style="display: flex;flex-direction: column;justify-content: center;">
         <ion-label class="grey-color" style="text-align: center;color: red;">
           Missing or invalid Credit Card!
         </ion-label>
       </div>
-      <div *ngIf="result == 3 || result == 4" style="display: flex;flex-direction: column;justify-content: center;">
+      <div *ngIf="result === 3 || result === 4" style="display: flex;flex-direction: column;justify-content: center;">
         <ion-label class="grey-color" style="text-align: center;color: red;">
           Quantity not selected!
         </ion-label>
       </div>
-    
+
     <div *ngIf="hasUserAlreadyBoughtThis">
       <div style="display: flex;flex-direction: column;justify-content: center;">
         <ion-label style="text-align: center;" class="grey-color">

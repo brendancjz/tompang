@@ -127,7 +127,7 @@ public class DisputeResource {
              transaction.setDispute(null);
 
              if(transaction.getCreatedOn() != null){
-                 transaction.getCreditCard().setUser(null);
+                 transaction.getBuyerCard().setUser(null);
              }
 
              if(transaction.getListing()!= null){
@@ -188,7 +188,7 @@ public class DisputeResource {
                 transaction.setDispute(null);
 
                 if(transaction.getCreatedOn() != null){
-                    transaction.getCreditCard().setUser(null);
+                    transaction.getBuyerCard().setUser(null);
                 }
                 
                 if(transaction.getListing()!= null){

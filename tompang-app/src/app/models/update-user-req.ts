@@ -13,6 +13,4 @@ export class UpdateUserReq {
     this.user = user;
     this.newPassword = newPassword;
   }
-
-  
 }

@@ -17,16 +17,6 @@ export class SettingsPage implements OnInit {
 
   ngOnInit() {}
 
-  hideSettingTabs() {
-    console.log('Hiding Setting Tabs...');
-    document.getElementById('transparent-tab').style.display = 'none';
-    document.getElementById('edit-profile-tab').style.display = 'none';
-    document.getElementById('change-profile-pic-tab').style.display = 'none';
-    document.getElementById('change-password-tab').style.display = 'none';
-    document.getElementById('manage-credit-cards-tab').style.display = 'none';
-    document.getElementById('logout-tab').style.display = 'none';
-  }
-
   userLogout(): void {
     this.sessionService.setIsLogin(false);
     this.sessionService.setCurrentUser(null);

@@ -27,8 +27,20 @@
               justify-content: space-between;
             "
           >
-            <ion-label class="grey-color">Is dispute resolved?</ion-label>
-            <ion-text>{{disputeToView.isResolved}}</ion-text>
+            <ion-chip
+              *ngIf="disputeToView.isResolved"
+              outline
+              color="success"
+            >
+              <ion-label>Dispute Resolved</ion-label>
+            </ion-chip>
+            <ion-chip
+              *ngIf="!disputeToView.isResolved"
+              outline
+              color="warning"
+            >
+              <ion-label>Dispute Ongoing</ion-label>
+            </ion-chip>
           </div>
           <hr class="horizontal-rule" />
           <div

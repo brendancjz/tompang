@@ -63,7 +63,7 @@ public class Transaction implements Serializable {
     private Integer quantity;
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false)
-    private CreditCard creditCard;
+    private CreditCard buyerCard;
     @Column(nullable = false)
     @NotNull
     private Boolean isAccepted;
@@ -87,7 +87,7 @@ public class Transaction implements Serializable {
         this.seller = seller;
         this.listing = listing;
         this.quantity = quantity;
-        this.creditCard = buyerCard;
+        this.buyerCard = buyerCard;
         Calendar cal = Calendar.getInstance();
         cal.setTime(createdOn);
         this.month = cal.get(Calendar.MONTH);
@@ -210,15 +210,15 @@ public class Transaction implements Serializable {
     /**
      * @return the creditCard
      */
-    public CreditCard getCreditCard() {
-        return creditCard;
+    public CreditCard getBuyerCard() {
+        return buyerCard;
     }
 
     /**
-     * @param creditCard the creditCard to set
+     * @param buyerCard the creditCard to set
      */
-    public void setCreditCard(CreditCard creditCard) {
-        this.creditCard = creditCard;
+    public void setBuyerCard(CreditCard buyerCard) {
+        this.buyerCard = buyerCard;
     }
 
     /**

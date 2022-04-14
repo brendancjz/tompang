@@ -13,6 +13,7 @@ export class Transaction {
   isAccepted: boolean | undefined;
   isRejected: boolean | undefined;
   quantity: number | undefined;
+  month: number | undefined;
 
   // @ManyToOne(optional = false)
   buyer: User | undefined;
@@ -25,7 +26,7 @@ export class Transaction {
   // @ManyToOne(optional = false)
   creditCard: CreditCard | undefined;
 
-    constructor(transactionId?: number, amount?: number) {
+    constructor(transactionId?: number, amount?: number, quantity?: number, month?: number) {
       this.transactionId = transactionId;
       this.amount = amount;
       this.createdOn = new Date();
@@ -33,6 +34,8 @@ export class Transaction {
       this.hasDispute = false;
       this.isAccepted = false;
       this.isRejected = false;
+      this.quantity = quantity;
+      this.month = amount;
     }
 
 }

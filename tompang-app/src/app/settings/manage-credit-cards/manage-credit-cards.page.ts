@@ -5,7 +5,6 @@ import { User } from 'src/app/models/user';
 import { CreditCard } from 'src/app/models/creditCard';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { CreditCardService } from 'src/app/services/creditCard.service';
 
 @Component({
   selector: 'app-manage-credit-cards',
@@ -37,7 +36,6 @@ export class ManageCreditCardsPage implements OnInit {
     private location: Location,
     public sessionService: SessionService,
     public userService: UserService,
-    private creditCardService: CreditCardService
   ) {}
 
   ngOnInit() {

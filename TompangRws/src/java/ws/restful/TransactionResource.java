@@ -99,7 +99,7 @@ public class TransactionResource {
                 }
 
                 if (transaction.getCreatedOn() != null) {
-                    transaction.getCreditCard().setUser(null);
+                    transaction.getBuyerCard().setUser(null);
                 }
 
                 if (transaction.getListing() != null) {
@@ -279,7 +279,7 @@ public class TransactionResource {
             }
 
             if (transaction.getCreatedOn() != null) {
-                transaction.getCreditCard().setUser(null);
+                transaction.getBuyerCard().setUser(null);
             }
 
             if (transaction.getListing() != null) {

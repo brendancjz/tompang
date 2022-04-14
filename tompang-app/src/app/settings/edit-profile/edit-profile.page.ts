@@ -58,12 +58,6 @@ export class EditProfilePage implements OnInit {
       return;
     }
 
-    console.log('firstname: ' + this.firstName);
-    console.log('lastname: ' + this.lastName);
-    console.log('email: ' + typeof(this.email));
-    console.log('contact number: ' + this.contactNumber);
-    console.log('dob: ' + this.dateOfBirth);
-
     const updatedUser = new User(
       currentUser.userId,
       this.firstName,
@@ -126,9 +120,5 @@ export class EditProfilePage implements OnInit {
     this.resultSuccess = undefined;
     this.message = undefined;
 
-  }
-
-  confirm() {
-    console.log('confirmed');
   }
 }
