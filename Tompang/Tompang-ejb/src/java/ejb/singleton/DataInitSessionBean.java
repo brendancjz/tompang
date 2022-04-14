@@ -231,6 +231,7 @@ public class DataInitSessionBean {
             User buyerAdmin = (User) em.find(User.class, 2L);
             User sellerManager = (User) em.find(User.class, 1L);
             Message initiate = new Message(buyerToSeller, true, buyerAdmin.getUserId(), false);
+            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 14).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             Message response = new Message(sellerToBuyer, false, sellerManager.getUserId(), false);
             em.persist(initiate);
             em.persist(response);
