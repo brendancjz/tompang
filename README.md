@@ -26,4 +26,4 @@ Use `gh repo clone brendancjz/tompang` to get the files within this repository o
 
 7. In `tompang-app`, install relevant plugins with `npm install`. 
 8. Create `environment.prod.ts` in `environments` with `IP_ADDRESS`. 
-9. To run, `ionic serve`.
+9. To run Tompang mobile app on `localhost`, `ionic serve`.
