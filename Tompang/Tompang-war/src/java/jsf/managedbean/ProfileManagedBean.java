@@ -24,6 +24,7 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import javax.validation.constraints.Past;
 import org.primefaces.event.FileUploadEvent;
@@ -186,6 +187,14 @@ public class ProfileManagedBean implements Serializable {
         } catch (IOException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "File upload error: " + ex.getMessage(), ""));
         }
+    }
+    
+    public void viewUserProfile(AjaxBehaviorEvent event) throws IOException {
+        User user = (User) event.getComponent().getAttributes().get("user");
+        System.out.print(user.getUsername());
+        
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userToView", user);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("userPages/viewUserProfile.xhtml");
     }
     
     public String getFormattedCCNumber(Long ccNumber) {

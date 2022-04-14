@@ -10,7 +10,6 @@
 
         <div class="login-div">
             <h:form id="loginForm">
-
                 <div class="loginField">
                     <h:outputLabel for="username" value="Username:" />
                     <h:inputText id="username" class="inputField" value="#{loginManagedBean.username}" size="16" required="true" requiredMessage="Username is required" maxlength="32">
@@ -28,14 +27,10 @@
                 <div class="loginField">
                     <h:commandButton type="reset" class="blue-button" value="Clear" />
                     <h:commandButton type="submit" class="blue-button" value="Login" actionListener="#{loginManagedBean.login}" />
-
                     <p:growl redisplay="false"  />
                 </div>
-
             </h:form>
         </div>
-
     </ui:define>
-
 </ui:composition>
 

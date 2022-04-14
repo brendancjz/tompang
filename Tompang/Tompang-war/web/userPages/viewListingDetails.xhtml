@@ -11,12 +11,9 @@
 
         <div>
             <h1>View Listing Details</h1>
-
             <br/>
-
             <h:messages errorClass="errorTextsWithBullet" fatalClass="errorTextsWithBullet" warnClass="warnTextsWithBullet" infoClass="infoTextsWithBullet" globalOnly="true" />
             <br/>
-
             <h:form rendered="#{viewListingDetailsManagedBean.listingToView != null}" style="display: flex;justify-content: space-around;width: 25%;">
                 <h:commandButton class="blue-button" value="Chat" rendered="#{!viewListingDetailsManagedBean.didUserCreateThisListing()}">
                     <f:attribute name="listing" value="#{viewListingDetailsManagedBean.listingToView}" />
@@ -34,7 +31,6 @@
                     <f:attribute name="listing" value="#{viewListingDetailsManagedBean.listingToView}" />
                 </h:commandButton> 
             </h:form>
-
             <br/>
             <p:panel header="Photos">
                 <p:dataView var="image" value="#{viewListingDetailsManagedBean.listingToView.photos}" layout="grid">
@@ -48,7 +44,6 @@
             </p:panel>
             <br />
             <h:panelGrid columnClasses="dataTableLabel,dataTableValue" columns="2" style="width: 100%;" rendered="#{viewListingDetailsManagedBean.listingToView != null}">
-
                 <h:outputText style="font-weight: bold; width: 20%;" value="Listing ID"/>
                 <h:outputText style="width: 80%;" value="#{viewListingDetailsManagedBean.listingToView.listingId}"/>
 
@@ -85,13 +80,10 @@
 
                 <h:outputText style="font-weight: bold;" value="Description"/>
                 <h:outputText value="#{viewListingDetailsManagedBean.listingToView.description}"/>
-
             </h:panelGrid>
         </div>
         <div style="height: 200px;">
-
         </div>
     </ui:define>
-
 </ui:composition>
 

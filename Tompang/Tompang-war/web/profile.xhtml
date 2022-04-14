@@ -22,54 +22,41 @@
                 <h:commandLink class="sidebarSectionTextLink" id="creditCards" value="Credit Cards">
                     <f:ajax event="click" execute="@this" render="@all" listener="#{profileManagedBean.toggleViewCreditCards}" />
                 </h:commandLink>
-
             </div>
         </h:panelGroup>
-
-
     </ui:define>
     <div>
-
     </div>
-
     <ui:define name="content">
         <div>
             <div style="background-color: #0190e9; padding: 0 0 15px 20px; margin-bottom: 10px; width: 100%; ">
-                <h:form id="profileHeader"> <!-- Just to rerender the profile pic-->
+                <h:form id="profileHeader">
                     <p style="color: white; font-size: 40px; padding-top: 10px">#{profileManagedBean.getUsername()}</p>
-                    
                     <h:graphicImage style="border-radius: 70px;width: 140px;height: 120px;margin-top: 20px;" value="#{profileManagedBean.getProfilePic()}"/>
-                    
                     <p:commandButton class="blue-button" update="viewFollowing" oncomplete="PF('dialogViewFollowing').show()" title="#{profileManagedBean.getFollowing().size()} Following" />
-                    
                     <p:commandButton class="blue-button" update="viewFollowers" oncomplete="PF('dialogViewFollowers').show()" title="#{profileManagedBean.getFollowers().size()} Followers" />
                 </h:form>
             </div>
             <h:panelGroup rendered="#{profileManagedBean.profileContent eq 'EDIT_PROFILE'}">
                 <h2>Edit Profile</h2>
                 <br/>
-
                 <h:form id="formFileUpload" enctype="multipart/form-data">
                     <p:growl showDetail="true" skipDetailIfEqualsSummary="true"/>
                     <div class="">
                         <p:panel header="Photo Upload" style="margin-top:10px;padding: 0.5em;">
                             <p:fileUpload listener="#{profileManagedBean.handleFileUpload}" multiple="true" update="@form:formFileUpload" />
                         </p:panel>
-
                         <br/>
                         <p:panel header="Uploaded File" visible="#{profileManagedBean.showUploadedFile}">
-
                             <div style="display: flex;flex-direction: column;align-items: center;">
                                 <p:graphicImage width="30%" value="#{profileManagedBean.profilePic}" />
                             </div>
-
                         </p:panel>
                     </div>
                 </h:form>
                 <br />
                 <h:form class="profileForm">
                     <h:messages errorClass="errorTextsWithBullet" fatalClass="fatalTextsWithBullet" warnClass="warnTextsWithBullet" infoClass="infoTextsWithBullet" globalOnly="true" />
-
                     <p:panelGrid styleClass="ui-noborder" columns="3" rendered="#{profileManagedBean.user != null}">
                         <h:outputLabel for="firstName" value="First Name" />
                         <p:inputText id="firstName" value="#{profileManagedBean.firstName}" required="true" requiredMessage="First Name is required" />
@@ -99,19 +86,14 @@
                         <h:commandButton class="blue-button" value="Update" type="submit">
                             <f:ajax event="click" execute="@form" render="@all " listener="#{profileManagedBean.update}" />
                         </h:commandButton>
-
                     </p:panelGrid>
-
                 </h:form>
                 <div style="height: 200px;">
-
                 </div>
             </h:panelGroup>
-
             <h:panelGroup rendered="#{profileManagedBean.profileContent eq 'CHANGE_PASSWORD'}">
                 <h2>Change Password</h2>
                 <br/>
-
                 <h:form class="profileForm">
                     <h:messages errorClass="errorTexts" fatalClass="fatalTexts" warnClass="warnTexts" infoClass="infoTexts" globalOnly="true" />
 
@@ -128,15 +110,11 @@
                         <h:commandButton class="blue-button" value="Update" type="submit">
                             <f:ajax event="click" execute="@form" render="@form" listener="#{profileManagedBean.changePassword}" />
                         </h:commandButton>
-
                     </p:panelGrid>
-
                 </h:form>
                 <div style="height: 200px;">
-
                 </div>
             </h:panelGroup>
-
             <h:panelGroup rendered="#{profileManagedBean.profileContent eq 'VIEW_CREDIT_CARDS'}">
                 <h2>Credit Cards</h2>
                 <h:form id="formAllCreditCards">
@@ -148,7 +126,7 @@
                         <p:column headerText="CC Brand">
                             <h:outputText value="#{creditCard.ccBrand}" />
                         </p:column>
-                        
+
                         <p:column headerText="CC Name">
                             <h:outputText value="#{creditCard.ccName}" />
                         </p:column>
@@ -177,18 +155,12 @@
                     </p:dataTable>                
                 </h:form>
                 <div style="height: 200px;">
-
                 </div>
             </h:panelGroup>
-
             <h:form id="formAddNewCreditCard">
-
                 <p:dialog id="dialogAddNewCreditCard" widgetVar="dialogAddNewCreditCard" header="Add a New Credit Card" closable="true">
-
                     <p:messages id="messagesCreateNewProduct" redisplay="false" />
-
                     <p:panelGrid>
-
                         <p:row>
                             <p:column>
                                 <p:outputLabel for="ccBrand" value="Credit Card Brand " style="font-weight: bold;" />
@@ -200,7 +172,7 @@
                                 <p:message for="ccNumber" />
                             </p:column>
                         </p:row>
-                        
+
                         <p:row>
                             <p:column>
                                 <p:outputLabel for="ccNumber" value="Credit Card Number " style="font-weight: bold;" />
@@ -242,7 +214,6 @@
                                 <p:outputLabel for="ccExpiryDate" value="Credit Card Expiry Date: " style="font-weight: bold;" />
                             </p:column>
                             <p:column>
-<!--                                <p:datePicker id="ccExpiryDate" value="#{profileManagedBean.newCreditCard.expiryDate}" required="true" requiredMessage="Credit Card Expiry Date is required"/>-->
                                 <p:datePicker id="ccExpiryDate" view="month" value="#{profileManagedBean.newCreditCard.expiryDate}" pattern="MM/yyyy" yearNavigator="true" yearRange="2022:2030" required="true" requiredMessage="Credit Card Expiry Date is required"/>
                             </p:column>
                             <p:column>
@@ -256,24 +227,22 @@
                                 <p:commandButton  value="Add New Credit Card" update="@parent" actionListener="#{profileManagedBean.addCreditCard}" oncomplete="PF('dialogAddNewCreditCard').hide());" />
                             </p:column>
                         </p:row>
-
                     </p:panelGrid>
-
                 </p:dialog>
-
             </h:form>
-
-
         </div>
-
         <h:form id="viewFollowers" >
             <p:growl for="viewFollowers" showDetail="true" />
             <p:dialog id="dialogViewFollowers" widgetVar="dialogViewFollowers" header="My Followers" closable="true">
                 <p:dataList var="follower" value="#{profileManagedBean.getFollowers()}" type="definition">
-                    <!--                    class style not applying-->
-                    <div class="follower-following">
+                    <div style="width: 250px; display: flex; align-items: center; justify-content: space-between;">
                         <p:graphicImage value="#{follower.getProfilePic()}" width="70px" height="70px" />
-                        <span>#{follower.getUsername()}</span>
+                        <h:form>
+                            <h:commandButton value="#{follower.username}">
+                                <f:attribute name="user" value="#{follower}" />
+                                <f:ajax event="click" execute="@this" render="@all" listener="#{profileManagedBean.viewUserProfile}" />
+                            </h:commandButton>
+                        </h:form>
                     </div>
                 </p:dataList>
 
@@ -284,9 +253,14 @@
             <p:growl for="viewFollowing" showDetail="true" />
             <p:dialog id="dialogViewFollowing" widgetVar="dialogViewFollowing" header="My Following" closable="true">
                 <p:dataList var="following" value="#{profileManagedBean.getFollowing()}">
-                    <div class="follower-following">
+                    <div style="width: 250px; display: flex; align-items: center; justify-content: space-between;">
                         <p:graphicImage value="#{following.getProfilePic()}" width="70px" height="70px" />
-                        <span>#{following.getUsername()}</span>
+                        <h:form>
+                            <h:commandButton value="#{following.username}">
+                                <f:attribute name="user" value="#{following}" />
+                                <f:ajax event="click" execute="@this" render="@all" listener="#{profileManagedBean.viewUserProfile}" />
+                            </h:commandButton>
+                        </h:form>
                     </div>
                 </p:dataList>
 

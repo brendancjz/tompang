@@ -14,7 +14,6 @@
             <p:dataView var="listing" value="#{likedListingsManagedBean.likedListings}" rows="12" paginator="true"
                         rowsPerPageTemplate="6,12,16" layout="grid"
                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-
                 <p:dataViewGridItem>
                     <div class="">
                         <div class="listing-grid-item-content">
@@ -32,7 +31,6 @@
                             </div>
                         </div>
                         <div class="listing-grid-item-bottom" style="margin-top: 10px;">
-
                             <h:commandButton rendered="#{!shopManagedBean.userLikedListings.contains(listing)}" class="blue-button" value="Like">
                                 <f:attribute name="listing" value="#{listing}" />
                                 <f:ajax event="click" execute="@this" render="@all" listener="#{likedListingsManagedBean.likeListing}" />
@@ -55,8 +53,6 @@
             </p:dataView>
         </h:form>
         <div style="height: 200px;">
-
         </div>
     </ui:define>
-
 </ui:composition>

@@ -11,11 +11,8 @@
         <div  style="background-color: #0190e9; padding: 0 0 15px 20px; margin-bottom: 10px; width: 100%;">
             <p style="color: white; font-size: 40px; padding-top: 10px">#{userProfileManagedBean.userToView.getUsername()}</p>
             <h:graphicImage style="border-radius: 70px;width: 140px;height: 120px;margin-top: 20px" value="#{userProfileManagedBean.userToView.getProfilePic()}"/>
-
             <p:commandButton class="blue-button" update="viewFollowing" oncomplete="PF('dialogViewFollowing').show()" title="#{userProfileManagedBean.userToViewFollowing.size()} Following" />
-
             <p:commandButton class="blue-button" update="viewFollowers" oncomplete="PF('dialogViewFollowers').show()" title="#{userProfileManagedBean.userToViewFollowers.size()} Followers" />
-
             <div>
                 <h:form>
                     <h:commandButton class="white-button" rendered="#{userProfileManagedBean.currentUser != userProfileManagedBean.userToView and !userProfileManagedBean.currentUser.following.contains(userProfileManagedBean.userToView)}" value="Follow">
@@ -27,17 +24,14 @@
                         <f:ajax event="click" execute="@this" render="@all" listener="#{userProfileManagedBean.unfollowUser}" />
                     </h:commandButton>
                 </h:form>
-
             </div>
         </div>
-
         <h1> #{userProfileManagedBean.userToView.getUsername()} Listings </h1>
         <br></br>
         <h:form id="form">
             <p:dataView var="listing" value="#{userProfileManagedBean.userToView.getCreatedListings()}" rows="12" paginator="true"
                         rowsPerPageTemplate="6,12,16" layout="grid"
                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-
                 <p:dataViewGridItem>
                     <div class="">
                         <div class="listing-grid-item-content">
@@ -52,11 +46,9 @@
                                 <div class="listing-category">#{listing.category}</div>
                                 <hr />
                                 <div class="listing-createdby">Created by: #{listing.createdBy.username}</div>
-
                             </div>
                         </div>
                         <div class="listing-grid-item-bottom">
-
                             <h:commandButton rendered="#{!shopManagedBean.userLikedListings.contains(listing)}" class="blue-button" value="Like!">
                                 <f:attribute name="listing" value="#{listing}" />
                                 <f:ajax event="click" execute="@this" render="@all" listener="#{shopManagedBean.likeListing}" />
@@ -72,10 +64,8 @@
                         </div>
                     </div>
                 </p:dataViewGridItem>
-
             </p:dataView>
         </h:form>
-
         <h:form id="viewFollowers" >
             <p:growl for="viewFollowers" showDetail="true" />
             <p:dialog id="dialogViewFollowers" widgetVar="dialogViewFollowers" header="#{userProfileManagedBean.userToView.getUsername()}'s Followers" closable="true">
@@ -89,12 +79,9 @@
                             </h:commandButton>
                         </h:form>
                     </div>
-
                 </p:dataList>
-
             </p:dialog>
         </h:form>
-
         <h:form id="viewFollowing" >
             <p:growl for="viewFollowing" showDetail="true" />
             <p:dialog id="dialogViewFollowing" widgetVar="dialogViewFollowing" header="#{userProfileManagedBean.userToView.getUsername()}'s Following" closable="true">
@@ -108,11 +95,8 @@
                             </h:commandButton>
                         </h:form>
                     </div>
-
                 </p:dataList>
-
             </p:dialog>
         </h:form>
     </ui:define>
-
 </ui:composition>

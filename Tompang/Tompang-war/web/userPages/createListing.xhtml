@@ -10,8 +10,6 @@
     <head>
         <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
     </head>
-
-
     <ui:define name="content">
         <h1> Create a Listing  Page </h1>
         <br></br>
@@ -26,7 +24,6 @@
                 </div>
 
             </div>
-
         </h:panelGroup>
         <br />
         <h:form id="formFileUpload" enctype="multipart/form-data">
@@ -37,7 +34,6 @@
                 <p:panel header="File Upload" style="margin-top:10px;padding: 0.5em;">
                     <p:fileUpload listener="#{createListingManagedBean.handleFileUpload}" multiple="true" update="@form:formFileUpload" />
                 </p:panel>
-
                 <br/>
                 <p:panel header="Uploaded File" visible="#{createListingManagedBean.showUploadedFile}">
                     <p:dataView var="image" value="#{createListingManagedBean.uploadedFilePaths}" layout="grid">
@@ -45,7 +41,6 @@
                         <p:dataViewGridItem>
                             <div style="display: flex;flex-direction: column;align-items: center;">
                                 <p:graphicImage value="#{image}" width="100%"/>
-
                             </div>
                         </p:dataViewGridItem>
                     </p:dataView>
@@ -56,11 +51,6 @@
             <p:growl showDetail="true" skipDetailIfEqualsSummary="true"/>
             <div class="listing-div">
                 <h2>Step 2: Select Country and City</h2>
-
-                <!--                <div class="googleMap">
-                                    <p:gmap center="35.6620, 139.7038" zoom="15" type="hybrid" style="width: 1000px; height: 600px" />
-                                </div>-->
-
                 <p:panel header="Select a Location" style="margin-top:10px;padding: 0.5em;">
                     <h:panelGrid columns="2" cellpadding="5">
                         <p:outputLabel for="country" value="Country:"/>
@@ -93,7 +83,6 @@
             </div>
             <div class="listing-div">
                 <h2>Step 4: Input Title, Price and Quantity</h2>
-
                 <p:panel header="Input Information" style="margin-top:10px;padding: 0.5em;">
                     <h:panelGrid columns="2" cellpadding="5">
                         <p:outputLabel for="title" value="Title:"/>
@@ -114,7 +103,6 @@
                         <p:outputLabel for="description" value="Description:"/>
                         <p:inputTextarea id="description" placeholder="Description" 
                                          value="#{createListingManagedBean.description}" style="width: 350px; min-height: 100px;max-height: 200px" required="true" />
-
                     </h:panelGrid>
                 </p:panel>
             </div>
@@ -132,11 +120,8 @@
                     <f:ajax event="click" execute="@form:listingInfo" render="@all" listener="#{createListingManagedBean.createListing}" />
                 </h:commandButton>
             </div>
-
         </h:form>
         <div style="height: 200px;">
-
         </div>
     </ui:define>
-
 </ui:composition>

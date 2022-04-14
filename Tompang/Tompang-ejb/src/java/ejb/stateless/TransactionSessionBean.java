@@ -41,10 +41,10 @@ public class TransactionSessionBean implements TransactionSessionBeanLocal {
     
     @Override
     public Long createNewTransaction(Long buyerId, Long listingId, Transaction transaction) throws CreateNewTransactionException {
-        if (buyerId == null || listingId == null){
-            
+        if (buyerId == null || listingId == null){    
             throw new CreateNewTransactionException();
         }
+        
         try {
             User buyer = userSessionBean.getUserByUserId(buyerId);
             Listing listing = listingSessionBean.getListingByListingId(listingId);
@@ -54,9 +54,11 @@ public class TransactionSessionBean implements TransactionSessionBeanLocal {
             transaction.setBuyer(buyer);
             transaction.setListing(listing);
             
+            System.out.println("Listing Quantity: " + listing.getQuantity());
+            System.out.println("Transaction Quantity: " + transaction.getQuantity());
+            
             Integer quantity = listing.getQuantity() - transaction.getQuantity();
             if(quantity == 0){
-//                listing.setIsDisabled(true);
                 listing.setIsOpen(false);
             } 
             listing.setQuantity(quantity);

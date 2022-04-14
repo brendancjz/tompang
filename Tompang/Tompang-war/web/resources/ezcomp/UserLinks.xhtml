@@ -6,13 +6,10 @@
       xmlns:p="http://primefaces.org/ui">
 
     <cc:interface>
-
     </cc:interface>
 
     <cc:implementation>
-
         <nav>
-
             <h:panelGroup rendered="#{sessionScope.isLogin == true}">
                 <div class="sidebarSection">
                     <h:outputText class="sidebarSectionTitle" value="User Links" />
@@ -23,13 +20,9 @@
                     <h:link class="sidebarSectionTextLink" id="myTransactions" outcome="/userPages/viewMyTransactions.xhtml">My Transactions</h:link>
                     <h:link class="sidebarSectionTextLink" id="inbox" outcome="/userPages/inbox.xhtml">Inbox
                         <h:outputText value="(#{inboxManagedBean.getUnreadConversations()})" />
-                    </h:link>
-                   
-
+                    </h:link>      
                 </div>
-
             </h:panelGroup>
         </nav>
-
     </cc:implementation>
 </html>

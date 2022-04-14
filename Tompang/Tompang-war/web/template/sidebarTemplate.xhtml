@@ -11,32 +11,23 @@
         <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/images/favicon.ico"/>
     </h:head>
     <h:body>
-
         <ui:insert name="header">
             <ui:include src="/header.xhtml" />
         </ui:insert>  
         <div id="main">
             <section id="sidebar" class="sidebar">
-
                 <ui:insert name="sidebar">
                     <ezcomp:AdminLinks />
                     <br />
                     <ezcomp:UserLinks />
                 </ui:insert>
-
             </section>
-
             <section id="content" class="content">
-
                 <ui:insert name="content">Content</ui:insert>
-
             </section>
         </div>
-
-
         <ui:insert name="footer">
             <ui:include src="/footer.xhtml" />
         </ui:insert>
-
     </h:body>
 </html>

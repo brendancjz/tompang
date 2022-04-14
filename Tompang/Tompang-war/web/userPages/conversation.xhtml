@@ -73,7 +73,6 @@
         </h:form>
         <hr />
         <div class="convo-block">
-
             <div class="convo-history" style="overflow-y: scroll">
                 <h:form id="convoBlock">
                     <p:repeat value="#{conversationManagedBean.conversationToView.messages}" var="message">
@@ -146,12 +145,8 @@
                             <f:ajax event="click" execute="@form:convoNewMessage" render="@form:convoNewMessage @form:convoBlock" listener="#{conversationManagedBean.createNewMessage}" />
                         </h:commandButton>
                     </div>
-
-
                 </h:form>
             </div>
         </div>
-
     </ui:define>
-
 </ui:composition>

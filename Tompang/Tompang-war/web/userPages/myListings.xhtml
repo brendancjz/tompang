@@ -14,7 +14,6 @@
             <p:dataView var="listing" value="#{myListingsManagedBean.myListings}" rows="12" paginator="true"
                         rowsPerPageTemplate="6,12,16" layout="grid"
                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-
                 <p:dataViewGridItem>
                     <div class="">
                         <div class="listing-grid-item-content">
@@ -28,8 +27,7 @@
                                 </h:outputText>
                                 <div class="listing-category">#{listing.category}</div>
                                 <hr />
-                                <div class="listing-createdby">Created by: #{listing.createdBy.username}</div>
-                                
+                                <div class="listing-createdby">Created by: #{listing.createdBy.username}</div>                      
                             </div>
                         </div>
                         <div class="listing-grid-item-bottom">
@@ -49,12 +47,9 @@
                         </div>
                     </div>
                 </p:dataViewGridItem>
-
             </p:dataView>
         </h:form>
         <div style="height: 200px;">
-
         </div>
     </ui:define>
-
 </ui:composition>

@@ -10,13 +10,9 @@
     </cc:interface>
 
     <cc:implementation>
-
         <h:form id="formViewUserDetails">
-
             <p:dialog id="dialogViewUserDetails" widgetVar="dialogViewUserDetails" header="View User Details" closable="true">
-
                 <p:panelGrid>
-
                     <p:row>
                         <p:column>
                             <h:outputLabel value="User ID: " />
@@ -123,17 +119,13 @@
                             <div style="display: flex;flex-direction: column;align-items: center;">
                                 <p:graphicImage value="#{viewUserDetailsManagedBean.userEntityToView.profilePic}" width="200px"/>
                             </div>
-
                         </p:column>
                     </p:row>
                 </p:panelGrid>
-
                 <h:commandButton style="margin-top: 10px;" class="blue-button" value="View User Listings" actionListener="#{viewUserDetailsManagedBean.viewUserListings}">
                     <f:attribute name="username" value="#{viewUserDetailsManagedBean.userEntityToView.username}" />
                 </h:commandButton>
             </p:dialog>
-
         </h:form>
-
     </cc:implementation>
 </html>
