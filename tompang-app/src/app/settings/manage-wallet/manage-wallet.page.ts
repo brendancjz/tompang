@@ -34,6 +34,10 @@ export class ManageWalletPage implements OnInit {
     this.currentUser = this.sessionService.getCurrentUser();
     console.log('Current User', this.currentUser);
 
+    this.doViewListOfCreditCards();
+  }
+
+  doViewListOfCreditCards() {
     this.userService.getUserCreditCards().subscribe({
       next: (response) => {
         this.creditCards = response;
@@ -45,7 +49,7 @@ export class ManageWalletPage implements OnInit {
     });
   }
 
-  withdrawFunds(){
+  doWithdrawFunds(){
 
     this.doValidation();
     if (!this.hasSelectedCard) {
@@ -74,7 +78,6 @@ export class ManageWalletPage implements OnInit {
         this.message = 'Wallet funds withdrawn successfully';
         this.currentUser.walletAmount = 0;
         this.sessionService.setCurrentUser(this.currentUser);
-        console.log('getCurrentUser', this.sessionService.getCurrentUser());
 
       },
       error: (error) => {

@@ -63,7 +63,7 @@ export class ConfirmTransactionPage implements OnInit {
     });
   }
 
-  confirmTransaction() {
+  doCompleteTransaction() {
     this.transactionService.completeTransaction(this.transactionId).subscribe({
       next: (response) => {
         console.log('Transaction confirmed.');

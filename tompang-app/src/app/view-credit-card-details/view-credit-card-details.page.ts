@@ -63,22 +63,7 @@ export class ViewCreditCardDetailsPage implements OnInit {
     }
   }
 
-  formatCreditCardNumber() {
-    const stringNum = this.ccToView.ccNumber.toString();
-    return stringNum.substring(0,4) + ' ' + stringNum.substring(4,8) +
-    ' ' + stringNum.substring(8,12) + ' ' + stringNum.substring(12,16);
-  }
-
-  formatCreditCardExpiryDate() {
-    const expiryDate = new Date(Number(this.ccToView.expiryDate.toString().substring(0,4)),
-    Number(this.ccToView.expiryDate.toString().substring(5,7)));
-    const stringDate = expiryDate.getMonth() + 1 +
-    '/' + expiryDate.getFullYear();
-
-    return stringDate;
-  }
-
-  deleteCreditCard() {
+  doDeleteCreditCard() {
     console.log('Deleting credit card..');
 
     // eslint-disable-next-line radix
@@ -92,6 +77,21 @@ export class ViewCreditCardDetailsPage implements OnInit {
         this.errorMessage = error;
       }
     });
+  }
+
+  formatCreditCardNumber() {
+    const stringNum = this.ccToView.ccNumber.toString();
+    return stringNum.substring(0,4) + ' ' + stringNum.substring(4,8) +
+    ' ' + stringNum.substring(8,12) + ' ' + stringNum.substring(12,16);
+  }
+
+  formatCreditCardExpiryDate() {
+    const expiryDate = new Date(Number(this.ccToView.expiryDate.toString().substring(0,4)),
+    Number(this.ccToView.expiryDate.toString().substring(5,7)));
+    const stringDate = expiryDate.getMonth() + 1 +
+    '/' + expiryDate.getFullYear();
+
+    return stringDate;
   }
 
   toggleConfirmDeleteButton() {

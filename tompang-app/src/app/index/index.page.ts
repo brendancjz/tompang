@@ -50,7 +50,7 @@ export class IndexPage implements OnInit {
     this.currentView = this.possibleViews[0];
   }
 
-  userRegistration(): void {
+  doRegisterUser(): void {
     if (
       this.firstName === undefined ||
       this.lastName === undefined ||
@@ -111,7 +111,7 @@ export class IndexPage implements OnInit {
     this.resetPage();
   }
 
-  userLogin(): void {
+  doLogin(): void {
     console.log('User logging in...');
 
     this.userService.userLogin(this.username, this.password).subscribe({
@@ -132,7 +132,7 @@ export class IndexPage implements OnInit {
     });
   }
 
-  userLogout(): void {
+  doLogout(): void {
     this.sessionService.setIsLogin(false);
     this.sessionService.setCurrentUser(null);
 

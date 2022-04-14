@@ -87,7 +87,7 @@ export class CreateTransactionPage implements OnInit {
     return this.sessionService.getImageBaseUrl() + this.listingToView.photos[0];
   }
 
-  createTransaction() {
+  doCreateTransaction() {
     console.log('Creating transaction..');
     this.transaction.seller = this.listingToView.createdBy;
     this.transaction.buyer = this.sessionService.getCurrentUser();

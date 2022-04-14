@@ -29,7 +29,7 @@
             </div>
           </div>
 
-          <ion-button color="tertiary" class="button-icon" icon-only (click)="viewCreditCard(creditCard)">
+          <ion-button color="tertiary" class="button-icon" icon-only (click)="doViewCreditCardDetails(creditCard)">
             <ion-icon name="chevron-forward-outline"></ion-icon>
           </ion-button>
         </div>
@@ -40,7 +40,7 @@
   <div *ngIf="!isDisplayingCCList">
     <div *ngIf="!resultSuccess">
       <ion-title class="grey-color" style="font-size: 16px;margin-bottom: 10px;">Add New Credit Card</ion-title>
-      <form (ngSubmit)="addCreditCard()">
+      <form (ngSubmit)="doAddCreditCard()">
         <div class="form-input">
           <ion-item lines="none">
             <ion-input class="grey-color" placeholder="Credit Card Brand" type="text" [(ngModel)]="ccBrand" name="ccBrand" required maxlength="50"></ion-input>

@@ -51,6 +51,10 @@ export class ProfilePage implements OnInit {
       this.userIdToView = this.currentUser.userId.toString();
     }
 
+    this.doViewUserDetails();
+  }
+
+  doViewUserDetails() {
     // eslint-disable-next-line radix
     this.userService.getUser(parseInt(this.userIdToView)).subscribe({
       next: (response) => {
@@ -95,7 +99,7 @@ export class ProfilePage implements OnInit {
     return this.userToView.userId === this.currentUser.userId;
   }
 
-  followUser(userId: number) {
+  doFollowUser(userId: number) {
     //user to follow userToView
     console.log('Following user..');
 
@@ -110,7 +114,7 @@ export class ProfilePage implements OnInit {
     //following so that it will rerender the Unfollow button
   }
 
-  unfollowUser(userId: number) {
+  doUnfollowUser(userId: number) {
     //user to unfollow is userToView
     console.log('Unfollowing user..');
 
@@ -126,13 +130,13 @@ export class ProfilePage implements OnInit {
     //following so that it will rerender the Follow button
   }
 
-  viewFollowers() {
+  doViewListOfUserFollowers() {
     console.log('view followers..');
     this.router.navigate(['/view-followers/' + this.userToView.userId]);
 
   }
 
-  viewFollowing() {
+  doViewListOfUserFollowing() {
     console.log('view following...');
     this.router.navigate(['/view-following/' + this.userToView.userId]);
   }

@@ -36,7 +36,12 @@ export class NotificationsPage implements OnInit {
   ionViewWillEnter() {
     this.notifications = [];
     console.log('IonViewWillEnter Offers');
+    this.doViewListOfTransactions();
 
+    console.log('Offers', this.notifications);
+  }
+
+  doViewListOfTransactions() {
     this.transactionService.getUserTransactions().subscribe({
       next: (response) => {
         this.allTransactions = response;
@@ -53,22 +58,10 @@ export class NotificationsPage implements OnInit {
         console.log('************* Error ' + error);
       }
     });
-
-    console.log('Offers', this.notifications);
   }
 
-  noActiveNotifications() {
-    let allDisabled: Boolean = true;
-    for (let i = 0; i < this.notifications.length; i++) {
-      if (!this.notifications[i].listing.isDisabled) {
-        allDisabled = false;
-        break;
-      }
-    }
-    return allDisabled;
-  }
 
-  rejectOffer(transaction: Transaction) {
+  doRejectTransaction(transaction: Transaction) {
     this.transactionService.rejectTransaction(transaction.transactionId).subscribe({
       next: (response) => {
         console.log('TRANSACTION REJECTED');
@@ -145,7 +138,7 @@ export class NotificationsPage implements OnInit {
     });
   }
 
-  acceptOffer(transaction: Transaction) {
+  doAcceptTransaction(transaction: Transaction) {
     this.transactionService.acceptTransaction(transaction.transactionId).subscribe({
       next: (response) => {
         console.log('TRANSACTION ACCEPTED');
@@ -219,8 +212,16 @@ export class NotificationsPage implements OnInit {
     });
   }
 
-  viewNotification(transaction: Transaction) {
-    console.log('Viewing notification...');
+  noActiveNotifications() {
+    let allDisabled = true;
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
+    for (let i = 0; i < this.notifications.length; i++) {
+      if (!this.notifications[i].listing.isDisabled) {
+        allDisabled = false;
+        break;
+      }
+    }
+    return allDisabled;
   }
 
   async presentToast(messageToDispaly: string) {

@@ -28,6 +28,10 @@ export class SellingPage implements OnInit {
   ionViewWillEnter() {
     console.log('IonViewWillEnter Selling');
 
+    this.doViewListOfSellingConversations();
+  }
+
+  doViewListOfSellingConversations() {
     this.conversationService.retrieveSellerConversations().subscribe({
       next: (response) => {
         this.sellingConvos = response;

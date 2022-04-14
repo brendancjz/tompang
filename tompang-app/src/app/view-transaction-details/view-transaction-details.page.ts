@@ -91,7 +91,7 @@ export class ViewTransactionDetailsPage implements OnInit {
     }
   }
 
-  raiseDispute(): void {
+  doAddDispute(): void {
     this.doValidation();
     if (this.resultError) {
       return;
@@ -174,7 +174,7 @@ export class ViewTransactionDetailsPage implements OnInit {
     this.raisingDispute = true;
   }
 
-  viewListing(): void {
+  doViewListingDetails(): void {
     console.log('View listing details from view transaction page');
     this.router.navigate([
       '/view-listing-details/' + this.transactionToView.listing.listingId,

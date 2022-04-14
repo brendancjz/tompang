@@ -51,15 +51,19 @@ export class ViewConversationPage implements OnInit {
 
   ionViewWillEnter() {
     this.refreshData();
-    this.interval = setInterval(() => {
-      this.refreshData();
-    }, 10000);
+    this.doConversationRefreshTimer();
   }
 
   ionViewWillLeave() {
     if (this.interval) {
       clearInterval(this.interval);
     }
+  }
+
+  doConversationRefreshTimer() {
+    this.interval = setInterval(() => {
+      this.refreshData();
+    }, 10000);
   }
 
   refreshData() {
@@ -87,7 +91,7 @@ export class ViewConversationPage implements OnInit {
     return this.sessionService.getImageBaseUrl() + this.convoToView.listing.photos[0];
   }
 
-  viewListing(): void {
+  doViewListingDetails(): void {
     console.log('View listing details from convo page');
     this.router.navigate(['/view-listing-details/' + this.convoToView.listing.listingId]);
   }
@@ -111,7 +115,7 @@ export class ViewConversationPage implements OnInit {
     return this.sessionService.getImageBaseUrl() + imageUrl;
   }
 
-  addMessage() {
+  doAddMessage() {
     this.fileUploadService.uploadFile(this.imageToSend).subscribe({
       next: (response) => {
         console.log(this.imageToSend);

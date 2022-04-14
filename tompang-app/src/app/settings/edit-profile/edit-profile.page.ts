@@ -21,6 +21,8 @@ export class EditProfilePage implements OnInit {
   resultError: boolean;
   message: string;
 
+  currentUser: User;
+
   constructor(
     public sessionService: SessionService,
     private userService: UserService
@@ -35,22 +37,20 @@ export class EditProfilePage implements OnInit {
       { once: true }
     );
 
-    const currentUser = this.sessionService.getCurrentUser();
+    this.currentUser = this.sessionService.getCurrentUser();
 
-    this.firstName = currentUser.firstName;
-    this.lastName = currentUser.lastName;
-    this.email = currentUser.email;
-    this.contactNumber = currentUser.contactNumber;
-    const dobString = currentUser.dateOfBirth.toString().split('T')[0];
+    this.firstName = this.currentUser.firstName;
+    this.lastName = this.currentUser.lastName;
+    this.email = this.currentUser.email;
+    this.contactNumber = this.currentUser.contactNumber;
+    const dobString = this.currentUser.dateOfBirth.toString().split('T')[0];
     this.dateOfBirth = dobString + 'T00:01:00-04:00';
   }
 
   ionViewWillEnter() {}
 
-  updateUser(): void {
+  doUpdateUserDetails(): void {
     console.log('Updating user...');
-    const currentUser = this.sessionService.getCurrentUser();
-
     this.resultError = false;
     this.doValidation();
     if (this.resultError) {
@@ -59,14 +59,14 @@ export class EditProfilePage implements OnInit {
     }
 
     const updatedUser = new User(
-      currentUser.userId,
+      this.currentUser.userId,
       this.firstName,
       this.lastName,
-      currentUser.username,
-      currentUser.password,
+      this.currentUser.username,
+      this.currentUser.password,
       this.email,
       new Date(this.dateOfBirth),
-      currentUser.profilePic,
+      this.currentUser.profilePic,
       this.contactNumber
     );
 
@@ -76,6 +76,13 @@ export class EditProfilePage implements OnInit {
         this.resultSuccess = true;
         this.resultError = false;
         this.message = 'User updated successfully';
+
+        this.currentUser.firstName = this.firstName;
+        this.currentUser.lastName = this.lastName;
+        this.currentUser.email = this.email;
+        this.currentUser.dateOfBirth = new Date(this.dateOfBirth);
+        this.currentUser.contactNumber = this.contactNumber;
+        this.sessionService.setCurrentUser(this.currentUser);
 
       },
       error: (error) => {

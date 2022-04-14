@@ -131,7 +131,7 @@ export class EditListingPagePage implements OnInit {
     }
   }
 
-  updateListing(): void {
+  doUpdateListingDetails(): void {
     console.log('Update listing..');
 
     this.doValidation();

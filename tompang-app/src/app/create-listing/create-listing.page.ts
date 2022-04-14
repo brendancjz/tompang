@@ -94,7 +94,7 @@ export class CreateListingPage implements OnInit {
     this.fileInput.nativeElement.value = '';
   }
 
-  createListing(): void {
+  doCreateListing(): void {
     console.log('Creating listing..');
     console.log(this.title);
     console.log(this.country);

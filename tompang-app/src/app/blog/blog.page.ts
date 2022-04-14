@@ -22,15 +22,18 @@ export class BlogPage implements OnInit {
   myBlogs: Blog[];
   japanBlogs: Blog[];
 
-  constructor() {
+  constructor() {}
+
+  ngOnInit() {
+    this.doViewListOfBlogs();
+  }
+
+  doViewListOfBlogs() {
     this.initialiseUSABlogs();
     this.initialiseSGBlogs();
     this.initialiseKRBlogs();
     this.initialiseMYBlogs();
     this.initialiseJPBlogs();
-  }
-
-  ngOnInit() {
   }
 
   initialiseJPBlogs() {

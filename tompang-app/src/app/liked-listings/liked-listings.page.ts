@@ -29,6 +29,10 @@ export class LikedListingsPage implements OnInit {
   ionViewWillEnter() {
     this.myLikedListings = [];
     console.log('IonViewWillEnter LikedListings');
+    this.doViewLikedListings();
+  }
+
+  doViewLikedListings() {
     this.listingService.getAllAvailableListings().subscribe({
       next: (response) => {
         response.map((listing) => {

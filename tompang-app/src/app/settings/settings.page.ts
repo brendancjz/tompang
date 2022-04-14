@@ -17,7 +17,7 @@ export class SettingsPage implements OnInit {
 
   ngOnInit() {}
 
-  userLogout(): void {
+  doLogout(): void {
     this.sessionService.setIsLogin(false);
     this.sessionService.setCurrentUser(null);
 

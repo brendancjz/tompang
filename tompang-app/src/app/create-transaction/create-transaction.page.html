@@ -14,7 +14,7 @@
       </ion-item>
     </div>
     <div *ngIf=" result !== 1">
-      <form (ngSubmit)="createTransaction()" *ngIf="!transactionSuccessful">
+      <form (ngSubmit)="doCreateTransaction()" *ngIf="!transactionSuccessful">
         <div class="form-input">
           <ion-item lines="none">
             <ion-icon style="font-size:35px;" name="card-outline" slot="start"></ion-icon>

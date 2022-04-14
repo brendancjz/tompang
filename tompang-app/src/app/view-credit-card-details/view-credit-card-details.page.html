@@ -23,7 +23,7 @@
         <ion-label>{{ccToView.ccCIV}}</ion-label>
       </div>
     </div>
-    <form (ngSubmit)="deleteCreditCard()">
+    <form (ngSubmit)="doDeleteCreditCard()">
       <div class="form-input input-button-div" *ngIf="hasLoaded">
         <ion-button *ngIf="displayConfirmDeleteButton === false && successfulDeletion === false" style="text-transform: initial;font-size: 16px;" color="tertiary" (click)="toggleConfirmDeleteButton()">Delete</ion-button>
         <ion-button *ngIf="displayConfirmDeleteButton === true && successfulDeletion === false" style="text-transform: initial;font-size: 16px;" color="tertiary" type="submit">Confirm Delete</ion-button>

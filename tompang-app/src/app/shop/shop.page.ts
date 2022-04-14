@@ -35,17 +35,17 @@ export class ShopPage implements OnInit {
   }
 
   //Need to repeat this method in the Footer page as well.
-  createListingPage() {
-    console.log('Going to create listing page');
-  }
-
-  //Need to repeat this method in the Footer page as well.
-  profilePage() {
+  doViewUserDetails() {
     const currentUser = this.sessionService.getCurrentUser();
     this.router.navigate(['/profile/' + currentUser.userId]);
   }
 
   refreshListings() {
+    this.doViewAllListings();
+    this.doViewMostLikedListings();
+  }
+
+  doViewAllListings() {
     this.listingService.getAllAvailableListings().subscribe({
       next: (response) => {
         this.allAvailableListings = response;
@@ -54,7 +54,9 @@ export class ShopPage implements OnInit {
         console.log('******* Shops Page: ' + error);
       },
     });
+  }
 
+  doViewMostLikedListings() {
     this.listingService.getMostLikedListings().subscribe({
       next: (response) => {
         response.sort((l1, l2) => {

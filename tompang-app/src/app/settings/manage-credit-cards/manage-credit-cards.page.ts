@@ -55,6 +55,10 @@ export class ManageCreditCardsPage implements OnInit {
 
   ionViewWillEnter() {
     console.log('IonViewWillEnter ManageCreditCards');
+    this.doViewListOfCreditCards();
+  }
+
+  doViewListOfCreditCards() {
     this.userService.getUserCreditCards().subscribe({
       next: (response) => {
         this.creditCards = response;
@@ -66,7 +70,7 @@ export class ManageCreditCardsPage implements OnInit {
     });
   }
 
-  addCreditCard() {
+  doAddCreditCard() {
     console.log('Creating new credit card..');
     this.doValidation();
     if (this.resultError) {
@@ -92,6 +96,9 @@ export class ManageCreditCardsPage implements OnInit {
 
         creditCard.ccId = newCreditCardId;
         this.creditCards.push(creditCard);
+        this.currentUser.creditCards = this.creditCards;
+        this.sessionService.setCurrentUser(this.currentUser);
+
         this.resetPage();
       },
       error:(error)=>{
@@ -144,20 +151,11 @@ export class ManageCreditCardsPage implements OnInit {
     }
   }
 
-  resetPage() {
-    this.ccBrand = null;
-    this.ccName = null;
-    this.ccNumber = null;
-    this.ccCIV = null;
-    this.expiryMonth = null;
-    this.expiryYear = null;
-    this.isDisplayingCCList = true;
-  }
-
-  viewCreditCard(creditcard: CreditCard) {
+  doViewCreditCardDetails(creditcard: CreditCard) {
     console.log('Viewing credit card..');
     this.router.navigate(['/view-credit-card-details/' + creditcard.ccId]);
   }
+
   toggleAddCreditCardPage() {
     console.log('Adding credit card page..');
     this.isDisplayingCCList = !this.isDisplayingCCList;
@@ -186,5 +184,15 @@ export class ManageCreditCardsPage implements OnInit {
     return [
       0,1,2,3,4,5,6,7,8,9,10,11
     ];
+  }
+
+  resetPage() {
+    this.ccBrand = null;
+    this.ccName = null;
+    this.ccNumber = null;
+    this.ccCIV = null;
+    this.expiryMonth = null;
+    this.expiryYear = null;
+    this.isDisplayingCCList = true;
   }
 }

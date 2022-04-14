@@ -67,7 +67,7 @@ export class ViewListingDetailsPage implements OnInit {
     }
   }
 
-  viewUserWhoLikesListing() {
+  doViewListOfUsersWhoLikeListing() {
     this.router.navigate(['/view-users-like-listing/' + this.listingId]);
   }
 
@@ -78,11 +78,13 @@ export class ViewListingDetailsPage implements OnInit {
   formatListingCreatedBy(): string {
     return this.listingToView.createdBy.username;
   }
+
   formatListingCategory(): string {
     const category = this.listingToView.category;
     return category.charAt(0) + category.substring(1).toLowerCase();
   }
-  viewUserProfile(): void {
+
+  doViewUserDetails(): void {
     console.log('Viewing user profile');
     const userToView = this.listingToView.createdBy;
     this.router.navigate(['/profile/' + userToView.userId]);
@@ -90,7 +92,7 @@ export class ViewListingDetailsPage implements OnInit {
     //Currently not working because of the user unmarshalling error
   }
 
-  viewListingConversation(): void {
+  doViewConversationDetails(): void {
     console.log('View Listing Conversation..');
 
     const currentUser = this.sessionService.getCurrentUser();

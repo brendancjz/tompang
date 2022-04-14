@@ -27,6 +27,10 @@ export class BuyingPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.doViewListOfBuyingConversations();
+  }
+
+  doViewListOfBuyingConversations() {
     this.conversationService.retrieveBuyerConversations().subscribe({
       next: (response) => {
         this.buyingConvos = response;

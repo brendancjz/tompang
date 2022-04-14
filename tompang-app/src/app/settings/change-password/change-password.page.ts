@@ -49,6 +49,10 @@ export class ChangePasswordPage implements OnInit {
     }
 
     console.log('Validation passed.');
+    this.doUpdateUserDetails();
+  }
+
+  doUpdateUserDetails() {
     this.userService.updateUserPassword(this.newPassword).subscribe({
       next: (response) => {
         console.log('Update password successful');
@@ -68,7 +72,6 @@ export class ChangePasswordPage implements OnInit {
         console.log('********** UpdateUserPage: ' + error);
       },
     });
-
   }
 
   doValidation(): void {

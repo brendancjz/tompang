@@ -80,7 +80,22 @@ export class ChangeProfilePicPage implements OnInit {
             this.currentUser.contactNumber
           );
 
-          this.userService.updateUser(updatedUser).subscribe({
+          this.doUpdateUserDetails(updatedUser);
+        },
+        error: (error) => {
+          this.currentProfilePic = '/uploadedFiles/' + this.fileName;
+          console.log('ERROR for url: ' + this.currentProfilePic);
+          console.log('********** FileUploadComponent.ts: ' + error);
+
+          console.log(error);
+        },
+      });
+
+    }
+  }
+
+  doUpdateUserDetails(updatedUser: User) {
+    this.userService.updateUser(updatedUser).subscribe({
             // eslint-disable-next-line @typescript-eslint/no-shadow
             next: (response) => {
               //Update the current User in the sessionScope will rerender the profile pic
@@ -95,17 +110,6 @@ export class ChangeProfilePicPage implements OnInit {
               console.log('Udating user profile pic got error ' + error);
             }
           });
-        },
-        error: (error) => {
-          this.currentProfilePic = '/uploadedFiles/' + this.fileName;
-          console.log('ERROR for url: ' + this.currentProfilePic);
-          console.log('********** FileUploadComponent.ts: ' + error);
-
-          console.log(error);
-        },
-      });
-
-    }
   }
 
   displayProfilePic() {
@@ -184,21 +188,7 @@ export class ChangeProfilePicPage implements OnInit {
         this.currentUser.contactNumber
       );
 
-      this.userService.updateUser(updatedUser).subscribe({
-        // eslint-disable-next-line @typescript-eslint/no-shadow
-        next: (response) => {
-          //Update the current User in the sessionScope will rerender the profile pic
-          this.currentUser.profilePic = this.currentProfilePic;
-          this.sessionService.setCurrentUser(this.currentUser);
-          console.log('Successfully changed user profile pic');
-
-          //reset the fileInput
-          this.resetFileInput();
-        },
-        error: (error) => {
-          console.log('Udating user profile pic got error ' + error);
-        }
-      });
+      this.doUpdateUserDetails(updatedUser);
     }, (err) => {
       console.log('Error', err);
     });

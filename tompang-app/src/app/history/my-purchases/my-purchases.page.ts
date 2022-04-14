@@ -39,6 +39,10 @@ export class MyPurchasesPage implements OnInit {
     this.totalAmountSpent = 0;
     this.userId = this.sessionService.getCurrentUser().userId;
 
+    this.doViewListOfTransactions();
+  }
+
+  doViewListOfTransactions() {
     this.transactionService.getUserTransactions().subscribe({
       next: (response) => {
         this.transactions = response;
@@ -61,7 +65,7 @@ export class MyPurchasesPage implements OnInit {
     });
   }
 
-  viewTransaction(transactionId: number)  {
+  doViewTransactionDetails(transactionId: number)  {
     console.log('view transaction details');
 
     this.router.navigate([

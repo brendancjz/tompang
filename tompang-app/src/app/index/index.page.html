@@ -9,7 +9,7 @@
     </div>
     <div *ngIf="sessionService.getIsLogin() === true">
       <ion-button color="tertiary" [routerLink]="['/shop']">Marketplace</ion-button>
-      <ion-button color="tertiary" (click)="userLogout()">Logout</ion-button>
+      <ion-button color="tertiary" (click)="doLogout()">Logout</ion-button>
     </div>
   </div>
 
@@ -17,7 +17,7 @@
     <ion-img id="tompang-big-logo" style="width: 200px;" [src]="tompangLogo"></ion-img>
 
     <div id="indexForm">
-      <form (ngSubmit)="userLogin()">
+      <form (ngSubmit)="doLogin()">
         <div class="form-input">
           <ion-item lines="none">
             <ion-text class="grey-color" style="width:90px;margin-right:16px;">Username</ion-text>
@@ -46,7 +46,7 @@
   <div id="indexFormBox" class="indexFormBox" *ngIf="sessionService.getIsLogin() === false && currentView === possibleViews[2]">
     <ion-img id="tompang-big-logo" style="width: 200px;" [src]="tompangLogo"></ion-img>
     <div id="indexForm">
-      <form (ngSubmit)="userRegistration()">
+      <form (ngSubmit)="doRegisterUser()">
         <div class="form-input">
           <ion-item lines="none">
             <ion-text class="grey-color" style="width:90px;margin-right:16px;">First Name</ion-text>

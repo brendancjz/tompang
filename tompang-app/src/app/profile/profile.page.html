@@ -15,21 +15,21 @@
         <ion-button
           color="tertiary"
           class="follow-button"
-          (click)="viewFollowers()"
+          (click)="doViewListOfUserFollowers()"
         >
           {{userToViewFollowers}} followers
         </ion-button>
         <ion-button
           color="tertiary"
           class="follow-button"
-          (click)="viewFollowing()"
+          (click)="doViewListOfUserFollowing()"
         >
           {{userToViewFollowing}} following
         </ion-button>
       </div>
 
       <div>
-        
+
         <ion-button
           *ngIf="hasLoaded === true && isProfileTheCurrentUser()"
           color="tertiary"
@@ -50,7 +50,7 @@
         icon-only
         slot="end"
         id="settings-button"
-        (click)="followUser(userToView.userId)"
+        (click)="doFollowUser(userToView.userId)"
       >
         Follow
       </ion-button>
@@ -62,7 +62,7 @@
         icon-only
         slot="end"
         id="settings-button"
-        (click)="unfollowUser(userToView.userId)"
+        (click)="doUnfollowUser(userToView.userId)"
       >
         Unfollow
       </ion-button>

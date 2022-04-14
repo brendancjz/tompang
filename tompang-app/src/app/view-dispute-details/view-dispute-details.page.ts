@@ -47,7 +47,7 @@ export class ViewDisputeDetailsPage implements OnInit {
     }
   }
 
-  viewTransaction() {
+  doViewTransactionDetails() {
     console.log('View transaction details from view dispute details page');
     console.log(this.disputeToView.transaction);
     this.router.navigate([

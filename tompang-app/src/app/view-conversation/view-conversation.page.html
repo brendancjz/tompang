@@ -12,7 +12,7 @@
           @{{convoToView.createdBy.username}}</ion-label>
       </ion-item>
     </div>
-    <div style="display: flex;align-items: center;margin-bottom: 10px;" (click)="viewListing()">
+    <div style="display: flex;align-items: center;margin-bottom: 10px;" (click)="doViewListingDetails()">
       <ion-item lines="none" class="grey-color">
         <img style="width: 70px;border-radius: 5px;margin-right: 10px;" src={{getConversationListingUrl()}}>
         <div style="display: flex;flex-direction: column;">
@@ -81,7 +81,7 @@
     <div style="height: 10vh;">
       <hr class="horizontal-rule" />
       <div *ngIf="convoToView.listing.isDisabled === false">
-        <form (ngSubmit)="addMessage()">
+        <form (ngSubmit)="doAddMessage()">
           <div class="form-input">
             <ion-input
               style="width: 90%; min-height: 100px; max-height: 150px; overflow:hidden; overflow-wrap: break-word; height: 70px; padding:10px;"
