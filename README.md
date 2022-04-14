@@ -22,6 +22,8 @@ Use `gh repo clone brendancjz/tompang` to get the files within this repository o
 
 5. Create and update your `alternatedocroot_1` `value` in `web.xml` as well. `FILES > Tompang-war > web > WEB-INF > web.xml`
 
-6. Start glassfish server. Open Tompang project, including required projects. Add the corresponding Libraries. Clean and Build > Deploy  
+6. Start glassfish server. Open Tompang project, including required projects. Add the corresponding Libraries. `Clean and Build > Deploy`  
 
-7. In `tompang-app`, install relevant plugins with `npm install`. Create `environment.prod.ts` in `environments` with `IP_ADDRESS`. To run, `ionic serve`.
+7. In `tompang-app`, install relevant plugins with `npm install`. 
+8. Create `environment.prod.ts` in `environments` with `IP_ADDRESS`. 
+9. To run, `ionic serve`.
