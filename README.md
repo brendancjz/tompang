@@ -21,16 +21,16 @@ Use `gh repo clone brendancjz/tompang` to get the files within this repository o
 4. Update your `alternatedocroot_1` `value` in `glassfish-web.xml`. `FILES > Tompang-war > web > WEB-INF > glassfish-web.xml`
 
   For Windows,
-```<property name="alternatedocroot_1" value="from=/uploadedFiles/* dir=C:/glassfish-5.1.0-uploadedfiles"/>```
+``<property name="alternatedocroot_1" value="from=/uploadedFiles/* dir=C:/glassfish-5.1.0-uploadedfiles"/>``
   For Mac,
-```<mac command>```
+``<mac command>``
 5. Update your `alternatedocroot_1` `value` in `web.xml` as well. `FILES > Tompang-war > web > WEB-INF > web.xml`
 
   For Windows,
-```<context-param>
+``<context-param>
     <param-name>alternatedocroot_1</param-name>
     <param-value>C:/glassfish-5.1.0-uploadedfiles/uploadedFiles</param-value>
- </context-param>```
+ </context-param>``
  For Mac,
- ```<mac command>```
+ <mac command>
 6. Start glassfish server. Open Tompang project, including required projects. Add the corresponding Libraries. Clean and Build > Deploy  
