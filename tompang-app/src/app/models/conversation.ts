@@ -7,6 +7,8 @@ export class Conversation {
   isOpen: boolean | undefined;
   buyerUnread: number | undefined;
   sellerUnread: number | undefined;
+  //lastMessageDate is a local attribute in Ionic
+  //used to store the Date of the latest message.
   lastMessageDate: Date | undefined;
 
   // @ManyToOne

@@ -34,7 +34,7 @@ export class SellingPage implements OnInit {
         // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for(let i = 0; i < this.sellingConvos.length; i++) {
           const size = this.sellingConvos[i].messages.length;
-          this.sellingConvos[i].lastMessageDate = this.sellingConvos[i].messages[size-1].createdOn;
+          this.sellingConvos[i].lastMessageDate = this.sellingConvos[i].messages[size - 1].createdOn;
         }
       },
       error: (error) => {
