@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template/sidebarTemplate.xhtml"
+                xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h1> View all Conversations </h1>
+        <div class="dataTableDiv">
+            <h:form class="viewDataTable">
+                <p:growl showDetail="true" />
+                <p:dataTable id="allConversationsTable" widgetVar="allConversationsTable" value="#{viewAllConversationsManagedBean.conversations}" var="conversation" rowKey="#{conversation.convoId}" rowIndexVar="row"
+                             filteredValue="#{viewAllConversationsManagedBean.filteredConversations}"
+                             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
+
+                    <f:facet name="header">
+                        <p:outputPanel style="text-align: right;">
+                            <h:outputText value="Search all fields:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('allConversationsTable').filter()" style="width:200px" placeholder="Enter keyword"/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column headerText="ID" sortBy="#{conversation.convoId}" filterBy="#{conversation.convoId}" filterStyle="display:none;">
+                        <h:outputText value="#{conversation.convoId}" />
+                    </p:column>
+
+                    <p:column headerText="Listing Title" sortBy="#{conversation.listing.title}" filterBy="#{conversation.listing.title}" filterStyle="display:none;">
+                        <h:outputText value="#{conversation.listing.title}" />
+                    </p:column>
+
+                    <p:column headerText="Image" width="10%">
+                        <p:panel rendered="#{!conversation.listing.photos.isEmpty()}">
+                            <p:graphicImage value="#{conversation.listing.photos.get(0)}" width="100%"/>
+                        </p:panel>
+                    </p:column>
+
+                    <p:column headerText="Seller" sortBy="#{conversation.listing.createdBy.username}" filterBy="#{conversation.listing.createdBy.username}" filterStyle="display:none;">
+                        <h:outputText value="#{conversation.listing.createdBy.username}" />
+                    </p:column>
+
+                    <p:column headerText="Buyer" sortBy="#{conversation.createdBy.username}" filterBy="#{conversation.createdBy.username}" filterStyle="display:none;">
+                        <h:outputText value="#{conversation.createdBy.username}" />
+                    </p:column>
+
+                    <p:column headerText="Action" >
+                        <p:commandButton class="blue-button" value="View Chat">
+                            <f:attribute name="conversation" value="#{conversation}" />
+                            <f:ajax listener="#{viewAllConversationsManagedBean.goToChat}" />
+                        </p:commandButton>
+                        <h:panelGroup rendered="#{conversation.listing.isDisabled}">Listing has been deleted/disabled.</h:panelGroup>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
+
+

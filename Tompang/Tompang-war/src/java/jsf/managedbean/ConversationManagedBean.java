@@ -61,6 +61,10 @@ public class ConversationManagedBean implements Serializable {
             System.out.println(ex.getMessage());
         }
     }
+    
+    public Boolean messageIsSentByBuyer(Message message) {
+        return conversationToView.getCreatedBy().getUserId() == message.getSentBy();
+    }
 
     public List<Message> retrieveAllBuyerMessages() {
         System.out.println("*** ConversationManagedBean.retrieveAllBuyerMessages()");
