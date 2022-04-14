@@ -318,6 +318,14 @@ public class UserResource {
 
             List<CreditCard> creditCards = user.getCreditCards();
             
+            for (int i = 0; i < creditCards.size(); i++) {
+                CreditCard cc = creditCards.get(i);
+                if (cc.getIsDisabled()) {
+                    creditCards.remove(cc);
+                    i--;
+                }
+            }
+            
             for(CreditCard cc: creditCards)
             {
                 cc.setUser(null);

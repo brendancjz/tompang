@@ -158,7 +158,6 @@ public class DisputeResource {
             User user = userSessionBean.userLogin(username, password);
            
             List<Dispute> list = disputeSessionBean.retrieveUserDisputes(user.getUserId());
-            System.out.println(list);
             
             for(Dispute dispute: list){
                 Transaction transaction = dispute.getTransaction();

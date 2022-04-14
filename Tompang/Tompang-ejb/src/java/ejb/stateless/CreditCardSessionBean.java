@@ -6,6 +6,7 @@
 package ejb.stateless;
 
 import entity.CreditCard;
+import entity.Transaction;
 import entity.User;
 import exception.CreateNewCreditCardException;
 import exception.EmptyListException;
@@ -96,10 +97,18 @@ public class CreditCardSessionBean implements CreditCardSessionBeanLocal {
         }
         
         //TODO
-        //Check if any transaction has sellerCard or buyerCard
+        //Check if any transaction has buyerCard
         //Set to disabled instead of deleting
+        Query query = em.createQuery("SELECT t FROM Transaction t WHERE t.buyerCard = :card");
+        query.setParameter("card", cc);
+        List<Transaction> transactions = query.getResultList();
+        if (transactions.isEmpty()) {
+            em.remove(cc);
+        } else {
+            cc.setIsDisabled(Boolean.TRUE);
+        }
         
-        em.remove(cc);
+        
     }
     
     @Override
