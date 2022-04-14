@@ -10,6 +10,10 @@ Tompang is a mobile application acting as a marketplace for Singaporean traveler
    - purchase products from overseas without bearing expensive shipping costs or
    - purchase products that they would not have been able to purchase directly from Singapore.
 
+## Useful Links
+
+<a href="https://uvents.nus.edu.sg/event/20th-steps/module/IS3106/project/4">Featured on The 20th SoC Term Project Showcase</a>
+
 ## Getting Started Running Locally
 
 ### Clone this repository
