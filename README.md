@@ -14,7 +14,18 @@ Tompang is a mobile application acting as a marketplace for Singaporean traveler
 
 <a href="https://uvents.nus.edu.sg/event/20th-steps/module/IS3106/project/4" target="_blank">Featured on The 20th SoC Term Project Showcase</a>
 <br />
-<a href="https://youtu.be/9AliJYcd-K8">Tompang's Demo Video</a>
+<a href="https://youtu.be/9AliJYcd-K8">Tompang's Mobile App Demo Video</a>
+
+## Mobile App Features
+<div style="display: flex; align-items: center; justify-content: space-around;">
+  <img src="https://github.com/brendancjz/tompang/blob/main/featureScreenshots/Tompang-Marketplace.jpg" style="width: 300px">
+  <img src="https://github.com/brendancjz/tompang/blob/main/featureScreenshots/Tompang-Real-Time-Chat.jpg" style="width: 300px">
+  <img src="https://github.com/brendancjz/tompang/blob/main/featureScreenshots/Tompang-FollowLike.jpg" style="width: 300px">
+  <img src="https://github.com/brendancjz/tompang/blob/main/featureScreenshots/Tompang-FollowLike2.jpg" style="width: 300px">
+  <img src="https://github.com/brendancjz/tompang/blob/main/featureScreenshots/Tompang-QRCode.jpg" style="width: 300px">
+  <img src="https://github.com/brendancjz/tompang/blob/main/featureScreenshots/Tompang-QRCode2.jpg" style="width: 300px">
+</div>
+
 
 ## Getting Started Running Locally
 
