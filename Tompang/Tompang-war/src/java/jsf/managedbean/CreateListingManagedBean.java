@@ -69,6 +69,7 @@ public class CreateListingManagedBean implements Serializable {
     }
 
     public void createListing(AjaxBehaviorEvent event) {
+        System.out.println("*** CreateListingManagedBean.createListing()");
         try {
             System.out.println("Country:" + country);
             System.out.println("City: " + city);
@@ -107,6 +108,7 @@ public class CreateListingManagedBean implements Serializable {
     }
 
     public void handleFileUpload(FileUploadEvent event) {
+        System.out.println("*** CreateListingManagedBean.handleFileUpload()");
         try {
             String newFilePath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("alternatedocroot_1")
                     + System.getProperty("file.separator") + event.getFile().getFileName();

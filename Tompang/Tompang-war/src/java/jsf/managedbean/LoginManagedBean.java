@@ -34,18 +34,22 @@ public class LoginManagedBean {
     }
 
     public void redirectToLoginPage(ActionEvent event) throws IOException {
+        System.out.println("*** LoginManagedBean.redirectToLoginPage()");
         FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/login.xhtml");
     }
 
     public void redirectToHomePage(ActionEvent event) throws IOException {
+        System.out.println("*** LoginManagedBean.redirectToHomePage()");
         FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/home.xhtml");
     }
     
     public void redirectToProfilePage(ActionEvent event) throws IOException {
+        System.out.println("*** LoginManagedBean.redirectToProfilePage()");
         FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/profile.xhtml");
     }
     
     public void login(ActionEvent event) throws IOException {
+        System.out.println("*** LoginManagedBean.login()");
         try {
             User user = (User) userSessionBean.retrieveUserByUsername(username);
 
@@ -64,11 +68,13 @@ public class LoginManagedBean {
     }
 
     public void logout(ActionEvent event) throws IOException {
+        System.out.println("*** LoginManagedBean.logout()");
         ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
         FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml");
     }
 
     public void back(ActionEvent event) throws IOException {
+        System.out.println("*** LoginManagedBean.back()");
         FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/home.xhtml");
     }
 

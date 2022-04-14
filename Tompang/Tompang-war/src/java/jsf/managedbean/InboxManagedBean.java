@@ -49,6 +49,7 @@ public class InboxManagedBean implements Serializable {
 
     @PostConstruct
     public void retrieveConversations() {
+        System.out.println("******* InboxManagedBean.retrieveConversations()");
         User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
         try {
             buyerConversations = conversationSessionBean.retrieveAllBuyerConversations(user.getUserId());
@@ -63,6 +64,7 @@ public class InboxManagedBean implements Serializable {
     }
 
     public int getUnreadConversations() {
+        System.out.println("*** InboxManagedBean.getUnreadConversations()");
         int buyerUnread = 0;
         int sellerUnread = 0;
         if (!buyerConversations.isEmpty()) {
@@ -80,29 +82,26 @@ public class InboxManagedBean implements Serializable {
     }
 
     public void goToChat(AjaxBehaviorEvent event) throws IOException {
-
+        System.out.println("*** InboxManagedBean.goToChat()");
+        
         Conversation convo = (Conversation) event.getComponent().getAttributes().get("conversation");
         User currentUser = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
         User postedBy = convo.getListing().getCreatedBy();
         if (currentUser.equals(postedBy)) {
-            // seller
-            System.out.println("SET TO 0");
+            // Seller
             Integer index = sellerConversations.indexOf(convo);
             convo.setSellerUnread(0);
             conversationSessionBean.setSellerUnreadToZero(convo.getConvoId());
             sellerConversations.set(index, convo);
         } else {
-            //buyer
-            System.out.println("BUYER");
+            // Buyer
             Integer index = buyerConversations.indexOf(convo);
             convo.setBuyerUnread(0);
             conversationSessionBean.setBuyerUnreadToZero(convo.getConvoId());
             buyerConversations.set(index, convo);
         }
-        System.out.println("BEFORE REDIRECTING");
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("conversation", convo);
         FacesContext.getCurrentInstance().getExternalContext().redirect("conversation.xhtml");
-        System.out.println("AFTER REDIRECTING");
     }
 
     public void redirectToInboxPage(ActionEvent event) throws IOException {

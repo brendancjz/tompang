@@ -43,8 +43,8 @@ public class ViewAllTransactionsManagedBean implements Serializable {
     }
 
     @PostConstruct
-    public void PostConstruct() {
-        System.out.println("post construct invoked");
+    public void postConstruct() {
+        System.out.println("******* ViewAllTransactionsManagedBean.postConstruct()");
         try {
             setListOfTransactions(transactionSessionBean.retrieveAllTransactions());
         } catch (EmptyListException ex) {
@@ -53,6 +53,7 @@ public class ViewAllTransactionsManagedBean implements Serializable {
     }
 
     public void viewTransactionDetails(ActionEvent event) throws IOException {
+        System.out.println("*** ViewAllTransactionsManagedBean.viewTransactionDetails()");
         Long transactionIdToView = (Long) event.getComponent().getAttributes().get("transactionId");
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("transactionIdToView", transactionIdToView);
         FacesContext.getCurrentInstance().getExternalContext().redirect("viewTransactionDetails.xhtml");

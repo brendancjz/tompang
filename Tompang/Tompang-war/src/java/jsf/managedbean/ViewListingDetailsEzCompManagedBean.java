@@ -22,15 +22,6 @@ import javax.faces.view.ViewScoped;
 @ViewScoped
 public class ViewListingDetailsEzCompManagedBean implements Serializable {
 
-    /**
-     * Creates a new instance of ViewListingDetailsEzCompManagedBean
-     */
-    @EJB
-    private UserSessionBeanLocal userSessionBean;
-
-    @EJB
-    private ListingSessionBeanLocal listingSessionBean;
-
     private Listing listingToView;
     
     public ViewListingDetailsEzCompManagedBean() {

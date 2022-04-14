@@ -45,7 +45,7 @@ public class ViewAllDisputesManagedBean implements Serializable{
     
      @PostConstruct
     public void retrieveAllDisputes() {
-  
+        System.out.println("******* ViewAllDisputesManagedBean.retrieveAllDisputes()");
         try {
             setDisputes(disputeSessionBean.retrieveAllDisputes());
         } catch (EmptyListException ex) {
@@ -54,9 +54,8 @@ public class ViewAllDisputesManagedBean implements Serializable{
     }
     
     public void resolveDispute(AjaxBehaviorEvent event){
-        
+        System.out.println("*** ViewAllDisputesManagedBean.resolveDispute()");
         Long disputeId = (Long)event.getComponent().getAttributes().get("disputeId");
-        System.out.println("Resolving dispute..." + disputeId);
         try{
             disputeSessionBean.resolveDispute(disputeId);
             this.retrieveAllDisputes();

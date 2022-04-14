@@ -43,6 +43,7 @@ public class ViewListingDetailsManagedBean implements Serializable {
 
     @PostConstruct
     public void postConstruct() {
+        System.out.println("******* ViewListingDetailsManagedBean.postConstruct()");
         try {
             listingToView = (Listing) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("listingToView");
             if (listingToView == null) {
@@ -54,14 +55,13 @@ public class ViewListingDetailsManagedBean implements Serializable {
     }
 
     public void likeListing(AjaxBehaviorEvent event) {
+        System.out.println("*** ViewListingDetailsManagedBean.likeListing()");
         try {
-            System.out.println("Like Listing method called.");
             Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
             User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
 
-            listingSessionBean.likeListing(user.getUserId(),listing.getListingId());
-            
-            //Update user in session scope
+            listingSessionBean.likeListing(user.getUserId(), listing.getListingId());
+
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", userSessionBean.getUserByUserId(user.getUserId()));
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listingToView", listingSessionBean.getListingByListingId(listing.getListingId()));
 
@@ -72,13 +72,12 @@ public class ViewListingDetailsManagedBean implements Serializable {
     }
 
     public void dislikeListing(AjaxBehaviorEvent event) {
+        System.out.println("*** ViewListingDetailsManagedBean.likeListing()");
         try {
-            System.out.println("Dislike Listing method called.");
             Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
             User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
-            listingSessionBean.unlikeListing(user.getUserId(),listing.getListingId());
+            listingSessionBean.unlikeListing(user.getUserId(), listing.getListingId());
 
-            //Update user in session scope
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", userSessionBean.getUserByUserId(user.getUserId()));
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listingToView", listingSessionBean.getListingByListingId(listing.getListingId()));
             this.postConstruct();
@@ -90,7 +89,7 @@ public class ViewListingDetailsManagedBean implements Serializable {
     }
 
     public void goToChat(AjaxBehaviorEvent event) throws IOException {
-
+        System.out.println("*** ViewListingDetailsManagedBean.goToChat()");
         Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
         User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
 
@@ -107,15 +106,15 @@ public class ViewListingDetailsManagedBean implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().redirect("conversation.xhtml");
 
     }
-    
+
     public void checkOut(ActionEvent event) throws IOException {
+        System.out.println("*** ViewListingDetailsManagedBean.checkOut()");
         Listing listing = (Listing) event.getComponent().getAttributes().get("listing");
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listing", listing);
         FacesContext.getCurrentInstance().getExternalContext().redirect("checkout.xhtml");
-          
+
     }
-    
-    
+
     public Boolean didUserCreateThisListing() {
         User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
         return Objects.equals(user.getUserId(), listingToView.getCreatedBy().getUserId());
@@ -123,7 +122,7 @@ public class ViewListingDetailsManagedBean implements Serializable {
 
     public boolean showLikeButton() {
         User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
-        return user.getLikedListings().contains(listingToView);  
+        return user.getLikedListings().contains(listingToView);
     }
 
     public Listing getListingToView() {

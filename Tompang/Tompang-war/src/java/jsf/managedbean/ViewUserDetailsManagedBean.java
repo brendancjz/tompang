@@ -3,7 +3,6 @@ package jsf.managedbean;
 import entity.User;
 import java.io.IOException;
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
@@ -20,17 +19,11 @@ public class ViewUserDetailsManagedBean implements Serializable {
         userEntityToView = new User();
     }
 
-    @PostConstruct
-    public void postConstruct() {
-    }
-    
     public void viewUserListings(ActionEvent event) throws IOException {
+        System.out.println("******* ViewUserDetailsManagedBean.viewUserListings()");
         String username = (String)event.getComponent().getAttributes().get("username");
-
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("username", username);
-        
         FacesContext.getCurrentInstance().getExternalContext().redirect("viewAllListings.xhtml");
-        
     }
 
     public User getUserEntityToView() {

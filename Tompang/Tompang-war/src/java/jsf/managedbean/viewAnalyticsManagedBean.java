@@ -12,7 +12,6 @@ import javax.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.animation.Animation;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import org.primefaces.model.charts.ChartData;
@@ -32,7 +31,7 @@ import org.primefaces.model.charts.optionconfig.title.Title;
  */
 @Named(value = "viewAnalyticsManagedBean")
 @ViewScoped
-public class viewAnalyticsManagedBean implements Serializable {
+public class ViewAnalyticsManagedBean implements Serializable {
 
     @EJB
     private TransactionSessionBeanLocal transactionSessionBean;
@@ -46,17 +45,19 @@ public class viewAnalyticsManagedBean implements Serializable {
     private BarChartModel barModel;
     private Double totalRevenue;
     
-    public viewAnalyticsManagedBean() {
+    public ViewAnalyticsManagedBean() {
     }
     
     @PostConstruct
     public void postConstruct(){
+        System.out.println("******* ViewAnalyticsManagedBean.postConstruct()");
         this.totalRevenue = 0.0;
         createBarModel();
         
     }
     
     public void createBarModel() {
+        System.out.println("******* ViewAnalyticsManagedBean.createBarModel()");
         setBarModel(new BarChartModel());
         ChartData data = new ChartData();
 
@@ -68,25 +69,10 @@ public class viewAnalyticsManagedBean implements Serializable {
         for(int i = 0; i < 12; i++){
             values.add(list.get(i));
         }
-//        values.add(10000);
-//        values.add(40000);
-//        values.add(20000);
-//        values.add(30000);
-//        values.add(15000);
-//        values.add(70000);
-//        values.add(40000);
-//        values.add(20000);
-//        values.add(25000);
-//        values.add(40000);
-//        values.add(70000);
-//        values.add(90000);
         
         for(Number amount: values){
             this.setTotalRevenue((Double) (this.getTotalRevenue() + amount.doubleValue()));
         }
-        
-        
-        
        
         barDataSet.setData(values);
 

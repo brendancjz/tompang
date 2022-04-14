@@ -76,14 +76,14 @@ public class CheckOutManagedBean implements Serializable {
     public CheckOutManagedBean() {
         this.user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentUser");
         this.transaction = new Transaction();
-        this.creditCards = new ArrayList<CreditCard>();
-        this.creditCardNumbers = new ArrayList<Long>();
+        this.creditCards = new ArrayList<>();
+        this.creditCardNumbers = new ArrayList<>();
         this.quantitiesAvailable = new ArrayList<>();
     }
 
     @PostConstruct
     public void postConstruct() {
-        System.out.println("Checkout MB called");
+        System.out.println("******* CheckOutManagedBean.postConstruct()");
         try {
             setListing((Listing) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("listing"));
             if (getListing() == null) {
@@ -107,9 +107,9 @@ public class CheckOutManagedBean implements Serializable {
     }
 
     public void checkOut(ActionEvent event) {
-
+        System.out.println("*** CheckOutManagedBean.checkOut()");
         try {
-            System.out.println("checkout called");
+            
             this.getTransaction().setAmount(getListing().getPrice());
             this.getTransaction().setBuyer(getUser());
             this.getTransaction().setCreatedOn(new Date());
@@ -127,7 +127,7 @@ public class CheckOutManagedBean implements Serializable {
                 conversationSessionBean.createNewConversation(convo, getListing().getListingId(), getUser().getUserId());
             }
             Message offerMessage = new Message(getUser().getFirstName() + " has offfered " + getListing().getPrice().toString() + ".", true, getUser().getUserId(), true);
-            Long messageId = messageSessionBean.createNewMessage(offerMessage);
+            messageSessionBean.createNewMessage(offerMessage);
             conversationSessionBean.addMessage(convo.getConvoId(), offerMessage);
             Conversation updatedConvo = conversationSessionBean.getConversationByConvoId(convo.getConvoId());
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("conversation", updatedConvo);
