@@ -12,7 +12,7 @@ Tompang is a mobile application acting as a marketplace for Singaporean traveler
 
 ## Useful Links
 
-<a href="https://uvents.nus.edu.sg/event/20th-steps/module/IS3106/project/4">Featured on The 20th SoC Term Project Showcase</a>
+<a href="https://uvents.nus.edu.sg/event/20th-steps/module/IS3106/project/4" target="_blank">Featured on The 20th SoC Term Project Showcase</a>
 
 ## Getting Started Running Locally
 
