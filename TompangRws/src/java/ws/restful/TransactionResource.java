@@ -9,7 +9,6 @@ import ejb.stateless.ListingSessionBeanLocal;
 import ejb.stateless.TransactionSessionBeanLocal;
 import ejb.stateless.UserSessionBeanLocal;
 import entity.Transaction;
-import static entity.Transaction_.transactionId;
 import entity.User;
 import exception.CreateNewTransactionException;
 import exception.EntityNotFoundException;
