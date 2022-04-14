@@ -81,8 +81,7 @@
                             <p:panelGrid rendered="#{conversationManagedBean.messageIsSentByBuyer(message) == false}" >
                                 <h:graphicImage style="border-radius: 20px;height: 35px; width: 35px " value="#{conversationManagedBean.conversationToView.seller.getProfilePic()}" alt="profile picture"/>
                                 <h:outputText style="font-size: 30px" value="#{message.body}"/>
-                                <br></br>     
-                                <br></br> 
+                                <br/>  
                                 <h:outputText style="font-size: 15px" value="#{message.createdOn}">
                                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                                 </h:outputText>
@@ -91,8 +90,8 @@
                             <p:panelGrid rendered="#{conversationManagedBean.messageIsSentByBuyer(message) == true}">
                                 <h:graphicImage style="border-radius: 20px;height: 35px; width: 35px; float: right" value="#{conversationManagedBean.conversationToView.createdBy.getProfilePic()}" alt="profile picture"/>
                                 <h:outputText style="font-size: 30px; float: right" value="#{message.body}"/>
-                                <br></br>
-                                <br></br>
+                                <br/>
+                                <br/>
                                 <h:outputText style="font-size: 15px; float: right" value="#{message.createdOn}">
                                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                                 </h:outputText>

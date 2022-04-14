@@ -105,7 +105,7 @@ public class InboxManagedBean implements Serializable {
     }
 
     public void redirectToInboxPage(ActionEvent event) throws IOException {
-        FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/userPages/inbox.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/adminPages/viewAllConversations.xhtml");
     }
 
     public List<Conversation> getBuyerConversations() {
