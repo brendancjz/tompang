@@ -86,9 +86,11 @@ public class DataInitSessionBean {
             User manager = (User) em.find(User.class, 1L);
             User sean = (User) em.find(User.class, 2L);
             User iggy = (User) em.find(User.class, 3L);
+            User kengyong = (User) em.find(User.class, 6L);
+            User cedric = (User) em.find(User.class, 9L);
             Listing listing3 = (Listing) em.find(Listing.class, 3L);
             Listing listing4 = (Listing) em.find(Listing.class, 4L);
-            Transaction transaction1 = new Transaction(Double.parseDouble("600"), jan, sean, manager, listing3, 1, sean.getCreditCards().get(0));
+            Transaction transaction1 = new Transaction(Double.parseDouble("600"), jan, kengyong, manager, listing3, 1, kengyong.getCreditCards().get(0));
             em.persist(transaction1);
             em.flush();
 
@@ -112,7 +114,7 @@ public class DataInitSessionBean {
             em.flush();
             transaction2.setDispute(dispute);
 
-            Transaction transaction3 = new Transaction(Double.parseDouble("600"), feb, sean, manager, listing3, 1, sean.getCreditCards().get(0));
+            Transaction transaction3 = new Transaction(Double.parseDouble("600"), feb, cedric, manager, listing3, 1, cedric.getCreditCards().get(0));
             transaction3.setIsCompleted(false);
             transaction3.setHasDispute(false);
             em.persist(transaction3);
@@ -219,6 +221,8 @@ public class DataInitSessionBean {
             User iggy = (User) em.find(User.class, 3L);
             User alice = (User) em.find(User.class, 4L);
             User guojun = (User) em.find(User.class, 5L);
+            User kengyong = (User) em.find(User.class, 6L);
+            User cedric = (User) em.find(User.class, 9L);
 
             Listing headphones = (Listing) em.find(Listing.class, 3L);
             Listing champion = (Listing) em.find(Listing.class, 4L);
@@ -281,6 +285,16 @@ public class DataInitSessionBean {
             convo11.setSeller(bagpack.getCreatedBy());
             em.persist(convo11);
             em.flush();
+
+            Conversation convo12 = new Conversation(kengyong, headphones);
+            convo12.setSeller(headphones.getCreatedBy());
+            em.persist(convo12);
+            em.flush();
+
+            Conversation convo13 = new Conversation(cedric, headphones);
+            convo13.setSeller(headphones.getCreatedBy());
+            em.persist(convo13);
+            em.flush();
         }
 
         if (em.find(Message.class, 1L) == null) {
@@ -289,6 +303,8 @@ public class DataInitSessionBean {
             User iggy = (User) em.find(User.class, 3L);
             User alice = (User) em.find(User.class, 4L);
             User guojun = (User) em.find(User.class, 5L);
+            User kengyong = (User) em.find(User.class, 6L);
+            User cedric = (User) em.find(User.class, 9L);
 
             Listing headphones = (Listing) em.find(Listing.class, 3L);
             Listing champion = (Listing) em.find(Listing.class, 4L);
@@ -336,6 +352,32 @@ public class DataInitSessionBean {
             em.persist(response);
             em.flush();
             convo = em.find(Conversation.class, 2L);
+            convo.getMessages().add(initiate);
+            convo.getMessages().add(response);
+
+            buyerToSeller = "Hey Brendan, fancy seeing you here on Tompang! Can you help me get one?";
+            sellerToBuyer = "Hey Kengyong, long time no see! Sure, let's have a catch up when I am back!";
+            initiate = new Message(buyerToSeller, true, kengyong.getUserId(), false);
+            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            response = new Message(sellerToBuyer, false, brendan.getUserId(), false);
+            response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            em.persist(initiate);
+            em.persist(response);
+            em.flush();
+            convo = em.find(Conversation.class, 12L);
+            convo.getMessages().add(initiate);
+            convo.getMessages().add(response);
+
+            buyerToSeller = "Whats up Brendan, Kengyong told me you are on Tompang! Can I get one headphone too?";
+            sellerToBuyer = "Hey Cedric, sure! We can meet up as a group of 3 together!";
+            initiate = new Message(buyerToSeller, true, cedric.getUserId(), false);
+            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            response = new Message(sellerToBuyer, false, brendan.getUserId(), false);
+            response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            em.persist(initiate);
+            em.persist(response);
+            em.flush();
+            convo = em.find(Conversation.class, 13L);
             convo.getMessages().add(initiate);
             convo.getMessages().add(response);
 
