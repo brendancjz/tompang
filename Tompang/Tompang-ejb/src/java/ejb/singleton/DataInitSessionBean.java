@@ -252,9 +252,9 @@ public class DataInitSessionBean {
             User buyerAdmin = (User) em.find(User.class, 2L);
             User sellerManager = (User) em.find(User.class, 1L);
             Message initiate = new Message(buyerToSeller, true, buyerAdmin.getUserId(), false);
-            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            initiate.setCreatedOn(Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             Message response = new Message(sellerToBuyer, false, sellerManager.getUserId(), false);
-            response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 17).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            response.setCreatedOn(Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             em.persist(initiate);
             em.persist(response);
             em.flush();
@@ -267,9 +267,9 @@ public class DataInitSessionBean {
             User buyerGuoJun = (User) em.find(User.class, 5L);
             User sellerIggy = (User) em.find(User.class, 3L);
             initiate = new Message(buyerToSeller, true, buyerGuoJun.getUserId(), false);
-            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            initiate.setCreatedOn(Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             response = new Message(sellerToBuyer, false, sellerIggy.getUserId(), false);
-            response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            response.setCreatedOn(Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             em.persist(initiate);
             em.persist(response);
             em.flush();
@@ -282,9 +282,9 @@ public class DataInitSessionBean {
             buyerGuoJun = (User) em.find(User.class, 5L);
             User sellerKengYong = (User) em.find(User.class, 6L);
             initiate = new Message(buyerToSeller, true, buyerGuoJun.getUserId(), false);
-            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 15).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            initiate.setCreatedOn(Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             response = new Message(sellerToBuyer, false, sellerKengYong.getUserId(), false);
-            response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            response.setCreatedOn(Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             em.persist(initiate);
             em.persist(response);
             em.flush();
@@ -297,9 +297,9 @@ public class DataInitSessionBean {
             User buyerSean = (User) em.find(User.class, 2L);
             User sellerRyan = (User) em.find(User.class, 7L);
             initiate = new Message(buyerToSeller, true, buyerSean.getUserId(), false);
-            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            initiate.setCreatedOn(Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             response = new Message(sellerToBuyer, false, sellerRyan.getUserId(), false);
-            response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 21).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            response.setCreatedOn(Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             em.persist(initiate);
             em.persist(response);
             em.flush();
