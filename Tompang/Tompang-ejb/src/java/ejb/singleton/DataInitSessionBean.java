@@ -52,7 +52,7 @@ public class DataInitSessionBean {
 
     @EJB
     private ListingSessionBeanLocal listingSessionBean;
-   
+
     @EJB
     private UserSessionBeanLocal userSessionBean;
 
@@ -82,193 +82,255 @@ public class DataInitSessionBean {
             Date feb = Date.from(LocalDate.of(2022, 2, 12).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
             Date createdOn = Date.from(LocalDate.of(2022, 3, 12).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
             Date april = Date.from(LocalDate.of(2022, 4, 12).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-      
+
             User manager = (User) em.find(User.class, 1L);
             User sean = (User) em.find(User.class, 2L);
             User iggy = (User) em.find(User.class, 3L);
             Listing listing3 = (Listing) em.find(Listing.class, 3L);
             Listing listing4 = (Listing) em.find(Listing.class, 4L);
-            Transaction transaction1 = new Transaction(Double.parseDouble("600"), jan, sean, manager, listing3, 1,sean.getCreditCards().get(0));
+            Transaction transaction1 = new Transaction(Double.parseDouble("600"), jan, sean, manager, listing3, 1, sean.getCreditCards().get(0));
             em.persist(transaction1);
             em.flush();
 
             //same listing 3
             User guojun = (User) em.find(User.class, 5L);
-            Transaction transaction2 = new Transaction(Double.parseDouble("600"), jan, guojun, manager, listing3,1, guojun.getCreditCards().get(0));
+            Transaction transaction2 = new Transaction(Double.parseDouble("600"), jan, guojun, manager, listing3, 1, guojun.getCreditCards().get(0));
             transaction2.setIsCompleted(true);
             transaction2.setIsAccepted(true);
             transaction2.setHasDispute(true);
             em.persist(transaction2);
             em.flush();
-            try{
-            transactionSessionBean.updateTransactionIsCompleted(transaction2.getTransactionId(), true);
-            }catch(EntityNotFoundException ex){
-                
+            try {
+                transactionSessionBean.updateTransactionIsCompleted(transaction2.getTransactionId(), true);
+            } catch (EntityNotFoundException ex) {
+
             }
-            
+
             Dispute dispute = new Dispute("Seller does not want to buy additional product for me.", transaction2);
             dispute.setUserId(5L);
             em.persist(dispute);
             em.flush();
             transaction2.setDispute(dispute);
-               
-            Transaction transaction3 = new Transaction(Double.parseDouble("600"), feb,sean , manager, listing3,1, sean.getCreditCards().get(0));
+
+            Transaction transaction3 = new Transaction(Double.parseDouble("600"), feb, sean, manager, listing3, 1, sean.getCreditCards().get(0));
             transaction3.setIsCompleted(false);
             transaction3.setHasDispute(false);
             em.persist(transaction3);
             em.flush();
-            
-           
-            Transaction transaction4 = new Transaction(Double.parseDouble("45"), feb, sean, manager, listing4, 1,sean.getCreditCards().get(0));
+
+            Transaction transaction4 = new Transaction(Double.parseDouble("45"), feb, sean, manager, listing4, 1, sean.getCreditCards().get(0));
             transaction4.setIsCompleted(false);
             transaction4.setHasDispute(false);
             em.persist(transaction4);
             em.flush();
-            
-            Transaction transaction5 = new Transaction(Double.parseDouble("250"), feb, guojun, iggy, (Listing) em.find(Listing.class, 10l), 1,guojun.getCreditCards().get(0));
+
+            Transaction transaction5 = new Transaction(Double.parseDouble("250"), feb, guojun, iggy, (Listing) em.find(Listing.class, 10l), 1, guojun.getCreditCards().get(0));
             transaction5.setIsCompleted(false);
             transaction5.setHasDispute(false);
             em.persist(transaction5);
             em.flush();
-            
-            Transaction transaction6 = new Transaction(Double.parseDouble("250"), createdOn,manager, iggy, (Listing) em.find(Listing.class, 10l), 1,manager.getCreditCards().get(0));
+
+            Transaction transaction6 = new Transaction(Double.parseDouble("250"), createdOn, manager, iggy, (Listing) em.find(Listing.class, 10l), 1, manager.getCreditCards().get(0));
             transaction6.setIsCompleted(false);
             transaction6.setIsAccepted(true);
             transaction6.setHasDispute(true);
             em.persist(transaction6);
             em.flush();
-            
+
             Dispute dispute2 = new Dispute("Seller charges additional cost for purchase", transaction6);
             dispute2.setUserId(1L);
             em.persist(dispute2);
             em.flush();
             transaction6.setDispute(dispute2);
-            
-            Transaction transaction7 = new Transaction(Double.parseDouble("100"), createdOn,manager, guojun, (Listing) em.find(Listing.class, 12l), 1,iggy.getCreditCards().get(0));
+
+            Transaction transaction7 = new Transaction(Double.parseDouble("100"), createdOn, manager, guojun, (Listing) em.find(Listing.class, 12l), 1, iggy.getCreditCards().get(0));
             transaction7.setIsCompleted(true);
             transaction7.setIsAccepted(true);
             transaction7.setHasDispute(false);
             em.persist(transaction7);
             em.flush();
-            try{
-            transactionSessionBean.updateTransactionIsCompleted(transaction7.getTransactionId(), true);
-            }catch(EntityNotFoundException ex){
-                
+            try {
+                transactionSessionBean.updateTransactionIsCompleted(transaction7.getTransactionId(), true);
+            } catch (EntityNotFoundException ex) {
+
             }
-            
-            Transaction transaction8 = new Transaction(Double.parseDouble("100"), createdOn,sean, guojun, (Listing) em.find(Listing.class, 12l),1, sean.getCreditCards().get(0));
+
+            Transaction transaction8 = new Transaction(Double.parseDouble("100"), createdOn, sean, guojun, (Listing) em.find(Listing.class, 12l), 1, sean.getCreditCards().get(0));
             transaction8.setIsCompleted(false);
             transaction8.setHasDispute(false);
             em.persist(transaction8);
             em.flush();
-                 
-            Transaction transaction9 = new Transaction(Double.parseDouble("600"), april,iggy, manager, (Listing) em.find(Listing.class, 3l),1, iggy.getCreditCards().get(0));
+
+            Transaction transaction9 = new Transaction(Double.parseDouble("600"), april, iggy, manager, (Listing) em.find(Listing.class, 3l), 1, iggy.getCreditCards().get(0));
             transaction9.setIsCompleted(false);
             transaction9.setHasDispute(false);
             em.persist(transaction9);
             em.flush();
-            
-            Transaction transaction10 = new Transaction(Double.parseDouble("600"), april,sean, manager, (Listing) em.find(Listing.class,3l),1, sean.getCreditCards().get(0));
+
+            Transaction transaction10 = new Transaction(Double.parseDouble("600"), april, sean, manager, (Listing) em.find(Listing.class, 3l), 1, sean.getCreditCards().get(0));
             transaction10.setIsCompleted(true);
             transaction10.setIsAccepted(true);
             transaction10.setHasDispute(false);
             em.persist(transaction10);
             em.flush();
-            try{
-            transactionSessionBean.updateTransactionIsCompleted(transaction10.getTransactionId(), true);
-            }catch(EntityNotFoundException ex){
-                
+            try {
+                transactionSessionBean.updateTransactionIsCompleted(transaction10.getTransactionId(), true);
+            } catch (EntityNotFoundException ex) {
+
             }
-            
-            Transaction transaction11 = new Transaction(Double.parseDouble("15"), createdOn,manager, (User) em.find(User.class, 11l), (Listing) em.find(Listing.class,25l),1, manager.getCreditCards().get(0));
+
+            Transaction transaction11 = new Transaction(Double.parseDouble("15"), createdOn, manager, (User) em.find(User.class, 11l), (Listing) em.find(Listing.class, 25l), 1, manager.getCreditCards().get(0));
             transaction11.setIsCompleted(false);
             transaction11.setIsAccepted(true);
             transaction11.setHasDispute(true);
             em.persist(transaction11);
             em.flush();
-            
+
             Dispute dispute3 = new Dispute("Buyer refuses to meet up to complete transaction ", transaction11);
             dispute3.setUserId(11l);
             em.persist(dispute3);
             em.flush();
             transaction11.setDispute(dispute3);
-            
-            Transaction transaction12 = new Transaction(Double.parseDouble("10"), jan,(User) em.find(User.class, 4l), (User) em.find(User.class, 10l), (Listing) em.find(Listing.class,26l),1, ((User) em.find(User.class, 4l)).getCreditCards().get(0));
+
+            Transaction transaction12 = new Transaction(Double.parseDouble("10"), jan, (User) em.find(User.class, 4l), (User) em.find(User.class, 10l), (Listing) em.find(Listing.class, 26l), 1, ((User) em.find(User.class, 4l)).getCreditCards().get(0));
             transaction12.setIsCompleted(false);
             transaction12.setHasDispute(false);
             em.persist(transaction12);
             em.flush();
-            
-            Transaction transaction13 = new Transaction(Double.parseDouble("250"), createdOn,sean, iggy, (Listing) em.find(Listing.class, 10l),1, sean.getCreditCards().get(0));
+
+            Transaction transaction13 = new Transaction(Double.parseDouble("250"), createdOn, sean, iggy, (Listing) em.find(Listing.class, 10l), 1, sean.getCreditCards().get(0));
             transaction13.setIsCompleted(true);
             transaction13.setIsAccepted(true);
             transaction13.setHasDispute(false);
             em.persist(transaction13);
             em.flush();
-            try{
-            transactionSessionBean.updateTransactionIsCompleted(transaction13.getTransactionId(), true);
-            }catch(EntityNotFoundException ex){
-                
-            }
-            
+            try {
+                transactionSessionBean.updateTransactionIsCompleted(transaction13.getTransactionId(), true);
+            } catch (EntityNotFoundException ex) {
 
-            
+            }
+
         }
 
         if (em.find(Conversation.class, 1L) == null) {
             // japan biscuit created by manager (seller) convo initaited by admin (buyer)
-            Listing japanBiscuit = (Listing) em.find(Listing.class, 1L);
-            User buyerAdmin = (User) em.find(User.class, 2L);
-            Conversation convo = new Conversation(buyerAdmin, japanBiscuit);
-            convo.setSeller(japanBiscuit.getCreatedBy());
-            em.persist(convo);
-            em.flush();
-            
+            User brendan = (User) em.find(User.class, 1L);
+            User sean = (User) em.find(User.class, 2L);
+            User iggy = (User) em.find(User.class, 3L);
+            User alice = (User) em.find(User.class, 4L);
+            User guojun = (User) em.find(User.class, 5L);
+
+            Listing headphones = (Listing) em.find(Listing.class, 3L);
+            Listing champion = (Listing) em.find(Listing.class, 4L);
             Listing bagpack = (Listing) em.find(Listing.class, 10L);
-            User buyerGuoJun = (User) em.find(User.class, 5L);
-            Conversation convo2 = new Conversation(buyerGuoJun, bagpack);
-            convo2.setSeller(bagpack.getCreatedBy());
+            Listing bape = (Listing) em.find(Listing.class, 12L);
+            Listing halloween = (Listing) em.find(Listing.class, 25L);
+            Listing lime = (Listing) em.find(Listing.class, 26L);
+
+            Conversation convo1 = new Conversation(guojun, headphones);
+            convo1.setSeller(headphones.getCreatedBy());
+            em.persist(convo1);
+            em.flush();
+
+            Conversation convo2 = new Conversation(sean, champion);
+            convo2.setSeller(champion.getCreatedBy());
             em.persist(convo2);
             em.flush();
-            
-            Listing kimchi = (Listing) em.find(Listing.class, 19L);
-            buyerGuoJun = (User) em.find(User.class, 5L);
-            Conversation convo3 = new Conversation(buyerGuoJun, kimchi);
-            convo2.setSeller(kimchi.getCreatedBy());
+
+            Conversation convo3 = new Conversation(guojun, bagpack);
+            convo3.setSeller(bagpack.getCreatedBy());
             em.persist(convo3);
             em.flush();
-            
-            Listing shoes = (Listing) em.find(Listing.class, 17L);
-            User buyerSean = (User) em.find(User.class, 2L);
-            Conversation convo4 = new Conversation(buyerSean, shoes);
-            convo2.setSeller(shoes.getCreatedBy());
+
+            Conversation convo4 = new Conversation(brendan, bagpack);
+            convo4.setSeller(bagpack.getCreatedBy());
             em.persist(convo4);
+            em.flush();
+
+            Conversation convo5 = new Conversation(brendan, bape);
+            convo5.setSeller(bape.getCreatedBy());
+            em.persist(convo5);
+            em.flush();
+
+            Conversation convo6 = new Conversation(sean, bape);
+            convo6.setSeller(bape.getCreatedBy());
+            em.persist(convo6);
+            em.flush();
+
+            Conversation convo7 = new Conversation(iggy, headphones);
+            convo7.setSeller(headphones.getCreatedBy());
+            em.persist(convo7);
+            em.flush();
+
+            Conversation convo8 = new Conversation(sean, headphones);
+            convo8.setSeller(headphones.getCreatedBy());
+            em.persist(convo8);
+            em.flush();
+
+            Conversation convo9 = new Conversation(brendan, halloween);
+            convo9.setSeller(halloween.getCreatedBy());
+            em.persist(convo9);
+            em.flush();
+
+            Conversation convo10 = new Conversation(alice, lime);
+            convo10.setSeller(lime.getCreatedBy());
+            em.persist(convo10);
+            em.flush();
+
+            Conversation convo11 = new Conversation(sean, bagpack);
+            convo11.setSeller(bagpack.getCreatedBy());
+            em.persist(convo11);
             em.flush();
         }
 
         if (em.find(Message.class, 1L) == null) {
+            User brendan = (User) em.find(User.class, 1L);
+            User sean = (User) em.find(User.class, 2L);
+            User iggy = (User) em.find(User.class, 3L);
+            User alice = (User) em.find(User.class, 4L);
+            User guojun = (User) em.find(User.class, 5L);
+
+            Listing headphones = (Listing) em.find(Listing.class, 3L);
+            Listing champion = (Listing) em.find(Listing.class, 4L);
+            Listing bagpack = (Listing) em.find(Listing.class, 10L);
+            Listing bape = (Listing) em.find(Listing.class, 12L);
+            Listing halloween = (Listing) em.find(Listing.class, 25L);
+            Listing lime = (Listing) em.find(Listing.class, 26L);
+
             String buyerToSeller = "Hi, can i buy this?";
             String sellerToBuyer = "Sure! Make an offer.";
-            User buyerAdmin = (User) em.find(User.class, 2L);
-            User sellerManager = (User) em.find(User.class, 1L);
-            Message initiate = new Message(buyerToSeller, true, buyerAdmin.getUserId(), false);
+            Message initiate = new Message(buyerToSeller, true, guojun.getUserId(), false);
+            Message response = new Message(sellerToBuyer, false, brendan.getUserId(), false);
+            Message offerMessage = new Message(guojun.getFirstName() + " has offfered " + headphones.getPrice().toString() + ".", true, guojun.getUserId(), false);
+            Message acceptMessage = new Message("Offer has been accepted.", false, brendan.getUserId(), false);
+            Message buyOneMore = new Message("Is it possible for me to get one more for my wife?", true, guojun.getUserId(), false);
+            Message dontWant = new Message("I have already left the store, kinda lazy to head back.", true, brendan.getUserId(), false);
             initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
-            Message response = new Message(sellerToBuyer, false, sellerManager.getUserId(), false);
             response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 17).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            offerMessage.setCreatedOn(Date.from(LocalDate.of(2022, 4, 18).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            acceptMessage.setCreatedOn(Date.from(LocalDate.of(2022, 4, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            buyOneMore.setCreatedOn(Date.from(LocalDate.of(2022, 4, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            dontWant.setCreatedOn(Date.from(LocalDate.of(2022, 4, 21).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             em.persist(initiate);
             em.persist(response);
+            em.persist(offerMessage);
+            em.persist(acceptMessage);
+            em.persist(buyOneMore);
+            em.persist(dontWant);
             em.flush();
             Conversation convo = em.find(Conversation.class, 1L);
             convo.getMessages().add(initiate);
             convo.getMessages().add(response);
-            
+            convo.getMessages().add(offerMessage);
+            convo.getMessages().add(acceptMessage);
+            convo.getMessages().add(buyOneMore);
+            convo.getMessages().add(dontWant);
+
             buyerToSeller = "Hi, is this still available?";
             sellerToBuyer = "Yes, would you like one?";
-            User buyerGuoJun = (User) em.find(User.class, 5L);
-            User sellerIggy = (User) em.find(User.class, 3L);
-            initiate = new Message(buyerToSeller, true, buyerGuoJun.getUserId(), false);
+            initiate = new Message(buyerToSeller, true, sean.getUserId(), false);
             initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
-            response = new Message(sellerToBuyer, false, sellerIggy.getUserId(), false);
+            response = new Message(sellerToBuyer, false, brendan.getUserId(), false);
             response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             em.persist(initiate);
             em.persist(response);
@@ -276,14 +338,12 @@ public class DataInitSessionBean {
             convo = em.find(Conversation.class, 2L);
             convo.getMessages().add(initiate);
             convo.getMessages().add(response);
-            
-            buyerToSeller = "Hey ma, how's it going? Can I get one?";
+
+            buyerToSeller = "Hey man, how's it going? Can I get one?";
             sellerToBuyer = "Yes, make an offer dude!";
-            buyerGuoJun = (User) em.find(User.class, 5L);
-            User sellerKengYong = (User) em.find(User.class, 6L);
-            initiate = new Message(buyerToSeller, true, buyerGuoJun.getUserId(), false);
+            initiate = new Message(buyerToSeller, true, guojun.getUserId(), false);
             initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 15).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
-            response = new Message(sellerToBuyer, false, sellerKengYong.getUserId(), false);
+            response = new Message(sellerToBuyer, false, iggy.getUserId(), false);
             response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             em.persist(initiate);
             em.persist(response);
@@ -291,21 +351,160 @@ public class DataInitSessionBean {
             convo = em.find(Conversation.class, 3L);
             convo.getMessages().add(initiate);
             convo.getMessages().add(response);
-            
+
             buyerToSeller = "Wassuppp";
             sellerToBuyer = "Hello, are you intersted?";
-            User buyerSean = (User) em.find(User.class, 2L);
-            User sellerRyan = (User) em.find(User.class, 7L);
-            initiate = new Message(buyerToSeller, true, buyerSean.getUserId(), false);
+            initiate = new Message(buyerToSeller, true, brendan.getUserId(), false);
+            response = new Message(sellerToBuyer, false, iggy.getUserId(), false);
+            offerMessage = new Message(brendan.getFirstName() + " has offfered " + bagpack.getPrice().toString() + ".", true, brendan.getUserId(), false);
+            acceptMessage = new Message("Offer has been accepted.", false, iggy.getUserId(), false);
+            Message additional = new Message("Bro, please pay me $20 for the luggage space your bag took up.", false, iggy.getUserId(), false);
             initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
-            response = new Message(sellerToBuyer, false, sellerRyan.getUserId(), false);
             response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 21).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            offerMessage.setCreatedOn(Date.from(LocalDate.of(2022, 4, 22).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            acceptMessage.setCreatedOn(Date.from(LocalDate.of(2022, 4, 23).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            additional.setCreatedOn(Date.from(LocalDate.of(2022, 4, 24).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             em.persist(initiate);
             em.persist(response);
+            em.persist(offerMessage);
+            em.persist(acceptMessage);
+            em.persist(additional);
             em.flush();
             convo = em.find(Conversation.class, 4L);
             convo.getMessages().add(initiate);
             convo.getMessages().add(response);
+            convo.getMessages().add(offerMessage);
+            convo.getMessages().add(acceptMessage);
+            convo.getMessages().add(additional);
+
+            buyerToSeller = "Hi, I have been wanting to get this! Is it still available?";
+            sellerToBuyer = "Sure! Make an offer.";
+            initiate = new Message(buyerToSeller, true, brendan.getUserId(), false);
+            response = new Message(sellerToBuyer, false, guojun.getUserId(), false);
+            offerMessage = new Message(brendan.getFirstName() + " has offfered " + bape.getPrice().toString() + ".", true, brendan.getUserId(), false);
+            acceptMessage = new Message("Offer has been accepted.", false, guojun.getUserId(), false);
+            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 17).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            offerMessage.setCreatedOn(Date.from(LocalDate.of(2022, 4, 18).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            acceptMessage.setCreatedOn(Date.from(LocalDate.of(2022, 4, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            em.persist(initiate);
+            em.persist(response);
+            em.persist(offerMessage);
+            em.persist(acceptMessage);
+            em.flush();
+            convo = em.find(Conversation.class, 5L);
+            convo.getMessages().add(initiate);
+            convo.getMessages().add(response);
+            convo.getMessages().add(offerMessage);
+            convo.getMessages().add(acceptMessage);
+
+            buyerToSeller = "Hi, is this authentic?";
+            sellerToBuyer = "Yes, would you like one?";
+            initiate = new Message(buyerToSeller, true, sean.getUserId(), false);
+            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            response = new Message(sellerToBuyer, false, guojun.getUserId(), false);
+            response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            em.persist(initiate);
+            em.persist(response);
+            em.flush();
+            convo = em.find(Conversation.class, 6L);
+            convo.getMessages().add(initiate);
+            convo.getMessages().add(response);
+
+            buyerToSeller = "Hey man, heard these headphones sound great! Can I get one?";
+            sellerToBuyer = "Yes, make an offer dude!";
+            initiate = new Message(buyerToSeller, true, iggy.getUserId(), false);
+            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 15).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            response = new Message(sellerToBuyer, false, brendan.getUserId(), false);
+            response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            em.persist(initiate);
+            em.persist(response);
+            em.flush();
+            convo = em.find(Conversation.class, 7L);
+            convo.getMessages().add(initiate);
+            convo.getMessages().add(response);
+
+            buyerToSeller = "Hi, is this available in white?";
+            sellerToBuyer = "Yup! Make an offer.";
+            initiate = new Message(buyerToSeller, true, sean.getUserId(), false);
+            response = new Message(sellerToBuyer, false, brendan.getUserId(), false);
+            offerMessage = new Message(sean.getFirstName() + " has offfered " + headphones.getPrice().toString() + ".", true, sean.getUserId(), false);
+            acceptMessage = new Message("Offer has been accepted.", false, brendan.getUserId(), false);
+            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 17).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            offerMessage.setCreatedOn(Date.from(LocalDate.of(2022, 4, 18).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            acceptMessage.setCreatedOn(Date.from(LocalDate.of(2022, 4, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            em.persist(initiate);
+            em.persist(response);
+            em.persist(offerMessage);
+            em.persist(acceptMessage);
+            em.flush();
+            convo = em.find(Conversation.class, 8L);
+            convo.getMessages().add(initiate);
+            convo.getMessages().add(response);
+            convo.getMessages().add(offerMessage);
+            convo.getMessages().add(acceptMessage);
+
+            buyerToSeller = "Hi, I think my kids would love it! Possible to buy one pack?";
+            sellerToBuyer = "Sure! Make an offer.";
+            initiate = new Message(buyerToSeller, true, brendan.getUserId(), false);
+            response = new Message(sellerToBuyer, false, halloween.getCreatedBy().getUserId(), false);
+            offerMessage = new Message(brendan.getFirstName() + " has offfered " + halloween.getPrice().toString() + ".", true, brendan.getUserId(), false);
+            acceptMessage = new Message("Offer has been accepted.", false, halloween.getCreatedBy().getUserId(), false);
+            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 17).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            offerMessage.setCreatedOn(Date.from(LocalDate.of(2022, 4, 18).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            acceptMessage.setCreatedOn(Date.from(LocalDate.of(2022, 4, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            Message offerMeetup = new Message("Hey when are you free for a meet up?", false, halloween.getCreatedBy().getUserId(), false);
+            Message backout = new Message("I am no longer interested. Enjoy the chocolates yourself!", false, brendan.getUserId(), false);
+            em.persist(initiate);
+            em.persist(response);
+            em.persist(offerMessage);
+            em.persist(acceptMessage);
+            em.persist(offerMeetup);
+            em.persist(backout);
+            em.flush();
+            convo = em.find(Conversation.class, 9L);
+            convo.getMessages().add(initiate);
+            convo.getMessages().add(response);
+            convo.getMessages().add(offerMessage);
+            convo.getMessages().add(acceptMessage);
+            convo.getMessages().add(offerMeetup);
+            convo.getMessages().add(backout);
+
+            buyerToSeller = "Hey man, is it really sour?";
+            sellerToBuyer = "Yes, make an offer dude! You will love it!";
+            initiate = new Message(buyerToSeller, true, alice.getUserId(), false);
+            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 15).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            response = new Message(sellerToBuyer, false, lime.getCreatedBy().getUserId(), false);
+            response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            em.persist(initiate);
+            em.persist(response);
+            em.flush();
+            convo = em.find(Conversation.class, 10L);
+            convo.getMessages().add(initiate);
+            convo.getMessages().add(response);
+
+            buyerToSeller = "Thats a nice bag! How much is it?";
+            sellerToBuyer = "$250 mate! It's considered cheap already. Make an offer!";
+            initiate = new Message(buyerToSeller, true, sean.getUserId(), false);
+            response = new Message(sellerToBuyer, false, iggy.getUserId(), false);
+            offerMessage = new Message(sean.getFirstName() + " has offfered " + bagpack.getPrice().toString() + ".", true, sean.getUserId(), false);
+            acceptMessage = new Message("Offer has been accepted.", false, iggy.getUserId(), false);
+            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 17).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            offerMessage.setCreatedOn(Date.from(LocalDate.of(2022, 4, 18).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            acceptMessage.setCreatedOn(Date.from(LocalDate.of(2022, 4, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            em.persist(initiate);
+            em.persist(response);
+            em.persist(offerMessage);
+            em.persist(acceptMessage);
+            em.flush();
+            convo = em.find(Conversation.class, 11L);
+            convo.getMessages().add(initiate);
+            convo.getMessages().add(response);
+            convo.getMessages().add(offerMessage);
+            convo.getMessages().add(acceptMessage);
         }
 
     }
@@ -387,7 +586,7 @@ public class DataInitSessionBean {
         try {
 
             //Users following manager
-           userSessionBean.follow(guojun.getUserId(), manager.getUserId());
+            userSessionBean.follow(guojun.getUserId(), manager.getUserId());
             userSessionBean.follow(6L, manager.getUserId());
             userSessionBean.follow(7L, manager.getUserId());
             userSessionBean.follow(8L, manager.getUserId());
@@ -402,12 +601,12 @@ public class DataInitSessionBean {
             userSessionBean.follow(manager.getUserId(), iggy.getUserId());
             userSessionBean.follow(4L, iggy.getUserId());
             userSessionBean.follow(10L, iggy.getUserId());
-            
+
             //Users following Alice
             userSessionBean.follow(1L, 4L);
             userSessionBean.follow(13L, 4L);
             userSessionBean.follow(7L, 4L);
-            
+
             //Users following GuoJun
             userSessionBean.follow(6L, 5L);
             userSessionBean.follow(7L, 5L);
@@ -415,43 +614,43 @@ public class DataInitSessionBean {
             userSessionBean.follow(9L, 5L);
             userSessionBean.follow(10L, 5L);
             userSessionBean.follow(11L, 5L);
-            
+
             //Users following keng yong
             userSessionBean.follow(2L, 6L);
             userSessionBean.follow(3L, 6L);
             userSessionBean.follow(4L, 6L);
-            
+
             //Users following ryan ng
             userSessionBean.follow(1L, 7L);
             userSessionBean.follow(4L, 7L);
-            
+
             //Users following robert
             userSessionBean.follow(11L, 8L);
             userSessionBean.follow(12L, 8L);
             userSessionBean.follow(13L, 8L);
             userSessionBean.follow(14L, 8L);
             userSessionBean.follow(15L, 8L);
-            
+
             //Users following cedric
             userSessionBean.follow(12L, 9L);
             userSessionBean.follow(13L, 9L);
             userSessionBean.follow(15L, 9L);
-            
+
             //Users following jack sng
             userSessionBean.follow(1L, 10L);
             userSessionBean.follow(3L, 10L);
             userSessionBean.follow(2L, 10L);
             userSessionBean.follow(13L, 10L);
-            
+
             //Users following samuel
             userSessionBean.follow(1L, 11L);
             userSessionBean.follow(3L, 11L);
-            
+
             //Users following robin
             userSessionBean.follow(2L, 12L);
             userSessionBean.follow(3L, 12L);
             userSessionBean.follow(4L, 12L);
-            
+
             //Users following anna
             userSessionBean.follow(1L, 13L);
             userSessionBean.follow(3L, 13L);
@@ -459,11 +658,11 @@ public class DataInitSessionBean {
             userSessionBean.follow(6L, 13L);
             userSessionBean.follow(8L, 13L);
             userSessionBean.follow(11L, 13L);
-            
+
             //Users following sarah
-            userSessionBean.follow(15L, 14L); 
+            userSessionBean.follow(15L, 14L);
             userSessionBean.follow(11L, 14L);
-            
+
         } catch (EntityNotFoundException ex) {
             System.out.print(ex.getMessage());
         }
@@ -561,7 +760,7 @@ public class DataInitSessionBean {
 
             List<String> photosHeadphone = new ArrayList<>();
             photosHeadphone.add("/uploadedFiles/headphone_1.jpg");
-            photosHeadphone.add("/uploadedFiles/headphone_2.jpg"); 
+            photosHeadphone.add("/uploadedFiles/headphone_2.jpg");
             photosHeadphone.add("/uploadedFiles/headphone_3.jpg");
             photosHeadphone.add("/uploadedFiles/headphone_4.jpg");
 
@@ -614,7 +813,7 @@ public class DataInitSessionBean {
             List<String> photosBagpack = new ArrayList<>();
             photosBagpack.add("/uploadedFiles/bagpack_1.jpg");
             photosBagpack.add("/uploadedFiles/bagpack_2.jpg");
-            listing = new Listing("USA", "Colorado", "Wandrd Prvke Bagpack", "Two options, 21L or 31L. Let me know ASAP and I can only buy back 2 due to limited luggage space.",CategoryEnum.GIFTS, 250.00, expectedArrivalDate5, iggy, 2, photosBagpack);
+            listing = new Listing("USA", "Colorado", "Wandrd Prvke Bagpack", "Two options, 21L or 31L. Let me know ASAP and I can only buy back 2 due to limited luggage space.", CategoryEnum.GIFTS, 250.00, expectedArrivalDate5, iggy, 2, photosBagpack);
             this.listingSessionBean.createNewListing(listing, 3L);
 
             List<String> photosChain = new ArrayList<>();
@@ -628,116 +827,116 @@ public class DataInitSessionBean {
             photos.add("/uploadedFiles/bathing_ape_bape_sizing_chart.jpg");
             listing = new Listing("Korea", "Seoul", "Black Bape T-Shirt", "Going to Korea for a business trip. Will pass by their local Bathing Ape store. Let's chat if you're keen to buy!", CategoryEnum.APPAREL, 100.00, expectedArrivalDate3, guojun, 3, photos);
             this.listingSessionBean.createNewListing(listing, 5L);
-            
+
             User sean = (User) em.find(User.class, 2L);
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/acnestudios.jpeg");
             photos.add("/uploadedFiles/acnestudiossizechart.jpeg");
-            listing = new Listing("USA", "New York", "Acne Studios T-Shirt", "Rare Acne Studios Tee, only in NYC", CategoryEnum.APPAREL, 250.00, expectedArrivalDate3,sean, 1, photos);
+            listing = new Listing("USA", "New York", "Acne Studios T-Shirt", "Rare Acne Studios Tee, only in NYC", CategoryEnum.APPAREL, 250.00, expectedArrivalDate3, sean, 1, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
-            
+
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/bananamilk.jpeg");
-            listing = new Listing("Korea", "Seoul", "Binggrae Banana Milk", "Binggrae Banana Flavoured Milk", CategoryEnum.FOOD, 15.00, expectedArrivalDate2 ,sean, 10, photos);
+            listing = new Listing("Korea", "Seoul", "Binggrae Banana Milk", "Binggrae Banana Flavoured Milk", CategoryEnum.FOOD, 15.00, expectedArrivalDate2, sean, 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
 
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/cards.jpeg");
-            listing = new Listing("Japan", "Tokyo", "Pokemon Sun and Moon Cards", "Exclusive Pokemon Sun and Moon Cards!!", CategoryEnum.GIFTS, 25.00, expectedArrivalDate2 ,em.find(User.class, 11l), 5, photos);
+            listing = new Listing("Japan", "Tokyo", "Pokemon Sun and Moon Cards", "Exclusive Pokemon Sun and Moon Cards!!", CategoryEnum.GIFTS, 25.00, expectedArrivalDate2, em.find(User.class, 11l), 5, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
-            
+
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/churros.jpeg");
-            listing = new Listing("Japan", "Tokyo", "Oreo Churros", "Limited Edition Japanese Oreo Churros!!", CategoryEnum.FOOD, 15.00, expectedArrivalDate3 ,em.find(User.class, 10l), 10, photos);
+            listing = new Listing("Japan", "Tokyo", "Oreo Churros", "Limited Edition Japanese Oreo Churros!!", CategoryEnum.FOOD, 15.00, expectedArrivalDate3, em.find(User.class, 10l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
-            
+
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/conversecdg.jpeg");
-            listing = new Listing("Japan", "Tokyo", "Converse x CDG Highcut", "Converse x CDG Highcut in Olive from Shibuya", CategoryEnum.APPAREL, 200.00, expectedArrivalDate3 ,em.find(User.class, 7l), 10, photos);
+            listing = new Listing("Japan", "Tokyo", "Converse x CDG Highcut", "Converse x CDG Highcut in Olive from Shibuya", CategoryEnum.APPAREL, 200.00, expectedArrivalDate3, em.find(User.class, 7l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
-            
+
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/fruittea.jpeg");
-            listing = new Listing("Japan", "Tokyo", "Nongfu Spring Fruit Tea", "Assorted Flavours Nongfu Spring Fruit Tea", CategoryEnum.FOOD, 20.00, expectedArrivalDate ,em.find(User.class, 8l), 5, photos);
+            listing = new Listing("Japan", "Tokyo", "Nongfu Spring Fruit Tea", "Assorted Flavours Nongfu Spring Fruit Tea", CategoryEnum.FOOD, 20.00, expectedArrivalDate, em.find(User.class, 8l), 5, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
-            
+
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/kimchi.jpeg");
-            listing = new Listing("Korea", "Seoul", "Fresh Korean Kimchi", "Fresh Korean Kimchi 500g", CategoryEnum.FOOD, 20.00, expectedArrivalDate ,em.find(User.class, 6l), 10, photos);
+            listing = new Listing("Korea", "Seoul", "Fresh Korean Kimchi", "Fresh Korean Kimchi 500g", CategoryEnum.FOOD, 20.00, expectedArrivalDate, em.find(User.class, 6l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
-            
+
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/kitkat.jpeg");
-            listing = new Listing("Japan", "Osaka", "Assorted KitKat", "Japan-only KitKat in many flavours!", CategoryEnum.FOOD, 30.00, expectedArrivalDate2 ,em.find(User.class, 9l), 12, photos);
+            listing = new Listing("Japan", "Osaka", "Assorted KitKat", "Japan-only KitKat in many flavours!", CategoryEnum.FOOD, 30.00, expectedArrivalDate2, em.find(User.class, 9l), 12, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
-            
+
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/koreanmask.jpeg");
-            listing = new Listing("Korea", "Seoul", "Korean Facial Masks", "Korean Facial Masks in packs of 5!", CategoryEnum.GIFTS, 18.00, expectedArrivalDate ,em.find(User.class, 15l), 15, photos);
+            listing = new Listing("Korea", "Seoul", "Korean Facial Masks", "Korean Facial Masks in packs of 5!", CategoryEnum.GIFTS, 18.00, expectedArrivalDate, em.find(User.class, 15l), 15, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
-            
+
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/oreos.jpeg");
-            listing = new Listing("Korea", "Seoul", "Limited Edition Mint Oreos", "Limited Edition Mint Oreos! DO NOT MISS OUT!", CategoryEnum.FOOD, 10.00, expectedArrivalDate ,em.find(User.class, 14l), 15, photos);
+            listing = new Listing("Korea", "Seoul", "Limited Edition Mint Oreos", "Limited Edition Mint Oreos! DO NOT MISS OUT!", CategoryEnum.FOOD, 10.00, expectedArrivalDate, em.find(User.class, 14l), 15, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
-            
+
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/oreos2.jpeg");
-            listing = new Listing("Korea", "Seoul", "Limited Edition Apple Cider Donut Oreos", "Limited Edition Apple Cider Donut Oreos! DO NOT MISS OUT!", CategoryEnum.FOOD, 15.00, expectedArrivalDate ,em.find(User.class, 13l), 10, photos);
+            listing = new Listing("Korea", "Seoul", "Limited Edition Apple Cider Donut Oreos", "Limited Edition Apple Cider Donut Oreos! DO NOT MISS OUT!", CategoryEnum.FOOD, 15.00, expectedArrivalDate, em.find(User.class, 13l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
-            
+
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/pringles.jpg");
-            listing = new Listing("Korea", "Seoul", "Trio flavoured Japanese Pringles", "Cheese Burger, Butter Caramel and Sweet Mayo Japanese Pringles! ", CategoryEnum.FOOD, 15.00, expectedArrivalDate2 ,em.find(User.class, 12l), 10, photos);
+            listing = new Listing("Korea", "Seoul", "Trio flavoured Japanese Pringles", "Cheese Burger, Butter Caramel and Sweet Mayo Japanese Pringles! ", CategoryEnum.FOOD, 15.00, expectedArrivalDate2, em.find(User.class, 12l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
-            
+
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/reeses.jpeg");
-            listing = new Listing("USA", "California", "Halloween Glow in the Dark Reeses", "Halloween ONLY Glow in the Dark Reeses!!", CategoryEnum.FOOD, 15.00, expectedArrivalDate2 ,em.find(User.class, 11l), 10, photos);
+            listing = new Listing("USA", "California", "Halloween Glow in the Dark Reeses", "Halloween ONLY Glow in the Dark Reeses!!", CategoryEnum.FOOD, 15.00, expectedArrivalDate2, em.find(User.class, 11l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
-            
+
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/skittles.jpeg");
-            listing = new Listing("USA", "California", "Limited Edition Lime Squeeze Skittles", "Limited Edition Lime Squeeze Skittles!! Amazing if you enjoy sour candies like I do!!", CategoryEnum.FOOD, 10.00, expectedArrivalDate2 ,em.find(User.class, 10l), 10, photos);
+            listing = new Listing("USA", "California", "Limited Edition Lime Squeeze Skittles", "Limited Edition Lime Squeeze Skittles!! Amazing if you enjoy sour candies like I do!!", CategoryEnum.FOOD, 10.00, expectedArrivalDate2, em.find(User.class, 10l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
-            
+
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/soju.jpeg");
-            listing = new Listing("Korea", "Seoul", "Jinro Plum Soju", "Jinro Plum Soju! Way cheaper than Singapore!", CategoryEnum.FOOD, 10.00, expectedArrivalDate2 ,(User) em.find(User.class, 6l), 10, photos);
+            listing = new Listing("Korea", "Seoul", "Jinro Plum Soju", "Jinro Plum Soju! Way cheaper than Singapore!", CategoryEnum.FOOD, 10.00, expectedArrivalDate2, (User) em.find(User.class, 6l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
-            
+
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/tokyobanana.jpeg");
-            listing = new Listing("Japan", "Tokyo", "Tokyo Banana", "Tokyo Banana! This favourite needs no introduction!", CategoryEnum.FOOD, 20.00, expectedArrivalDate2 ,(User) em.find(User.class, 7l), 10, photos);
+            listing = new Listing("Japan", "Tokyo", "Tokyo Banana", "Tokyo Banana! This favourite needs no introduction!", CategoryEnum.FOOD, 20.00, expectedArrivalDate2, (User) em.find(User.class, 7l), 10, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
-            
+
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/twinkies.jpeg");
-            listing = new Listing("USA", "California", "Key Lime Twinkies", "Limited Edition Key Lime Twinkies!! This flavour is limited for a short amount of time only!!", CategoryEnum.FOOD, 15.00, expectedArrivalDate2 ,(User) em.find(User.class, 8l), 9, photos);
+            listing = new Listing("USA", "California", "Key Lime Twinkies", "Limited Edition Key Lime Twinkies!! This flavour is limited for a short amount of time only!!", CategoryEnum.FOOD, 15.00, expectedArrivalDate2, (User) em.find(User.class, 8l), 9, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
-            
+
             photos = new ArrayList<>();
             photos.add("/uploadedFiles/birkenstock.jpeg");
-            listing = new Listing("USA", "California", "Birkenstock Arizona", "Birkenstock Arizona in Sandy Grey. Available in US 6,7,8,9",CategoryEnum.APPAREL, 150.00, expectedArrivalDate3 ,(User) em.find(User.class, 9l), 9, photos);
+            listing = new Listing("USA", "California", "Birkenstock Arizona", "Birkenstock Arizona in Sandy Grey. Available in US 6,7,8,9", CategoryEnum.APPAREL, 150.00, expectedArrivalDate3, (User) em.find(User.class, 9l), 9, photos);
             this.listingSessionBean.createNewListing(listing, 2L);
-            
+
             try {
                 // LIKE LISTINGS
                 //manager liking some listings
-                
+
                 listingSessionBean.likeListing(1L, 6L);
                 listingSessionBean.likeListing(1L, 9L);
                 listingSessionBean.likeListing(1L, 3L);
                 listingSessionBean.likeListing(1L, 3L);
-                for(int i = 12; i < 31; i++){
-                    listingSessionBean.likeListing(1L,new Long(i) );
+                for (int i = 12; i < 31; i++) {
+                    listingSessionBean.likeListing(1L, new Long(i));
                 }
                 //admin liking some listings
                 listingSessionBean.likeListing(2L, 4L);
                 listingSessionBean.likeListing(2L, 5L);
                 listingSessionBean.likeListing(2L, 10L);
-                for(int i = 12; i < 31; i++){
-                    listingSessionBean.likeListing(2L,new Long(i) );
+                for (int i = 12; i < 31; i++) {
+                    listingSessionBean.likeListing(2L, new Long(i));
                 }
                 //iggy liking some listings
                 listingSessionBean.likeListing(3L, 4L);
@@ -746,23 +945,23 @@ public class DataInitSessionBean {
                 listingSessionBean.likeListing(3L, 1L);
                 listingSessionBean.likeListing(3L, 2L);
                 listingSessionBean.likeListing(3L, 3L);
-                for(int i = 18; i < 31; i++){
-                    listingSessionBean.likeListing(3L,new Long(i) );
+                for (int i = 18; i < 31; i++) {
+                    listingSessionBean.likeListing(3L, new Long(i));
                 }
                 //guojun liking some listings
                 listingSessionBean.likeListing(5L, 6L);
                 listingSessionBean.likeListing(5L, 8L);
-                for(int i = 12; i < 20; i++){
-                    listingSessionBean.likeListing(5L,new Long(i) );
+                for (int i = 12; i < 20; i++) {
+                    listingSessionBean.likeListing(5L, new Long(i));
                 }
-                
+
                 // guojun liking even more listings
                 listingSessionBean.likeListing(5L, 1L);
                 listingSessionBean.likeListing(5L, 2L);
                 listingSessionBean.likeListing(5L, 3L);
                 listingSessionBean.likeListing(5L, 4L);
-                for(int i = 12; i < 22; i++){
-                    listingSessionBean.likeListing(1L,new Long(i) );
+                for (int i = 12; i < 22; i++) {
+                    listingSessionBean.likeListing(1L, new Long(i));
                 }
             } catch (EntityNotFoundException ex) {
                 System.out.println(ex.getMessage());
