@@ -93,7 +93,7 @@ export class CreateTransactionPage implements OnInit {
     this.transaction.buyer = this.sessionService.getCurrentUser();
     this.transaction.createdOn = new Date();
     this.transaction.amount = this.listingToView.price;
-
+    console.log('Transaction', this.transaction);
 
     this.transactionService.createTransaction(Number(this.listingId), this.transaction).subscribe({
       next: (response) => {
@@ -262,9 +262,9 @@ export class CreateTransactionPage implements OnInit {
 
       //create transaction error
       error: (error) => {
-        if(this.transaction.creditCard === undefined && this.transaction.quantity === undefined){
+        if(this.transaction.buyerCard === undefined && this.transaction.quantity === undefined){
           this.result= 4;
-        } else if(this.transaction.creditCard === undefined) {
+        } else if(this.transaction.buyerCard === undefined) {
           this.result = 2;
         } else {
           this.result = 3;

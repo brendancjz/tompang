@@ -24,7 +24,7 @@ export class Transaction {
   // @OneToOne
   dispute: Dispute | undefined;
   // @ManyToOne(optional = false)
-  creditCard: CreditCard | undefined;
+  buyerCard: CreditCard | undefined;
 
     constructor(transactionId?: number, amount?: number, quantity?: number, month?: number) {
       this.transactionId = transactionId;

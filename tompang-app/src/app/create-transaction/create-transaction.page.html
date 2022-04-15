@@ -18,7 +18,7 @@
         <div class="form-input">
           <ion-item lines="none">
             <ion-icon style="font-size:35px;" name="card-outline" slot="start"></ion-icon>
-            <ion-select class="grey-color" slot="end" [(ngModel)]="transaction.creditCard" name="buyerCreditCard" required>
+            <ion-select class="grey-color" slot="end" [(ngModel)]="transaction.buyerCard" name="buyerCreditCard" required>
               <ion-label class="grey-color" style="font-size:12px;">Select Credit Card</ion-label>
               <ion-select-option class="grey-color"
                 *ngFor="let card of currentUser.creditCards"

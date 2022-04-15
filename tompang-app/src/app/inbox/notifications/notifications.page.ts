@@ -31,6 +31,7 @@ export class NotificationsPage implements OnInit {
 
   ngOnInit() {
     this.notifications = [];
+    this.doViewListOfTransactions();
   }
 
   ionViewWillEnter() {

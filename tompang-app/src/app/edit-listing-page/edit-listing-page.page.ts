@@ -109,6 +109,7 @@ export class EditListingPagePage implements OnInit {
           this.listingToView.photos.push('/uploadedFiles/' + fileName);
           this.imageSuccess = true;
           this.imageSuccessMsg = 'Added Image ' + fileName;
+          this.newListingImage = null;
           this.resetFileInput();
         },
         error: (error) => {

@@ -45,6 +45,9 @@ public class TransactionSessionBean implements TransactionSessionBeanLocal {
             throw new CreateNewTransactionException();
         }
         
+        System.out.println(transaction.getBuyerCard());
+        
+        
         try {
             User buyer = userSessionBean.getUserByUserId(buyerId);
             Listing listing = listingSessionBean.getListingByListingId(listingId);
