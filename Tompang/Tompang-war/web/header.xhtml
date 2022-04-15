@@ -14,9 +14,6 @@
                 </h:commandLink>
             </h:form>
         </div>
-        <h:form rendered="#{sessionScope.isLogin != true}">
-            <h:commandLink class="header-button" value="Login" actionListener="#{loginManagedBean.redirectToLoginPage}" />
-        </h:form>
         <h:panelGroup class="header-buttons" rendered="#{sessionScope.isLogin == true}" >
             <h:form>
             <p:growl id="navbar" showDetail="false" />

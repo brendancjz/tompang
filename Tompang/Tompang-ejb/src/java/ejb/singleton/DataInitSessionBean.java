@@ -223,20 +223,87 @@ public class DataInitSessionBean {
             convo.setSeller(japanBiscuit.getCreatedBy());
             em.persist(convo);
             em.flush();
+            
+            Listing bagpack = (Listing) em.find(Listing.class, 10L);
+            User buyerGuoJun = (User) em.find(User.class, 5L);
+            Conversation convo2 = new Conversation(buyerGuoJun, bagpack);
+            convo2.setSeller(bagpack.getCreatedBy());
+            em.persist(convo2);
+            em.flush();
+            
+            Listing kimchi = (Listing) em.find(Listing.class, 19L);
+            buyerGuoJun = (User) em.find(User.class, 5L);
+            Conversation convo3 = new Conversation(buyerGuoJun, kimchi);
+            convo2.setSeller(kimchi.getCreatedBy());
+            em.persist(convo3);
+            em.flush();
+            
+            Listing shoes = (Listing) em.find(Listing.class, 17L);
+            User buyerSean = (User) em.find(User.class, 2L);
+            Conversation convo4 = new Conversation(buyerSean, shoes);
+            convo2.setSeller(shoes.getCreatedBy());
+            em.persist(convo4);
+            em.flush();
         }
 
         if (em.find(Message.class, 1L) == null) {
             String buyerToSeller = "Hi, can i buy this?";
-            String sellerToBuyer = "Sure!";
+            String sellerToBuyer = "Sure! Make an offer.";
             User buyerAdmin = (User) em.find(User.class, 2L);
             User sellerManager = (User) em.find(User.class, 1L);
             Message initiate = new Message(buyerToSeller, true, buyerAdmin.getUserId(), false);
-            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 14).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             Message response = new Message(sellerToBuyer, false, sellerManager.getUserId(), false);
+            response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 17).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             em.persist(initiate);
             em.persist(response);
             em.flush();
             Conversation convo = em.find(Conversation.class, 1L);
+            convo.getMessages().add(initiate);
+            convo.getMessages().add(response);
+            
+            buyerToSeller = "Hi, is this still available?";
+            sellerToBuyer = "Yes, would you like one?";
+            User buyerGuoJun = (User) em.find(User.class, 5L);
+            User sellerIggy = (User) em.find(User.class, 3L);
+            initiate = new Message(buyerToSeller, true, buyerGuoJun.getUserId(), false);
+            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            response = new Message(sellerToBuyer, false, sellerIggy.getUserId(), false);
+            response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            em.persist(initiate);
+            em.persist(response);
+            em.flush();
+            convo = em.find(Conversation.class, 2L);
+            convo.getMessages().add(initiate);
+            convo.getMessages().add(response);
+            
+            buyerToSeller = "Hey ma, how's it going? Can I get one?";
+            sellerToBuyer = "Yes, make an offer dude!";
+            buyerGuoJun = (User) em.find(User.class, 5L);
+            User sellerKengYong = (User) em.find(User.class, 6L);
+            initiate = new Message(buyerToSeller, true, buyerGuoJun.getUserId(), false);
+            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 15).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            response = new Message(sellerToBuyer, false, sellerKengYong.getUserId(), false);
+            response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            em.persist(initiate);
+            em.persist(response);
+            em.flush();
+            convo = em.find(Conversation.class, 3L);
+            convo.getMessages().add(initiate);
+            convo.getMessages().add(response);
+            
+            buyerToSeller = "Wassuppp";
+            sellerToBuyer = "Hello, are you intersted?";
+            User buyerSean = (User) em.find(User.class, 2L);
+            User sellerRyan = (User) em.find(User.class, 7L);
+            initiate = new Message(buyerToSeller, true, buyerSean.getUserId(), false);
+            initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            response = new Message(sellerToBuyer, false, sellerRyan.getUserId(), false);
+            response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 21).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            em.persist(initiate);
+            em.persist(response);
+            em.flush();
+            convo = em.find(Conversation.class, 4L);
             convo.getMessages().add(initiate);
             convo.getMessages().add(response);
         }
