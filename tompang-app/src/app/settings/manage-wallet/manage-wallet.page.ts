@@ -26,12 +26,28 @@ export class ManageWalletPage implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.sessionService.getCurrentUser();
+    this.userService.getUser(this.currentUser.userId).subscribe({
+      next: (response) => {
+        this.currentUser = response;
+      },
+      error: (err) => {
+        console.log('Error', err);
+      }
+    });
     console.log('Current User', this.currentUser);
   }
 
   ionViewWillEnter() {
     console.log('IonViewWillEnter ManageCreditCards');
     this.currentUser = this.sessionService.getCurrentUser();
+    this.userService.getUser(this.currentUser.userId).subscribe({
+      next: (response) => {
+        this.currentUser = response;
+      },
+      error: (err) => {
+        console.log('Error', err);
+      }
+    });
     console.log('Current User', this.currentUser);
 
     this.doViewListOfCreditCards();

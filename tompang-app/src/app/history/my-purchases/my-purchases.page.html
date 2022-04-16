@@ -7,7 +7,7 @@
       <span
         *ngIf="transactions.length !== 0"
         style="float: right; font-size: 12px; margin-top: 8px"
-        >Earned: {{totalAmountEarned}} Spent: {{totalAmountSpent}}</span
+        >Earned: {{totalAmountEarned.toFixed(2)}} Spent: {{totalAmountSpent.toFixed(2)}}</span
       >
     </ion-title>
   </div>

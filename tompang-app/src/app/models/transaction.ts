@@ -35,7 +35,8 @@ export class Transaction {
       this.isAccepted = false;
       this.isRejected = false;
       this.quantity = quantity;
-      this.month = amount;
+      this.month = this.createdOn.getMonth() + 1;
+      console.log(this.month);
     }
 
 }

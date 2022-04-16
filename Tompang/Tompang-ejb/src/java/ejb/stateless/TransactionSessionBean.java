@@ -92,6 +92,7 @@ public class TransactionSessionBean implements TransactionSessionBeanLocal {
     @Override
     public Transaction getTransactionByTransactionId(Long transactionId) throws EntityNotFoundException {
         Transaction transaction = em.find(Transaction.class, transactionId);
+        //transaction.getSeller().getUserId();
 
         if (transaction == null) {
             throw new EntityNotFoundException("Transaction " + transactionId + " not found.\n");
@@ -103,8 +104,9 @@ public class TransactionSessionBean implements TransactionSessionBeanLocal {
     @Override
     public void updateTransactionIsCompleted(Long transactionId, Boolean isCompleted) throws EntityNotFoundException {
         Transaction transaction = this.getTransactionByTransactionId(transactionId);
-        transaction.getSeller().setWalletAmount(transaction.getSeller().getWalletAmount() + transaction.getAmount());
-        
+        System.out.println(transaction.getSeller().getWalletAmount());
+        transaction.getSeller().setWalletAmount(transaction.getSeller().getWalletAmount() + (transaction.getAmount() * 0.97));
+        System.out.println(transaction.getSeller().getWalletAmount());
         transaction.setIsCompleted(isCompleted);
     }
     

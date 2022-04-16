@@ -28,21 +28,22 @@ export class MyPurchasesPage implements OnInit {
 
   ngOnInit() {
     this.transactions = [];
-    this.totalAmountEarned = 0;
-    this.totalAmountSpent = 0;
+    this.userId = this.sessionService.getCurrentUser().userId;
+
+    this.doViewListOfTransactions();
 
   }
 
   ionViewWillEnter() {
     console.log('IonViewWillEnter MyPurchases');
-    this.totalAmountEarned = 0;
-    this.totalAmountSpent = 0;
     this.userId = this.sessionService.getCurrentUser().userId;
 
     this.doViewListOfTransactions();
   }
 
   doViewListOfTransactions() {
+    this.totalAmountEarned = 0;
+    this.totalAmountSpent = 0;
     this.transactionService.getUserTransactions().subscribe({
       next: (response) => {
         this.transactions = response;

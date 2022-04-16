@@ -318,7 +318,7 @@ public class DataInitSessionBean {
 
             Message initiate = new Message(buyerToSeller, true, guojun.getUserId(), false);
             Message response = new Message(sellerToBuyer, false, brendan.getUserId(), false);
-            Message offerMessage = new Message(guojun.getFirstName() + " has offfered " + headphones.getPrice().toString() + ".", true, guojun.getUserId(), false);
+            Message offerMessage = new Message(guojun.getFirstName() + " has offered " + headphones.getPrice().toString() + ".", true, guojun.getUserId(), false);
             Message acceptMessage = new Message("Offer has been accepted.", false, brendan.getUserId(), false);
             Message buyOneMore = new Message("Is it possible for me to get one more for my wife?", true, guojun.getUserId(), false);
             Message dontWant = new Message("I have already left the store, kinda lazy to head back.", true, brendan.getUserId(), false);
@@ -401,7 +401,7 @@ public class DataInitSessionBean {
             sellerToBuyer = "Hello, are you interested?";
             initiate = new Message(buyerToSeller, true, brendan.getUserId(), false);
             response = new Message(sellerToBuyer, false, iggy.getUserId(), false);
-            offerMessage = new Message(brendan.getFirstName() + " has offfered " + bagpack.getPrice().toString() + ".", true, brendan.getUserId(), false);
+            offerMessage = new Message(brendan.getFirstName() + " has offered " + bagpack.getPrice().toString() + ".", true, brendan.getUserId(), false);
             acceptMessage = new Message("Offer has been accepted.", false, iggy.getUserId(), false);
             Message additional = new Message("Bro, please pay me $20 for the luggage space your bag took up.", false, iggy.getUserId(), false);
             initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
@@ -426,7 +426,7 @@ public class DataInitSessionBean {
             sellerToBuyer = "Sure! Make an offer.";
             initiate = new Message(buyerToSeller, true, brendan.getUserId(), false);
             response = new Message(sellerToBuyer, false, guojun.getUserId(), false);
-            offerMessage = new Message(brendan.getFirstName() + " has offfered " + bape.getPrice().toString() + ".", true, brendan.getUserId(), false);
+            offerMessage = new Message(brendan.getFirstName() + " has offered " + bape.getPrice().toString() + ".", true, brendan.getUserId(), false);
             acceptMessage = new Message("Offer has been accepted.", false, guojun.getUserId(), false);
             initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 17).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
@@ -473,7 +473,7 @@ public class DataInitSessionBean {
             sellerToBuyer = "Yup! Make an offer.";
             initiate = new Message(buyerToSeller, true, sean.getUserId(), false);
             response = new Message(sellerToBuyer, false, brendan.getUserId(), false);
-            offerMessage = new Message(sean.getFirstName() + " has offfered " + headphones.getPrice().toString() + ".", true, sean.getUserId(), false);
+            offerMessage = new Message(sean.getFirstName() + " has offered " + headphones.getPrice().toString() + ".", true, sean.getUserId(), false);
             acceptMessage = new Message("Offer has been accepted.", false, brendan.getUserId(), false);
             initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 17).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
@@ -494,7 +494,7 @@ public class DataInitSessionBean {
             sellerToBuyer = "Sure! Make an offer.";
             initiate = new Message(buyerToSeller, true, brendan.getUserId(), false);
             response = new Message(sellerToBuyer, false, halloween.getCreatedBy().getUserId(), false);
-            offerMessage = new Message(brendan.getFirstName() + " has offfered " + halloween.getPrice().toString() + ".", true, brendan.getUserId(), false);
+            offerMessage = new Message(brendan.getFirstName() + " has offered " + halloween.getPrice().toString() + ".", true, brendan.getUserId(), false);
             acceptMessage = new Message("Offer has been accepted.", false, halloween.getCreatedBy().getUserId(), false);
             initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 17).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
@@ -534,7 +534,7 @@ public class DataInitSessionBean {
             sellerToBuyer = "$250 mate! It's considered cheap already. Make an offer!";
             initiate = new Message(buyerToSeller, true, sean.getUserId(), false);
             response = new Message(sellerToBuyer, false, iggy.getUserId(), false);
-            offerMessage = new Message(sean.getFirstName() + " has offfered " + bagpack.getPrice().toString() + ".", true, sean.getUserId(), false);
+            offerMessage = new Message(sean.getFirstName() + " has offered " + bagpack.getPrice().toString() + ".", true, sean.getUserId(), false);
             acceptMessage = new Message("Offer has been accepted.", false, iggy.getUserId(), false);
             initiate.setCreatedOn(Date.from(LocalDate.of(2022, 4, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             response.setCreatedOn(Date.from(LocalDate.of(2022, 4, 17).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
