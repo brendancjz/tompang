@@ -35,10 +35,11 @@
 /Tompang/Tompang-war/build/
 /Tompang/Tompang-war/dist/
 
-/TompangRws/nbproject/private/
-/TompangRws/web/WEB-INF/web.xml
-/TompangRws/dist/
-/TompangRws/build/
+/Tompang/TompangRws/nbproject/private/
+/Tompang/TompangRws/web/WEB-INF/web.xml
+/Tompang/TompangRws/dist/
+/Tompang/TompangRws/build/
 
 /tompang-app/src/environments/environment.prod.ts
 /tompang-app/config.xml
+/Tompang/TompangRws/nbproject/private/
