@@ -36,7 +36,7 @@ Use `gh repo clone brendancjz/tompang` to get the files within this repository o
 ### Environment Setup
 
 1. Create a new database `tompang`.  
-2. Change user.properties name in `FILES > Tompang-ejb > nbproject > private > private.xml`
+2. Change user.properties name in `FILES > Tompang-ejb > nbproject > private > private.properties`
 3. Change username or password in glassfish-resources.xml to your own
 4. Create and update your `alternatedocroot_1` `value` in `glassfish-web.xml`. `FILES > Tompang-war > web > WEB-INF > glassfish-web.xml`
 5. Create and update your `alternatedocroot_1` `value` in `web.xml` as well. `FILES > Tompang-war > web > WEB-INF > web.xml`
