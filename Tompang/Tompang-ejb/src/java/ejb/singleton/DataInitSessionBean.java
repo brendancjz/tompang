@@ -335,7 +335,7 @@ public class DataInitSessionBean {
             em.persist(buyOneMore);
             em.persist(dontWant);
             em.flush();
-            
+
             Conversation convo = em.find(Conversation.class, 1L);
             convo.getMessages().add(initiate);
             convo.getMessages().add(response);
@@ -502,6 +502,8 @@ public class DataInitSessionBean {
             acceptMessage.setCreatedOn(Date.from(LocalDate.of(2022, 4, 19).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             Message offerMeetup = new Message("Hey when are you free for a meet up?", false, halloween.getCreatedBy().getUserId(), false);
             Message backout = new Message("I am no longer interested. Enjoy the chocolates yourself!", false, brendan.getUserId(), false);
+            offerMeetup.setCreatedOn(Date.from(LocalDate.of(2022, 4, 20).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            backout.setCreatedOn(Date.from(LocalDate.of(2022, 4, 21).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             em.persist(initiate);
             em.persist(response);
             em.persist(offerMessage);

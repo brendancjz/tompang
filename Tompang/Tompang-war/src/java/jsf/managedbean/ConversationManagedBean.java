@@ -52,6 +52,10 @@ public class ConversationManagedBean implements Serializable {
         try {
             newMessage = null;
             conversationToView = (Conversation) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conversation");
+            conversationToView.getMessages().sort((m1,m2) -> m1.getCreatedOn().compareTo(m2.getCreatedOn()));
+            for (int i = 0; i < conversationToView.getMessages().size(); i++) {
+                System.out.println(conversationToView.getMessages().get(i).getBody());
+            }
             if (conversationToView == null) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("shop.xhtml");
             }
@@ -61,7 +65,7 @@ public class ConversationManagedBean implements Serializable {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     public Boolean messageIsSentByBuyer(Message message) {
         return conversationToView.getCreatedBy().getUserId() == message.getSentBy();
     }
@@ -114,7 +118,7 @@ public class ConversationManagedBean implements Serializable {
             Conversation updatedConvo = getConversationSessionBean().getConversationByConvoId(conversationToView.getConvoId());
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("conversation", updatedConvo);
             this.postConstruct();
-            
+
         } catch (EntityNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
@@ -125,8 +129,8 @@ public class ConversationManagedBean implements Serializable {
         try {
             conversationSessionBean.updateMessageAndTransaction(conversationToView.getConvoId());
             conversationToView = conversationSessionBean.getConversationByConvoId(conversationToView.getConvoId());
-            
-            for(int i = 0; i<conversationToView.getMessages().size(); i++) {
+
+            for (int i = 0; i < conversationToView.getMessages().size(); i++) {
                 System.out.println(conversationToView.getMessages().get(i));
             }
         } catch (EntityNotFoundException ex) {
