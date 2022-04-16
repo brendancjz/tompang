@@ -155,6 +155,14 @@ public class ViewAnalyticsManagedBean implements Serializable {
         getBarModel().setOptions(options);
     }
 
+    public String getTotalRevenueString() {
+        return String.format("%.2f", totalRevenue);
+    }
+    
+    public String getTotalProfits() {
+        return String.format("%.2f", totalRevenue * 0.03);
+    }
+    
     /**
      * @return the barModel
      */

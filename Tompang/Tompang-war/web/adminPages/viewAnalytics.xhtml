@@ -15,12 +15,12 @@
             <p:tabView>
                 <p:tab title="Revenue">
                     <p class="p-m-0">
-                        #{viewAnalyticsManagedBean.totalRevenue}
+                        #{viewAnalyticsManagedBean.getTotalRevenueString()}
                     </p>
                 </p:tab>
                 <p:tab title="Profits">
                     <p class="p-m-0">
-                        #{viewAnalyticsManagedBean.totalRevenue * 0.03}
+                        #{viewAnalyticsManagedBean.getTotalProfits()}
                     </p>
                 </p:tab>
             </p:tabView>
